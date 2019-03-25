@@ -63,11 +63,11 @@ def convert(text, save=False):
         html.toc_html = "<h1>%s</h1>" % (
             _("Table of contents")
         ) + html.toc_html
+    if not html.toc_html:
+        html.toc_html = ''
     if save:
         fp = os.path.dirname(__file__).decode("mbcs") + r"\\tmp.html"
         useTemplateHTML = not re.search("</html>", html, re.IGNORECASE)
-        if not html.toc_html:
-            html.toc_html = ''
         body = html.toc_html + html
         title = _("Conversion (%s)") % time.strftime("%X %x")
         if useTemplateHTML:

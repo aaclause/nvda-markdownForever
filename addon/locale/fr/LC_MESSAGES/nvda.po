@@ -1,0 +1,56 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the MarkdownForever package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MarkdownForever 19.03.25-101339\n"
+"Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
+"POT-Creation-Date: 2019-03-25 10:13+0100\n"
+"PO-Revision-Date: 2019-03-25 10:17+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
+
+#: addon\globalPlugins\markdownForever\__init__.py:64
+msgid "Table of contents"
+msgstr "Table des matières"
+
+#: addon\globalPlugins\markdownForever\__init__.py:72
+#, python-format
+msgid "Conversion (%s)"
+msgstr "conversion (%s)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:82
+msgid "Preview of MarkDown or HTML"
+msgstr "Aperçu de MarkDown ou HTML"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: addon\globalPlugins\markdownForever\__init__.py:89 buildVars.py:18
+msgid "Markdown Forever"
+msgstr "Markdown pour Toujours"
+
+#: addon\globalPlugins\markdownForever\__init__.py:94
+msgid "Preview of MarkDown or HTML trough NVDA"
+msgstr "Aperçu de MarkDown ou HTML via NVDA"
+
+#: addon\globalPlugins\markdownForever\__init__.py:101
+msgid "Preview of MarkDown or HTML trough your default browser"
+msgstr "Aperçu de MarkDown ou HTML via votre navigateur par défaut"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:21
+msgid ""
+"A small NVDA add-on that provides preview of MarkDown or HTML contents in "
+"any textarea"
+msgstr ""
+"Une petite extension NVDA qui fournit un aperçu du contenu MarkDown ou "
+"HTML dans toute zone de texte"

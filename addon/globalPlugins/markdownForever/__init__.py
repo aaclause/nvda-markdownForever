@@ -65,7 +65,7 @@ def md2HTML(md):
     toc = (res.toc_html.encode("UTF-8") if res.toc_html else '')
     if toc != '':
         toc = ("<h1>%s</h1>" % _("Table of contents")) + toc
-    return res.encode("UTF-8"), toc
+    return res.encode("UTF-8"), toc.encode("UTF-8")
 
 def copyToClipAsHTML():
     body, toc = md2HTML(getText())
@@ -80,14 +80,14 @@ def convert(text, save=False):
         useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
         title = _("Conversion (%s)") % time.strftime("%X %x")
         if useTemplateHTML:
-            body = template_HTML.format(title=title, body=(toc+body))
+            body = template_HTML.format(title=title, body=(toc+body).decode("UTF-8"))
         f = open(fp, "w")
-        f.write(body.encode("UTF-8"))
+        f.write(body.encode("UTF-8") if useTemplateHTML else body)
         f.close()
         os.startfile(fp)
     else:
         ui.browseableMessage(
-            (toc + body),
+            (toc + body).decode("UTF-8"),
             _("Preview of MarkDown or HTML"),
             True
         )

@@ -3,6 +3,8 @@
 Markdown Forever
 
 A small NVDA add-on that provides preview of MarkDown or HTML contents in any textarea
+
+Copyright 2019 André-Abush Clause, released under GPL.
 GitHub: https://github.com/andre9642/nvda-markdownForever/
 """
 

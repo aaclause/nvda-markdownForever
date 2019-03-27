@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 """
 Markdown Forever
 
@@ -20,9 +20,10 @@ import globalPluginHandler
 import textInfos
 import treeInterceptorHandler
 import ui
+from logHandler import log
 
 import markdown2
-
+import htmlClipboard
 
 template_HTML = """
 <!DOCTYPE HTML>
@@ -59,36 +60,45 @@ def getText():
     return info.text
 
 
+def md2HTML(md):
+    res = markdown2.markdown(md, extras=["footnotes", "tables", "toc", "fenced-code-blocks", "task_list"])
+    toc = (res.toc_html.encode("UTF-8") if res.toc_html else '')
+    if toc != '':
+        toc = ("<h1>%s</h1>" % _("Table of contents")) + toc
+    return res.encode("UTF-8"), toc
+
+def copyToClipAsHTML():
+    body, toc = md2HTML(getText())
+    htmlClipboard.PutHtml(body)
+    if htmlClipboard.GetHtml() == body: ui.message(_("Result copied in clipboard"))
+    else: ui.message(_("An error occurred"))
+
 def convert(text, save=False):
-    html = markdown2.markdown(text, extras=["footnotes", "tables", "toc"])
-    if html.toc_html:
-        html.toc_html = "<h1>%s</h1>" % (
-            _("Table of contents")
-        ) + html.toc_html
-    if not html.toc_html:
-        html.toc_html = ''
+    body, toc = md2HTML(text)
     if save:
         fp = os.path.dirname(__file__).decode("mbcs") + r"\\tmp.html"
-        useTemplateHTML = not re.search("</html>", html, re.IGNORECASE)
-        body = html.toc_html + html
+        useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
         title = _("Conversion (%s)") % time.strftime("%X %x")
         if useTemplateHTML:
-            body = template_HTML.format(title=title, body=body)
+            body = template_HTML.format(title=title, body=(toc+body))
         f = open(fp, "w")
         f.write(body.encode("UTF-8"))
         f.close()
         os.startfile(fp)
     else:
         ui.browseableMessage(
-            html.toc_html + html,
+            (toc + body),
             _("Preview of MarkDown or HTML"),
             True
         )
 
-
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
     scriptCategory = _("Markdown Forever")
+    
+    def script_copyToClipAsHTML(self, gesture):
+        copyToClipAsHTML()
+    script_copyToClipAsHTML.__doc__ = _("Copy the result to clipboard as HTML")
 
     def script_showViaNVDA(self, gesture):
         text = getText()
@@ -103,6 +113,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         "Preview of MarkDown or HTML trough your default browser")
 
     __gestures = {
+        "kb:nvda+alt+j": "copyToClipAsHTML",
         "kb:nvda+alt+k": "showViaNVDA",
         "kb:nvda+alt+l": "showInBrowser"
     }
+    

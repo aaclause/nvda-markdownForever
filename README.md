@@ -25,6 +25,6 @@ Also, you can select text to convert.
 
 ## Included dependencies
 - *markdown2*: <https://github.com/trentm/python-markdown2>
-* *HtmlClipboard*: http://code.activestate.com/recipes/474121-getting-html-from-the-windows-clipboard/
+- *HtmlClipboard*: <http://code.activestate.com/recipes/474121-getting-html-from-the-windows-clipboard/>
 
 [1]: https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest

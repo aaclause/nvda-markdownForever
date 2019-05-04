@@ -103,14 +103,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     def script_showViaNVDA(self, gesture):
         text = getText()
         convert(text)
-    script_showViaNVDA.__doc__ = _("Preview of MarkDown or HTML trough NVDA")
+    script_showViaNVDA.__doc__ = _("Preview of MarkDown or HTML through NVDA")
 
     def script_showInBrowser(self, gesture):
         text = getText()
         convert(text, True)
 
     script_showInBrowser.__doc__ = _(
-        "Preview of MarkDown or HTML trough your default browser")
+        "Preview of MarkDown or HTML through your default browser")
 
     __gestures = {
         "kb:nvda+alt+j": "copyToClipAsHTML",

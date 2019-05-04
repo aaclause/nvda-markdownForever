@@ -9,17 +9,17 @@ any textarea
 ## Usage
 In any textarea, press:
 
-- *NVDA+ALT+k* for preview of MarkDown or HTML trough _NVDA_.
-- *NVDA+ALT+l* for preview of MarkDown or HTML trough _your default browser_.
+- *NVDA+ALT+k* for preview of MarkDown or HTML through _NVDA_.
+- *NVDA+ALT+l* for preview of MarkDown or HTML through _your default browser_.
 
 Also, you can select text to convert.
 
 *Notes*:
 
 - you can remap these gestures in the input gestures configuration,
-  under -- MarkDown Forever -- section.
-- the *preview in browser* is better than the *preview trough NVDA* in
-  some cases. Indeed, the preview trough NVDA uses *an old version of
+  under _MarkDown Forever_ section.
+- the *preview in browser* is better than the *preview through NVDA* in
+  some cases. Indeed, the preview through NVDA uses *an old version of
   Internet Explorer*. For this reason, some tags such as `<details>`
   are not supported.
 

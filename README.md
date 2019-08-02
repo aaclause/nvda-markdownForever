@@ -7,10 +7,11 @@ any textarea
 * Download [stable version][1]
 
 ## Usage
-In any textarea, press:
+Gestures (in any textarea):
 
-- *NVDA+ALT+k* for preview of MarkDown or HTML through _NVDA_.
-- *NVDA+ALT+l* for preview of MarkDown or HTML through _your default browser_.
+- *NVDA+ALT+k*: preview of MarkDown or HTML through _NVDA_.
+- *NVDA+ALT+l*: preview of MarkDown or HTML through _your default browser_.
+- *NVDA+ALT+j*: view *HTML source* from *Markdown* through _NVDA_.
 
 Also, you can select text to convert.
 
@@ -25,6 +26,5 @@ Also, you can select text to convert.
 
 ## Included dependencies
 - *markdown2*: <https://github.com/trentm/python-markdown2>
-- *HtmlClipboard*: <http://code.activestate.com/recipes/474121-getting-html-from-the-windows-clipboard/>
 
 [1]: https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest

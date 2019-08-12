@@ -20,6 +20,5 @@ A small NVDA add-on that converts MarkDown or HTML contents easily
 ## Included dependencies
 - *markdown2*: <https://github.com/trentm/python-markdown2>
 - *html2markdown*: <https://pypi.org/project/html2markdown/>
-- *HtmlClipboard*: <http://code.activestate.com/recipes/474121-getting-html-from-the-windows-clipboard/>
 
 [1]: https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest

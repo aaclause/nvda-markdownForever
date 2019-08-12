@@ -30,7 +30,7 @@ from logHandler import log
 
 import markdown2
 import html2markdown
-if not isPy3: import htmlClipboard
+from . import winClipboard
 template_HTML = """
 <!DOCTYPE HTML>
 <html>
@@ -73,12 +73,12 @@ def md2HTML(md):
 	if isPy3: return res, toc
 	else: return res.encode("UTF-8"), toc.encode("UTF-8")
 
-def convert(text, save=False, html=True):
+def convert(text, save=False, html=True, useTemplateHTML = True):
 	body, toc = md2HTML(text)
 	if save:
 		fp = os.path.dirname(__file__) + r"\\tmp.html"
 		if not isPy3: fp = fp.decode("mbcs")
-		useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
+		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
 		title = _("Conversion (%s)") % time.strftime("%X %x")
 		if useTemplateHTML:
 			if isPy3: body = template_HTML.format(title=title, body=(toc+body))
@@ -99,8 +99,9 @@ def copyToClipAsHTML():
 	text = getText()
 	if text:
 		body, toc = md2HTML(text)
-		htmlClipboard.PutHtml(body)
-		if htmlClipboard.GetHtml() == body: ui.message(_("Result copied in clipboard"))
+		winClipboard.copy(body, html=True)
+		print("start", winClipboard.get(html=True), body)
+		if body in winClipboard.get(html=True): ui.message(_("Formatted HTML copied in clipboard"))
 		else: ui.message(_("An error occurred"))
 	else: ui.message(_("No text"))
 
@@ -144,11 +145,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				api.copyToClip(res)
 				ui.message("HTML source copied to clipboard")
 			else: ui.message(_("No text"))
-		else:
-			if isPy3: ui.message(_("The copy as formatted HTML is currently unavailable under Python 3"))
-			else:
-				copyToClipAsHTML()
-				ui.message(_("Formatted HTML copied to clipboard"))
+		else: copyToClipAsHTML()
 	script_copyToClip.__doc__ = _("Copy the result to the clipboard from Markdown. One press: copy the HTML source. Two quick presses: copy the formatted HTML")
 
 	__gestures = {

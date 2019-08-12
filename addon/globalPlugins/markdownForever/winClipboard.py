@@ -146,7 +146,8 @@ def copy(data, format=CF_UNICODETEXT, html=False):
 	elif format == CF_UNICODETEXT:
 		if isPy3: bufLen = len(data.encode(WCHAR_ENCODING, errors="surrogatepass"))+2
 		else:
-			data = data.decode("UTF-8").encode(WCHAR_ENCODING, errors="surrogatepass")
+			try: data = data.encode(WCHAR_ENCODING, errors="surrogatepass")
+			except UnicodeDecodeError: data = data.decode("UTF-8").encode(WCHAR_ENCODING, errors="surrogatepass")
 			bufLen = len(data)+2
 	if not OpenClipboard(None): raise WinError()
 	if not EmptyClipboard(): raise WinError()

@@ -2,7 +2,7 @@
 """
 Markdown Forever
 
-A small NVDA add-on that provides preview of MarkDown or HTML contents in any textarea
+A small NVDA add-on that converts MarkDown or HTML contents easily
 
 Copyright 2019 André-Abush Clause, released under GPL.
 GitHub: https://github.com/andre9642/nvda-markdownForever/
@@ -26,12 +26,12 @@ import scriptHandler
 import textInfos
 import treeInterceptorHandler
 import ui
-from logHandler import log
 
 import markdown2
 import html2markdown
 from . import winClipboard
-template_HTML = """
+
+template_HTML = ("""
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -42,22 +42,16 @@ template_HTML = """
 		{body}
 	</body>
 </html>
-"""
+""").strip()
 
 def getText():
 	obj = api.getFocusObject()
 	treeInterceptor = obj.treeInterceptor
-	if isinstance(
-			treeInterceptor,
-			treeInterceptorHandler.DocumentTreeInterceptor) and not treeInterceptor.passThrough:
-		obj = treeInterceptor
-	try:
-		info = obj.makeTextInfo(textInfos.POSITION_SELECTION)
-	except (RuntimeError, NotImplementedError):
-		info = None
+	if isinstance(treeInterceptor, treeInterceptorHandler.DocumentTreeInterceptor) and not treeInterceptor.passThrough: obj = treeInterceptor
+	try: info = obj.makeTextInfo(textInfos.POSITION_SELECTION)
+	except (RuntimeError, NotImplementedError): info = None
 	if not info or info.isCollapsed:
-		try:
-			info = obj.makeTextInfo(textInfos.POSITION_ALL)
+		try: info = obj.makeTextInfo(textInfos.POSITION_ALL)
 		except (RuntimeError, NotImplementedError):
 			obj = api.getNavigatorObject()
 			text = obj.value
@@ -67,19 +61,19 @@ def getText():
 
 def md2HTML(md):
 	res = markdown2.markdown(md, extras=["footnotes", "tables", "toc", "fenced-code-blocks", "task_list"])
-	if isPy3: toc = (res.toc_html if res.toc_html else '')
+	if isPy3: toc = (res.toc_html if res.toc_html and res.toc_html.count("<li>") > 1 else '')
 	else: toc = (res.toc_html.encode("UTF-8") if res.toc_html else '')
 	if toc: toc = ("<h1>%s</h1>" % _("Table of contents")) + toc
 	if isPy3: return res, toc
 	else: return res.encode("UTF-8"), toc.encode("UTF-8")
 
-def convert(text, save=False, html=True, useTemplateHTML = True):
+def convert(text, save=False, html=True, useTemplateHTML=True):
 	body, toc = md2HTML(text)
 	if save:
 		fp = os.path.dirname(__file__) + r"\\tmp.html"
 		if not isPy3: fp = fp.decode("mbcs")
 		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
-		title = _("Conversion (%s)") % time.strftime("%X %x")
+		title = _("MarkDown to HTML Conversion (%s)") % time.strftime("%X %x")
 		if useTemplateHTML:
 			if isPy3: body = template_HTML.format(title=title, body=(toc+body))
 			else: body = template_HTML.format(title=title, body=(toc+body).decode("UTF-8"))
@@ -91,7 +85,7 @@ def convert(text, save=False, html=True, useTemplateHTML = True):
 	else:
 		ui.browseableMessage(
 			(toc + body).decode("UTF-8") if not isPy3 else (toc + body),
-			_("Preview of MarkDown or HTML") if html else _("HTML source from Markdown"),
+			_("Markdown to HTML conversion (preview)") if html else _("Markdown to HTML source conversion"),
 			html
 		)
 
@@ -112,7 +106,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_md2htmlSrcInNVDA(self, gesture):
 		text = getText()
-		if text: convert(text, False, False)
+		if text: convert(text, save=False, html=False)
 		else: ui.message(_("No text"))
 	script_md2htmlSrcInNVDA.__doc__ = _("Show the HTML source from Markdown")
 
@@ -126,13 +120,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_md2htmlInNVDA(self, gesture):
 		text = getText()
-		if text: convert(text)
+		if text: convert(text, useTemplateHTML=False)
 		else: ui.message(_("No text"))
 	script_md2htmlInNVDA.__doc__ = _("Markdown to HTML conversion. The result is displayed in a virtual buffer of NVDA")
 
 	def script_md2htmlInBrowser(self, gesture):
 		text = getText()
-		if text: convert(text, True)
+		if text: convert(text, save=True)
 		else: ui.message(_("No text"))
 	script_md2htmlInBrowser.__doc__ = _("Markdown to HTML conversion. The result is displayed in your default browser")
 
@@ -151,7 +145,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	__gestures = {
 		"kb:nvda+alt+b": "md2htmlInBrowser",
 		"kb:nvda+alt+n": "md2htmlInNVDA",
-		"kb:nvda+alt+k": "md2htmlSrcInNVDA",
-		"kb:nvda+alt+l": "html2md",
+		"kb:nvda+alt+k": "html2md",
+		"kb:nvda+alt+l": "md2htmlSrcInNVDA",
 		"kb:nvda+shift+h": "copyToClip",
 	}

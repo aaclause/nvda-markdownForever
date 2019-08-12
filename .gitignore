@@ -14,8 +14,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
 parts/
 sdist/
 var/
@@ -112,3 +110,23 @@ venv.bak/
 # https://mail.gnome.org/archives/kupfer-list/2010-June/msg00002.html
 *.po filter=cleanpo
 tmp.html
+
+addon/doc/*.css
+addon/doc/en/
+*_docHandler.py
+*.html
+*.mo
+*.pot
+*.pyc
+*.nvda-addon
+.sconsign.dblite
+*.conf
+*.log
+*.old
+*.tmp
+build/
+logs/
+tests/
+tmp/
+/*.zip
+manifest.ini

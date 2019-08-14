@@ -61,8 +61,7 @@ def getText():
 
 def md2HTML(md):
 	res = markdown2.markdown(md, extras=["footnotes", "tables", "toc", "fenced-code-blocks", "task_list"])
-	if isPy3: toc = (res.toc_html if res.toc_html and res.toc_html.count("<li>") > 1 else '')
-	else: toc = (res.toc_html.encode("UTF-8") if res.toc_html else '')
+	toc = (res.toc_html if res.toc_html and res.toc_html.count("<li>") > 1 else '')
 	if toc: toc = ("<h1>%s</h1>" % _("Table of contents")) + toc
 	if isPy3: return res, toc
 	else: return res.encode("UTF-8"), toc.encode("UTF-8")

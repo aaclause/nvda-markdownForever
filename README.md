@@ -1,16 +1,18 @@
 # nvda-markdownForever
-A small NVDA add-on that converts MarkDown or HTML contents easily
+A small NVDA add-on that converts Markdown or HTML contents easily
 
 * Authors: André-Abush Clause and contributors
 * License: GNU General Public License, version 2
 * Download [stable version][1]
-* GitHub repository: [andre9642/NVDA-markdownForever][2]
+* Download [development version][2]
+* GitHub repository: [andre9642/NVDA-markdownForever][3]
 
 ## Commands
+- *NVDA+ALT+,*: interactive mode.
 - *NVDA+ALT+b*: Markdown to HTML conversion. The result is displayed in your default browser.
 - *NVDA+ALT+n*: Markdown to HTML conversion. The result is displayed in a virtual buffer of NVDA.
-- *NVDA+ALT+k*: HTML to markdown conversion
-- *NVDA+ALT+l*: MarkDown to HTML source conversion. The result is displayed in a virtual buffer of NVDA.
+- *NVDA+ALT+k*: HTML to markdown conversion. The result is displayed in a virtual buffer of NVDA.
+- *NVDA+ALT+l*: Markdown to HTML source conversion. The result is displayed in a virtual buffer of NVDA.
 - *NVDA+SHIFT+h*: copy the HTML generated to the clipboard from a Markdown content. One press: copy as *plain text* (HTML source). Two quick presses: copy as *formatted HTML*.
 
 ### Notes
@@ -26,4 +28,5 @@ A small NVDA add-on that converts MarkDown or HTML contents easily
 - *html2markdown*: <https://pypi.org/project/html2markdown/>
 
 [1]: https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest
-[2]: https://github.com/Andre9642/nvda-markdownForever
+[2]: https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest?channel=dev
+[3]: https://github.com/Andre9642/nvda-markdownForever

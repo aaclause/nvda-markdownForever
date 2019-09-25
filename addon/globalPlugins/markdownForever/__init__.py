@@ -2,7 +2,7 @@
 """
 Markdown Forever
 
-A small NVDA add-on that converts MarkDown or HTML contents easily
+A small NVDA add-on that converts Markdown or HTML contents easily
 
 Copyright 2019 André-Abush Clause, released under GPL.
 GitHub: https://github.com/andre9642/nvda-markdownForever/
@@ -78,7 +78,7 @@ def convertToHTML(text, save=False, src=False, useTemplateHTML=True, display=Tru
 	if save:
 		if not isPy3: fp = fp.decode("mbcs")
 		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
-		title = _("MarkDown to HTML Conversion (%s)") % time.strftime("%X %x")
+		title = _("Markdown to HTML conversion")+(" (%s)" % time.strftime("%X %x"))
 		if useTemplateHTML:
 			if isPy3: body = template_HTML.format(title=title, body=(toc+body))
 			else: body = template_HTML.format(title=title, body=(toc+body).decode("UTF-8"))
@@ -120,7 +120,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text = getText()
 		if text: convertToMD(text)
 		else: ui.message(_("No text"))
-	script_html2md.__doc__ = _("HTML to markdown conversion")
+	script_html2md.__doc__ = _("HTML to Markdown conversion")
 
 	def script_md2htmlInNVDA(self, gesture):
 		text = getText()
@@ -150,7 +150,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text = getText()
 		if text: gui.mainFrame._popupSettingsDialog(InteractiveModeDlg, text=text)
 		else: ui.message(_("No text"))
-	script_interactiveMode.__doc__ = _("MarkdownForever in interactive mode")
+	script_interactiveMode.__doc__ = _("Interactive mode")
 
 	__gestures = {
 		"kb:nvda+alt+b": "md2htmlInBrowser",
@@ -162,11 +162,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	}
 
 class InteractiveModeDlg(wx.Dialog):
-	destFormatChoices = ["HTML", _("HTML source"), "MarkDown"]
+	destFormatChoices = ["HTML", _("HTML source"), "Markdown"]
 	destFormatChoices_ = ["HTML", "HTMLSrc", "md"]
 
 	# Translators: This is the label for the edit dictionary entry dialog.
-	def __init__(self, parent=None, title=_("Interactive mode — MarkDownForever"), text=''):
+	def __init__(self, parent=None, title=_("Interactive mode") + " — MarkdownForever", text=''):
 		self.text = text
 		super(InteractiveModeDlg, self).__init__(parent, title=title)
 		mainSizer=wx.BoxSizer(wx.VERTICAL)
@@ -203,13 +203,9 @@ class InteractiveModeDlg(wx.Dialog):
 
 	def onExecute(self, vb=False):
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
-		if destFormatChoices_ == 0:
-			convertToHTML(self.text, useTemplateHTML=False, save=vb)
-		elif destFormatChoices_ == 1:
-			convertToHTML(self.text, save=vb, src=True)
-		elif destFormatChoices_ == 2:
-			convertToMD(self.text)
-		else: ui.message(_("%d Unknown" % destFormatChoices))
+		if destFormatChoices_ == 0: convertToHTML(self.text, useTemplateHTML=False, save=vb)
+		elif destFormatChoices_ == 1: convertToHTML(self.text, save=vb, src=True)
+		elif destFormatChoices_ == 2: convertToMD(self.text)
 		self.Destroy()
 
 	def onSave(self, event):

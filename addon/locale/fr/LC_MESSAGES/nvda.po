@@ -6,44 +6,123 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MarkdownForever 19.03.25-101339\n"
-"Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
-"POT-Creation-Date: 2019-03-25 10:13+0100\n"
-"PO-Revision-Date: 2019-03-25 10:17+0100\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2019-09-25 20:41+0200\n"
+"PO-Revision-Date: 2019-09-25 20:45+0200\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
-"Last-Translator: \n"
+"X-Generator: Poedit 2.2.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language: fr\n"
 
-#: addon\globalPlugins\markdownForever\__init__.py:64
+#: addon\globalPlugins\markdownForever\__init__.py:66
 msgid "Table of contents"
 msgstr "Table des matières"
 
-#: addon\globalPlugins\markdownForever\__init__.py:72
-#, python-format
-msgid "Conversion (%s)"
-msgstr "conversion (%s)"
+#: addon\globalPlugins\markdownForever\__init__.py:81
+msgid "Markdown to HTML conversion"
+msgstr "Conversion Markdown vers HTML"
 
-#: addon\globalPlugins\markdownForever\__init__.py:82
-msgid "Preview of MarkDown or HTML"
-msgstr "Aperçu de MarkDown ou HTML"
+#: addon\globalPlugins\markdownForever\__init__.py:90
+msgid "Markdown to HTML conversion (preview)"
+msgstr "Conversion Markdown vers HTML (aperçu)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:90
+msgid "Markdown to HTML source conversion"
+msgstr "Conversion Markdown vers source HTML"
+
+#: addon\globalPlugins\markdownForever\__init__.py:96
+msgid "HTML to Markdown conversion"
+msgstr "Conversion HTML vers Markdown"
+
+#: addon\globalPlugins\markdownForever\__init__.py:104
+msgid "Formatted HTML copied in clipboard"
+msgstr "HTML formaté copié dans le presse-papier"
+
+#: addon\globalPlugins\markdownForever\__init__.py:105
+msgid "An error occurred"
+msgstr "Une erreur est survenue"
+
+#: addon\globalPlugins\markdownForever\__init__.py:106
+#: addon\globalPlugins\markdownForever\__init__.py:116
+#: addon\globalPlugins\markdownForever\__init__.py:122
+#: addon\globalPlugins\markdownForever\__init__.py:128
+#: addon\globalPlugins\markdownForever\__init__.py:134
+#: addon\globalPlugins\markdownForever\__init__.py:145
+#: addon\globalPlugins\markdownForever\__init__.py:152
+msgid "No text"
+msgstr "Pas de texte"
 
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\markdownForever\__init__.py:89 buildVars.py:18
+#: addon\globalPlugins\markdownForever\__init__.py:111 buildVars.py:18
 msgid "Markdown Forever"
 msgstr "Markdown pour Toujours"
 
-#: addon\globalPlugins\markdownForever\__init__.py:94
-msgid "Preview of MarkDown or HTML trough NVDA"
-msgstr "Aperçu de MarkDown ou HTML via NVDA"
+#: addon\globalPlugins\markdownForever\__init__.py:117
+msgid "Show the HTML source from Markdown"
+msgstr "Afficher la source HTML depuis du Markdown"
 
-#: addon\globalPlugins\markdownForever\__init__.py:101
-msgid "Preview of MarkDown or HTML trough your default browser"
-msgstr "Aperçu de MarkDown ou HTML via votre navigateur par défaut"
+#: addon\globalPlugins\markdownForever\__init__.py:123
+msgid "HTML to markdown conversion"
+msgstr "Conversion HTML vers Markdown"
+
+#: addon\globalPlugins\markdownForever\__init__.py:129
+msgid ""
+"Markdown to HTML conversion. The result is displayed in a virtual buffer of "
+"NVDA"
+msgstr ""
+"Conversion Markdown vers HTML. Le résultat s'affiche dans un tampon virtuel "
+"de NVDA"
+
+#: addon\globalPlugins\markdownForever\__init__.py:135
+msgid ""
+"Markdown to HTML conversion. The result is displayed in your default browser"
+msgstr ""
+"Conversion Markdown vers HTML. Le résultat s'affiche dans votre navigateur "
+"par défaut"
+
+#: addon\globalPlugins\markdownForever\__init__.py:147
+msgid ""
+"Copy the result to the clipboard from Markdown. One press: copy the HTML "
+"source. Two quick presses: copy the formatted HTML"
+msgstr ""
+"Copie le HTML généré dans le presse-papiers à partir d'un contenu Markdown. "
+"Une seule pressions copie en texte brut (source HTML), deux pressions "
+"rapides copient en HTML formaté"
+
+#. Translators: This is the label for the edit dictionary entry dialog.
+#: addon\globalPlugins\markdownForever\__init__.py:153
+#: addon\globalPlugins\markdownForever\__init__.py:169
+msgid "Interactive mode"
+msgstr "Mode interactif"
+
+#: addon\globalPlugins\markdownForever\__init__.py:165
+msgid "HTML source"
+msgstr "Source HTML"
+
+#: addon\globalPlugins\markdownForever\__init__.py:175
+msgid "Convert &to"
+msgstr "&Convertir en"
+
+#: addon\globalPlugins\markdownForever\__init__.py:179
+msgid "Show in &virtual buffer"
+msgstr "Afficher dans le tampon virtuel"
+
+#: addon\globalPlugins\markdownForever\__init__.py:181
+msgid "Show in &browser"
+msgstr "Afficher dans le navigateur"
+
+#: addon\globalPlugins\markdownForever\__init__.py:183
+msgid "&Save as..."
+msgstr "Enregi&strer sous..."
+
+#: addon\globalPlugins\markdownForever\__init__.py:219
+msgid "Select the location"
+msgstr "Sélectionner l'emplacement"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
@@ -52,5 +131,17 @@ msgid ""
 "A small NVDA add-on that provides preview of MarkDown or HTML contents in "
 "any textarea"
 msgstr ""
-"Une petite extension NVDA qui fournit un aperçu du contenu MarkDown ou "
-"HTML dans toute zone de texte"
+"Une petite extension NVDA qui fournit un aperçu du contenu MarkDown ou HTML "
+"dans toute zone de texte"
+
+#~ msgid "MarkDown to HTML Conversion (%s)"
+#~ msgstr "Conversion Markdown vers HTML (%s)"
+
+#~ msgid "Preview of MarkDown or HTML"
+#~ msgstr "Aperçu de MarkDown ou HTML"
+
+#~ msgid "Preview of MarkDown or HTML trough NVDA"
+#~ msgstr "Aperçu de MarkDown ou HTML via NVDA"
+
+#~ msgid "Preview of MarkDown or HTML trough your default browser"
+#~ msgstr "Aperçu de MarkDown ou HTML via votre navigateur par défaut"

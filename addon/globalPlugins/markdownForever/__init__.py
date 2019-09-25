@@ -70,7 +70,9 @@ def md2HTML(md):
 def writeFile(fp, content):
 	f = open(fp, "wb")
 	if isPy3: f.write(content.encode())
-	else: f.write(bytearray(content, "UTF-8"))
+	else:
+		try: f.write(bytearray(content, "UTF-8"))
+		except UnicodeDecodeError: f.write(bytearray(content.decode("UTF-8"), "UTF-8"))
 	f.close()
 
 def convertToHTML(text, save=False, src=False, useTemplateHTML=True, display=True, fp=os.path.dirname(__file__) + r"\\tmp.html"):

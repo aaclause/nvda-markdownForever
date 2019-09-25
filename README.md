@@ -1,4 +1,4 @@
-# nvda-markdownForever
+# NVDA-MarkdownForever
 A small NVDA add-on that converts Markdown or HTML contents easily
 
 * Authors: André-Abush Clause and contributors

@@ -87,7 +87,7 @@ def convertToHTML(text, save=False, src=False, useTemplateHTML=True, display=Tru
 	else:
 		content = (toc + body).decode("UTF-8") if not isPy3 else (toc + body)
 		if display:
-			title = _("Markdown to HTML conversion (preview)") if src else _("Markdown to HTML source conversion")
+			title = _("Markdown to HTML conversion (preview)") if not src else _("Markdown to HTML source conversion")
 			ui.browseableMessage(content, title, not src)
 		else: return content
 

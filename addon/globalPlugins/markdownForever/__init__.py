@@ -222,7 +222,7 @@ class InteractiveModeDlg(wx.Dialog):
 		if dlg.ShowModal() == wx.ID_OK:
 			fp = dlg.GetDirectory() + '\\' + dlg.GetFilename()
 			text = ''
-			if destFormatChoices_ == 0: convertToHTML(self.text, useTemplateHTML=False, save=True, fp=fp)
+			if destFormatChoices_ == 0: convertToHTML(self.text, useTemplateHTML=True, save=True, fp=fp)
 			elif destFormatChoices_ == 1: text = convertToHTML(self.text, src=True, display=False)
 			elif destFormatChoices_ == 2: text = html2markdown.convert(self.text)
 			if text:

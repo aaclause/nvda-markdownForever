@@ -60,8 +60,10 @@ def getText():
 	return info.text
 
 
-def md2HTML(md):
-	res = markdown2.markdown(md, extras=["footnotes", "tables", "toc", "fenced-code-blocks", "task_list"])
+def md2HTML(md, toc):
+	extras = ["footnotes", "tables", "fenced-code-blocks", "task_list"]
+	if toc: extras.append("toc")
+	res = markdown2.markdown(md, extras=extras)
 	toc = (res.toc_html if res.toc_html and res.toc_html.count("<li>") > 1 else '')
 	if toc: toc = ("<h1>%s</h1>" % _("Table of contents")) + toc
 	if isPy3: return res, toc
@@ -75,19 +77,17 @@ def writeFile(fp, content):
 		except UnicodeDecodeError: f.write(bytearray(content.decode("UTF-8"), "UTF-8"))
 	f.close()
 
-def convertToHTML(text, save=False, src=False, useTemplateHTML=True, display=True, fp=os.path.dirname(__file__) + r"\\tmp.html"):
-	body, toc = md2HTML(text)
+def convertToHTML(text, save=False, src=False, useTemplateHTML=True, display=True, fp=os.path.dirname(__file__) + r"\\tmp.html", toc=True):
+	body, toc = md2HTML(text, toc)
+	content = (toc + body).decode("UTF-8") if not isPy3 else (toc + body)
 	if save:
 		if not isPy3: fp = fp.decode("mbcs")
 		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
 		title = _("Markdown to HTML conversion")+(" (%s)" % time.strftime("%X %x"))
-		if useTemplateHTML:
-			if isPy3: body = template_HTML.format(title=title, body=(toc+body))
-			else: body = template_HTML.format(title=title, body=(toc+body).decode("UTF-8"))
-		writeFile(fp, body)
+		if useTemplateHTML: content = template_HTML.format(title=title, body=content)
+		writeFile(fp, content)
 		if display: os.startfile(fp)
 	else:
-		content = (toc + body).decode("UTF-8") if not isPy3 else (toc + body)
 		if display:
 			title = _("Markdown to HTML conversion (preview)") if not src else _("Markdown to HTML source conversion")
 			ui.browseableMessage(content, title, not src)
@@ -97,15 +97,10 @@ def convertToMD(text):
 	res = html2markdown.convert(text)
 	ui.browseableMessage(res, _("HTML to Markdown conversion"), False)
 
-def copyToClipAsHTML():
-	text = getText()
-	if text:
-		body, toc = md2HTML(text)
-		winClipboard.copy(body, html=True)
-		print("start", winClipboard.get(html=True), body)
-		if body in winClipboard.get(html=True): ui.message(_("Formatted HTML copied in clipboard"))
-		else: ui.message(_("An error occurred"))
-	else: ui.message(_("No text"))
+def copyToClipAsHTML(text, toc=True):
+	body, toc = md2HTML(text, toc)
+	winClipboard.copy(body, html=True)
+	return body == winClipboard.get(html=True)
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -137,15 +132,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_md2htmlInBrowser.__doc__ = _("Markdown to HTML conversion. The result is displayed in your default browser")
 
 	def script_copyToClip(self, gesture):
-		if scriptHandler.getLastScriptRepeatCount() == 0: 
-			text = getText()
-			if text:
-				res = md2HTML(text)[0]
-				if not isPy3: res = res.decode("UTF-8")
-				api.copyToClip(res)
-				ui.message("HTML source copied to clipboard")
-			else: ui.message(_("No text"))
-		else: copyToClipAsHTML()
+		text = getText()
+		if not text: ui.message(_("No text"))
+		if scriptHandler.getLastScriptRepeatCount() == 0:
+			api.copyToClip(convertToHTML(text, src=True, display=False))
+			ui.message("HTML source copied to clipboard")
+		else:
+			if copyToClipAsHTML(text): ui.message("Formatted HTML copied to clipboard")
+			else: ui.message("An error occured")
 	script_copyToClip.__doc__ = _("Copy the result to the clipboard from Markdown. One press: copy the HTML source. Two quick presses: copy the formatted HTML")
 
 	def script_interactiveMode(self, gesture):
@@ -178,10 +172,15 @@ class InteractiveModeDlg(wx.Dialog):
 		self.destFormatListBox = sHelper.addLabeledControl(destFormatText, wx.Choice, choices=self.destFormatChoices)
 		self.destFormatListBox.Bind(wx.EVT_CHOICE, self.onDestFormatListBox)
 		self.destFormatListBox.SetSelection(0)
+		tableOfContentext = _("Generate a table of contents")
+		self.tableOfContentCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentext))
+		self.tableOfContentCheckBox.SetValue(True)
 		self.virtualBufferBtn = bHelper.addButton(self, label=_("Show in &virtual buffer"))
-		self.virtualBufferBtn.Bind(wx.EVT_BUTTON, self.onBrowser)
+		self.virtualBufferBtn.Bind(wx.EVT_BUTTON, self.onVB)
 		self.browserBtn = bHelper.addButton(self, label=_("Show in &browser"))
-		self.browserBtn.Bind(wx.EVT_BUTTON, self.onVB)
+		self.browserBtn.Bind(wx.EVT_BUTTON, self.onBrowser)
+		self.copyToClipBtn = bHelper.addButton(self, label=_("&Copy to clipboard"))
+		self.copyToClipBtn.Bind(wx.EVT_BUTTON, self.onCopyToClipBtn)
 		saveBtn = bHelper.addButton(self, label=_("&Save as..."))
 		saveBtn.Bind(wx.EVT_BUTTON, self.onSave)
 		saveBtn.SetDefault()
@@ -196,22 +195,36 @@ class InteractiveModeDlg(wx.Dialog):
 
 	def onDestFormatListBox(self, evt):
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
-		if destFormatChoices_ > 0: self.browserBtn.Disable()
-		else: self.browserBtn.Enable()
+		if destFormatChoices_ > 0:
+			self.browserBtn.Disable()
+		else:
+			self.browserBtn.Enable()
+		if destFormatChoices_ == 2: self.tableOfContentCheckBox.Disable()
+		else: self.tableOfContentCheckBox.Enable()
 
 	def onBrowser(self, evt): self.onExecute(False)
 
 	def onVB(self, evt): self.onExecute(True)
 
 	def onExecute(self, vb=False):
+		toc = self.tableOfContentCheckBox.IsChecked()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
-		if destFormatChoices_ == 0: convertToHTML(self.text, useTemplateHTML=False, save=vb)
-		elif destFormatChoices_ == 1: convertToHTML(self.text, save=vb, src=True)
+		if destFormatChoices_ == 0: convertToHTML(self.text, useTemplateHTML=False, save=not vb, toc=toc)
+		elif destFormatChoices_ == 1: convertToHTML(self.text, save=vb, src=True, toc=toc)
 		elif destFormatChoices_ == 2: convertToMD(self.text)
+		self.Destroy()
+
+	def onCopyToClipBtn(self, event):
+		toc = self.tableOfContentCheckBox.IsChecked()
+		destFormatChoices_ = self.destFormatListBox.GetSelection()
+		if destFormatChoices_ == 0: copyToClipAsHTML(self.text, toc=True)
+		elif destFormatChoices_ == 1: api.copyToClip(convertToHTML(self.text, src=True, toc=toc, display=False))
+		else: api.copyToClip(html2markdown.convert(self.text))
 		self.Destroy()
 
 	def onSave(self, event):
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
+		toc = self.tableOfContentCheckBox.IsChecked()
 		formats = [
 			"HTML format (*.htm, *.html)|*.htm;*.html",
 			"Text file (*.txt)|*.txt",
@@ -222,8 +235,8 @@ class InteractiveModeDlg(wx.Dialog):
 		if dlg.ShowModal() == wx.ID_OK:
 			fp = dlg.GetDirectory() + '\\' + dlg.GetFilename()
 			text = ''
-			if destFormatChoices_ == 0: convertToHTML(self.text, useTemplateHTML=True, save=True, fp=fp)
-			elif destFormatChoices_ == 1: text = convertToHTML(self.text, src=True, display=False)
+			if destFormatChoices_ == 0: convertToHTML(self.text, useTemplateHTML=True, save=True, fp=fp, toc=toc)
+			elif destFormatChoices_ == 1: text = convertToHTML(self.text, src=True, display=False, useTemplateHTML=True, toc=toc)
 			elif destFormatChoices_ == 2: text = html2markdown.convert(self.text)
 			if text:
 				writeFile(fp, text)

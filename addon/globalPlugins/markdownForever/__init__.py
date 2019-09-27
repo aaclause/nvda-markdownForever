@@ -82,13 +82,13 @@ def extractMetadata(text):
 		ln = text[3]
 		if ln in ["\r", "\n"]:
 			if ln == "\r": ln = "\r\n"
-			end = (text.index(ln * 2)-3)
-			y = text[(3 + len(ln)):end].strip()
 			try:
+				end = (text.index(ln * 2)-3)
+				y = text[(3 + len(ln)):end].strip()
 				docs = yaml.load_all(y, Loader=yaml.FullLoader)
 				for doc in docs: metadata = doc
 				text = text[end+3:].strip()
-			except yaml.scanner.ScannerError: pass
+			except (ValueError, yaml.scanner.ScannerError): pass
 	if not isinstance(metadata, dict): metadata = {}
 	if not "title" in metadata.keys(): metadata["title"] = ""
 	if not "toc" in metadata.keys(): metadata["toc"] = True
@@ -142,8 +142,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text = getText()
 		if not text: return ui.message(_("No text"))
 		metadata, text = extractMetadata(text)
-		if text: convertToHTML(text, metadata, save=False, src=True)
-		else: ui.message(_("No text"))
+		convertToHTML(text, metadata, save=False, src=True)
 	script_md2htmlSrcInNVDA.__doc__ = _("Show the HTML source from Markdown")
 
 	def script_html2md(self, gesture):
@@ -158,14 +157,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text = getText()
 		if not text: return ui.message(_("No text"))
 		metadata, text = extractMetadata(text)
-		if text: convertToHTML(text, metadata, useTemplateHTML=False)
-		else: ui.message(_("No text"))
+		convertToHTML(text, metadata, useTemplateHTML=False)
 	script_md2htmlInNVDA.__doc__ = _("Markdown to HTML conversion. The result is displayed in a virtual buffer of NVDA")
 
 	def script_md2htmlInBrowser(self, gesture):
 		text = getText()
-		if text: convertToHTML(text, save=True)
-		else: ui.message(_("No text"))
+		if not text: return ui.message(_("No text"))
+		metadata, text = extractMetadata(text)
+		convertToHTML(text, metadata, save=True)
 	script_md2htmlInBrowser.__doc__ = _("Markdown to HTML conversion. The result is displayed in your default browser")
 
 	def script_copyToClip(self, gesture):
@@ -211,7 +210,7 @@ class InteractiveModeDlg(wx.Dialog):
 		self.destFormatListBox = sHelper.addLabeledControl(destFormatText, wx.Choice, choices=self.destFormatChoices)
 		self.destFormatListBox.Bind(wx.EVT_CHOICE, self.onDestFormatListBox)
 		self.destFormatListBox.SetSelection(0)
-		tableOfContentext = _("Generate a table of contents")
+		tableOfContentext = _("&Generate a table of contents")
 		self.tableOfContentCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentext))
 		self.tableOfContentCheckBox.SetValue(metadata["toc"])
 		titleLabelText = _("&Title")

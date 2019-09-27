@@ -25,6 +25,7 @@ Une petite extension NVDA qui convertit facilement du contenu MarkDown ou HTML
 ## Dépendances incluses
 - *markdown2* : <https://github.com/trentm/python-markdown2>
 - *html2markdown* : <https://pypi.org/project/html2markdown/>
+- *PyYAML*: <https://pypi.org/project/PyYAML/>
 
 [1]: https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest
 [2]: https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest?channel=dev

@@ -2,7 +2,7 @@
 # winClipboard
 # A small module for Windows that copies to clipboard as formatted HTML or plaint text
 # Author: André-Abush Clause <dev@andreabc.net>
-# Version: 2019-08-12 
+# Version: 2019-09-27 
 
 # Main references:
 # - Clipboard: https://docs.microsoft.com/en-us/windows/win32/dataxchg/clipboard
@@ -12,6 +12,7 @@
 import sys
 import ctypes
 import ctypes.wintypes
+import string
 
 isPy3 = True if sys.version_info >= (3, 0) else False
 
@@ -48,7 +49,7 @@ SetClipboardData.restype = ctypes.wintypes.HANDLE
 CloseClipboard = ctypes.windll.user32.CloseClipboard
 CloseClipboard.restype = ctypes.wintypes.BOOL
 
-# DECLSPEC_ALLOCATOR HGLOBAL GlobalAlloc(UINT   uFlags,SIZE_T dwBytes);
+# DECLSPEC_ALLOCATOR HGLOBAL GlobalAlloc(UINT	uFlags,SIZE_T dwBytes);
 GlobalAlloc = ctypes.windll.kernel32.GlobalAlloc
 GlobalAlloc.argtypes = ctypes.wintypes.UINT, ctypes.c_ssize_t
 GlobalAlloc.restype = ctypes.wintypes.HANDLE
@@ -75,7 +76,7 @@ memmove.restype = ctypes.c_void_p
 
 CF_UNICODETEXT = 13
 CF_HTML = RegisterClipboardFormat("HTML Format")
-formats = [CF_UNICODETEXT,  CF_HTML]
+formats = [CF_UNICODETEXT,	CF_HTML]
 WCHAR_ENCODING = "utf_16_le"
 GMEM_MOVEABLE = 0x0002
 GMEM_ZEROINIT = 0x0040
@@ -106,6 +107,16 @@ HTMLTemplate = (
 	"</html>"
 )
 
+class MyFormatter(string.Formatter):
+	def __init__(self, default='{{{0}}}'):
+		self.default=default
+
+	def get_value(self, key, args, kwds):
+		if isinstance(key, str):
+			return kwds.get(key, self.default.format(key))
+		else:
+			return string.Formatter.get_value(key, args, kwds)
+
 def get(format=CF_UNICODETEXT, html=False):
 	if format==CF_UNICODETEXT and html: format = CF_HTML
 	data = None
@@ -135,7 +146,8 @@ def copy(data, format=CF_UNICODETEXT, html=False):
 	if not isinstance(data, unicode_type): s = data.decode("UTF-8")
 	if format == CF_HTML:
 		data = HTMLHeadersClip+HTMLTemplate.format(BodyHTML=data)
-		data = data.format(
+		fmt = MyFormatter()
+		data = fmt.format(data,
 			StartHT="%.9d" % data.index("<!DOCTYPE html>"),
 			EndHTML="%.9d" % len(data),
 			StartFr="%.9d" % data.index(StartFragment),

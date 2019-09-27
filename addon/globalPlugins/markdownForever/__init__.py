@@ -100,7 +100,7 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 	body, toc = md2HTML(text, toc)
 	content = body
 	if toc:
-		tocReplacement = "%{toc}%"
+		tocReplacement = "<toc />"
 		if not tocReplacement in content:
 			pre = "<h1>%s</h1>" % _("Table of contents")
 			content = pre + tocReplacement + content
@@ -128,10 +128,9 @@ def convertToMD(text, metadata, display=True):
 		ui.browseableMessage(res, pre + _("HTML to Markdown conversion"), False)
 	else: return res
 
-def copyToClipAsHTML(text, toc=True):
-	body, toc = md2HTML(text, toc)
-	winClipboard.copy(body, html=True)
-	return body == winClipboard.get(html=True)
+def copyToClipAsHTML(html):
+	winClipboard.copy(html, html=True)
+	return html == winClipboard.get(html=True)
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -170,11 +169,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_copyToClip(self, gesture):
 		text = getText()
 		if not text: ui.message(_("No text"))
+		metadata, text = extractMetadata(text)
 		if scriptHandler.getLastScriptRepeatCount() == 0:
-			api.copyToClip(convertToHTML(text, src=True, display=False))
+			api.copyToClip(convertToHTML(text, metadata, src=True, display=False))
 			ui.message("HTML source copied to clipboard")
 		else:
-			if copyToClipAsHTML(text): ui.message("Formatted HTML copied to clipboard")
+			if copyToClipAsHTML(convertToHTML(text, metadata, src=True, display=False, save=False)): ui.message("Formatted HTML copied to clipboard")
 			else: ui.message("An error occured")
 	script_copyToClip.__doc__ = _("Copy the result to the clipboard from Markdown. One press: copy the HTML source. Two quick presses: copy the formatted HTML")
 

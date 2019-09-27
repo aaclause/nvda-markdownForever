@@ -76,7 +76,7 @@ def writeFile(fp, content):
 		except UnicodeDecodeError: f.write(bytearray(content.decode("UTF-8"), "UTF-8"))
 	f.close()
 
-def convertToHTML(text, save=False, src=False, useTemplateHTML=True, display=True, fp=os.path.dirname(__file__) + r"\\tmp.html", toc=True, title=''):
+def extractMetadata(text):
 	metadata = {}
 	if text.startswith("---"):
 		ln = text[3]
@@ -84,12 +84,19 @@ def convertToHTML(text, save=False, src=False, useTemplateHTML=True, display=Tru
 			if ln == "\r": ln = "\r\n"
 			end = (text.index(ln * 2)-3)
 			y = text[(3 + len(ln)):end].strip()
-			text = text[end+3:].strip()
-			docs = yaml.load_all(y, Loader=yaml.FullLoader)
-			for doc in docs: metadata = doc
-		if "title" in doc.keys(): title = doc["title"]
-		if "author" in doc.keys(): author = doc["author"]
-		if "toc" in doc.keys(): toc = bool(doc["toc"])
+			try:
+				docs = yaml.load_all(y, Loader=yaml.FullLoader)
+				for doc in docs: metadata = doc
+				text = text[end+3:].strip()
+			except yaml.scanner.ScannerError: pass
+	if not isinstance(metadata, dict): metadata = {}
+	if not "title" in metadata.keys(): metadata["title"] = ""
+	if not "toc" in metadata.keys(): metadata["toc"] = True
+	return metadata, text
+
+def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, display=True, fp=os.path.dirname(__file__) + r"\\tmp.html"):
+	toc = metadata["toc"]
+	title = metadata["title"]
 	body, toc = md2HTML(text, toc)
 	content = body
 	if toc:
@@ -111,9 +118,15 @@ def convertToHTML(text, save=False, src=False, useTemplateHTML=True, display=Tru
 			ui.browseableMessage(content, title, not src)
 		else: return content
 
-def convertToMD(text):
-	res = html2markdown.convert(text)
-	ui.browseableMessage(res, _("HTML to Markdown conversion"), False)
+def convertToMD(text, metadata, display=True):
+	title = metadata["title"]
+	if title: dmp = "---\r\n%s\r\n...\r\n\r\n" % yaml.dump(metadata).strip()
+	else: dmp = ""
+	res = dmp+html2markdown.convert(text)
+	if display:
+		pre = (title + " - ") if title else title
+		ui.browseableMessage(res, pre + _("HTML to Markdown conversion"), False)
+	else: return res
 
 def copyToClipAsHTML(text, toc=True):
 	body, toc = md2HTML(text, toc)
@@ -127,19 +140,25 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_md2htmlSrcInNVDA(self, gesture):
 		text = getText()
-		if text: convertToHTML(text, save=False, src=True)
+		if not text: return ui.message(_("No text"))
+		metadata, text = extractMetadata(text)
+		if text: convertToHTML(text, metadata, save=False, src=True)
 		else: ui.message(_("No text"))
 	script_md2htmlSrcInNVDA.__doc__ = _("Show the HTML source from Markdown")
 
 	def script_html2md(self, gesture):
 		text = getText()
-		if text: convertToMD(text)
+		metadata = {}
+		metadata["title"] = ""
+		if text: convertToMD(text, metadata)
 		else: ui.message(_("No text"))
 	script_html2md.__doc__ = _("HTML to Markdown conversion")
 
 	def script_md2htmlInNVDA(self, gesture):
 		text = getText()
-		if text: convertToHTML(text, useTemplateHTML=False)
+		if not text: return ui.message(_("No text"))
+		metadata, text = extractMetadata(text)
+		if text: convertToHTML(text, metadata, useTemplateHTML=False)
 		else: ui.message(_("No text"))
 	script_md2htmlInNVDA.__doc__ = _("Markdown to HTML conversion. The result is displayed in a virtual buffer of NVDA")
 
@@ -181,6 +200,8 @@ class InteractiveModeDlg(wx.Dialog):
 
 	# Translators: This is the label for the edit dictionary entry dialog.
 	def __init__(self, parent=None, title=_("Interactive mode") + " — MarkdownForever", text=''):
+		self.metadata, text = extractMetadata(text)
+		metadata = self.metadata
 		self.text = text
 		super(InteractiveModeDlg, self).__init__(parent, title=title)
 		mainSizer=wx.BoxSizer(wx.VERTICAL)
@@ -192,9 +213,10 @@ class InteractiveModeDlg(wx.Dialog):
 		self.destFormatListBox.SetSelection(0)
 		tableOfContentext = _("Generate a table of contents")
 		self.tableOfContentCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentext))
-		self.tableOfContentCheckBox.SetValue(True)
-		titleLabelText = _("Title")
+		self.tableOfContentCheckBox.SetValue(metadata["toc"])
+		titleLabelText = _("&Title")
 		self.titleTextCtrl = sHelper.addLabeledControl(titleLabelText, wx.TextCtrl)
+		self.titleTextCtrl.SetValue(metadata["title"])
 		self.virtualBufferBtn = bHelper.addButton(self, label=_("Show in &virtual buffer"))
 		self.virtualBufferBtn.Bind(wx.EVT_BUTTON, self.onVB)
 		self.browserBtn = bHelper.addButton(self, label=_("Show in &browser"))
@@ -227,38 +249,43 @@ class InteractiveModeDlg(wx.Dialog):
 	def onVB(self, evt): self.onExecute(True)
 
 	def onExecute(self, vb=False):
-		toc = self.tableOfContentCheckBox.IsChecked()
-		title = self.titleTextCtrl.GetValue()
+		metadata = self.metadata
+		metadata["toc"] = self.tableOfContentCheckBox.IsChecked()
+		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
-		if destFormatChoices_ == 0: convertToHTML(self.text, useTemplateHTML=True, save=not vb, toc=toc, title=title)
-		elif destFormatChoices_ == 1: convertToHTML(self.text, save=vb, src=True, toc=toc, title=title)
-		elif destFormatChoices_ == 2: convertToMD(self.text)
+		if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=not vb)
+		elif destFormatChoices_ == 1: convertToHTML(self.text, metadata, save=False, src=True)
+		elif destFormatChoices_ == 2: convertToMD(self.text, metadata)
 		self.Destroy()
 
 	def onCopyToClipBtn(self, event):
-		toc = self.tableOfContentCheckBox.IsChecked()
+		metadata = self.metadata
+		metadata["toc"] = self.tableOfContentCheckBox.IsChecked()
+		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
-		if destFormatChoices_ == 0: copyToClipAsHTML(self.text, toc=True)
-		elif destFormatChoices_ == 1: api.copyToClip(convertToHTML(self.text, src=True, toc=toc, display=False))
-		else: api.copyToClip(html2markdown.convert(self.text))
+		if destFormatChoices_ == 0: copyToClipAsHTML(self.text, metadata)
+		elif destFormatChoices_ == 1: api.copyToClip(convertToHTML(self.text, metadata, src=True, display=False))
+		else: api.copyToClip(convertToMD(self.text, metadata, display=False))
 		self.Destroy()
 
 	def onSave(self, event):
+		metadata = self.metadata
+		metadata["toc"] = self.tableOfContentCheckBox.IsChecked()
+		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
-		toc = self.tableOfContentCheckBox.IsChecked()
-		title = self.titleTextCtrl.GetValue()
 		formats = [
 			"HTML format (*.htm, *.html)|*.htm;*.html",
 			"Text file (*.txt)|*.txt",
 			"Markdown file (*.md)|*.md"
 		]
 		format = formats[destFormatChoices_]
-		dlg = wx.FileDialog(None, _("Select the location"), "%USERPROFILE%\documents", time.strftime("%y-%m-%d_-_%H-%M-%S"), format, style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
+		filename = metadata["filename"] if "filename" in metadata.keys() else time.strftime("%y-%m-%d_-_%H-%M-%S")
+		dlg = wx.FileDialog(None, _("Select the location"), "%USERPROFILE%\documents", filename, format, style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
 		if dlg.ShowModal() == wx.ID_OK:
 			fp = dlg.GetDirectory() + '\\' + dlg.GetFilename()
 			text = ''
-			if destFormatChoices_ == 0: convertToHTML(self.text, useTemplateHTML=True, save=True, fp=fp, toc=toc, title=title)
-			elif destFormatChoices_ == 1: text = convertToHTML(self.text, src=True, display=False, toc=toc)
+			if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=True, fp=fp)
+			elif destFormatChoices_ == 1: text = convertToHTML(self.text, metadata, src=True, display=False)
 			else: text = html2markdown.convert(self.text)
 			if text:
 				writeFile(fp, text)

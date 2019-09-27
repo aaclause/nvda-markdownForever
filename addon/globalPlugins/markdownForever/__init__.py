@@ -168,14 +168,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_copyToClip(self, gesture):
 		text = getText()
-		if not text: ui.message(_("No text"))
+		if not text: return ui.message(_("No text"))
 		metadata, text = extractMetadata(text)
 		if scriptHandler.getLastScriptRepeatCount() == 0:
 			api.copyToClip(convertToHTML(text, metadata, src=True, display=False))
-			ui.message("HTML source copied to clipboard")
+			ui.message(_("HTML source copied to clipboard"))
 		else:
-			if copyToClipAsHTML(convertToHTML(text, metadata, src=True, display=False, save=False)): ui.message("Formatted HTML copied to clipboard")
-			else: ui.message("An error occured")
+			if copyToClipAsHTML(convertToHTML(text, metadata, src=True, display=False, save=False)): ui.message(_("Formatted HTML copied to clipboard"))
+			else: ui.message(_("An error occured"))
 	script_copyToClip.__doc__ = _("Copy the result to the clipboard from Markdown. One press: copy the HTML source. Two quick presses: copy the formatted HTML")
 
 	def script_interactiveMode(self, gesture):

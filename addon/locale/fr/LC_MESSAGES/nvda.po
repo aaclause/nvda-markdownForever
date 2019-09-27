@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MarkdownForever 19.03.25-101339\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2019-09-27 05:32+0200\n"
-"PO-Revision-Date: 2019-09-27 05:32+0200\n"
+"POT-Creation-Date: 2019-09-27 06:37+0200\n"
+"PO-Revision-Date: 2019-09-27 06:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -35,30 +35,30 @@ msgid "Markdown to HTML source conversion"
 msgstr "Conversion Markdown vers source HTML"
 
 #: addon\globalPlugins\markdownForever\__init__.py:128
-#: addon\globalPlugins\markdownForever\__init__.py:154
+#: addon\globalPlugins\markdownForever\__init__.py:153
 msgid "HTML to Markdown conversion"
 msgstr "Conversion HTML vers Markdown"
 
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\markdownForever\__init__.py:139 buildVars.py:18
+#: addon\globalPlugins\markdownForever\__init__.py:138 buildVars.py:18
 msgid "Markdown Forever"
 msgstr "Markdown pour Toujours"
 
-#: addon\globalPlugins\markdownForever\__init__.py:143
-#: addon\globalPlugins\markdownForever\__init__.py:153
-#: addon\globalPlugins\markdownForever\__init__.py:158
-#: addon\globalPlugins\markdownForever\__init__.py:165
-#: addon\globalPlugins\markdownForever\__init__.py:172
+#: addon\globalPlugins\markdownForever\__init__.py:142
+#: addon\globalPlugins\markdownForever\__init__.py:152
+#: addon\globalPlugins\markdownForever\__init__.py:157
+#: addon\globalPlugins\markdownForever\__init__.py:164
+#: addon\globalPlugins\markdownForever\__init__.py:171
 #: addon\globalPlugins\markdownForever\__init__.py:184
 msgid "No text"
 msgstr "Pas de texte"
 
-#: addon\globalPlugins\markdownForever\__init__.py:146
+#: addon\globalPlugins\markdownForever\__init__.py:145
 msgid "Show the HTML source from Markdown"
 msgstr "Afficher la source HTML depuis du Markdown"
 
-#: addon\globalPlugins\markdownForever\__init__.py:161
+#: addon\globalPlugins\markdownForever\__init__.py:160
 msgid ""
 "Markdown to HTML conversion. The result is displayed in a virtual buffer of "
 "NVDA"
@@ -66,12 +66,24 @@ msgstr ""
 "Conversion Markdown vers HTML. Le résultat s'affiche dans un tampon virtuel "
 "de NVDA"
 
-#: addon\globalPlugins\markdownForever\__init__.py:168
+#: addon\globalPlugins\markdownForever\__init__.py:167
 msgid ""
 "Markdown to HTML conversion. The result is displayed in your default browser"
 msgstr ""
 "Conversion Markdown vers HTML. Le résultat s'affiche dans votre navigateur "
 "par défaut"
+
+#: addon\globalPlugins\markdownForever\__init__.py:175
+msgid "HTML source copied to clipboard"
+msgstr "Source HTML copiée dans le presse-papier"
+
+#: addon\globalPlugins\markdownForever\__init__.py:177
+msgid "Formatted HTML copied to clipboard"
+msgstr "HTML formaté copié dans le presse-papier"
+
+#: addon\globalPlugins\markdownForever\__init__.py:178
+msgid "An error occured"
+msgstr "Une erreur est survenue"
 
 #: addon\globalPlugins\markdownForever\__init__.py:179
 msgid ""
@@ -133,12 +145,6 @@ msgid ""
 msgstr ""
 "Une petite extension NVDA qui fournit un aperçu du contenu MarkDown ou HTML "
 "dans toute zone de texte"
-
-#~ msgid "Formatted HTML copied in clipboard"
-#~ msgstr "HTML formaté copié dans le presse-papier"
-
-#~ msgid "An error occurred"
-#~ msgstr "Une erreur est survenue"
 
 #~ msgid "HTML to markdown conversion"
 #~ msgstr "Conversion HTML vers Markdown"

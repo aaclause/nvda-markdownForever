@@ -9,7 +9,7 @@ GitHub: https://github.com/andre9642/nvda-markdownForever/
 """
 
 from __future__ import unicode_literals
-import os
+import os, os.path
 import sys
 isPy3 = True if sys.version_info >= (3, 0) else False
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib/common"))
@@ -23,6 +23,7 @@ import addonHandler
 addonHandler.initTranslation()
 import api
 import globalPluginHandler
+import languageHandler
 import scriptHandler
 import textInfos
 import treeInterceptorHandler
@@ -33,6 +34,7 @@ import html2markdown
 import yaml
 from . import winClipboard
 
+defaultLanguage = languageHandler.getLanguage()
 template_HTML = ("""
 <!DOCTYPE HTML>
 <html>
@@ -40,7 +42,7 @@ template_HTML = ("""
 		<meta charset="UTF-8" />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body lang="{lang}">
 		{body}
 	</body>
 </html>
@@ -91,14 +93,24 @@ def extractMetadata(text):
 			except (ValueError, yaml.scanner.ScannerError): pass
 	if not isinstance(metadata, dict): metadata = {}
 	if not "title" in metadata.keys(): metadata["title"] = ""
-	if not "toc" in metadata.keys(): metadata["toc"] = True
+	if not "toc" in metadata.keys(): metadata["toc"] = False
+	if not "lang" in metadata.keys(): metadata["lang"] = defaultLanguage
 	return metadata, text
 
 def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, display=True, fp=os.path.dirname(__file__) + r"\\tmp.html"):
 	toc = metadata["toc"]
 	title = metadata["title"]
+	lang = metadata["lang"]
 	body, toc = md2HTML(text, toc)
 	content = body
+	content = content.replace("<day />", time.strftime("%A"))
+	content = content.replace("<Day />", time.strftime("%A").capitalize())
+	content = content.replace("<month />", time.strftime("%B"))
+	content = content.replace("<Month />", time.strftime("%B").capitalize())
+	content = content.replace("<date />", time.strftime("%x"))
+	content = content.replace("<time />", time.strftime("%X"))
+	content = content.replace("<now />", time.strftime("%x %X"))
+
 	if toc:
 		tocReplacement = "<toc />"
 		if not tocReplacement in content:
@@ -109,10 +121,11 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		if not isPy3: fp = fp.decode("mbcs")
 		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
 		if not title.strip(): title = _("Markdown to HTML conversion")+(" (%s)" % time.strftime("%X %x"))
-		if useTemplateHTML: content = template_HTML.format(title=title, body=content)
+		if useTemplateHTML: content = template_HTML.format(title=title, body=content, lang=lang)
 		writeFile(fp, content)
 		if display: os.startfile(fp)
 	else:
+		if lang != defaultLanguage: content = "<div lang=\"%s\">%s</div>" % (lang, content)
 		if display:
 			title = "%s%s" % (title + " - " if title else title, _("Markdown to HTML conversion (preview)")) if not src else _("Markdown to HTML source conversion")
 			ui.browseableMessage(content, title, not src)
@@ -131,6 +144,13 @@ def convertToMD(text, metadata, display=True):
 def copyToClipAsHTML(html):
 	winClipboard.copy(html, html=True)
 	return html == winClipboard.get(html=True)
+
+def isPath(path):
+	path = path.lower()
+	vars = ["appdata", "tmp", "temp", "userprofile"]
+	for var in vars:
+		path = path.replace("%%%s%%" % var, os.environ[var])
+	return os.path.exists(path) and os.path.isdir(path)
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -262,7 +282,7 @@ class InteractiveModeDlg(wx.Dialog):
 		metadata["toc"] = self.tableOfContentCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
-		if destFormatChoices_ == 0: copyToClipAsHTML(self.text, metadata)
+		if destFormatChoices_ == 0: copyToClipAsHTML(convertToHTML(self.text, metadata, display=False))
 		elif destFormatChoices_ == 1: api.copyToClip(convertToHTML(self.text, metadata, src=True, display=False))
 		else: api.copyToClip(convertToMD(self.text, metadata, display=False))
 		self.Destroy()
@@ -278,8 +298,9 @@ class InteractiveModeDlg(wx.Dialog):
 			"Markdown file (*.md)|*.md"
 		]
 		format = formats[destFormatChoices_]
+		path = metadata["path"] if "path" in metadata.keys() and isPath(metadata["path"]) else "%USERPROFILE%\documents"
 		filename = metadata["filename"] if "filename" in metadata.keys() else time.strftime("%y-%m-%d_-_%H-%M-%S")
-		dlg = wx.FileDialog(None, _("Select the location"), "%USERPROFILE%\documents", filename, format, style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
+		dlg = wx.FileDialog(None, _("Select the location"), path, filename, format, style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
 		if dlg.ShowModal() == wx.ID_OK:
 			fp = dlg.GetDirectory() + '\\' + dlg.GetFilename()
 			text = ''

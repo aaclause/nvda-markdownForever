@@ -2,7 +2,7 @@
 # winClipboard
 # A small module for Windows that copies to clipboard as formatted HTML or plaint text
 # Author: André-Abush Clause <dev@andreabc.net>
-# Version: 2019-09-27 
+# Version: 2019-09-29
 
 # Main references:
 # - Clipboard: https://docs.microsoft.com/en-us/windows/win32/dataxchg/clipboard
@@ -129,7 +129,7 @@ def get(format=CF_UNICODETEXT, html=False):
 		memmove(raw_data, hData, size)
 		if format == CF_HTML:
 			if isPy3: data = raw_data.raw.decode().rstrip(u'\0')
-			else: data = raw_data.raw.decode("UTF-8").rstrip(u'\0').encode("UTF-8")
+			else: data = raw_data.raw.decode("UTF-8").rstrip(u'\0')
 			startPos = data.index(StartFragment)+len(StartFragment)
 			endPos = data.rfind(EndFragment)
 			data = data[startPos:endPos]
@@ -145,6 +145,7 @@ def copy(data, format=CF_UNICODETEXT, html=False):
 	if format not in formats: raise ValueError("Format %s not supported" % format)
 	if not isinstance(data, unicode_type): s = data.decode("UTF-8")
 	if format == CF_HTML:
+		if not isPy3: data = data.encode("UTF-8")
 		data = HTMLHeadersClip+HTMLTemplate.format(BodyHTML=data)
 		fmt = MyFormatter()
 		data = fmt.format(data,

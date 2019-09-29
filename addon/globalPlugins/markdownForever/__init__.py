@@ -152,7 +152,9 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		metadata["path"] = realpath(metadata["path"])
 		if not os.path.exists(metadata["path"]): fp = os.path.dirname(__file__) + r"\\tmp.html"
 		if not fp: fp = os.path.join(metadata["path"], "%s.html" % metadata["filename"])
-		if not isPy3: fp = fp.decode("mbcs")
+		if not isPy3:
+			try: fp = fp.decode("mbcs")
+			except UnicodeEncodeError: pass
 		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
 		if not title.strip(): title = _("Markdown to HTML conversion")+(" (%s)" % time.strftime("%X %x"))
 		if useTemplateHTML: content = template_HTML.format(title=title, body=content, lang=lang)
@@ -352,6 +354,7 @@ class InteractiveModeDlg(wx.Dialog):
 	def onExecute(self, vb=False):
 		metadata = self.metadata
 		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
+		metadata["extratags"] = self.extratagsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=not vb)
@@ -362,6 +365,7 @@ class InteractiveModeDlg(wx.Dialog):
 	def onCopyToClipBtn(self, event):
 		metadata = self.metadata
 		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
+		metadata["extratags"] = self.extratagsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ == 0: copyToClipAsHTML(convertToHTML(self.text, metadata, display=False))
@@ -372,6 +376,7 @@ class InteractiveModeDlg(wx.Dialog):
 	def onSave(self, event):
 		metadata = self.metadata
 		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
+		metadata["extratags"] = self.extratagsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		formats = [

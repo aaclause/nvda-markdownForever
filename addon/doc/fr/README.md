@@ -23,8 +23,9 @@ Une petite extension NVDA qui convertit facilement du contenu MarkDown ou HTML
   Certaines balises telles que `<details>` ne sont pas supportées par le rendu du tampon virtuel.
 
 ## Dépendances incluses
-- *markdown2* : <https://github.com/trentm/python-markdown2>
-- *html2markdown* : <https://pypi.org/project/html2markdown/>
+- *markdown2*: <https://github.com/trentm/python-markdown2>
+- *html2markdown*: <https://github.com/dlon/html2markdown>
+- *html2text*: <https://pypi.org/project/html2text/>
 - *PyYAML*: <https://pypi.org/project/PyYAML/>
 
 [1]: https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest

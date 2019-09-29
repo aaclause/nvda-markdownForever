@@ -17,6 +17,10 @@ if isPy3: sys.path.append(os.path.join(os.path.dirname(__file__), "lib/py3"))
 else: sys.path.append(os.path.join(os.path.dirname(__file__), "lib/py2"))
 import re
 import time
+if isPy3:
+	from urllib.request import Request, urlopen
+else: from urllib2 import Request, urlopen
+import ssl
 import gui, wx
 
 import addonHandler
@@ -29,6 +33,7 @@ import scriptHandler
 import textInfos
 import treeInterceptorHandler
 import ui
+from logHandler import log
 
 import markdown2
 import html2markdown
@@ -137,6 +142,7 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 	title = metadata["title"]
 	lang = metadata["lang"]
 	extratags = metadata["extratags"]
+	while "  " in text: text = text.replace("  ", "  ")
 	body, toc = md2HTML(text, toc)
 	content = body
 
@@ -175,6 +181,27 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		else: return content
 
 def convertToMD(text, metadata, display=True):
+	URLPatern = r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
+	if re.match(URLPatern, text.strip()):
+		ctx = ssl.create_default_context()
+		ctx.check_hostname = False
+		ctx.verify_mode = ssl.CERT_NONE
+		try:
+			
+			req = Request(text)
+			req.add_header("user-agent", "private")
+			j = urlopen(req, context=ctx)
+			data = j.read()
+			try:
+				from feedparser import _getCharacterEncoding as enc
+			except ImportError:
+				enc = lambda x, y: ('utf-8', 1)
+			encoding = enc(j.headers, data)[0]
+			if encoding == 'us-ascii':
+				encoding = 'utf-8'
+			text = data.decode(encoding)
+		except BaseException as e:
+			return ui.message(str(e).strip())
 	title = metadata["title"]
 	if title: dmp = "---\r\n%s\r\n...\r\n\r\n" % yaml.dump(metadata).strip()
 	else: dmp = ""

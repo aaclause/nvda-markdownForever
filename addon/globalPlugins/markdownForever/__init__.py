@@ -22,6 +22,7 @@ import gui, wx
 import addonHandler
 addonHandler.initTranslation()
 import api
+import config
 import globalPluginHandler
 import languageHandler
 import scriptHandler
@@ -33,7 +34,30 @@ import markdown2
 import html2markdown
 import yaml
 from . import winClipboard
+IM_actions = {
+	"saveAs": 0,
+	"browser": 1,
+	"virtualBuffer": 2,
+	"copyToClip": 3
+}
+IM_actionLabels = [
+	_("Save as"), 
+	_("Show in browser"),
+	_("Show in virtual buffer"),
+	_("Copy to clipboard")
+]
+confSpecs = {
+	"toc": 'boolean(default=False)',
+	"extratags": 'boolean(default=True)',
+	"IM_defaultAction": 'integer(min=0, max=3, default=0)',
+	"defaultPath": 'string(default="%USERPROFILE%\documents")'
+}
+config.conf.spec["markdownForever"] = confSpecs
 
+addonName = _("Markdown Forever")
+if isPy3: curDir = os.path.dirname(__file__)
+else: curDir = os.path.dirname(__file__).decode("mbcs")
+addonPath = '\\'.join(curDir.split('\\')[0:-2])
 defaultLanguage = languageHandler.getLanguage()
 template_HTML = ("""
 <!DOCTYPE HTML>
@@ -71,6 +95,7 @@ def md2HTML(md, toc):
 	return res, toc
 
 def writeFile(fp, content):
+	fp = realpath(fp)
 	f = open(fp, "wb")
 	if isPy3: f.write(content.encode())
 	else:
@@ -93,23 +118,29 @@ def extractMetadata(text):
 			except (ValueError, yaml.scanner.ScannerError): pass
 	if not isinstance(metadata, dict): metadata = {}
 	if not "title" in metadata.keys(): metadata["title"] = ""
-	if not "toc" in metadata.keys(): metadata["toc"] = False
+	if not "toc" in metadata.keys(): metadata["toc"] = config.conf["markdownForever"]["toc"]
+	if not "extratags" in metadata.keys(): metadata["extratags"] = config.conf["markdownForever"]["extratags"]
 	if not "lang" in metadata.keys(): metadata["lang"] = defaultLanguage
+	metadata["path"] = metadata["path"] if "path" in metadata.keys() and isPath(metadata["path"]) else config.conf["markdownForever"]["defaultPath"]
+	metadata["filename"] = metadata["filename"] if "filename" in metadata.keys() and isValidFileName(metadata["filename"]) else "MDF_%s" % time.strftime("%y-%m-%d_-_%H-%M-%S")
 	return metadata, text
 
-def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, display=True, fp=os.path.dirname(__file__) + r"\\tmp.html"):
+def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, display=True, fp=''):
 	toc = metadata["toc"]
 	title = metadata["title"]
 	lang = metadata["lang"]
+	extratags = metadata["extratags"]
 	body, toc = md2HTML(text, toc)
 	content = body
-	content = content.replace("<day />", time.strftime("%A"))
-	content = content.replace("<Day />", time.strftime("%A").capitalize())
-	content = content.replace("<month />", time.strftime("%B"))
-	content = content.replace("<Month />", time.strftime("%B").capitalize())
-	content = content.replace("<date />", time.strftime("%x"))
-	content = content.replace("<time />", time.strftime("%X"))
-	content = content.replace("<now />", time.strftime("%x %X"))
+
+	if extratags:
+		content = content.replace("<day />", time.strftime("%A"))
+		content = content.replace("<Day />", time.strftime("%A").capitalize())
+		content = content.replace("<month />", time.strftime("%B"))
+		content = content.replace("<Month />", time.strftime("%B").capitalize())
+		content = content.replace("<date />", time.strftime("%x"))
+		content = content.replace("<time />", time.strftime("%X"))
+		content = content.replace("<now />", time.strftime("%x %X"))
 
 	if toc:
 		tocReplacement = "<toc />"
@@ -118,12 +149,15 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 			content = pre + tocReplacement + content
 		content = content.replace(tocReplacement, toc, 1)
 	if save:
+		metadata["path"] = realpath(metadata["path"])
+		if not os.path.exists(metadata["path"]): fp = os.path.dirname(__file__) + r"\\tmp.html"
+		if not fp: fp = os.path.join(metadata["path"], "%s.html" % metadata["filename"])
 		if not isPy3: fp = fp.decode("mbcs")
 		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
 		if not title.strip(): title = _("Markdown to HTML conversion")+(" (%s)" % time.strftime("%X %x"))
 		if useTemplateHTML: content = template_HTML.format(title=title, body=content, lang=lang)
 		writeFile(fp, content)
-		if display: os.startfile(fp)
+		if display: os.startfile(realpath(fp))
 	else:
 		if lang != defaultLanguage: content = "<div lang=\"%s\">%s</div>" % (lang, content)
 		if display:
@@ -145,17 +179,58 @@ def copyToClipAsHTML(html):
 	winClipboard.copy(html, html=True)
 	return html == winClipboard.get(html=True)
 
-def isPath(path):
+def realpath(path):
 	path = path.lower()
 	vars = ["appdata", "tmp", "temp", "userprofile"]
-	for var in vars:
-		path = path.replace("%%%s%%" % var, os.environ[var])
+	for var in vars: path = path.replace("%%%s%%" % var, os.environ[var])
+	return path
+
+def isPath(path):
+	path = realpath(path)
 	return os.path.exists(path) and os.path.isdir(path)
 
+def isValidFileName(filename):
+	return bool(re.match(r"^[^\\/:*?\"<>|]+$", filename))
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
-	scriptCategory = _("Markdown Forever")
+	scriptCategory = addonName
+
+	def __init__(self):
+		super(globalPluginHandler.GlobalPlugin, self).__init__()
+		self.createMenu()
+
+	def createMenu(self):
+		self.NVDAMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
+		menu = wx.Menu()
+		self.markdownForeverMenu = self.NVDAMenu.AppendSubMenu(menu, _("Mar&kdown Forever"), "%s menu" % addonName)
+		item = menu.Append(wx.ID_ANY, _("Documentation"), _("Opens the addon's documentation"))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onDoc, item)
+		item = menu.Append(wx.ID_ANY, "%s..." % _("Settings"), _("Add-on settings"))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, item)
+		item = menu.Append(wx.ID_ANY, _("&Web site"), _("Open the add-on website."))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onWebsite, item)
+
+	def removeMenu(self):
+		if hasattr(self, "markdownForeverMenu"): self.NVDAMenu.Remove(self.markdownForeverMenu)
+
+	def terminate(self):
+		self.removeMenu()
+
+	@staticmethod
+	def onDoc(evt):
+		docPath = os.path.join(addonPath, "doc", defaultLanguage.split('_')[0], "readme.html")
+		if not os.path.exists(docPath):
+			docPath = os.path.join(addonPath, "doc", "en", "readme.html")
+		os.startfile(docPath)
+
+	@staticmethod
+	def onWebsite(evt):
+		return os.startfile("https://andreabc.net/projects/NVDA_addons/MarkdownForever/")
+
+	@staticmethod
+	def onSettings(evt):
+		gui.mainFrame._popupSettingsDialog(SettingsDlg)
 
 	def script_md2htmlSrcInNVDA(self, gesture):
 		text = getText()
@@ -221,6 +296,7 @@ class InteractiveModeDlg(wx.Dialog):
 	def __init__(self, parent=None, title=_("Interactive mode") + " — MarkdownForever", text=''):
 		self.metadata, text = extractMetadata(text)
 		metadata = self.metadata
+		defaultAction = config.conf["markdownForever"]["IM_defaultAction"]
 		self.text = text
 		super(InteractiveModeDlg, self).__init__(parent, title=title)
 		mainSizer=wx.BoxSizer(wx.VERTICAL)
@@ -230,21 +306,27 @@ class InteractiveModeDlg(wx.Dialog):
 		self.destFormatListBox = sHelper.addLabeledControl(destFormatText, wx.Choice, choices=self.destFormatChoices)
 		self.destFormatListBox.Bind(wx.EVT_CHOICE, self.onDestFormatListBox)
 		self.destFormatListBox.SetSelection(0)
-		tableOfContentext = _("&Generate a table of contents")
-		self.tableOfContentCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentext))
-		self.tableOfContentCheckBox.SetValue(metadata["toc"])
+		tableOfContentsText = _("&Generate a table of contents")
+		self.tableOfContentsCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentsText))
+		self.tableOfContentsCheckBox.SetValue(metadata["toc"])
 		titleLabelText = _("&Title")
 		self.titleTextCtrl = sHelper.addLabeledControl(titleLabelText, wx.TextCtrl)
 		self.titleTextCtrl.SetValue(metadata["title"])
+		extratagsText = _("Enable e&xtra tags")
+		self.extratagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=extratagsText))
+		self.extratagsCheckBox.SetValue(metadata["extratags"])
 		self.virtualBufferBtn = bHelper.addButton(self, label=_("Show in &virtual buffer"))
 		self.virtualBufferBtn.Bind(wx.EVT_BUTTON, self.onVB)
+		if defaultAction == IM_actions["virtualBuffer"]: self.virtualBufferBtn.SetDefault()
 		self.browserBtn = bHelper.addButton(self, label=_("Show in &browser"))
 		self.browserBtn.Bind(wx.EVT_BUTTON, self.onBrowser)
+		if defaultAction == IM_actions["browser"]: self.browserBtn.SetDefault()
 		self.copyToClipBtn = bHelper.addButton(self, label=_("&Copy to clipboard"))
 		self.copyToClipBtn.Bind(wx.EVT_BUTTON, self.onCopyToClipBtn)
+		if defaultAction == IM_actions["copyToClip"]: self.copyToClipBtn.SetDefault()
 		saveBtn = bHelper.addButton(self, label=_("&Save as..."))
 		saveBtn.Bind(wx.EVT_BUTTON, self.onSave)
-		saveBtn.SetDefault()
+		if defaultAction == IM_actions["saveAs"]: saveBtn.SetDefault()
 		sHelper.addItem(bHelper)
 
 		sHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.CANCEL))
@@ -260,8 +342,8 @@ class InteractiveModeDlg(wx.Dialog):
 			self.browserBtn.Disable()
 		else:
 			self.browserBtn.Enable()
-		if destFormatChoices_ == 2: self.tableOfContentCheckBox.Disable()
-		else: self.tableOfContentCheckBox.Enable()
+		if destFormatChoices_ == 2: self.tableOfContentsCheckBox.Disable()
+		else: self.tableOfContentsCheckBox.Enable()
 
 	def onBrowser(self, evt): self.onExecute(False)
 
@@ -269,7 +351,7 @@ class InteractiveModeDlg(wx.Dialog):
 
 	def onExecute(self, vb=False):
 		metadata = self.metadata
-		metadata["toc"] = self.tableOfContentCheckBox.IsChecked()
+		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=not vb)
@@ -279,7 +361,7 @@ class InteractiveModeDlg(wx.Dialog):
 
 	def onCopyToClipBtn(self, event):
 		metadata = self.metadata
-		metadata["toc"] = self.tableOfContentCheckBox.IsChecked()
+		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ == 0: copyToClipAsHTML(convertToHTML(self.text, metadata, display=False))
@@ -289,7 +371,7 @@ class InteractiveModeDlg(wx.Dialog):
 
 	def onSave(self, event):
 		metadata = self.metadata
-		metadata["toc"] = self.tableOfContentCheckBox.IsChecked()
+		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		formats = [
@@ -298,9 +380,7 @@ class InteractiveModeDlg(wx.Dialog):
 			"Markdown file (*.md)|*.md"
 		]
 		format = formats[destFormatChoices_]
-		path = metadata["path"] if "path" in metadata.keys() and isPath(metadata["path"]) else "%USERPROFILE%\documents"
-		filename = metadata["filename"] if "filename" in metadata.keys() else time.strftime("%y-%m-%d_-_%H-%M-%S")
-		dlg = wx.FileDialog(None, _("Select the location"), path, filename, format, style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
+		dlg = wx.FileDialog(None, _("Select the location"), metadata["path"], metadata["filename"], format, style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
 		if dlg.ShowModal() == wx.ID_OK:
 			fp = dlg.GetDirectory() + '\\' + dlg.GetFilename()
 			text = ''
@@ -319,3 +399,29 @@ class InteractiveModeDlg(wx.Dialog):
 
 	def onOk(self, evt):
 		self.Destroy()
+
+class SettingsDlg(gui.settingsDialogs.SettingsDialog):
+	title = "markdownForever - %s" % _("Default settings")
+
+	def makeSettings(self, settingsSizer):
+		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		tableOfContentsText = _("&Generate a table of contents")
+		self.tableOfContentsCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentsText))
+		self.tableOfContentsCheckBox.SetValue(config.conf["markdownForever"]["toc"])
+		extratagsText = _("Enable e&xtra tags")
+		self.extratagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=extratagsText))
+		self.extratagsCheckBox.SetValue(config.conf["markdownForever"]["extratags"])
+		defaultActionIMText = _("Default action in interactive mode")
+		self.defaultActionListBox = sHelper.addLabeledControl(defaultActionIMText, wx.Choice, choices=IM_actionLabels)
+		self.defaultActionListBox.SetSelection(config.conf["markdownForever"]["IM_defaultAction"])
+		self.defaultPath = sHelper.addLabeledControl(_("Path"), wx.TextCtrl, value=config.conf["markdownForever"]["defaultPath"])
+
+	def onOk(self, evt):
+		defaultPath = self.defaultPath.GetValue()
+		if not os.path.exists(realpath(defaultPath)): return self.defaultPath.SetFocus()
+		config.conf["markdownForever"]["toc"] = self.tableOfContentsCheckBox.IsChecked()
+		config.conf["markdownForever"]["extratags"] = self.extratagsCheckBox.IsChecked()
+		config.conf["markdownForever"]["IM_defaultAction"] = self.defaultActionListBox.GetSelection()
+		if defaultPath:
+			config.conf["markdownForever"]["defaultPath"] = defaultPath
+		super(SettingsDlg, self).onOk(evt)

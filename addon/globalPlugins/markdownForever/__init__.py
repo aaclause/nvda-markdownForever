@@ -32,6 +32,7 @@ import ui
 
 import markdown2
 import html2markdown
+import html2text
 import yaml
 from . import winClipboard
 IM_actions = {
@@ -50,8 +51,14 @@ confSpecs = {
 	"toc": 'boolean(default=False)',
 	"extratags": 'boolean(default=True)',
 	"IM_defaultAction": 'integer(min=0, max=3, default=0)',
-	"defaultPath": 'string(default="%USERPROFILE%\documents")'
+	"defaultPath": 'string(default="%USERPROFILE%\documents")',
+	"markdownEngine": 'option("html2markdown", "html2text", default="html2text")'
 }
+markdownEngines = ["html2text", "html2markdown"]
+markdownEngineLabels = [
+	_("html2text"),
+	_("html2markdown: conservatively convert html to markdown"),
+]
 config.conf.spec["markdownForever"] = confSpecs
 
 addonName = _("Markdown Forever")
@@ -171,7 +178,10 @@ def convertToMD(text, metadata, display=True):
 	title = metadata["title"]
 	if title: dmp = "---\r\n%s\r\n...\r\n\r\n" % yaml.dump(metadata).strip()
 	else: dmp = ""
-	res = dmp+html2markdown.convert(text)
+	if config.conf["markdownForever"]["markdownEngine"] == "html2markdown":
+		convert = html2markdown.convert
+	else: convert = html2text.html2text
+	res = dmp+convert(text)
 	if display:
 		pre = (title + " - ") if title else title
 		ui.browseableMessage(res, pre + _("HTML to Markdown conversion"), False)
@@ -411,6 +421,7 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		tableOfContentsText = _("&Generate a table of contents")
+		markdownEngine = config.conf["markdownForever"]["markdownEngine"]
 		self.tableOfContentsCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentsText))
 		self.tableOfContentsCheckBox.SetValue(config.conf["markdownForever"]["toc"])
 		extratagsText = _("Enable e&xtra tags")
@@ -419,6 +430,10 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 		defaultActionIMText = _("Default action in interactive mode")
 		self.defaultActionListBox = sHelper.addLabeledControl(defaultActionIMText, wx.Choice, choices=IM_actionLabels)
 		self.defaultActionListBox.SetSelection(config.conf["markdownForever"]["IM_defaultAction"])
+		idEngine = markdownEngines.index(markdownEngine)
+		markdownEngineText = _("Markdown Engine")
+		self.markdownEngineListBox = sHelper.addLabeledControl(markdownEngineText, wx.Choice, choices=markdownEngineLabels)
+		self.markdownEngineListBox.SetSelection(idEngine)
 		self.defaultPath = sHelper.addLabeledControl(_("Path"), wx.TextCtrl, value=config.conf["markdownForever"]["defaultPath"])
 
 	def onOk(self, evt):
@@ -427,6 +442,7 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 		config.conf["markdownForever"]["toc"] = self.tableOfContentsCheckBox.IsChecked()
 		config.conf["markdownForever"]["extratags"] = self.extratagsCheckBox.IsChecked()
 		config.conf["markdownForever"]["IM_defaultAction"] = self.defaultActionListBox.GetSelection()
+		config.conf["markdownForever"]["markdownEngine"] = markdownEngines[self.markdownEngineListBox.GetSelection()]
 		if defaultPath:
 			config.conf["markdownForever"]["defaultPath"] = defaultPath
 		super(SettingsDlg, self).onOk(evt)

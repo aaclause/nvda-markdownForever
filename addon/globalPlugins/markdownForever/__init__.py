@@ -181,27 +181,43 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		else: return content
 
 def convertToMD(text, metadata, display=True):
-	URLPatern = r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
-	if re.match(URLPatern, text.strip()):
+	URLPattern = r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
+	if re.match(URLPattern, text.strip()):
 		ctx = ssl.create_default_context()
 		ctx.check_hostname = False
 		ctx.verify_mode = ssl.CERT_NONE
 		try:
-			
 			req = Request(text)
 			req.add_header("user-agent", "private")
+			req.add_header("Accept", "text/html")
+			req.add_header("Accept-encoding", "identity")
 			j = urlopen(req, context=ctx)
 			data = j.read()
+			possibleEncodings = []
+			pattern = r"^.*charset=\"?([0-9a-zA-Z\-]+)\"?.*$"
+			if "Content-Type" in j.headers.keys() and re.match(pattern, j.headers["Content-Type"]):
+				enc_ = re.sub(pattern, r"\1", j.headers["Content-Type"])
+				possibleEncodings.append(enc_)
 			try:
-				from feedparser import _getCharacterEncoding as enc
-			except ImportError:
-				enc = lambda x, y: ('utf-8', 1)
-			encoding = enc(j.headers, data)[0]
-			if encoding == 'us-ascii':
-				encoding = 'utf-8'
-			text = data.decode(encoding)
-		except BaseException as e:
-			return ui.message(str(e).strip())
+				start_ = data.index(b"charset=")
+				if start_ >= 0:
+					enc_ = data[start_:(start_+42)].split(b">")[0].replace(b'"', b"").replace(b'\'', b"")
+					enc_ = re.sub(pattern, r"\1", enc_.decode("UTF-8"))
+					possibleEncodings.append(enc_)
+			except ValueError:
+				log.debug(j.headers)
+			possibleEncodings.append("UTF-8")
+			for possibleEncoding in possibleEncodings:
+				ok = 0
+				try:
+					text = data.decode(possibleEncoding)
+					ok = 1
+					break
+				except UnicodeDecodeError: pass
+				if not ok:
+					log.debug(possibleEncodings)
+					return ui.message(_("Unable to guess the encoding"))
+		except UnicodeDecodeError as e: return ui.message(str(e).strip())
 	title = metadata["title"]
 	if title: dmp = "---\r\n%s\r\n...\r\n\r\n" % yaml.dump(metadata).strip()
 	else: dmp = ""

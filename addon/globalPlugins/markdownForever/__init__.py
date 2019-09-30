@@ -428,7 +428,7 @@ class InteractiveModeDlg(wx.Dialog):
 			text = ''
 			if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=True, fp=fp)
 			elif destFormatChoices_ == 1: text = convertToHTML(self.text, metadata, src=True, display=False)
-			else: text = html2markdown.convert(self.text)
+			else: text = convertToMD(self.text, metadata, display=False)
 			if text:
 				writeFile(fp, text)
 				os.startfile(fp)

@@ -12,9 +12,12 @@ from __future__ import unicode_literals
 import os, os.path
 import sys
 isPy3 = True if sys.version_info >= (3, 0) else False
-sys.path.append(os.path.join(os.path.dirname(__file__), "lib/common"))
-if isPy3: sys.path.append(os.path.join(os.path.dirname(__file__), "lib/py3"))
-else: sys.path.append(os.path.join(os.path.dirname(__file__), "lib/py2"))
+libCommon = os.path.join(os.path.dirname(__file__), "lib/common")
+if isPy3: libPy = os.path.join(os.path.dirname(__file__), "lib/py3")
+else: libPy = os.path.join(os.path.dirname(__file__), "lib/py2")
+
+sys.path.append(libCommon)
+sys.path.append(libPy)
 import re
 import time
 if isPy3:
@@ -39,7 +42,10 @@ import markdown2
 import html2markdown
 import html2text
 import yaml
-from . import winClipboard
+import winClipboard
+sys.path.remove(libCommon)
+sys.path.remove(libPy)
+
 IM_actions = {
 	"saveAs": 0,
 	"browser": 1,
@@ -55,13 +61,16 @@ IM_actionLabels = [
 confSpecs = {
 	"toc": 'boolean(default=False)',
 	"extratags": 'boolean(default=True)',
+	"genMetadata": 'boolean(default=True)',
 	"IM_defaultAction": 'integer(min=0, max=3, default=0)',
 	"defaultPath": 'string(default="%USERPROFILE%\documents")',
-	"markdownEngine": 'option("html2markdown", "html2text", default="html2text")'
+	"markdownEngine": 'option("html2markdown", "html2text", default="html2text")',
+	"HTMLTemplate": 'string(default="default")',
+	"HTMLTemplates": {}
 }
 markdownEngines = ["html2text", "html2markdown"]
 markdownEngineLabels = [
-	_("html2text"),
+	_("html2text: turn HTML into equivalent Markdown-structured text"),
 	_("html2markdown: conservatively convert html to markdown"),
 ]
 config.conf.spec["markdownForever"] = confSpecs
@@ -71,32 +80,74 @@ if isPy3: curDir = os.path.dirname(__file__)
 else: curDir = os.path.dirname(__file__).decode("mbcs")
 addonPath = '\\'.join(curDir.split('\\')[0:-2])
 defaultLanguage = languageHandler.getLanguage()
-template_HTML = ("""
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<meta charset="UTF-8" />
-		<title>{title}</title>
-	</head>
-	<body lang="{lang}">
-		{body}
-	</body>
-</html>
-""").strip()
+pathPattern = r"^(?:%|[a-zA-Z]:[\\/])[^:*?\"<>|]+\.html?$"
+URLPattern = r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
+template_HTML = ''
 
 def getText():
+	err = ''
 	obj = api.getFocusObject()
 	treeInterceptor = obj.treeInterceptor
 	if isinstance(treeInterceptor, treeInterceptorHandler.DocumentTreeInterceptor) and not treeInterceptor.passThrough: obj = treeInterceptor
 	try: info = obj.makeTextInfo(textInfos.POSITION_SELECTION)
 	except (RuntimeError, NotImplementedError): info = None
 	if not info or info.isCollapsed:
-		try: info = obj.makeTextInfo(textInfos.POSITION_ALL)
+		try:
+			text = obj.makeTextInfo(textInfos.POSITION_ALL).text
 		except (RuntimeError, NotImplementedError):
 			obj = api.getNavigatorObject()
 			text = obj.value
-			return "%s" % text if text else ''
-	return info.text
+	else: text = info.text
+	isLocalFile = False
+	if re.match(pathPattern, text):
+		fp = realpath(text)
+		if os.path.isfile(fp):
+			f = open(fp, "rb")
+			text = f.read().decode("UTF-8")
+			f.close()
+			isLocalFile =True
+		else:
+			err = _("Invalid file path")
+	if not isLocalFile and re.match(URLPattern, text.strip()):
+		ctx = ssl.create_default_context()
+		ctx.check_hostname = False
+		ctx.verify_mode = ssl.CERT_NONE
+		try:
+			req = Request(text)
+			req.add_header("user-agent", "private")
+			req.add_header("Accept", "text/html")
+			req.add_header("Accept-encoding", "identity")
+			j = urlopen(req, context=ctx)
+			data = j.read()
+			possibleEncodings = []
+			if isPy3: enc_ = j.headers.get_content_charset("UTF-8")
+			else: enc_ = j.headers.getparam("charset")
+			log.debug("%s charset found in HTTP headers" % enc_)
+			possibleEncodings.append(enc_)
+			pattern = r"^.*charset=\"?([0-9a-zA-Z\-]+)\"?.*$"
+			try:
+				start_ = data.index(b"charset=")
+				if start_ >= 0:
+					enc_ = data[start_:(start_+42)].split(b">")[0].replace(b'"', b"").replace(b'\'', b"")
+					enc_ = re.sub(pattern, r"\1", enc_.decode("UTF-8"))
+					possibleEncodings.insert(0, enc_)
+			except ValueError: log.debug(j.headers)
+			possibleEncodings.append("UTF-8")
+			log.debug("%s charset found in <head> HTML" % enc_)
+			for possibleEncoding in possibleEncodings:
+				ok = 0
+				try:
+					log.debug("Trying %s" % possibleEncoding)
+					text = data.decode(possibleEncoding)
+					ok = 1
+					break
+				except (LookupError, UnicodeDecodeError) as e: log.debug(e)
+			if not ok:
+				log.error(possibleEncodings)
+				err = _("Unable to guess the encoding")
+		except BaseException as e: err = str(e).strip()
+	if not text: err = _("No text")
+	return text, err
 
 
 def md2HTML(md, toc):
@@ -132,10 +183,22 @@ def extractMetadata(text):
 	if not "title" in metadata.keys(): metadata["title"] = ""
 	if not "toc" in metadata.keys(): metadata["toc"] = config.conf["markdownForever"]["toc"]
 	if not "extratags" in metadata.keys(): metadata["extratags"] = config.conf["markdownForever"]["extratags"]
+	if not "genMetadata" in metadata.keys(): metadata["genMetadata"] = config.conf["markdownForever"]["genMetadata"]
 	if not "lang" in metadata.keys(): metadata["lang"] = defaultLanguage
 	metadata["path"] = metadata["path"] if "path" in metadata.keys() and isPath(metadata["path"]) else config.conf["markdownForever"]["defaultPath"]
 	metadata["filename"] = metadata["filename"] if "filename" in metadata.keys() and isValidFileName(metadata["filename"]) else "MDF_%s" % time.strftime("%y-%m-%d_-_%H-%M-%S")
 	return metadata, text
+
+def getHTMLTemplate():
+	global template_HTML
+	if template_HTML: return template_HTML
+	HTMLTemplate = realpath(config.conf["markdownForever"]["HTMLTemplate"])
+	if HTMLTemplate != "default" and os.path.isfile(HTMLTemplate): fp = HTMLTemplate
+	else: fp = os.path.join(curDir, "res", "default.tpl")
+	f = open(fp, "rb")
+	template_HTML = f.read().decode("UTF-8").strip()
+	f.close()
+	return template_HTML
 
 def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, display=True, fp=''):
 	toc = metadata["toc"]
@@ -145,7 +208,6 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 	while "  " in text: text = text.replace("  ", "  ")
 	body, toc = md2HTML(text, toc)
 	content = body
-
 	if extratags:
 		content = content.replace("<day />", time.strftime("%A"))
 		content = content.replace("<Day />", time.strftime("%A").capitalize())
@@ -170,7 +232,7 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 			except UnicodeEncodeError: pass
 		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
 		if not title.strip(): title = _("Markdown to HTML conversion")+(" (%s)" % time.strftime("%X %x"))
-		if useTemplateHTML: content = template_HTML.format(title=title, body=content, lang=lang)
+		if useTemplateHTML: content = getHTMLTemplate().format(title=title, body=content, lang=lang)
 		writeFile(fp, content)
 		if display: os.startfile(realpath(fp))
 	else:
@@ -181,50 +243,16 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		else: return content
 
 def convertToMD(text, metadata, display=True):
-	URLPattern = r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
-	if re.match(URLPattern, text.strip()):
-		ctx = ssl.create_default_context()
-		ctx.check_hostname = False
-		ctx.verify_mode = ssl.CERT_NONE
-		try:
-			req = Request(text)
-			req.add_header("user-agent", "private")
-			req.add_header("Accept", "text/html")
-			req.add_header("Accept-encoding", "identity")
-			j = urlopen(req, context=ctx)
-			data = j.read()
-			possibleEncodings = []
-			pattern = r"^.*charset=\"?([0-9a-zA-Z\-]+)\"?.*$"
-			if "Content-Type" in j.headers.keys() and re.match(pattern, j.headers["Content-Type"]):
-				enc_ = re.sub(pattern, r"\1", j.headers["Content-Type"])
-				possibleEncodings.append(enc_)
-			try:
-				start_ = data.index(b"charset=")
-				if start_ >= 0:
-					enc_ = data[start_:(start_+42)].split(b">")[0].replace(b'"', b"").replace(b'\'', b"")
-					enc_ = re.sub(pattern, r"\1", enc_.decode("UTF-8"))
-					possibleEncodings.append(enc_)
-			except ValueError:
-				log.debug(j.headers)
-			possibleEncodings.append("UTF-8")
-			for possibleEncoding in possibleEncodings:
-				ok = 0
-				try:
-					text = data.decode(possibleEncoding)
-					ok = 1
-					break
-				except UnicodeDecodeError: pass
-				if not ok:
-					log.debug(possibleEncodings)
-					return ui.message(_("Unable to guess the encoding"))
-		except UnicodeDecodeError as e: return ui.message(str(e).strip())
 	title = metadata["title"]
-	if title: dmp = "---\r\n%s\r\n...\r\n\r\n" % yaml.dump(metadata).strip()
+	if metadata["genMetadata"]:
+		if isPy3: dmp = yaml.dump( metadata, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
+		else: dmp = yaml.dump( metadata, Dumper=KludgeDumper, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
+		dmp = dmp.decode("UTF-8")
 	else: dmp = ""
 	if config.conf["markdownForever"]["markdownEngine"] == "html2markdown":
 		convert = html2markdown.convert
 	else: convert = html2text.html2text
-	res = dmp+convert(text)
+	res = ("%s\n%s" % (dmp, convert(text))).strip()
 	if display:
 		pre = (title + " - ") if title else title
 		ui.browseableMessage(res, pre + _("HTML to Markdown conversion"), False)
@@ -246,6 +274,14 @@ def isPath(path):
 
 def isValidFileName(filename):
 	return bool(re.match(r"^[^\\/:*?\"<>|]+$", filename))
+
+from yaml.dumper import Dumper
+from yaml.representer import SafeRepresenter
+if not isPy3:
+	class KludgeDumper(Dumper): pass
+
+	KludgeDumper.add_representer(str, SafeRepresenter.represent_str)
+	KludgeDumper.add_representer(unicode, SafeRepresenter.represent_unicode)
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
@@ -288,50 +324,64 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame._popupSettingsDialog(SettingsDlg)
 
 	def script_md2htmlSrcInNVDA(self, gesture):
-		text = getText()
-		if not text: return ui.message(_("No text"))
+		text, err = getText()
+		if err: return ui.message(err)
 		metadata, text = extractMetadata(text)
 		convertToHTML(text, metadata, save=False, src=True)
 	script_md2htmlSrcInNVDA.__doc__ = _("Show the HTML source from Markdown")
 
 	def script_html2md(self, gesture):
-		text = getText()
-		metadata = {}
-		metadata["title"] = ""
-		if text: convertToMD(text, metadata)
-		else: ui.message(_("No text"))
+		text, err = getText()
+		if err: return ui.message(err)
+		metadata, text = extractMetadata(text)
+		convertToMD(text, metadata)
 	script_html2md.__doc__ = _("HTML to Markdown conversion")
 
 	def script_md2htmlInNVDA(self, gesture):
-		text = getText()
-		if not text: return ui.message(_("No text"))
+		text, err = getText()
+		if err: return ui.message(err)
 		metadata, text = extractMetadata(text)
 		convertToHTML(text, metadata, useTemplateHTML=False)
 	script_md2htmlInNVDA.__doc__ = _("Markdown to HTML conversion. The result is displayed in a virtual buffer of NVDA")
 
 	def script_md2htmlInBrowser(self, gesture):
-		text = getText()
-		if not text: return ui.message(_("No text"))
+		text, err = getText()
+		if err: return ui.message(err)
 		metadata, text = extractMetadata(text)
 		convertToHTML(text, metadata, save=True)
 	script_md2htmlInBrowser.__doc__ = _("Markdown to HTML conversion. The result is displayed in your default browser")
 
-	def script_copyToClip(self, gesture):
-		text = getText()
-		if not text: return ui.message(_("No text"))
+	def script_copyHTMLSrcToClip(self, gesture):
+		text, err = getText()
+		if err: return ui.message(err)
 		metadata, text = extractMetadata(text)
-		if scriptHandler.getLastScriptRepeatCount() == 0:
-			api.copyToClip(convertToHTML(text, metadata, src=True, display=False))
-			ui.message(_("HTML source copied to clipboard"))
-		else:
-			if copyToClipAsHTML(convertToHTML(text, metadata, src=True, display=False, save=False)): ui.message(_("Formatted HTML copied to clipboard"))
-			else: ui.message(_("An error occured"))
-	script_copyToClip.__doc__ = _("Copy the result to the clipboard from Markdown. One press: copy the HTML source. Two quick presses: copy the formatted HTML")
+		api.copyToClip(convertToHTML(text, metadata, src=True, display=False))
+		ui.message(_("HTML source copied to clipboard"))
+	script_copyHTMLSrcToClip.__doc__ = _("Markdown to HTML source conversion. The result is copied to clipboard")
+
+	def script_copyFormattedHTMLToClip(self, gesture):
+		text, err = getText()
+		if err: return ui.message(err)
+		metadata, text = extractMetadata(text)
+		if copyToClipAsHTML(convertToHTML(text, metadata, src=True, display=False, save=False)): return ui.message(_("Formatted HTML copied to clipboard"))
+		else: ui.message(_("An error occured"))
+	script_copyFormattedHTMLToClip.__doc__ = _("Markdown to formatted HTML conversion. The result is copied to clipboard")
+
+	def script_copyMarkdownToClip(self, gesture):
+		text, err = getText()
+		if err: return ui.message(err)
+		metadata, text = extractMetadata(text)
+		res = convertToMD(text, metadata, display=False)
+		if res:
+			api.copyToClip(res)
+			ui.message(_("Markdown copied to clipboard"))
+		else: ui.message(_("An error occured"))
+	script_copyMarkdownToClip.__doc__ = _("HTML to Markdown conversion. The result is copied to clipboard")
 
 	def script_interactiveMode(self, gesture):
-		text = getText()
-		if text: gui.mainFrame._popupSettingsDialog(InteractiveModeDlg, text=text)
-		else: ui.message(_("No text"))
+		text, err = getText()
+		if err: return ui.message(err)
+		gui.mainFrame._popupSettingsDialog(InteractiveModeDlg, text=text)
 	script_interactiveMode.__doc__ = _("Interactive mode")
 
 	__gestures = {
@@ -339,8 +389,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:nvda+alt+n": "md2htmlInNVDA",
 		"kb:nvda+alt+k": "html2md",
 		"kb:nvda+alt+l": "md2htmlSrcInNVDA",
-		"kb:nvda+shift+h": "copyToClip",
-		"kb:nvda+alt+,": "interactiveMode",
+		"kb:nvda+Control+h": "copyHTMLSrcToClip",
+		"kb:nvda+shift+h": "copyFormattedHTMLToClip",
+		"kb:nvda+shift+g": "copyMarkdownToClip",
+		"kb:nvda+Control+i": "interactiveMode",
 	}
 
 class InteractiveModeDlg(wx.Dialog):
@@ -349,27 +401,38 @@ class InteractiveModeDlg(wx.Dialog):
 
 	# Translators: This is the label for the edit dictionary entry dialog.
 	def __init__(self, parent=None, title=_("Interactive mode") + " — MarkdownForever", text=''):
-		self.metadata, text = extractMetadata(text)
+		self.metadata, self.text = extractMetadata(text)
 		metadata = self.metadata
 		defaultAction = config.conf["markdownForever"]["IM_defaultAction"]
-		self.text = text
 		super(InteractiveModeDlg, self).__init__(parent, title=title)
 		mainSizer=wx.BoxSizer(wx.VERTICAL)
 		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
+
+		isHTMLPattern = re.search("(?:</html>|</p>)", self.text, re.IGNORECASE)
+		guessDestFormat = 2 if isHTMLPattern else 0
 		destFormatText = _("Convert &to")
 		self.destFormatListBox = sHelper.addLabeledControl(destFormatText, wx.Choice, choices=self.destFormatChoices)
 		self.destFormatListBox.Bind(wx.EVT_CHOICE, self.onDestFormatListBox)
-		self.destFormatListBox.SetSelection(0)
+		self.destFormatListBox.SetSelection(guessDestFormat)
+
+		genMetadataText = _("Generate corresponding &metadata")
+		self.genMetadataCheckBox = sHelper.addItem(wx.CheckBox(self, label=genMetadataText))
+		self.genMetadataCheckBox.SetValue(metadata["genMetadata"])
+		self.genMetadataCheckBox.Bind(wx.EVT_CHECKBOX, self.onDestFormatListBox)
+
 		tableOfContentsText = _("&Generate a table of contents")
 		self.tableOfContentsCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentsText))
 		self.tableOfContentsCheckBox.SetValue(metadata["toc"])
-		titleLabelText = _("&Title")
-		self.titleTextCtrl = sHelper.addLabeledControl(titleLabelText, wx.TextCtrl)
-		self.titleTextCtrl.SetValue(metadata["title"])
+
 		extratagsText = _("Enable e&xtra tags")
 		self.extratagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=extratagsText))
 		self.extratagsCheckBox.SetValue(metadata["extratags"])
+
+		titleLabelText = _("&Title")
+		self.titleTextCtrl = sHelper.addLabeledControl(titleLabelText, wx.TextCtrl)
+		self.titleTextCtrl.SetValue(metadata["title"])
+
 		self.virtualBufferBtn = bHelper.addButton(self, label=_("Show in &virtual buffer"))
 		self.virtualBufferBtn.Bind(wx.EVT_BUTTON, self.onVB)
 		if defaultAction == IM_actions["virtualBuffer"]: self.virtualBufferBtn.SetDefault()
@@ -390,15 +453,22 @@ class InteractiveModeDlg(wx.Dialog):
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.destFormatListBox.SetFocus()
+		self.onDestFormatListBox(None)
 
 	def onDestFormatListBox(self, evt):
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
-		if destFormatChoices_ > 0:
-			self.browserBtn.Disable()
+		if destFormatChoices_ > 0: self.browserBtn.Disable()
+		else: self.browserBtn.Enable()
+		if destFormatChoices_ == 2: self.genMetadataCheckBox.Enable()
+		else: self.genMetadataCheckBox.Disable()
+		if self.genMetadataCheckBox.IsChecked() or destFormatChoices_ != 2:
+			self.tableOfContentsCheckBox.Enable()
+			self.extratagsCheckBox.Enable()
+			self.titleTextCtrl.Enable()
 		else:
-			self.browserBtn.Enable()
-		if destFormatChoices_ == 2: self.tableOfContentsCheckBox.Disable()
-		else: self.tableOfContentsCheckBox.Enable()
+			self.tableOfContentsCheckBox.Disable()
+			self.extratagsCheckBox.Disable()
+			self.titleTextCtrl.Disable()
 
 	def onBrowser(self, evt): self.onExecute(False)
 
@@ -408,6 +478,7 @@ class InteractiveModeDlg(wx.Dialog):
 		metadata = self.metadata
 		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
 		metadata["extratags"] = self.extratagsCheckBox.IsChecked()
+		metadata["genMetadata"] = self.genMetadataCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=not vb)
@@ -463,6 +534,7 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
 		tableOfContentsText = _("&Generate a table of contents")
 		markdownEngine = config.conf["markdownForever"]["markdownEngine"]
 		self.tableOfContentsCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentsText))
@@ -470,6 +542,11 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 		extratagsText = _("Enable e&xtra tags")
 		self.extratagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=extratagsText))
 		self.extratagsCheckBox.SetValue(config.conf["markdownForever"]["extratags"])
+
+		genMetadataText = _("Generate corresponding &metadata")
+		self.genMetadataCheckBox = sHelper.addItem(wx.CheckBox(self, label=genMetadataText))
+		self.genMetadataCheckBox.SetValue(config.conf["markdownForever"]["genMetadata"])
+
 		defaultActionIMText = _("Default action in interactive mode")
 		self.defaultActionListBox = sHelper.addLabeledControl(defaultActionIMText, wx.Choice, choices=IM_actionLabels)
 		self.defaultActionListBox.SetSelection(config.conf["markdownForever"]["IM_defaultAction"])
@@ -478,14 +555,57 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 		self.markdownEngineListBox = sHelper.addLabeledControl(markdownEngineText, wx.Choice, choices=markdownEngineLabels)
 		self.markdownEngineListBox.SetSelection(idEngine)
 		self.defaultPath = sHelper.addLabeledControl(_("Path"), wx.TextCtrl, value=config.conf["markdownForever"]["defaultPath"])
+		manageHTMLTemplatesBtn = bHelper.addButton(self, label="%s..." % _("Manage HTML &templates"))
+		manageHTMLTemplatesBtn.Bind(wx.EVT_BUTTON, self.onManageHTMLTemplates)
+		sHelper.addItem(bHelper)
+
+	def onManageHTMLTemplates(self, evt):
+		manageHTMLTemplatesDialog = ManageHTMLTemplatesDlg(self)
+		if manageHTMLTemplatesDialog.ShowModal() == wx.ID_OK:
+			self.manageHTMLTemplatesBtn.SetFocus()
 
 	def onOk(self, evt):
 		defaultPath = self.defaultPath.GetValue()
 		if not os.path.exists(realpath(defaultPath)): return self.defaultPath.SetFocus()
 		config.conf["markdownForever"]["toc"] = self.tableOfContentsCheckBox.IsChecked()
 		config.conf["markdownForever"]["extratags"] = self.extratagsCheckBox.IsChecked()
+		config.conf["markdownForever"]["genMetadata"] = self.genMetadataCheckBox.IsChecked()
 		config.conf["markdownForever"]["IM_defaultAction"] = self.defaultActionListBox.GetSelection()
 		config.conf["markdownForever"]["markdownEngine"] = markdownEngines[self.markdownEngineListBox.GetSelection()]
-		if defaultPath:
-			config.conf["markdownForever"]["defaultPath"] = defaultPath
+		if defaultPath: config.conf["markdownForever"]["defaultPath"] = defaultPath
 		super(SettingsDlg, self).onOk(evt)
+
+class ManageHTMLTemplatesDlg(wx.Dialog):
+	# Translators: This is the label for the edit dictionary entry dialog.
+	def __init__(self, parent=None, title=_("Manage HTML templates")):
+		super(ManageHTMLTemplatesDlg, self).__init__(parent, title=title)
+		mainSizer=wx.BoxSizer(wx.VERTICAL)
+		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
+		HTMLTemplate = config.conf["markdownForever"]["HTMLTemplate"]
+		HTMLTemplates = config.conf["markdownForever"]["HTMLTemplates"].copy()
+		if HTMLTemplate in HTMLTemplates: HTMLTemplateID = HTMLTemplates.index(HTMLTemplate+1)
+		else: HTMLTemplateID = 0
+
+		HTMLTemplatesTextChoices = [_("Default")]+list(HTMLTemplates.keys())
+		HTMLTemplatesText = _("HTML templates list")
+		self.HTMLTemplatesTextListBox = sHelper.addLabeledControl(HTMLTemplatesText, wx.Choice, choices=HTMLTemplatesTextChoices)
+		self.HTMLTemplatesTextListBox.SetSelection(HTMLTemplateID)
+		bHelper.addButton(parent=self, label="%s..." % _("&Edit")).Bind(wx.EVT_BUTTON, self.onEditClick)
+		bHelper.addButton(parent=self, label="%s..." % _("&Add")).Bind(wx.EVT_BUTTON, self.onAddClick)
+		bHelper.addButton(parent=self, label=_("&Remove")).Bind(wx.EVT_BUTTON, self.onRemoveClick)
+
+		sHelper.addItem(bHelper)
+		sHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		mainSizer.Add(sHelper.sizer,border=20,flag=wx.ALL)
+		mainSizer.Fit(self)
+		self.SetSizer(mainSizer)
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.HTMLTemplatesTextListBox.SetFocus()
+
+	def onEditClick(self, gesture): ui.message(_("Currently unavailable"))
+	def onRemoveClick(self, gesture): ui.message(_("Currently unavailable"))
+	def onAddClick(self, gesture): ui.message(_("Currently unavailable"))
+
+	def onOk(self, evt):
+		self.Destroy()

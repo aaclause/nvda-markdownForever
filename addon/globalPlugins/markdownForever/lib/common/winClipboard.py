@@ -2,7 +2,7 @@
 # winClipboard
 # A small module for Windows that copies to clipboard as formatted HTML or plaint text
 # Author: André-Abush Clause <dev@andreabc.net>
-# Version: 2019-09-29
+# Version: 2019-10-03
 
 # Main references:
 # - Clipboard: https://docs.microsoft.com/en-us/windows/win32/dataxchg/clipboard
@@ -107,16 +107,6 @@ HTMLTemplate = (
 	"</html>"
 )
 
-class MyFormatter(string.Formatter):
-	def __init__(self, default='{{{0}}}'):
-		self.default=default
-
-	def get_value(self, key, args, kwds):
-		if isinstance(key, str):
-			return kwds.get(key, self.default.format(key))
-		else:
-			return string.Formatter.get_value(key, args, kwds)
-
 def get(format=CF_UNICODETEXT, html=False):
 	if format==CF_UNICODETEXT and html: format = CF_HTML
 	data = None
@@ -146,14 +136,11 @@ def copy(data, format=CF_UNICODETEXT, html=False):
 	if not isinstance(data, unicode_type): s = data.decode("UTF-8")
 	if format == CF_HTML:
 		if not isPy3: data = data.encode("UTF-8")
-		data = HTMLHeadersClip+HTMLTemplate.format(BodyHTML=data)
-		fmt = MyFormatter()
-		data = fmt.format(data,
-			StartHT="%.9d" % data.index("<!DOCTYPE html>"),
-			EndHTML="%.9d" % len(data),
-			StartFr="%.9d" % data.index(StartFragment),
-			EndFrag="%.9d" % data.index(EndFragment)
-		)
+		data = HTMLHeadersClip+HTMLTemplate.replace("{BodyHTML}", data)
+		data = data.replace("{StartHT}", "%.9d" % data.index("<!DOCTYPE html>"))
+		data = data.replace("{EndHTML}", "%.9d" % len(data))
+		data = data.replace("{StartFr}", "%.9d" % data.index(StartFragment))
+		data = data.replace("{EndFrag}", "%.9d" % data.index(EndFragment))
 		data = data.encode() if isPy3 else bytes(data)
 		bufLen = len(data)
 	elif format == CF_UNICODETEXT:

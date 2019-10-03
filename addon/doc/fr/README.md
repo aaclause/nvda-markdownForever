@@ -8,12 +8,15 @@ Une petite extension NVDA qui convertit facilement du contenu MarkDown ou HTML
 * Dépôt GitHub : [andre9642/NVDA-markdownForever][3]
 
 ## Commandes
-- *NVDA+ALT+,* : mode interactif.
-- *NVDA+ALT+b* : conversion Markdown vers HTML. Le résultat s'affiche dans votre navigateur par défaut.
+- *NVDA+CTRL+i* : mode interactif.
+- *NVDA+ALT+b* : conversion Markdown vers HTML. Le résultat est affiché dans votre navigateur par défaut.
 - *NVDA+ALT+n* : conversion Markdown vers HTML. Le résultat s'affiche dans un tampon virtuel de NVDA.
 - *NVDA+ALT+k* : conversion HTML vers Markdown. Le résultat s'affiche dans un tampon virtuel de NVDA.
-- *NVDA+ALT+l* : conversion markdown en source HTML. Le résultat est affiché dans un tampon virtuel de NVDA.
-- *NVDA+SHIFT+h* : copie le HTML généré dans le presse-papiers à partir d'un contenu Markdown. Une seule pressions copie en texte brut (source HTML), deux pressions rapides copient en HTML formaté.
+- *NVDA+ALT+l* : conversion markdown vers source HTML. Le résultat est affiché dans un tampon virtuel de NVDA.
+- *NVDA+SHIFT+g* : conversion HTML vers Markdown. Le résultat est copié dans le presse-papier.
+- *NVDA+SHIFT+h* : conversion Markdown vers HTML formaté. Le résultat est copié dans le presse-papier.
+- *NVDA+CTRL+h* : conversion Markdown vers source HTML. Le résultat est copié dans le presse-papier.
+
 
 ### Notes
 
@@ -27,6 +30,7 @@ Une petite extension NVDA qui convertit facilement du contenu MarkDown ou HTML
 - *html2markdown*: <https://github.com/dlon/html2markdown>
 - *html2text*: <https://pypi.org/project/html2text/>
 - *PyYAML*: <https://pypi.org/project/PyYAML/>
+- *winClipboard*: https://github.com/andre9642/python-winClipboard
 
 [1]: https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest
 [2]: https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest?channel=dev

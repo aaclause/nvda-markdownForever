@@ -168,10 +168,10 @@ def writeFile(fp, content):
 
 def extractMetadata(text):
 	metadata = {}
-	if text.startswith("---"):
+	if len(text) > 4 and text.startswith("---"):
 		ln = text[3]
 		if ln in ["\r", "\n"]:
-			if ln == "\r": ln = "\r\n"
+			if ln == "\r" and text[4] == "\n": ln = "\r\n"
 			try:
 				end = (text.index(ln * 2)-3)
 				y = text[(3 + len(ln)):end].strip()

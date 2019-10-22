@@ -12,9 +12,11 @@ from __future__ import unicode_literals
 import os, os.path
 import sys
 isPy3 = True if sys.version_info >= (3, 0) else False
-libCommon = os.path.join(os.path.dirname(__file__), "lib/common")
+baseDir = os.path.dirname(__file__)
+if not isPy3: baseDir = baseDir.decode("mbcs")
+libCommon = os.path.join(baseDir, "lib", "common")
 if isPy3: libPy = os.path.join(os.path.dirname(__file__), "lib/py3")
-else: libPy = os.path.join(os.path.dirname(__file__), "lib/py2")
+else: libPy = os.path.join(baseDir, "lib", "py2")
 
 sys.path.append(libCommon)
 sys.path.append(libPy)

@@ -202,6 +202,23 @@ def getHTMLTemplate():
 	f.close()
 	return template_HTML
 
+def processExtraTags(content):
+	replacements = {
+		"<day/>": time.strftime("%A"),
+		"<Day/>": time.strftime("%A").capitalize(),
+		"<dday/>": time.strftime("%d"),
+		"<month/>": time.strftime("%B"),
+		"<Month/>": time.strftime("%B").capitalize(),
+		"<dmonth/>": time.strftime("%m"),
+		"<year/>": time.strftime("%y").capitalize(),
+		"<Year/>": time.strftime("%Y").capitalize(),
+		"<date/>": time.strftime("%x"),
+		"<time/>": time.strftime("%X"),
+		"<now/>": time.strftime("%c")
+	}
+	for toSearch, replaceBy in replacements.items(): content = content.replace(toSearch, replaceBy)
+	return content
+
 def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, display=True, fp=''):
 	toc = metadata["toc"]
 	title = metadata["title"]
@@ -210,17 +227,10 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 	while "  " in text: text = text.replace("  ", "  ")
 	body, toc = md2HTML(text, toc)
 	content = body
-	if extratags:
-		content = content.replace("<day />", time.strftime("%A"))
-		content = content.replace("<Day />", time.strftime("%A").capitalize())
-		content = content.replace("<month />", time.strftime("%B"))
-		content = content.replace("<Month />", time.strftime("%B").capitalize())
-		content = content.replace("<date />", time.strftime("%x"))
-		content = content.replace("<time />", time.strftime("%X"))
-		content = content.replace("<now />", time.strftime("%x %X"))
+	if extratags: content = processExtraTags(content)
 
 	if toc:
-		tocReplacement = "<toc />"
+		tocReplacement = "<toc/>"
 		if not tocReplacement in content:
 			pre = "<h1>%s</h1>" % _("Table of contents")
 			content = pre + tocReplacement + content

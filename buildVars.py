@@ -22,11 +22,11 @@ addon_info = {
 	# version
 	"addon_version" : time.strftime('%y.%m.%d-%H%M%S'),
 	# Author(s)
-	"addon_author" : u"André-Abush Clause <dev@andreabc.net>",
+	"addon_author" : u"André <dev@andreabc.net>, Sof <hellosof@gmail.com> and contributors",
 	# URL for the add-on documentation support
 	"addon_url" : "https://andreabc.net/projects/NVDA_addons/markdownForever/",
 	# Documentation file name
-	"addon_docFileName" : "readme.html",
+	"addon_docFileName" : None,
 	# Minimum NVDA version supported (e.g. "2018.3")
 	"addon_minimumNVDAVersion" : "2018.3.0",
 	# Last NVDA version supported/tested (e.g. "2018.4", ideally more recent than minimum version)

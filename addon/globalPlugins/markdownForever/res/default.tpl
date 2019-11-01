@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="{lang}">
 	<head>
-		<meta charset="UTF-8" />
-		<title>{title}</title>
+		{head}
 	</head>
-	<body lang="{lang}">
-		{body}
+	<body>
+		<header id="header-block">{header}</header>
+		<main id="main-content">{body}</main>
 	</body>
 </html>

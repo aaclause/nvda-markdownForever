@@ -9,6 +9,8 @@ GitHub: https://github.com/andre9642/nvda-markdownForever/
 """
 
 from __future__ import unicode_literals
+import codecs
+import locale
 import os, os.path
 import sys
 isPy3 = True if sys.version_info >= (3, 0) else False
@@ -38,6 +40,7 @@ import scriptHandler
 import textInfos
 import treeInterceptorHandler
 import ui
+import versionInfo
 from logHandler import log
 
 import markdown2
@@ -45,6 +48,7 @@ import html2markdown
 import html2text
 import yaml
 import winClipboard
+from bs4 import BeautifulSoup
 sys.path.remove(libCommon)
 sys.path.remove(libPy)
 
@@ -78,6 +82,12 @@ markdownEngineLabels = [
 config.conf.spec["markdownForever"] = confSpecs
 
 addonName = _("Markdown Forever")
+_addonDir = os.path.join(baseDir, "..", "..")
+addonInfos = addonHandler.Addon(_addonDir).manifest
+internalTocTag = ":{tableOfContent:%s}/!$£:" % time.time()
+internalAutoNumber = r"\!"
+str_ = str if isPy3 else unicode
+
 if isPy3: curDir = os.path.dirname(__file__)
 else: curDir = os.path.dirname(__file__).decode("mbcs")
 addonPath = '\\'.join(curDir.split('\\')[0:-2])
@@ -105,8 +115,10 @@ def getText():
 		fp = realpath(text)
 		if os.path.isfile(fp):
 			f = open(fp, "rb")
-			text = f.read().decode("UTF-8")
+			raw = f.read()
+			if raw.startswith(codecs.BOM_UTF8): raw = raw[3:]
 			f.close()
+			text = raw.decode()
 			isLocalFile =True
 		else:
 			err = _("Invalid file path")
@@ -147,17 +159,17 @@ def getText():
 			if not ok:
 				log.error(possibleEncodings)
 				err = _("Unable to guess the encoding")
-		except BaseException as e: err = str(e).strip()
+		except BaseException as e: err = str_(e).strip()
 	if not text: err = _("No text")
 	return text, err
 
 
 def md2HTML(md, toc):
-	extras = ["footnotes", "tables", "fenced-code-blocks", "task_list"]
+	extras = ["footnotes", "tables", "fenced-code-blocks", "task_list", "header-ids", "wiki-tables", "spoiler"]
 	if toc: extras.append("toc")
 	res = markdown2.markdown(md, extras=extras)
-	toc = (res.toc_html if res.toc_html and res.toc_html.count("<li>") > 1 else '')
-	return res, toc
+	toc = '<nav role="doc-toc">%s</nav>' % res.toc_html if res.toc_html and res.toc_html.count("<li>") > 1 else ''
+	return res, toc.replace("<ul>", "<ol>").replace("</ul>", "</ol>")
 
 def writeFile(fp, content):
 	fp = realpath(fp)
@@ -182,13 +194,48 @@ def extractMetadata(text):
 				text = text[end+3:].strip()
 			except (ValueError, yaml.scanner.ScannerError): pass
 	if not isinstance(metadata, dict): metadata = {}
-	if not "title" in metadata.keys(): metadata["title"] = ""
-	if not "toc" in metadata.keys(): metadata["toc"] = config.conf["markdownForever"]["toc"]
-	if not "extratags" in metadata.keys(): metadata["extratags"] = config.conf["markdownForever"]["extratags"]
-	if not "genMetadata" in metadata.keys(): metadata["genMetadata"] = config.conf["markdownForever"]["genMetadata"]
-	if not "lang" in metadata.keys(): metadata["lang"] = defaultLanguage
+	HTMLHead = [
+		'<meta name="generator" content="MarkdownForever" />',
+		'<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />'
+	]
+	HTMLHeader = []
+	metadata = {k.lower(): v for k, v in metadata.items()}
+	if "language" in metadata.keys(): metadata["lang"] = metadata.pop("language")
+	if "authors" in metadata.keys(): metadata["author"] = metadata.pop("authors")
+	if not "autonumber-headings" in metadata.keys() or not isinstance(metadata["autonumber-headings"], (int, bool)): metadata["autonumber-headings"] = True
+	if not "title" in metadata.keys() or not isinstance(metadata["title"], (str, str_)): metadata["title"] = _("No title")
+	metadata["title"] = str_(processExtraTags(BeautifulSoup(metadata["title"], "html.parser"))[-1].text)
+	if not "toc" in metadata.keys() or not isinstance(metadata["toc"], (int, bool)): metadata["toc"] = config.conf["markdownForever"]["toc"]
+	if not "extratags" in metadata.keys() or not isinstance(metadata["extratags"], (int, bool)): metadata["extratags"] = config.conf["markdownForever"]["extratags"]
+	if not "genMetadata" in metadata.keys() or not isinstance(metadata["genMetadata"], (int, bool)): metadata["genMetadata"] = config.conf["markdownForever"]["genMetadata"]
+	if not "lang" in metadata.keys() or not isinstance(metadata["lang"], (str, str_)): metadata["lang"] = defaultLanguage
+	if not "mathjax" in metadata.keys() or not isinstance(metadata["mathjax"], (int, bool)): metadata["mathjax"] = False
 	metadata["path"] = metadata["path"] if "path" in metadata.keys() and isPath(metadata["path"]) else config.conf["markdownForever"]["defaultPath"]
 	metadata["filename"] = metadata["filename"] if "filename" in metadata.keys() and isValidFileName(metadata["filename"]) else "MDF_%s" % time.strftime("%y-%m-%d_-_%H-%M-%S")
+	if metadata["mathjax"]:
+		HTMLHead.append('<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>')
+	if "title" in metadata.keys():
+		HTMLHead.append("<title>%s</title>" % metadata["title"])
+		HTMLHeader.append('<h1 class="title">%s</h1>' % metadata["title"])
+	if "subtitle" in metadata:
+		HTMLHeader.append('<p class="subtitle">%s</p>' % metadata["subtitle"])
+	if "keywords" in metadata.keys():
+		HTMLHead.append('<meta name="keywords" content="%s" />' % metadata["keywords"])
+	if "author" in metadata.keys():
+		if isinstance(metadata["author"], (str, str_)): metadata["author"] = [metadata["author"]]
+		for author in metadata["author"]:
+			HTMLHeader.append('<p class="author">%s</p>' % md2HTML(author, toc=False)[0])
+			author_ = str_(processExtraTags(BeautifulSoup(author, "html.parser"))[-1].text)
+			HTMLHead.append('<meta name="author" content="%s" />' % author_)
+	if "css" in metadata.keys():
+		if isinstance(metadata["css"], (str, str_)): metadata["css"] = [metadata["css"]]
+		for css in metadata["css"]: HTMLHead.append('<link rel="stylesheet" href="%s" />' % css)
+	if "date" in metadata.keys():
+		HTMLHeader.append('<p class="date">%s</p>' % metadata["date"])
+		HTMLHead.append('<meta name="dcterms.date" content="%s" />' % metadata["date"])
+	metadata["HTMLHead"] = '\n'.join(HTMLHead)
+	if not HTMLHeader: HTMLHeader = ""
+	else: metadata["HTMLHeader"] = '\n'.join(HTMLHeader)
 	return metadata, text
 
 def getHTMLTemplate():
@@ -202,39 +249,91 @@ def getHTMLTemplate():
 	f.close()
 	return template_HTML
 
-def processExtraTags(content):
-	replacements = {
-		"<day/>": time.strftime("%A"),
-		"<Day/>": time.strftime("%A").capitalize(),
-		"<dday/>": time.strftime("%d"),
-		"<month/>": time.strftime("%B"),
-		"<Month/>": time.strftime("%B").capitalize(),
-		"<dmonth/>": time.strftime("%m"),
-		"<year/>": time.strftime("%y").capitalize(),
-		"<Year/>": time.strftime("%Y").capitalize(),
-		"<date/>": time.strftime("%x"),
-		"<time/>": time.strftime("%X"),
-		"<now/>": time.strftime("%c")
-	}
-	for toSearch, replaceBy in replacements.items(): content = content.replace(toSearch, replaceBy)
-	return content
+def processExtraTags(soup, lang='', allRepl=True):
+	try:
+		if not lang and defaultLanguage == "en": lang = "enu"
+		if lang: locale.setlocale(locale.LC_ALL, lang)
+	except locale.Error as err:
+		log.error(err)
+		msg = _("Metadata and extra tags error. '%s' value was not recognized for lang field." % lang)
+		return False, msg
+	replacements = [
+		("%day%", time.strftime("%A"), 1),
+		("%Day%", time.strftime("%A").capitalize(), 1),
+		("%dday%", time.strftime("%d"), 1),
+		("%month%", time.strftime("%B"), 1),
+		("%Month%", time.strftime("%B").capitalize(), 1),
+		("%dmonth%", time.strftime("%m"), 1),
+		("%year%", time.strftime("%y").capitalize(), 1),
+		("%Year%", time.strftime("%Y").capitalize(), 1),
+		("%date%", time.strftime("%x"), 1),
+		("%time%", time.strftime("%X"), 1),
+		("%now%", time.strftime("%c"), 1),
+		("%addonVersion%", addonInfos["version"], 1),
+		("%NVDAVersion%", versionInfo.version, 1),
+		("%toc%", internalTocTag, 0)
+	]
+	for toSearch, replaceBy, replaceAlways in replacements:
+		if allRepl or (not allRepl and replaceAlways):
+			try:
+				matches = soup.findAll(text=re.compile(r".{0,}%s.{0,}" % toSearch))
+				for match in matches:
+					parents = [parent.name for parent in match.parents]
+					if "code" not in parents and "pre" not in parents:
+						match.string.replaceWith(match.string.replace(toSearch, replaceBy))
+			except (UnicodeEncodeError, UnicodeDecodeError):
+				match.string = match.replaceWith(match.string.replace(toSearch, replaceBy.decode(locale.getlocale()[1])))
+	if lang: locale.setlocale(locale.LC_ALL, '')
+	return True, soup
+
+def applyAutoNumberHeadings(soup, before=""):
+	patternHeaders = re.compile(r"h[0-6]")
+	matches = soup.findAll(patternHeaders, recursive=True)
+	l = []
+	previousHeadingLevel = 0
+	for match in matches:
+		if  match.text.startswith(internalAutoNumber):
+			match.string.replaceWith(match.string.replace(internalAutoNumber, ""))
+			continue
+		currentHeadingLevel = int(match.name[-1])
+		if currentHeadingLevel == previousHeadingLevel: l[-1] += 1
+		elif currentHeadingLevel < previousHeadingLevel:
+			try:
+				l = l[0:currentHeadingLevel]
+				l[-1] += 1
+			except KeyError as err:
+				log.error((repr(err), l, previousHeadingLevel, currentHeadingLevel, match.text, d))
+				return soup
+		else:
+			diff = currentHeadingLevel-previousHeadingLevel
+			l += [0]*diff
+			l[-1] = 1
+		current = '.'.join([str_(k) for k in l])
+		current = re.sub(r"^(0\.)+(.+)$", r"\2", current)
+		match.string.replaceWith("%s. %s" % (current, match.string))
+		previousHeadingLevel = currentHeadingLevel
+	return soup
 
 def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, display=True, fp=''):
 	toc = metadata["toc"]
 	title = metadata["title"]
 	lang = metadata["lang"]
 	extratags = metadata["extratags"]
+	HTMLHeader = metadata["HTMLHeader"]
+	HTMLHead = metadata["HTMLHead"]
 	while "  " in text: text = text.replace("  ", "  ")
 	body, toc = md2HTML(text, toc)
-	content = body
-	if extratags: content = processExtraTags(content)
-
+	content = BeautifulSoup(body, "html.parser")
+	if metadata["autonumber-headings"]:
+		content = applyAutoNumberHeadings(content)
+	if extratags: ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys() else '')
+	if not ok: return wx.CallAfter(gui.messageBox, content, addonName, wx.OK|wx.ICON_ERROR)
+	content = str_(content.prettify()) if save else str_(content)
 	if toc:
-		tocReplacement = "<toc/>"
-		if not tocReplacement in content:
+		if internalTocTag not in content:
 			pre = "<h1>%s</h1>" % _("Table of contents")
-			content = pre + tocReplacement + content
-		content = content.replace(tocReplacement, toc, 1)
+			content = pre + internalTocTag + content
+		content = content.replace(internalTocTag, toc)
 	if save:
 		metadata["path"] = realpath(metadata["path"])
 		if not os.path.exists(metadata["path"]): fp = os.path.dirname(__file__) + r"\\tmp.html"
@@ -244,15 +343,15 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 			except UnicodeEncodeError: pass
 		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
 		if not title.strip(): title = _("Markdown to HTML conversion")+(" (%s)" % time.strftime("%X %x"))
-		if useTemplateHTML: content = getHTMLTemplate().format(title=title, body=content, lang=lang)
+		if useTemplateHTML: content = getHTMLTemplate().format(head=HTMLHead, header=HTMLHeader, body=content, lang=lang)
 		writeFile(fp, content)
 		if display: os.startfile(realpath(fp))
 	else:
 		if lang != defaultLanguage: content = "<div lang=\"%s\">%s</div>" % (lang, content)
 		if display:
 			title = "%s%s" % (title + " - " if title else title, _("Markdown to HTML conversion (preview)")) if not src else _("Markdown to HTML source conversion")
-			ui.browseableMessage(content, title, not src)
-		else: return content
+			ui.browseableMessage("%s%s" % (HTMLHeader, content), title, not src)
+		else: return "%s %s" % (HTMLHeader, content)
 
 def convertToMD(text, metadata, display=True):
 	title = metadata["title"]
@@ -304,15 +403,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.createMenu()
 
 	def createMenu(self):
-		self.NVDAMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		menu = wx.Menu()
-		self.markdownForeverMenu = self.NVDAMenu.AppendSubMenu(menu, _("Mar&kdown Forever"), "%s menu" % addonName)
 		item = menu.Append(wx.ID_ANY, _("Documentation"), _("Opens the addon's documentation"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onDoc, item)
 		item = menu.Append(wx.ID_ANY, "%s..." % _("Settings"), _("Add-on settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, item)
 		item = menu.Append(wx.ID_ANY, _("&Web site"), _("Open the add-on website."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onWebsite, item)
+		self.markdownForeverMenu = gui.mainFrame.sysTrayIcon.preferencesMenu.AppendSubMenu(menu, _("Mar&kdown Forever"), _("%s menu") % addonName)
 
 	def removeMenu(self):
 		if hasattr(self, "markdownForeverMenu"): self.NVDAMenu.Remove(self.markdownForeverMenu)
@@ -322,10 +420,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@staticmethod
 	def onDoc(evt):
-		docPath = os.path.join(addonPath, "doc", defaultLanguage.split('_')[0], "readme.html")
-		if not os.path.exists(docPath):
-			docPath = os.path.join(addonPath, "doc", "en", "readme.html")
-		os.startfile(docPath)
+		MDLocation = os.path.join(addonPath, "doc", defaultLanguage.split('_')[0]+".md")
+		if not os.path.exists(MDLocation):
+			MDLocation = os.path.join(addonPath, "doc", "en"+".md")
+		f = codecs.open(MDLocation, "rb")
+		raw = f.read()
+		if raw.startswith(codecs.BOM_UTF8): raw = raw[3:]
+		metadata, text = extractMetadata(raw.decode("UTF-8"))
+		HTMLLocation = MDLocation.replace(".md", ".html")
+		convertToHTML(text, metadata, save=True, src=False, useTemplateHTML=True, display=True, fp=HTMLLocation)
+		os.startfile(HTMLLocation)
 
 	@staticmethod
 	def onWebsite(evt):
@@ -428,7 +532,7 @@ class InteractiveModeDlg(wx.Dialog):
 		self.destFormatListBox.Bind(wx.EVT_CHOICE, self.onDestFormatListBox)
 		self.destFormatListBox.SetSelection(guessDestFormat)
 
-		genMetadataText = _("Generate corresponding &metadata")
+		genMetadataText = _("Generate corresponding &metadata from HTML source")
 		self.genMetadataCheckBox = sHelper.addItem(wx.CheckBox(self, label=genMetadataText))
 		self.genMetadataCheckBox.SetValue(metadata["genMetadata"])
 		self.genMetadataCheckBox.Bind(wx.EVT_CHECKBOX, self.onDestFormatListBox)
@@ -555,7 +659,7 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 		self.extratagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=extratagsText))
 		self.extratagsCheckBox.SetValue(config.conf["markdownForever"]["extratags"])
 
-		genMetadataText = _("Generate corresponding &metadata")
+		genMetadataText = _("Generate corresponding &metadata from HTML source")
 		self.genMetadataCheckBox = sHelper.addItem(wx.CheckBox(self, label=genMetadataText))
 		self.genMetadataCheckBox.SetValue(config.conf["markdownForever"]["genMetadata"])
 
@@ -588,7 +692,7 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 		super(SettingsDlg, self).onOk(evt)
 
 class ManageHTMLTemplatesDlg(wx.Dialog):
-	# Translators: This is the label for the edit dictionary entry dialog.
+	# Translators: This is the label for the Manage HTML templates dialog.
 	def __init__(self, parent=None, title=_("Manage HTML templates")):
 		super(ManageHTMLTemplatesDlg, self).__init__(parent, title=title)
 		mainSizer=wx.BoxSizer(wx.VERTICAL)
@@ -615,9 +719,36 @@ class ManageHTMLTemplatesDlg(wx.Dialog):
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.HTMLTemplatesTextListBox.SetFocus()
 
-	def onEditClick(self, gesture): ui.message(_("Currently unavailable"))
-	def onRemoveClick(self, gesture): ui.message(_("Currently unavailable"))
-	def onAddClick(self, gesture): ui.message(_("Currently unavailable"))
+	def onEditClick(self, gesture):
+		ui.message(_("Currently unavailable"))
+
+	def onRemoveClick(self, gesture):
+		ui.message(_("Currently unavailable"))
+
+	def onAddClick(self, gesture):
+		entryDialog = TemplateEntryDlg(self, title=_("Add template"))
+		if entryDialog.ShowModal() == wx.ID_OK:
+			entry = entryDialog.dictEntry
 
 	def onOk(self, evt):
 		self.Destroy()
+
+class TemplateEntryDlg(wx.Dialog):
+	# Translators: This is the label for the edit template entry dialog.
+	def __init__(self, parent=None, title=_("Edit template")):
+		super(TemplateEntryDlg, self).__init__(parent, title=title)
+		mainSizer=wx.BoxSizer(wx.VERTICAL)
+		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		templateNameText = _("Template &name")
+		self.templateName = sHelper.addLabeledControl(templateNameText, wx.TextCtrl)
+		templateContentText = _("Content")
+		self.templateContent = sHelper.addLabeledControl(templateContentText, wx.TextCtrl, style=wx.TE_MULTILINE|wx.TE_PROCESS_TAB, size=(700, -1))
+		sHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		mainSizer.Add(sHelper.sizer,border=20,flag=wx.ALL)
+		mainSizer.Fit(self)
+		self.SetSizer(mainSizer)
+		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
+		self.templateName.SetFocus()
+
+	def onOk(self, evt):
+		super(TemplateEntryDlg, self).onOk(evt)

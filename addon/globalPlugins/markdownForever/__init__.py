@@ -413,7 +413,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.markdownForeverMenu = gui.mainFrame.sysTrayIcon.preferencesMenu.AppendSubMenu(menu, _("Mar&kdown Forever"), _("%s menu") % addonName)
 
 	def removeMenu(self):
-		if hasattr(self, "markdownForeverMenu"): self.NVDAMenu.Remove(self.markdownForeverMenu)
+		if hasattr(self, "markdownForeverMenu"): gui.mainFrame.sysTrayIcon.preferencesMenu.Remove(self.markdownForeverMenu)
 
 	def terminate(self):
 		self.removeMenu()

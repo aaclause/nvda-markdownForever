@@ -196,7 +196,7 @@ They can be reached from the NVDA menu -> Settings MarkdownForever -> Settings a
 
 ## Add-on Information
 
-* Authors: André &lt;<dev@andreabc.net>&gt;, Sof &lt;<hellosof@gmail.com>&gt; and contributors
+* Authors: André &lt;<dev@andreabc.net>&gt;, Sof &lt;<hellosof@gmail.com>&gt; and other contributors
 * License: GNU General Public License, version 2
 * Download [stable version](https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest)
 * Download [development version](https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest?channel=dev)

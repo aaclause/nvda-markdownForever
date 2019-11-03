@@ -16,7 +16,7 @@ date: Friday, November 1, 2019
 
 ## Introduction
 
-MarkdownForever is a small NVDA add-on that converts Markdown or HTML contents easily. Just write or display any text in Markdown or HTML format and press a simple shortcut to instantly convert or preview the result at any time, exactly as it will look like in your final webpage or in HTML source code, ready to be pasted in any text area supporting HTML.
+MarkdownForever is a small NVDA add-on that converts Markdown or HTML contents easily. Just write or display any text in Markdown or HTML format and press a simple shortcut to instantly convert or preview the result at any time, exactly as it will look like in your final webpage, or in HTML source code, ready to be pasted in any text area supporting HTML.
 
 MarkdownForever can:
 
@@ -32,15 +32,15 @@ According to Wikipedia,
 
 You can learn more about Markdown by reading the [full article on Wikipedia.](https://en.wikipedia.org/wiki/Markdown)
 
-So, instead of writing your web documents using HTML with risk of making mistakes, you will use simple tags and your work will be done in no time. With Markdown, you will be able to do more or less the things HTML can do: headings, ordered (numbered) or unordered (buleted) lists, links, and even tables.
+So, instead of writing your web documents using HTML with risk of making mistakes, you will use easy to memorize tags and your work will be done in no time. With Markdown, you will be able to do more or less the things HTML can do: headings, ordered (numbered) or unordered (buleted) lists, links, and even tables.
 
 For example, if you want to make a first level heading, you will write one hash sign (#), followed by the name of your heading:
 
-> `# This is an example of a first level heading`
+> `#This is an example of a first level heading`
 
 which will appear as follow in your final HTML document:
 
-> <h1>\! This is an example of a first level heading</h1>
+> <h1>\!This is an example of a first level heading</h1>
 
 For a second level heading, you will use Two hash signs, three for a third level one, Etc.
  
@@ -79,7 +79,7 @@ You can use the following commands:
 - *NVDA+ALT+b*: The result is displayed as web page in your default web browser.
 - *NVDA+ALT+n*: The result is displayed as a web page in a virtual buffer of NVDA.
 
-Please note that it is recommended to favor the display in browser instead of the virtual buffer of NVDA. Some tags such as `<details>` are not supported by the render of virtual buffer.
+Please note that it is recommended to favor the display in browser instead of the virtual buffer of NVDA. Some tags, particularly HTML5 tags such as `<details>,` are not supported by the render of virtual buffer.
 
 ## Converting Markdown to HtML source code
 
@@ -110,7 +110,7 @@ Please note that the *formatted HTML* can be pasted in applications like Microso
 The interactive mode is a function which presents all MarkdownForever's features in a convenient dialog box, which offers you even more handy extras. To open the Interactive Mode, Press NVDA+CTRL+i.
 Here is a description of the screen in Tab order:
 
-* "Convert to": This first combo box allows you to choose the conversion direction: HTML, HTML or Markdown. Use the up and down arrow keys to select.
+* "Convert to": This first combo box allows you to choose the conversion direction: HTML, HTML source or Markdown. Use the up and down arrow keys to select.
 * "Generate a table of contents": This checkbox will allow you to generate or not an index of the chapters of your final HTML document with clickable links leading to each chapter. The status of this option can also be set as default in [MarkdownForever settings.](#markdownforevers-default-settings)
 * "Enable Extra Tags": If this is checked, it enables the possibility to use [special tags](#extra-tags) in your Markdown content to automatically insert things like the actual date or time. The status of this option can also be set as default in [MarkdownForever settings.](#markdownforevers-default-settings)
 * "Title": You can input the title of your HTML document here, which will be visible in the internet browser.
@@ -129,10 +129,9 @@ The metadata block allows you to set specific parameters for a particular docume
 * title: to indicate the title of the HTML document. In Interactive Mode, the title field will be automatically filled using the value of this key.
 * lang: to specify the main language of the document. If necessary, use span/div tags with the lang attribute to indicate language changes, internal to the document.
 * toc: to indicate whether or not a table of contents should be generated. Possible values: true (1) or false (0).
-* filename: to indicate the name of the file
+* filename: to indicate the name of the output file when saving.
 * path: to specify the directory where the document should be generated. The environment variables %userprofile%, %appdata% and %tmp% are supported.
-* extratags: to specify whether or not [extra-tags](#extra-tags) should be interpreted.
-Possible values: true (1) or false (0).
+* extratags: to specify whether or not [extra-tags](#extra-tags) should be interpreted. Possible values: true (1) or false (0).
 
 ### Metadata usage example
 <blockquote>
@@ -155,11 +154,11 @@ In the example above, the text will be voiced in three languages, assuming that 
 
 ## Extra-tags
 
-Extra-tags are special placeholders that you put in your Markdown content to automatically add system linfo like current date or time, which will be rendered in clear text in your HTML document.
+Extra-tags are special placeholders that you can put in your Markdown content to automatically add system info like current date or time, which will be rendered in clear text in your HTML document.
 
-<h3>\! Supported extra-tags</h3>
+### Supported extra-tags
 
-| **In the Markdown content** | **Explanation** | **Result in the HTML content** |
+| **In the Markdown content** | **Explanation** | **Result in the browser** |
 | :----------: | :----------: | :----------: |
 | `%date%` | Current date | %date% |
 | `%time%` | Current time | %time% |
@@ -170,13 +169,13 @@ Extra-tags are special placeholders that you put in your Markdown content to aut
 | `%dmonth%` | Current month (decimal format) | %dmonth% |
 | `%year%` | Current year (2 digits) | %year% |
 | `%Year%` | Current year (4 digits) | %Year% |
-| `%toc%` | Table of contents at the extra-tag's position (if enabled through metadata or default settings) | N/A |
+| `%toc%` | Table of contents at cursor's position (if enabled through metadata or default settings) | N/A |
 
 ## MarkdownForever's default settings
 
 They can be reached from the NVDA menu -> Settings MarkdownForever -> Settings and will let you configure and set as default various settings related to the conversion process already mentionned above:
 
-* "Generate a table of contents": This checkbox will allow you to generate or not an index of the chapters of your final HTML document with clickable links leading to each chapter. This behavior can also be set on a per-document basis using the toc key within the [optional metadata block](#optional-metadata-block) and placed anywhere in the document using the corresponding [extra-tag.](#extra-tags)
+* "Generate a table of contents": This checkbox will allow you to generate or not an index of the chapters of your final HTML document with clickable links leading to each chapter. This behavior can also be set on a per-document basis using the "toc" key within the [optional metadata block](#optional-metadata-block) and placed anywhere in the document using the corresponding [extra-tag.](#extra-tags)
 * "Enable Extra Tags": If this is checked, it enables the possibility to use [special tags](#extra-tags) in your Markdown content to automatically insert things like the actual date or time. This behavior can also be set on a per-document basis using the extratags key within the [optional metadata block.](#optional-metadata-block)
 * "Generate corresponding metadata for HTML source": When converting an HTML source file to Markdown, it attempts to guess the metadata from the source code (title, lang, filename etc) and generate the [metadata block](#optionnal-metadata-block) for you.
 * "Default action in Interactive mode": This allows to choose the default action which will be performed when pressing the Enter key in [Interactive mode:](#interactive-mode) Show the generated content in your browser, in a virtual buffer or put it in the clipboard.
@@ -186,7 +185,7 @@ They can be reached from the NVDA menu -> Settings MarkdownForever -> Settings a
 
 ## Commands summary
 
-- *NVDA+CTRL+i*: interactive mode.
+- *NVDA+CTRL+i*: Interactive mode.
 - *NVDA+ALT+b*: Markdown to HTML conversion. The result is displayed in your default browser.
 - *NVDA+ALT+n*: Markdown to HTML conversion. The result is displayed in a virtual buffer of NVDA.
 - *NVDA+ALT+k*: HTML to markdown conversion. The result is displayed in a virtual buffer of NVDA.

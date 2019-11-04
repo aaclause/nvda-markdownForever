@@ -559,6 +559,10 @@ class InteractiveModeDlg(wx.Dialog):
 		self.tableOfContentsCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentsText))
 		self.tableOfContentsCheckBox.SetValue(metadata["toc"])
 
+		numberHeadingsText = _("Try to automatically &number headings")
+		self.numberHeadingsCheckBox = sHelper.addItem(wx.CheckBox(self, label=numberHeadingsText))
+		self.numberHeadingsCheckBox.SetValue(metadata["autonumber-headings"])
+
 		extratagsText = _("Enable e&xtra tags")
 		self.extratagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=extratagsText))
 		self.extratagsCheckBox.SetValue(metadata["extratags"])

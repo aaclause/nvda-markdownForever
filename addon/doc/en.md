@@ -198,8 +198,8 @@ They can be reached from the NVDA menu -> Settings MarkdownForever -> Settings a
 
 * Authors: André &lt;<dev@andreabc.net>&gt;, Sof &lt;<hellosof@gmail.com>&gt; and other contributors
 * License: GNU General Public License, version 2
-* Download [stable version](https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest)
-* Download [development version](https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest?channel=dev)
+* Download [stable version](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
+* Download [development version](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
 * GitHub repository: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
 * **Included dependencies**:
 	- [Markdown2](https://github.com/trentm/python-markdown2)

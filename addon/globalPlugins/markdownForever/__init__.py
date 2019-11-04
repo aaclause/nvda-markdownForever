@@ -2,9 +2,9 @@
 """
 Markdown Forever
 
-A small NVDA add-on that converts Markdown or HTML contents easily
+Full-featured Markdown and HTML converter for NVDA
 
-Copyright 2019 André-Abush Clause, released under GPL.
+Copyright 2019 André-Abush Clause, Sof and other contributors. Released under GPL.
 GitHub: https://github.com/andre9642/nvda-markdownForever/
 """
 
@@ -13,6 +13,7 @@ import codecs
 import locale
 import os, os.path
 import sys
+from . import updateCheck
 isPy3 = True if sys.version_info >= (3, 0) else False
 baseDir = os.path.dirname(__file__)
 if not isPy3: baseDir = baseDir.decode("mbcs")
@@ -65,6 +66,10 @@ IM_actionLabels = [
 	_("Copy to clipboard")
 ]
 confSpecs = {
+	"autoCheckUpdate": "boolean(default=True)",
+	"lastNVDAVersion": 'string(default="unknown")',
+	"updateChannel": "option(dev, stable, default=stable)",
+	"lastCheckUpdate": "float(min=0, default=0)",
 	"toc": 'boolean(default=False)',
 	"extratags": 'boolean(default=True)',
 	"genMetadata": 'boolean(default=True)',
@@ -401,6 +406,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		self.createMenu()
+		self.updateCheckThread = updateCheck.UpdateCheck()
+		self.updateCheckThread.start()
+		if not self.updateCheckThread.is_alive():
+			log.error("Update check system not started")
 
 	def createMenu(self):
 		menu = wx.Menu()
@@ -408,6 +417,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onDoc, item)
 		item = menu.Append(wx.ID_ANY, "%s..." % _("Settings"), _("Add-on settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, item)
+		item = menu.Append(wx.ID_ANY, "%s..." % _("&Check for update"), _("Checks if update is available"))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onUpdate, item)
 		item = menu.Append(wx.ID_ANY, _("&Web site"), _("Open the add-on website."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onWebsite, item)
 		self.markdownForeverMenu = gui.mainFrame.sysTrayIcon.preferencesMenu.AppendSubMenu(menu, _("Mar&kdown Forever"), _("%s menu") % addonName)
@@ -416,6 +427,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if hasattr(self, "markdownForeverMenu"): gui.mainFrame.sysTrayIcon.preferencesMenu.Remove(self.markdownForeverMenu)
 
 	def terminate(self):
+		self.updateCheckThread.stop()
+		self.updateCheckThread.join()
+		if self.updateCheckThread.is_alive(): log.info("Update check system stopped")
 		self.removeMenu()
 
 	@staticmethod
@@ -430,6 +444,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		HTMLLocation = MDLocation.replace(".md", ".html")
 		convertToHTML(text, metadata, save=True, src=False, useTemplateHTML=True, display=True, fp=HTMLLocation)
 		os.startfile(HTMLLocation)
+
+	@staticmethod
+	def onUpdate(evt):
+		return updateCheck.checkUpdates()
 
 	@staticmethod
 	def onWebsite(evt):
@@ -540,6 +558,10 @@ class InteractiveModeDlg(wx.Dialog):
 		tableOfContentsText = _("&Generate a table of contents")
 		self.tableOfContentsCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentsText))
 		self.tableOfContentsCheckBox.SetValue(metadata["toc"])
+
+		numberHeadingsText = _("Try to automatically &number headings")
+		self.numberHeadingsCheckBox = sHelper.addItem(wx.CheckBox(self, label=numberHeadingsText))
+		self.numberHeadingsCheckBox.SetValue(metadata["autonumber-headings"])
 
 		extratagsText = _("Enable e&xtra tags")
 		self.extratagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=extratagsText))

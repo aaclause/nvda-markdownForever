@@ -240,8 +240,8 @@ conversion process already mentionned above:
 
   * Authors: André < [ dev@andreabc.net ](mailto:dev@andreabc.net) >, Sof < [ hellosof@gmail.com ](mailto:hellosof@gmail.com) > and contributors 
   * License: GNU General Public License, version 2 
-  * Download [ stable version ](https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest)
-  * Download [ development version ](https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest?channel=dev)
+  * Download [ stable version ](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
+  * Download [ development version ](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
   * GitHub repository: [ andre9642/NVDA-markdownForever ](https://github.com/Andre9642/nvda-markdownForever)
   * **Included dependencies** : 
     * [ Markdown2 ](https://github.com/trentm/python-markdown2)

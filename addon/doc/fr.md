@@ -33,9 +33,9 @@ Selon Wikipédia,
 
 Vous pouvez en apprendre plus sur Markdown en lisant l'[article complet sur Wikipedia.](https://fr.wikipedia.org/wiki/Markdown)
 
-Ainsi, au lieu de rédiger vos documents web en langage HTML en risquant de faire des erreurs, vous n'avez qu'à utiliser des balises faciles à mémoriser et le travail sera fait en un rien de temps. Avec Markdown, vous pourrez faire à peu près ce que HTML peut faire : des titres, des listes ordonnées (numérotées) ou non-ordonnées (listes à puces), des liens et même des tableaux.
+Ainsi, au lieu de rédiger vos documents web en langage HTML en risquant de faire des erreurs, vous avez juste à utiliser des balises faciles à mémoriser et le travail sera fait en un rien de temps. Avec Markdown, vous pourrez faire à peu près ce que HTML peut faire : des titres, des listes ordonnées (numérotées) ou non-ordonnées (listes à puces), des liens et même des tableaux.
 
-Par exemple, si vous voulez réaliser un titre de niveau 1, vous saisirez un signe dièse (#), suivi du nom de votre titre :
+Par exemple, si vous voulez réaliser un titre de niveau 1, vous saisirez un signe dièse (#), suivi du nom de votre titre, avec ou sans espace entre les deux :
 
 > `#Voici un exemple de titre de niveau 1`
 
@@ -184,7 +184,7 @@ Ils sont accessibles depuis le menu NVDA -> Préférences -> MarkdownForever -> 
 * "Action par défaut en mode Interactif" : Ceci permet de choisir l'action par défaut qui sera effectuée lors de l'appui sur la touche Entrée en [Mode interactif :](#mode-interactif) Afficher le contenu généré dans votre navigateur, dans un tampon virtuel ou le mettre dans le presse-papiers.
 * "Moteur de conversion" : MarkdownForever vous permet de choisir entre deux moteurs de conversion, [HTML2Text](https://pypi.org/project/html2text/) et [HTML2Markdown.](https://pypi.org/project/html2markdown/) Il suffit d'expérimenter et de choisir celui que vous préférez, selon vos besoins ou le résultat produit.
 * "Chemin" : Ici, vous pouvez définir un emplacement d'enregistrement par défaut sur votre disque dur pour vos documents convertis, pratique si vous utilisez toujours le même dossier pour stocker tous vos travaux.
-* "Gérer les modèles HTML" : Ceci ouvrira une boîte de dialogue permettant d'ajouter, modifier et supprimer des modèles HTML. Avec les modèles, vous pourrez personnaliser l'aspect visuel de vos documents HTML à l'aide de CSS (feuilles de styles en cascade), le langage définissant la présentation visuelle d'une page web. Cela vous permettra de changer les couleurs, de mettre en page ou d'ajouter des images à vos productions et de construire un modèle pour chaque besoin spécifique. Il y a bien sûr de nombreux tutoriels pour apprendre le CSS disponibles sur le web et [celui-ci](http://css.mammouthland.net/premiers-pas-en-css.php) peut être un bon point de départ.
+* "Gérer les modèles HTML" : Ceci ouvrira une boîte de dialogue permettant d'ajouter, modifier et supprimer des modèles HTML. Avec les modèles, vous pourrez personnaliser l'aspect visuel de vos documents HTML à l'aide de CSS (cascading styles sheets), le langage définissant la présentation visuelle d'une page web. Cela vous permettra de changer les couleurs, de mettre en page ou d'ajouter des images à vos productions et de créer un modèle pour chaque besoin spécifique. Il y a bien sûr de nombreux tutoriels pour apprendre le CSS disponibles sur le web et [celui-ci](http://css.mammouthland.net/premiers-pas-en-css.php) peut être un bon point de départ.
 
 ## Résumé des commandes
 
@@ -194,7 +194,7 @@ Ils sont accessibles depuis le menu NVDA -> Préférences -> MarkdownForever -> 
 - *NVDA+ALT+k* : Conversion HTML en Markdown. Le résultat est affiché dans un tampon virtuel de NVDA.
 - *NVDA+ALT+l* : Conversion Markdown en code source HTML. Le résultat est affiché dans un tampon virtuel de NVDA.
 - *NVDA+SHIFT+g* : Conversion HTML en Markdown. Le résultat est copié dans le presse-papiers.
-- *NVDA+SHIFT+h* : Conversion Markdown en HTML formatée : Le résultat est copié dans le presse-papiers.
+- *NVDA+SHIFT+h* : Conversion Markdown en HTML formaté. Le résultat est copié dans le presse-papiers.
 - *NVDA+CTRL+h* : Conversion Markdown en code source HTML. Le résultat est copié dans le presse-papiers.
 
 ## Informations complémentaires

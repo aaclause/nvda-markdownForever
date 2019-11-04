@@ -34,7 +34,7 @@ You can learn more about Markdown by reading the [full article on Wikipedia.](ht
 
 So, instead of writing your web documents using HTML with risk of making mistakes, you will use easy to memorize tags and your work will be done in no time. With Markdown, you will be able to do more or less the things HTML can do: headings, ordered (numbered) or unordered (buleted) lists, links, and even tables.
 
-For example, if you want to make a first level heading, you will write one hash sign (#), followed by the name of your heading:
+For example, if you want to make a first level heading, you will write one hash sign (#), followed by the name of your heading, without or without a space between them:
 
 > `#This is an example of a first level heading`
 

@@ -201,8 +201,8 @@ Ils sont accessibles depuis le menu NVDA -> Préférences -> MarkdownForever -> 
 
 * Auteurs: André &lt;<dev@andreabc.net>&gt;, Sof &lt;<hellosof@gmail.com>&gt; et contributeurs
 * Licence : Licence publique générale GNU, version 2
-* Télécharger [version stable](https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest)
-* Télécharger [version de développement](https://andreabc.net/projects/NVDA_addons/MarkdownForever/latest?channel=dev)
+* Télécharger [version stable](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
+* Télécharger [version de développement](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
 * Dépôt GitHub : [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
 * **Dépendances incluses** :
 	- [Markdown2](https://github.com/trentm/python-markdown2)

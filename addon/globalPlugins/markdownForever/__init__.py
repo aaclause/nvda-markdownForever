@@ -331,8 +331,9 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 	content = BeautifulSoup(body, "html.parser")
 	if metadata["autonumber-headings"]:
 		content = applyAutoNumberHeadings(content)
-	if extratags: ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys() else '')
-	if not ok: return wx.CallAfter(gui.messageBox, content, addonName, wx.OK|wx.ICON_ERROR)
+	if extratags:
+		ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys() else '')
+		if not ok: return wx.CallAfter(gui.messageBox, content, addonName, wx.OK|wx.ICON_ERROR)
 	content = str_(content.prettify()) if save else str_(content)
 	if toc:
 		if internalTocTag not in content:
@@ -617,6 +618,7 @@ class InteractiveModeDlg(wx.Dialog):
 		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
 		metadata["extratags"] = self.extratagsCheckBox.IsChecked()
 		metadata["genMetadata"] = self.genMetadataCheckBox.IsChecked()
+		metadata["autonumber-headings"] = self.numberHeadingsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=not vb)

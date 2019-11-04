@@ -140,7 +140,7 @@ class UpdateCheck(threading.Thread):
 	def run(self):
 		if globalVars.appArgs.secure: return self.stop()
 		checkingForced = False
-		delayChecking = 86400 if config.conf[sectionName]["updateChannel"] != "stable" else 604800
+		delayChecking = 86400 #86400 if config.conf[sectionName]["updateChannel"] != "stable" else 604800
 		while not self.shouldStop:
 			if not checkInProgress and config.conf[sectionName]["autoCheckUpdate"]:
 				if config.conf[sectionName]["lastNVDAVersion"] != versionInfo.version:

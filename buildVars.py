@@ -18,7 +18,7 @@ addon_info = {
 	"addon_summary" : _("Markdown Forever"),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-	"addon_description" : _("A small NVDA add-on that provides preview of MarkDown or HTML contents in any textarea"),
+	"addon_description" : _("Full-featured Markdown and HTML converter for NVDA"),
 	# version
 	"addon_version" : time.strftime('%y.%m.%d-%H%M%S'),
 	# Author(s)

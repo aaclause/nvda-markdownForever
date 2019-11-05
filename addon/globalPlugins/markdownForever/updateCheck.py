@@ -56,7 +56,7 @@ def checkUpdates(sil = False):
 		global checkInProgress
 		checkInProgress = True
 		res = gui.messageBox(
-			(_("New version available, version %s. Do you want download it now?") % version.strip()+('\n%s' % msg)).strip(),
+			(_("New version available, version %s. Do you want to download it now?") % version.strip()+('\n%s' % msg)).strip(),
 			title,
 			wx.YES|wx.NO|wx.ICON_INFORMATION)
 		if res == wx.YES:
@@ -76,7 +76,7 @@ def checkUpdates(sil = False):
 		global checkInProgress
 		checkInProgress = True
 		res = gui.messageBox(
-			_("Oops! There was a problem checking for updates. Please retry later or download and install manually via %s. Do you want open this URL in your browser now?") % addonInfos["url"],
+			_("Oops! There was a problem downloading for update. Please retry later or download and install manually via %s. Do you want to open this URL in your browser now?") % addonInfos["url"],
 			title,
 			wx.YES|wx.NO|wx.ICON_ERROR)
 		if res == wx.YES: os.startfile(addonInfos["url"])
@@ -111,7 +111,7 @@ def checkUpdates(sil = False):
 			return wx.CallAfter(errorUpdateDialog)
 
 	if checkInProgress: return ui.message(_("An update check dialog is already running!"))
-	title = _("{addonName}'s Update".format(addonName=addonInfos["name"]))
+	title = _("{addonName}'s update").format(addonName=addonInfos["name"])
 	newUpdate = False
 	url = addonInfos["url"];
 	if url.endswith('/'): url = url[0:-1]

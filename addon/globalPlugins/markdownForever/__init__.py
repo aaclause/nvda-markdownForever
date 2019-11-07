@@ -285,7 +285,8 @@ def processExtraTags(soup, lang='', allRepl=True):
 				for match in matches:
 					parents = [parent.name for parent in match.parents]
 					if "code" not in parents and "pre" not in parents:
-						match.string.replaceWith(match.string.replace(toSearch, replaceBy))
+						newContent = str_(match.string).replace(toSearch, '<span class="metadata_%s">%s</span>' % (toSearch, replaceBy))
+						match.string.replaceWith(BeautifulSoup(newContent))
 			except (UnicodeEncodeError, UnicodeDecodeError):
 				match.string = match.replaceWith(match.string.replace(toSearch, replaceBy.decode(locale.getlocale()[1])))
 	if lang: locale.setlocale(locale.LC_ALL, '')
@@ -359,13 +360,15 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 			ui.browseableMessage("%s%s" % (HTMLHeader, content), title, not src)
 		else: return "%s %s" % (HTMLHeader, content)
 
+def getMetadataBlock(metadata, ignore=["HTMLHead", "HTMLHeader"]):
+	metadata = {k: v for k, v in metadata.items() if k not in ignore}
+	if isPy3: dmp = yaml.dump(metadata, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
+	else: dmp = yaml.dump(metadata, Dumper=KludgeDumper, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
+	return dmp.decode("UTF-8")
+
 def convertToMD(text, metadata, display=True):
 	title = metadata["title"]
-	if metadata["genMetadata"]:
-		if isPy3: dmp = yaml.dump( metadata, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
-		else: dmp = yaml.dump( metadata, Dumper=KludgeDumper, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
-		dmp = dmp.decode("UTF-8")
-	else: dmp = ""
+	dmp = getMetadataBlock(metadata) if metadata["genMetadata"] else ""
 	if config.conf["markdownForever"]["markdownEngine"] == "html2markdown":
 		convert = html2markdown.convert
 	else: convert = html2text.html2text
@@ -571,6 +574,15 @@ class InteractiveModeDlg(wx.Dialog):
 		titleLabelText = _("&Title")
 		self.titleTextCtrl = sHelper.addLabeledControl(titleLabelText, wx.TextCtrl)
 		self.titleTextCtrl.SetValue(metadata["title"])
+		self.titleTextCtrl.Bind(wx.EVT_TEXT, self.onUpdateMetadata)
+
+		correspondingMetadataBlockText = _("&Corresponding metadata block")
+		self.correspondingMetadataBlock = sHelper.addLabeledControl(correspondingMetadataBlockText, wx.TextCtrl, style=wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_PROCESS_TAB, size=(700, -1))
+		self.correspondingMetadataBlock.SetValue(getMetadataBlock(metadata))
+
+		checkboxesToBind = [self.genMetadataCheckBox, self.tableOfContentsCheckBox, self.numberHeadingsCheckBox, self.extratagsCheckBox]
+		for checkbox in checkboxesToBind:
+			checkbox.Bind(wx.EVT_CHECKBOX, self.onUpdateMetadata)
 
 		self.virtualBufferBtn = bHelper.addButton(self, label=_("Show in &virtual buffer"))
 		self.virtualBufferBtn.Bind(wx.EVT_BUTTON, self.onVB)
@@ -594,6 +606,10 @@ class InteractiveModeDlg(wx.Dialog):
 		self.destFormatListBox.SetFocus()
 		self.onDestFormatListBox(None)
 
+	def onUpdateMetadata(self, evt=None):
+		self.updateMetadata()
+		self.correspondingMetadataBlock.SetValue(getMetadataBlock(self.metadata))
+
 	def onDestFormatListBox(self, evt):
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ > 0: self.browserBtn.Disable()
@@ -612,14 +628,16 @@ class InteractiveModeDlg(wx.Dialog):
 	def onBrowser(self, evt): self.onExecute(False)
 
 	def onVB(self, evt): self.onExecute(True)
-
-	def onExecute(self, vb=False):
+	def updateMetadata(self):
 		metadata = self.metadata
 		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
 		metadata["extratags"] = self.extratagsCheckBox.IsChecked()
 		metadata["genMetadata"] = self.genMetadataCheckBox.IsChecked()
 		metadata["autonumber-headings"] = self.numberHeadingsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
+
+	def onExecute(self, vb=False):
+		self.updateMetadata()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=not vb)
 		elif destFormatChoices_ == 1: convertToHTML(self.text, metadata, save=False, src=True)

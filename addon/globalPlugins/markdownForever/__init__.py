@@ -189,11 +189,13 @@ def writeFile(fp, content):
 
 def backTranslateExtraTags(text):
 	soup = BeautifulSoup(text)
-	matches = soup.findAll("span", class_=re.compile(r"^extratag_%.+%$"))
+	matches = soup.findAll(["span", "div"], class_=re.compile(r"^extratag_%.+%$"))
 	for match in matches:
 		extratag = match["class"][-1].split('_', 1)[-1]
-		match.string.replaceWith(extratag)
-		match.unwrap()
+		try:
+			match.string.replaceWith(extratag)
+			match.unwrap()
+		except AttributeError as e: log.error(e)
 	return str_(soup)
 
 def extractMetadata(text):
@@ -300,9 +302,10 @@ def processExtraTags(soup, lang='', allRepl=True, allowBacktranslate=True):
 					parents = [parent.name for parent in match.parents]
 					if "code" not in parents and "pre" not in parents:
 						if allowBacktranslate:
-							newContent = str_(match.string).replace(toSearch, '<span class="extratag_%s">%s</span>' % (toSearch, replaceBy))
+							tag = "div" if "%toc%" in toSearch else "span"
+							newContent = str_(match.string).replace(toSearch, '<%s class="extratag_%s">%s</%s>' % (tag, toSearch, replaceBy, tag))
 							match.string.replaceWith(BeautifulSoup(newContent))
-						else: match.replaceWith(match.string.replace(toSearch, replaceBy))
+						else: match.string.replaceWith(match.string.replace(toSearch, replaceBy))
 			except (UnicodeEncodeError, UnicodeDecodeError):
 				match.replaceWith(match.string.replace(toSearch, replaceBy.decode(locale.getlocale()[1])))
 	if lang: locale.setlocale(locale.LC_ALL, '')

@@ -72,6 +72,8 @@ confSpecs = {
 	"lastCheckUpdate": "float(min=0, default=0)",
 	"toc": 'boolean(default=False)',
 	"extratags": 'boolean(default=True)',
+	"extratags-back": 'boolean(default=True)',
+	"detectExtratags": 'boolean(default=True)',
 	"genMetadata": 'boolean(default=True)',
 	"IM_defaultAction": 'integer(min=0, max=3, default=0)',
 	"defaultPath": 'string(default="%USERPROFILE%\documents")',
@@ -168,13 +170,13 @@ def getText():
 	if not text: err = _("No text")
 	return text, err
 
-
-def md2HTML(md, toc):
+def md2HTML(md, toc, ol=True):
 	extras = ["footnotes", "tables", "fenced-code-blocks", "task_list", "header-ids", "wiki-tables", "spoiler"]
 	if toc: extras.append("toc")
 	res = markdown2.markdown(md, extras=extras)
-	toc = '<nav role="doc-toc">%s</nav>' % res.toc_html if res.toc_html and res.toc_html.count("<li>") > 1 else ''
-	return res, toc.replace("<ul>", "<ol>").replace("</ul>", "</ol>")
+	toc = '<nav role="doc-toc" id="doc-toc">%s</nav>' % res.toc_html if res.toc_html and res.toc_html.count("<li>") > 1 else ''
+	if ol: toc = toc.replace("<ul>", "<ol>").replace("</ul>", "</ol>")
+	return res, toc
 
 def writeFile(fp, content):
 	fp = realpath(fp)
@@ -184,6 +186,17 @@ def writeFile(fp, content):
 		try: f.write(bytearray(content, "UTF-8"))
 		except UnicodeDecodeError: f.write(bytearray(content.decode("UTF-8"), "UTF-8"))
 	f.close()
+
+def backTranslateExtraTags(text):
+	soup = BeautifulSoup(text)
+	matches = soup.findAll(["span", "div"], class_=re.compile(r"^extratag_%.+%$"))
+	for match in matches:
+		extratag = match["class"][-1].split('_', 1)[-1]
+		try:
+			match.string.replaceWith(extratag)
+			match.unwrap()
+		except AttributeError as e: log.error(e)
+	return str_(soup)
 
 def extractMetadata(text):
 	metadata = {}
@@ -209,9 +222,12 @@ def extractMetadata(text):
 	if "authors" in metadata.keys(): metadata["author"] = metadata.pop("authors")
 	if not "autonumber-headings" in metadata.keys() or not isinstance(metadata["autonumber-headings"], (int, bool)): metadata["autonumber-headings"] = True
 	if not "title" in metadata.keys() or not isinstance(metadata["title"], (str, str_)): metadata["title"] = _("No title")
+	if not "subtitle" in metadata.keys() or not isinstance(metadata["subtitle"], (str, str_)): metadata["subtitle"] = ""
 	metadata["title"] = str_(processExtraTags(BeautifulSoup(metadata["title"], "html.parser"))[-1].text)
 	if not "toc" in metadata.keys() or not isinstance(metadata["toc"], (int, bool)): metadata["toc"] = config.conf["markdownForever"]["toc"]
 	if not "extratags" in metadata.keys() or not isinstance(metadata["extratags"], (int, bool)): metadata["extratags"] = config.conf["markdownForever"]["extratags"]
+	if not "extratags-back" in metadata.keys() or not isinstance(metadata["extratags-back"], (int, bool)): metadata["extratags-back"] = config.conf["markdownForever"]["extratags-back"]
+	if not "detectExtratags" in metadata.keys() or not isinstance(metadata["detectExtratags"], (int, bool)): metadata["detectExtratags"] = config.conf["markdownForever"]["detectExtratags"]
 	if not "genMetadata" in metadata.keys() or not isinstance(metadata["genMetadata"], (int, bool)): metadata["genMetadata"] = config.conf["markdownForever"]["genMetadata"]
 	if not "lang" in metadata.keys() or not isinstance(metadata["lang"], (str, str_)): metadata["lang"] = defaultLanguage
 	if not "mathjax" in metadata.keys() or not isinstance(metadata["mathjax"], (int, bool)): metadata["mathjax"] = False
@@ -254,7 +270,7 @@ def getHTMLTemplate():
 	f.close()
 	return template_HTML
 
-def processExtraTags(soup, lang='', allRepl=True):
+def processExtraTags(soup, lang='', allRepl=True, allowBacktranslate=True):
 	try:
 		if not lang and defaultLanguage == "en": lang = "enu"
 		if lang: locale.setlocale(locale.LC_ALL, lang)
@@ -285,9 +301,13 @@ def processExtraTags(soup, lang='', allRepl=True):
 				for match in matches:
 					parents = [parent.name for parent in match.parents]
 					if "code" not in parents and "pre" not in parents:
-						match.string.replaceWith(match.string.replace(toSearch, replaceBy))
+						if allowBacktranslate:
+							tag = "div" if "%toc%" in toSearch else "span"
+							newContent = str_(match.string).replace(toSearch, '<%s class="extratag_%s">%s</%s>' % (tag, toSearch, replaceBy, tag))
+							match.string.replaceWith(BeautifulSoup(newContent))
+						else: match.string.replaceWith(match.string.replace(toSearch, replaceBy))
 			except (UnicodeEncodeError, UnicodeDecodeError):
-				match.string = match.replaceWith(match.string.replace(toSearch, replaceBy.decode(locale.getlocale()[1])))
+				match.replaceWith(match.string.replace(toSearch, replaceBy.decode(locale.getlocale()[1])))
 	if lang: locale.setlocale(locale.LC_ALL, '')
 	return True, soup
 
@@ -297,7 +317,8 @@ def applyAutoNumberHeadings(soup, before=""):
 	l = []
 	previousHeadingLevel = 0
 	for match in matches:
-		if  match.text.startswith(internalAutoNumber):
+		print(match.text.strip())
+		if  match.text.strip().startswith(internalAutoNumber):
 			match.string.replaceWith(match.string.replace(internalAutoNumber, ""))
 			continue
 		currentHeadingLevel = int(match.name[-1])
@@ -327,12 +348,12 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 	HTMLHeader = metadata["HTMLHeader"]
 	HTMLHead = metadata["HTMLHead"]
 	while "  " in text: text = text.replace("  ", "  ")
-	body, toc = md2HTML(text, toc)
+	body, toc = md2HTML(text, toc, metadata["autonumber-headings"])
 	content = BeautifulSoup(body, "html.parser")
 	if metadata["autonumber-headings"]:
 		content = applyAutoNumberHeadings(content)
 	if extratags:
-		ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys() else '')
+		ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys() else '', allowBacktranslate=metadata["extratags-back"])
 		if not ok: return wx.CallAfter(gui.messageBox, content, addonName, wx.OK|wx.ICON_ERROR)
 	content = str_(content.prettify()) if save else str_(content)
 	if toc:
@@ -349,7 +370,13 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 			except UnicodeEncodeError: pass
 		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
 		if not title.strip(): title = _("Markdown to HTML conversion")+(" (%s)" % time.strftime("%X %x"))
-		if useTemplateHTML: content = getHTMLTemplate().format(head=HTMLHead, header=HTMLHeader, body=content, lang=lang)
+		if useTemplateHTML:
+			body = content
+			content = getHTMLTemplate()
+			content = content.replace("{lang}", lang, 1)
+			content = content.replace("{head}", HTMLHead, 1)
+			content = content.replace("{header}", HTMLHeader, 1)
+			content = content.replace("{body}", body, 1)
 		writeFile(fp, content)
 		if display: os.startfile(realpath(fp))
 	else:
@@ -359,13 +386,17 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 			ui.browseableMessage("%s%s" % (HTMLHeader, content), title, not src)
 		else: return "%s %s" % (HTMLHeader, content)
 
+def getMetadataBlock(metadata, ignore=[]):
+	ignore_ = ["HTMLHead", "HTMLHeader", "genMetadata", "detectExtratags"]
+	metadata = {k: v for k, v in metadata.items() if k not in ignore and k not in ignore_}
+	if isPy3: dmp = yaml.dump(metadata, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
+	else: dmp = yaml.dump(metadata, Dumper=KludgeDumper, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
+	return dmp.decode("UTF-8")
+
 def convertToMD(text, metadata, display=True):
 	title = metadata["title"]
-	if metadata["genMetadata"]:
-		if isPy3: dmp = yaml.dump( metadata, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
-		else: dmp = yaml.dump( metadata, Dumper=KludgeDumper, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
-		dmp = dmp.decode("UTF-8")
-	else: dmp = ""
+	dmp = getMetadataBlock(metadata) if metadata["genMetadata"] else ""
+	if metadata["detectExtratags"]: text = backTranslateExtraTags(text)
 	if config.conf["markdownForever"]["markdownEngine"] == "html2markdown":
 		convert = html2markdown.convert
 	else: convert = html2text.html2text
@@ -568,9 +599,31 @@ class InteractiveModeDlg(wx.Dialog):
 		self.extratagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=extratagsText))
 		self.extratagsCheckBox.SetValue(metadata["extratags"])
 
+		backTranslateExtraTagsText = _("Allow extratags bac&k translation")
+		self.backTranslateExtraTagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=backTranslateExtraTagsText))
+		self.backTranslateExtraTagsCheckBox.SetValue(metadata["extratags-back"])
+
+		detectExtratagsText = _("&Detect extratags if possible")
+		self.detectExtratagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=detectExtratagsText))
+		self.detectExtratagsCheckBox.SetValue(True)
+
 		titleLabelText = _("&Title")
 		self.titleTextCtrl = sHelper.addLabeledControl(titleLabelText, wx.TextCtrl)
 		self.titleTextCtrl.SetValue(metadata["title"])
+		self.titleTextCtrl.Bind(wx.EVT_TEXT, self.onUpdateMetadata)
+
+		subtitleText = _("Subtitle")
+		self.subtitleTextCtrl = sHelper.addLabeledControl(subtitleText, wx.TextCtrl)
+		self.subtitleTextCtrl.SetValue(metadata["subtitle"])
+		self.subtitleTextCtrl.Bind(wx.EVT_TEXT, self.onUpdateMetadata)
+
+		correspondingMetadataBlockText = _("Corres&ponding metadata block")
+		self.correspondingMetadataBlock = sHelper.addLabeledControl(correspondingMetadataBlockText, wx.TextCtrl, style=wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_PROCESS_TAB, size=(700, -1))
+		self.correspondingMetadataBlock.SetValue(getMetadataBlock(metadata))
+
+		checkboxesToBind = [self.tableOfContentsCheckBox, self.numberHeadingsCheckBox, self.extratagsCheckBox, self.backTranslateExtraTagsCheckBox]
+		for checkbox in checkboxesToBind:
+			checkbox.Bind(wx.EVT_CHECKBOX, self.onUpdateMetadata)
 
 		self.virtualBufferBtn = bHelper.addButton(self, label=_("Show in &virtual buffer"))
 		self.virtualBufferBtn.Bind(wx.EVT_BUTTON, self.onVB)
@@ -594,32 +647,52 @@ class InteractiveModeDlg(wx.Dialog):
 		self.destFormatListBox.SetFocus()
 		self.onDestFormatListBox(None)
 
+	def onUpdateMetadata(self, evt=None):
+		self.updateMetadata()
+		self.correspondingMetadataBlock.SetValue(getMetadataBlock(self.metadata))
+
 	def onDestFormatListBox(self, evt):
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ > 0: self.browserBtn.Disable()
 		else: self.browserBtn.Enable()
-		if destFormatChoices_ == 2: self.genMetadataCheckBox.Enable()
-		else: self.genMetadataCheckBox.Disable()
-		if self.genMetadataCheckBox.IsChecked() or destFormatChoices_ != 2:
-			self.tableOfContentsCheckBox.Enable()
+		if destFormatChoices_ != 2:
+			self.detectExtratagsCheckBox.Disable()
+			self.genMetadataCheckBox.Disable()
+			self.backTranslateExtraTagsCheckBox.Enable()
+			self.correspondingMetadataBlock.Enable()
 			self.extratagsCheckBox.Enable()
+			self.numberHeadingsCheckBox.Enable()
+			self.tableOfContentsCheckBox.Enable()
 			self.titleTextCtrl.Enable()
+			self.subtitleTextCtrl.Enable()
 		else:
-			self.tableOfContentsCheckBox.Disable()
+			self.detectExtratagsCheckBox.Enable()
+			self.genMetadataCheckBox.Enable()
+			self.backTranslateExtraTagsCheckBox.Disable()
+			self.correspondingMetadataBlock.Disable()
 			self.extratagsCheckBox.Disable()
+			self.numberHeadingsCheckBox.Disable()
+			self.tableOfContentsCheckBox.Disable()
 			self.titleTextCtrl.Disable()
+			self.subtitleTextCtrl.Disable()
 
 	def onBrowser(self, evt): self.onExecute(False)
 
 	def onVB(self, evt): self.onExecute(True)
-
-	def onExecute(self, vb=False):
+	def updateMetadata(self):
 		metadata = self.metadata
 		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
 		metadata["extratags"] = self.extratagsCheckBox.IsChecked()
+		metadata["extratags-back"] = self.backTranslateExtraTagsCheckBox.IsChecked()
 		metadata["genMetadata"] = self.genMetadataCheckBox.IsChecked()
 		metadata["autonumber-headings"] = self.numberHeadingsCheckBox.IsChecked()
+		metadata["detectExtratags"] = self.detectExtratagsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
+		metadata["subtitle"] = self.subtitleTextCtrl.GetValue()
+
+	def onExecute(self, vb=False):
+		self.updateMetadata()
+		metadata = self.metadata
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=not vb)
 		elif destFormatChoices_ == 1: convertToHTML(self.text, metadata, save=False, src=True)
@@ -627,10 +700,8 @@ class InteractiveModeDlg(wx.Dialog):
 		self.Destroy()
 
 	def onCopyToClipBtn(self, event):
+		self.updateMetadata()
 		metadata = self.metadata
-		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
-		metadata["extratags"] = self.extratagsCheckBox.IsChecked()
-		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		if destFormatChoices_ == 0: copyToClipAsHTML(convertToHTML(self.text, metadata, display=False))
 		elif destFormatChoices_ == 1: api.copyToClip(convertToHTML(self.text, metadata, src=True, display=False))
@@ -638,10 +709,8 @@ class InteractiveModeDlg(wx.Dialog):
 		self.Destroy()
 
 	def onSave(self, event):
+		self.updateMetadata()
 		metadata = self.metadata
-		metadata["toc"] = self.tableOfContentsCheckBox.IsChecked()
-		metadata["extratags"] = self.extratagsCheckBox.IsChecked()
-		metadata["title"] = self.titleTextCtrl.GetValue()
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
 		formats = [
 			"HTML format (*.htm, *.html)|*.htm;*.html",

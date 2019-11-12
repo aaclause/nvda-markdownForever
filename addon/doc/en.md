@@ -7,10 +7,10 @@ author: "Sof &lt;<hellosof@gmail.com>&gt;"
 lang: en
 toc: 1
 extratags: 1
-exgtratags-back: 0
+extratags-back: 0
 autonumber-headings: 1
 css: style.css
-date: Friday, November 1, 2019
+date: Tuesday, November 12, 2019
 ...
 
 **Table of content**

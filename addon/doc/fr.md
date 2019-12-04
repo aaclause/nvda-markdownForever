@@ -115,7 +115,9 @@ Voici une description de l'écran en ordre de tabulation :
 
 * "Convertir en" : Cette première liste déroulante vous permet de choisir le sens de la conversion : HTML, source HTML ou Markdown. Utilisez les flèche haut et bas pour choisir.
 * "Générer la table des matières / le sommaire" : Cette case à cocher vous permettra de générer ou non un index des chapitres de votre document HTML final, avec des liens cliquables menant à chaque chapitre. L'état de cette option peut également être défini par défaut dans les [paramètres de MarkdownForever.](#parametres-par-defaut-de-markdownforever)
+* "Tenter de numéroter les titres automatiquement" : Permet d'indiquer si les titres doivent être numérotés automatiquement ou non.
 * "Activer les super-balises" : Si cette option est cochée, vous pourrez utiliser des [balises spéciales](#super-balises) dans votre Markdown pour insérer automatiquement des informations telles que la date ou l'heure actuelle. L'état de cette option peut également être défini par défaut dans les [paramètres de MarkdownForever.](#parametres-par-defaut-de-markdownforever)
+* "Allow extratags back translation" : Permet d'indiquer, lors de la conversion en Markdown, si les [super-balises](#super-balises) doivent être restaurées à leur forme d'origine (par exemple %date%). Ceci fonctionne seulement à partir d'un contenu HTML généré par Markdown Forever. 
 * "Titre" : Vous pouvez saisir ici le titre de votre document HTML, qui sera visible dans le navigateur.
 * "Générer les métadonnées à partir de la source HTML" : Lors de la conversion d'un fichier source HTML en Markdown, MarkdownForever tente d'extraire les métadonnées à partir du code source (titre, langue, nom de fichier, etc.) et génère le [bloc de métadonnées](#bloc-de-metadonnees-optionnel) pour vous. Cette option n'est disponible que lors de la conversion HTML vers Markdown.
 * "Afficher dans le tampon virtuel" : Ce bouton ouvrira votre contenu converti dans un tampon virtuel de NVDA.
@@ -129,22 +131,42 @@ Le bloc de métadonnées vous permet de définir des paramètres spécifiques po
 
 ### Liste des métadonnées prises en charge
 
-* title : Définit le titre du document HTML. En mode interactif, le champ titre sera automatiquement rempli avec la valeur de cette clé.
-* lang : Permet de spécifier la langue principale du document. Si nécessaire, utilisez les balises span/div avec l'attribut lang pour indiquer les changements de langue internes au document.
-* toc : Permet d'indiquer si une table des matières doit être générée ou non. Valeurs possibles : true (1) ou false (0).
-* filename : Pour spécifier le nom du fichier de sortie lors de l'enregistrement.
-* path : pour spécifier le répertoire dans lequel le document doit être généré. Les variables d'environnement %userprofile%, %appdata% et %tmp% sont supportées.
-* extratags : pour spécifier si les [super-balises](#super-balises) doivent être interprétées ou non. Valeurs possibles : true (1) ou false (0).
+* author (ou authors): Permet de spécifier un ou plusieurs auteurs pour le document (voir exemple ci-dessous). Ceci sera ajouté dans l'en-tête du fichier HtML. Cette clé n'est pas sensible à la casse.
+* autonumber-headings: Permet d'indiquer si les titres doivent être numérotés automatiquement ou non.
+* css (ou CSS): Permet de spécifier un ou plusieurs fichiers CSS pour la présentation de votre document (voir exemple ci-dessous). Cette clé n'est pas sensible à la casse.
+* date: Vous permet de spécifier une date de création pour votre document. Ceci sera ajouté dans l'en-tête du fichier HTML.
+* extratags: Permet de définir si les [super-balises](#super-balises) doivent être interprétées ou non. Valeurs possibles : true (1) ou false (0).
+* extratags-back: Permet d'indiquer, lors de la conversion en Markdown, si les [super-balises](#super-balises) doivent être restaurées à leur forme d'origine (par exemple %date%). Ceci fonctionne seulement à partir d'un contenu HTML généré par Markdown Forever. Valeurs possibles : true (1) ou false (0).
+* Filename: Permet de spécifier le nom du fichier de sortie lors de l'enregistrement.
+* Keywords: Permet de définir des mots-clés liés au(x) sujet(s) dont traite votre document.
+* lang: Permet de spécifier la langue principale du document. Si nécessaire, utilisez les balises span/div avec l'attribut lang pour indiquer les changements de langue internes au document.
+* mathjax: Permet de définir si les formules mathématiques écrites en [LaTeX](https://fr.wikipedia.org/wiki/LaTeX) doivent être converties ou non. Valeurs possibles : true (1) ou false (0). Une connexion Internet est nécessaire et vous devez ouvrir le résultat converti dans votre navigateur pour l'afficher correctement, puisque le LaTeX interprété ne peut être rendu par le tampon virtuel de NVDA.
+[Cliquez ici pour obtenir plus d'informations sur MathJax](https://fr.wikipedia.org/wiki/MathJax)
+* path: Permet de spécifier le répertoire dans lequel le document doit être généré. Les variables d'environnement %userprofile%, %appdata% et %tmp% sont supportées.
+* subtitle: Permet de spécifier un sous-titre pour votre document HtML. Ceci sera ajouté dans l'en-tête du fichier HTML.
+* title: Définit le titre du document HTML. En mode interactif, le champ titre sera automatiquement rempli avec la valeur de cette clé.
+* toc: Permet d'indiquer si une table des matières doit être générée ou non. Valeurs possibles : true (1) ou false (0).
 
 ### Exemple d'utilisation des métadonnées
 <blockquote>
 ```
 ---
-path: "%userprofile%/desktop"
+title: Un simple titre
+date: 3 Novembre 2019
+subtitle: Voici le sous-titre de votre document
+lang: en
+author:
+- Martin Dubois
+- Jean-Luc Picard
+CSS:
+- %userprofile%/document/main.css
+- %userprofile%/document/custom.css
+keywords: NVDA, Markdown, HTML
 filename: test
-title: "un simple titre"
+path: %userprofile%/desktop
 toc: 0
-lang: fr
+autonumber-headings: 1
+mathjax: 0
 ---
 
 Bonjour tout le monde ! <span lang="en">Hello world!</span> <span lang="es">buenos días!</span>

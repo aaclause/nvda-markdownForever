@@ -71,6 +71,7 @@ confSpecs = {
 	"updateChannel": "option(dev, stable, default=stable)",
 	"lastCheckUpdate": "float(min=0, default=0)",
 	"toc": 'boolean(default=False)',
+	"autonumber-headings": 'boolean(default=True)',
 	"extratags": 'boolean(default=True)',
 	"extratags-back": 'boolean(default=True)',
 	"detectExtratags": 'boolean(default=True)',
@@ -220,7 +221,7 @@ def extractMetadata(text):
 	metadata = {k.lower(): v for k, v in metadata.items()}
 	if "language" in metadata.keys(): metadata["lang"] = metadata.pop("language")
 	if "authors" in metadata.keys(): metadata["author"] = metadata.pop("authors")
-	if not "autonumber-headings" in metadata.keys() or not isinstance(metadata["autonumber-headings"], (int, bool)): metadata["autonumber-headings"] = True
+	if not "autonumber-headings" in metadata.keys() or not isinstance(metadata["autonumber-headings"], (int, bool)): metadata["autonumber-headings"] = config.conf["markdownForever"]["autonumber-headings"]
 	if not "title" in metadata.keys() or not isinstance(metadata["title"], (str, str_)): metadata["title"] = _("No title")
 	if not "subtitle" in metadata.keys() or not isinstance(metadata["subtitle"], (str, str_)): metadata["subtitle"] = ""
 	metadata["title"] = str_(processExtraTags(BeautifulSoup(metadata["title"], "html.parser"))[-1].text)
@@ -744,10 +745,16 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
+
 		tableOfContentsText = _("&Generate a table of contents")
 		markdownEngine = config.conf["markdownForever"]["markdownEngine"]
 		self.tableOfContentsCheckBox = sHelper.addItem(wx.CheckBox(self, label=tableOfContentsText))
 		self.tableOfContentsCheckBox.SetValue(config.conf["markdownForever"]["toc"])
+
+		numberHeadingsText = _("Try to automatically &number headings")
+		self.numberHeadingsCheckBox = sHelper.addItem(wx.CheckBox(self, label=numberHeadingsText))
+		self.numberHeadingsCheckBox.SetValue(config.conf["markdownForever"]["autonumber-headings"])
+
 		extratagsText = _("Enable e&xtra tags")
 		self.extratagsCheckBox = sHelper.addItem(wx.CheckBox(self, label=extratagsText))
 		self.extratagsCheckBox.SetValue(config.conf["markdownForever"]["extratags"])
@@ -777,6 +784,7 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 		defaultPath = self.defaultPath.GetValue()
 		if not os.path.exists(realpath(defaultPath)): return self.defaultPath.SetFocus()
 		config.conf["markdownForever"]["toc"] = self.tableOfContentsCheckBox.IsChecked()
+		config.conf["markdownForever"]["autonumber-headings"] = self.numberHeadingsCheckBox.IsChecked()
 		config.conf["markdownForever"]["extratags"] = self.extratagsCheckBox.IsChecked()
 		config.conf["markdownForever"]["genMetadata"] = self.genMetadataCheckBox.IsChecked()
 		config.conf["markdownForever"]["IM_defaultAction"] = self.defaultActionListBox.GetSelection()

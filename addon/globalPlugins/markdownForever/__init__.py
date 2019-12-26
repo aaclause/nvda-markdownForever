@@ -10,6 +10,7 @@ GitHub: https://github.com/andre9642/nvda-markdownForever/
 
 from __future__ import unicode_literals
 import codecs
+import json
 import locale
 import os, os.path
 import sys
@@ -36,6 +37,7 @@ addonHandler.initTranslation()
 import api
 import config
 import globalPluginHandler
+import globalVars
 import languageHandler
 import scriptHandler
 import textInfos
@@ -102,7 +104,10 @@ addonPath = '\\'.join(curDir.split('\\')[0:-2])
 defaultLanguage = languageHandler.getLanguage()
 pathPattern = r"^(?:%|[a-zA-Z]:[\\/])[^:*?\"<>|]+\.html?$"
 URLPattern = r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$"
-template_HTML = ''
+minCharTemplateName = 1
+maxCharTemplateName = 28
+configDir = "%s/markdownForever" % globalVars.appArgs.configPath
+if not os.path.exists(configDir): os.mkdir(configDir)
 
 def getText():
 	err = ''
@@ -221,6 +226,7 @@ def extractMetadata(text):
 	metadata = {k.lower(): v for k, v in metadata.items()}
 	if "language" in metadata.keys(): metadata["lang"] = metadata.pop("language")
 	if "authors" in metadata.keys(): metadata["author"] = metadata.pop("authors")
+	if not "template" in metadata.keys() or metadata["template"] not in config.conf["markdownForever"]["HTMLTemplates"].copy().keys(): metadata["template"] = config.conf["markdownForever"]["HTMLTemplate"]
 	if not "autonumber-headings" in metadata.keys() or not isinstance(metadata["autonumber-headings"], (int, bool)): metadata["autonumber-headings"] = config.conf["markdownForever"]["autonumber-headings"]
 	if not "title" in metadata.keys() or not isinstance(metadata["title"], (str, str_)): metadata["title"] = _("No title")
 	if not "subtitle" in metadata.keys() or not isinstance(metadata["subtitle"], (str, str_)): metadata["subtitle"] = ""
@@ -260,16 +266,23 @@ def extractMetadata(text):
 	else: metadata["HTMLHeader"] = '\n'.join(HTMLHeader)
 	return metadata, text
 
-def getHTMLTemplate():
-	global template_HTML
-	if template_HTML: return template_HTML
-	HTMLTemplate = realpath(config.conf["markdownForever"]["HTMLTemplate"])
-	if HTMLTemplate != "default" and os.path.isfile(HTMLTemplate): fp = HTMLTemplate
+def getHTMLTemplate(name=config.conf["markdownForever"]["HTMLTemplate"]):
+	HTMLTemplateDir = realpath("%s/%s.tpl" % (configDir, name))
+	if name != "default" and os.path.isfile(HTMLTemplateDir): fp = HTMLTemplateDir
 	else: fp = os.path.join(curDir, "res", "default.tpl")
-	f = open(fp, "rb")
-	template_HTML = f.read().decode("UTF-8").strip()
-	f.close()
-	return template_HTML
+	with open(fp, "r") as readFile:
+		templateEntry = json.load(readFile)
+	return templateEntry
+
+def getHTMLTemplates():
+	HTMLTemplates = config.conf["markdownForever"]["HTMLTemplates"].copy()
+	return [_("Default: A minimal template provided by the add-on")]+list(HTMLTemplates.keys())
+
+def getDefaultHTMLTemplateID(name=config.conf["markdownForever"]["HTMLTemplate"]):
+	HTMLTemplates = getHTMLTemplates()
+	if name in HTMLTemplates: HTMLTemplateID = HTMLTemplates.index(name)
+	else: HTMLTemplateID = 0
+	return HTMLTemplateID
 
 def processExtraTags(soup, lang='', allRepl=True, allowBacktranslate=True):
 	try:
@@ -373,7 +386,7 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		if not title.strip(): title = _("Markdown to HTML conversion")+(" (%s)" % time.strftime("%X %x"))
 		if useTemplateHTML:
 			body = content
-			content = getHTMLTemplate()
+			content = getHTMLTemplate(metadata["template"])["content"]
 			content = content.replace("{lang}", lang, 1)
 			content = content.replace("{head}", HTMLHead, 1)
 			content = content.replace("{header}", HTMLHeader, 1)
@@ -389,7 +402,7 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 
 def getMetadataBlock(metadata, ignore=[]):
 	ignore_ = ["HTMLHead", "HTMLHeader", "genMetadata", "detectExtratags"]
-	metadata = {k: v for k, v in metadata.items() if k not in ignore and k not in ignore_}
+	metadata = {k: v for k, v in metadata.items() if ((isinstance(v, str) and v != '') or not isinstance(v, str)) and k not in (ignore + ignore_)}
 	if isPy3: dmp = yaml.dump(metadata, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
 	else: dmp = yaml.dump(metadata, Dumper=KludgeDumper, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
 	return dmp.decode("UTF-8")
@@ -578,7 +591,7 @@ class InteractiveModeDlg(wx.Dialog):
 
 		isHTMLPattern = re.search("(?:</html>|</p>)", self.text, re.IGNORECASE)
 		guessDestFormat = 2 if isHTMLPattern else 0
-		destFormatText = _("Convert &to")
+		destFormatText = _("C&onvert to")
 		self.destFormatListBox = sHelper.addLabeledControl(destFormatText, wx.Choice, choices=self.destFormatChoices)
 		self.destFormatListBox.Bind(wx.EVT_CHOICE, self.onDestFormatListBox)
 		self.destFormatListBox.SetSelection(guessDestFormat)
@@ -613,10 +626,15 @@ class InteractiveModeDlg(wx.Dialog):
 		self.titleTextCtrl.SetValue(metadata["title"])
 		self.titleTextCtrl.Bind(wx.EVT_TEXT, self.onUpdateMetadata)
 
-		subtitleText = _("Subtitle")
+		subtitleText = _("S&ubtitle")
 		self.subtitleTextCtrl = sHelper.addLabeledControl(subtitleText, wx.TextCtrl)
 		self.subtitleTextCtrl.SetValue(metadata["subtitle"])
 		self.subtitleTextCtrl.Bind(wx.EVT_TEXT, self.onUpdateMetadata)
+
+		HTMLTemplatesText = _("HTML temp&late to use")
+		self.HTMLTemplatesListBox = sHelper.addLabeledControl(HTMLTemplatesText, wx.Choice, choices=getHTMLTemplates())
+		self.HTMLTemplatesListBox.SetSelection(getDefaultHTMLTemplateID(metadata["template"]))
+		self.HTMLTemplatesListBox.Bind(wx.EVT_CHOICE, self.onUpdateMetadata)
 
 		correspondingMetadataBlockText = _("Corres&ponding metadata block")
 		self.correspondingMetadataBlock = sHelper.addLabeledControl(correspondingMetadataBlockText, wx.TextCtrl, style=wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_PROCESS_TAB, size=(700, -1))
@@ -666,6 +684,7 @@ class InteractiveModeDlg(wx.Dialog):
 			self.tableOfContentsCheckBox.Enable()
 			self.titleTextCtrl.Enable()
 			self.subtitleTextCtrl.Enable()
+			self.HTMLTemplatesListBox.Enable()
 		else:
 			self.detectExtratagsCheckBox.Enable()
 			self.genMetadataCheckBox.Enable()
@@ -676,6 +695,7 @@ class InteractiveModeDlg(wx.Dialog):
 			self.tableOfContentsCheckBox.Disable()
 			self.titleTextCtrl.Disable()
 			self.subtitleTextCtrl.Disable()
+			self.HTMLTemplatesListBox.Disable()
 
 	def onBrowser(self, evt): self.onExecute(False)
 
@@ -690,6 +710,8 @@ class InteractiveModeDlg(wx.Dialog):
 		metadata["detectExtratags"] = self.detectExtratagsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		metadata["subtitle"] = self.subtitleTextCtrl.GetValue()
+		templateID = self.HTMLTemplatesListBox.GetSelection()
+		metadata["template"] = getHTMLTemplates()[templateID] if templateID else "default"
 
 	def onExecute(self, vb=False):
 		self.updateMetadata()
@@ -771,7 +793,7 @@ class SettingsDlg(gui.settingsDialogs.SettingsDialog):
 		self.markdownEngineListBox = sHelper.addLabeledControl(markdownEngineText, wx.Choice, choices=markdownEngineLabels)
 		self.markdownEngineListBox.SetSelection(idEngine)
 		self.defaultPath = sHelper.addLabeledControl(_("Path"), wx.TextCtrl, value=config.conf["markdownForever"]["defaultPath"])
-		manageHTMLTemplatesBtn = bHelper.addButton(self, label="%s..." % _("Manage HTML &templates"))
+		manageHTMLTemplatesBtn = bHelper.addButton(self, label="%s..." % _("Manage HTML temp&lates"))
 		manageHTMLTemplatesBtn.Bind(wx.EVT_BUTTON, self.onManageHTMLTemplates)
 		sHelper.addItem(bHelper)
 
@@ -799,18 +821,19 @@ class ManageHTMLTemplatesDlg(wx.Dialog):
 		mainSizer=wx.BoxSizer(wx.VERTICAL)
 		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
-		HTMLTemplate = config.conf["markdownForever"]["HTMLTemplate"]
-		HTMLTemplates = config.conf["markdownForever"]["HTMLTemplates"].copy()
-		if HTMLTemplate in HTMLTemplates: HTMLTemplateID = HTMLTemplates.index(HTMLTemplate+1)
-		else: HTMLTemplateID = 0
 
-		HTMLTemplatesTextChoices = [_("Default")]+list(HTMLTemplates.keys())
 		HTMLTemplatesText = _("HTML templates list")
-		self.HTMLTemplatesTextListBox = sHelper.addLabeledControl(HTMLTemplatesText, wx.Choice, choices=HTMLTemplatesTextChoices)
-		self.HTMLTemplatesTextListBox.SetSelection(HTMLTemplateID)
+		self.HTMLTemplatesListBox = sHelper.addLabeledControl(HTMLTemplatesText, wx.Choice, choices=getHTMLTemplates())
+		self.HTMLTemplatesListBox.SetSelection(getDefaultHTMLTemplateID())
+		self.HTMLTemplatesListBox.Bind(wx.EVT_CHOICE, self.onHTMLTemplatesListBox)
+
+		self.defaultTemplateBtn = bHelper.addButton(self, label="%s..." % _("Set as &default template"))
+		self.defaultTemplateBtn.Bind(wx.EVT_BUTTON, self.onSetDefaultTemplateBtn)
 		bHelper.addButton(parent=self, label="%s..." % _("&Edit")).Bind(wx.EVT_BUTTON, self.onEditClick)
 		bHelper.addButton(parent=self, label="%s..." % _("&Add")).Bind(wx.EVT_BUTTON, self.onAddClick)
-		bHelper.addButton(parent=self, label=_("&Remove")).Bind(wx.EVT_BUTTON, self.onRemoveClick)
+		self.removeBtn = bHelper.addButton(parent=self, label=_("&Remove"))
+		self.removeBtn.Bind(wx.EVT_BUTTON, self.onRemoveClick)
+		self.onHTMLTemplatesListBox()
 
 		sHelper.addItem(bHelper)
 		sHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK|wx.CANCEL))
@@ -818,18 +841,74 @@ class ManageHTMLTemplatesDlg(wx.Dialog):
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
-		self.HTMLTemplatesTextListBox.SetFocus()
+		self.HTMLTemplatesListBox.SetFocus()
+
+	def refreshTemplatesList(self, name=None):
+		self.HTMLTemplatesListBox.Set(getHTMLTemplates())
+		self.HTMLTemplatesListBox.SetSelection(getDefaultHTMLTemplateID(name))
+
+	def onHTMLTemplatesListBox(self, evt=None):
+		templateID = self.HTMLTemplatesListBox.GetSelection()
+		HTMLTemplate = getHTMLTemplates()[templateID] if templateID else "default"
+		if templateID == 0: self.removeBtn.Disable()
+		else: self.removeBtn.Enable()
+		if HTMLTemplate != config.conf["markdownForever"]["HTMLTemplate"]:
+			self.defaultTemplateBtn.Enable()
+		else: self.defaultTemplateBtn.Disable()
+
+	def onSetDefaultTemplateBtn(self, evt=None):
+		templateID = self.HTMLTemplatesListBox.GetSelection()
+		HTMLTemplate = getHTMLTemplates()[templateID] if templateID else "default"
+		config.conf["markdownForever"]["HTMLTemplate"] = HTMLTemplate
+		self.onHTMLTemplatesListBox()
+		self.HTMLTemplatesListBox.SetFocus()
 
 	def onEditClick(self, gesture):
-		ui.message(_("Currently unavailable"))
+		editIndex = self.HTMLTemplatesListBox.GetSelection()
+		if editIndex < 0: return
+		entryDialog = TemplateEntryDlg(self)
+		templateName = getHTMLTemplates()[editIndex]
+		entryDialog.templateName.SetValue(templateName if editIndex else "default")
+		templateEntry = getHTMLTemplate(templateName if editIndex else "default")
+		entryDialog.templateDescription.SetValue(templateEntry["description"])
+		entryDialog.templateContent.SetValue(templateEntry["content"])
+		if entryDialog.ShowModal() == wx.ID_OK:
+			templateName = entryDialog.templateEntry["name"]
+			templateDescription = entryDialog.templateEntry["description"]
+			fp = "%s/%s.tpl" % (configDir, templateName)
+			config.conf["markdownForever"]["HTMLTemplates"][templateName] = templateDescription
+			with open(fp, "w") as writeFile:
+				json.dump(entryDialog.templateEntry, writeFile, indent=4)
+			self.refreshTemplatesList(templateName)
+		entryDialog.Destroy()
 
 	def onRemoveClick(self, gesture):
-		ui.message(_("Currently unavailable"))
+		removeIndex = self.HTMLTemplatesListBox.GetSelection()
+		if removeIndex < 1: return
+		templateName = getHTMLTemplates()[removeIndex]
+		choice = gui.messageBox(_("Are you sure to want to delete the '%s' template?") % templateName, '%s – %s' % (addonName, _("Confirmation")), wx.YES_NO|wx.ICON_QUESTION)
+		if choice == wx.NO: return
+		if config.conf["markdownForever"]["HTMLTemplate"] == templateName:
+			config.conf["markdownForever"]["HTMLTemplate"] = "default"
+		config.conf["markdownForever"]["HTMLTemplates"] = {k: v for k, v in config.conf["markdownForever"]["HTMLTemplates"].copy().items() if k != templateName}
+		fp = "%s/%s.tpl" % (configDir, templateName)
+		if os.path.exists(fp): os.remove(fp)
+		self.refreshTemplatesList()
+		self.HTMLTemplatesListBox.SetSelection(removeIndex-1)
+		self.HTMLTemplatesListBox.SetFocus()
 
 	def onAddClick(self, gesture):
 		entryDialog = TemplateEntryDlg(self, title=_("Add template"))
+		entryDialog.templateContent.SetValue(getHTMLTemplate("default")["content"])
 		if entryDialog.ShowModal() == wx.ID_OK:
-			entry = entryDialog.dictEntry
+			templateName = entryDialog.templateEntry["name"]
+			templateDescription = entryDialog.templateEntry["description"]
+			fp = "%s/%s.tpl" % (configDir, templateName)
+			config.conf["markdownForever"]["HTMLTemplates"][templateName] = templateDescription
+			with open(fp, "w") as writeFile:
+				json.dump(entryDialog.templateEntry, writeFile, indent=4)
+			self.refreshTemplatesList(self.refreshTemplatesList(templateName))
+		entryDialog.Destroy()
 
 	def onOk(self, evt):
 		self.Destroy()
@@ -840,10 +919,12 @@ class TemplateEntryDlg(wx.Dialog):
 		super(TemplateEntryDlg, self).__init__(parent, title=title)
 		mainSizer=wx.BoxSizer(wx.VERTICAL)
 		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
-		templateNameText = _("Template &name")
+		templateNameText = _("&Name")
 		self.templateName = sHelper.addLabeledControl(templateNameText, wx.TextCtrl)
-		templateContentText = _("Content")
-		self.templateContent = sHelper.addLabeledControl(templateContentText, wx.TextCtrl, style=wx.TE_MULTILINE|wx.TE_PROCESS_TAB, size=(700, -1))
+		templateDescriptionText = _("&Description")
+		self.templateDescription = sHelper.addLabeledControl(templateDescriptionText, wx.TextCtrl, style=wx.TE_MULTILINE, size=(700, -1))
+		templateContentText = _("&Content")
+		self.templateContent = sHelper.addLabeledControl(templateContentText, wx.TextCtrl, style=wx.TE_MULTILINE, size=(700, -1))
 		sHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK|wx.CANCEL))
 		mainSizer.Add(sHelper.sizer,border=20,flag=wx.ALL)
 		mainSizer.Fit(self)
@@ -852,4 +933,31 @@ class TemplateEntryDlg(wx.Dialog):
 		self.templateName.SetFocus()
 
 	def onOk(self, evt):
-		super(TemplateEntryDlg, self).onOk(evt)
+		templateName = self.templateName.GetValue()
+		templateDescription = self.templateDescription.GetValue()
+		templateContent = self.templateContent.GetValue()
+		pattern = "^[a-z0-9_-]{%d,%d}$" % (minCharTemplateName, maxCharTemplateName)
+		if templateName == "default" or not re.match(pattern, templateName):
+			msg = _("Wrong value for template name field. Field must contain only letters in lowercase (%s), numbers (%s), hyphen (%s) or underscores (%s). A maximum of %d characters. The following name is not allowed: \"default\"." % ("a-z", "0-9", '-', '_', maxCharTemplateName))
+			gui.messageBox(msg, addonName, wx.OK|wx.ICON_ERROR)
+			self.templateName.SetFocus()
+			return
+		if not templateContent.strip():
+			msg = _("Content field empty.")
+			gui.messageBox(msg, addonName, wx.OK|wx.ICON_ERROR)
+			self.templateContent.SetFocus()
+			return
+
+		mustPresent = ["lang", "head", "header", "body"]
+		notPresent = [tag for tag in mustPresent if "{%s}" % tag not in templateContent]
+		if notPresent:
+			msg = _("Content field invalid. The following required tags are missing: %s. Each tag must be surrounded by braces. E.g.: {%s}." % (', '.join(mustPresent), mustPresent[0]))
+			gui.messageBox(msg, addonName, wx.OK|wx.ICON_ERROR)
+			self.templateContent.SetFocus()
+			return
+		self.templateEntry = {
+			"name": templateName,
+			"description": templateDescription,
+			"content": templateContent
+		}
+		evt.Skip()

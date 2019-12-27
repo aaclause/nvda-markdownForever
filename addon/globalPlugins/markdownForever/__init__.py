@@ -54,6 +54,7 @@ import winClipboard
 from bs4 import BeautifulSoup
 sys.path.remove(libCommon)
 sys.path.remove(libPy)
+from . import virtualDocuments
 
 IM_actions = {
 	"saveAs": 0,
@@ -449,6 +450,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	scriptCategory = addonName
 
+
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		self.createMenu()
@@ -511,11 +513,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_md2htmlSrcInNVDA.__doc__ = _("Show the HTML source from Markdown")
 
 	def script_html2md(self, gesture):
-		text, err = getText()
+		res = virtualDocuments.isVirtualDocument()
+		if res:
+			text, err = virtualDocuments.getAllHTML()
+		else:
+			text, err = getText()
 		if err: return ui.message(err)
 		metadata, text = extractMetadata(text)
 		convertToMD(text, metadata)
 	script_html2md.__doc__ = _("HTML to Markdown conversion")
+
+	def extractMetadata(self, text):
+		return extractMetadata(text)
+
+	def convertToMD(self, text, metadata):
+		return convertToMD(text, metadata)
 
 	def script_md2htmlInNVDA(self, gesture):
 		text, err = getText()

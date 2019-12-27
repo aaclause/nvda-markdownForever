@@ -402,7 +402,7 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 
 def getMetadataBlock(metadata, ignore=[]):
 	ignore_ = ["HTMLHead", "HTMLHeader", "genMetadata", "detectExtratags"]
-	metadata = {k: v for k, v in metadata.items() if ((isinstance(v, (unicode, str)) and v) or not isinstance(v, (unicode, str))) and k not in (ignore + ignore_)}
+	metadata = {k: v for k, v in metadata.items() if ((isinstance(v, str_) and v) or not isinstance(v, str_)) and k not in (ignore + ignore_)}
 	if isPy3: dmp = yaml.dump(metadata, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
 	else: dmp = yaml.dump(metadata, Dumper=KludgeDumper, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
 	return dmp.decode("UTF-8")

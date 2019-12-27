@@ -332,7 +332,6 @@ def applyAutoNumberHeadings(soup, before=""):
 	l = []
 	previousHeadingLevel = 0
 	for match in matches:
-		print(match.text.strip())
 		if  match.text.strip().startswith(internalAutoNumber):
 			match.string.replaceWith(match.string.replace(internalAutoNumber, ""))
 			continue
@@ -403,7 +402,7 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 
 def getMetadataBlock(metadata, ignore=[]):
 	ignore_ = ["HTMLHead", "HTMLHeader", "genMetadata", "detectExtratags"]
-	metadata = {k: v for k, v in metadata.items() if ((isinstance(v, str) and v != '') or not isinstance(v, str)) and k not in (ignore + ignore_)}
+	metadata = {k: v for k, v in metadata.items() if ((isinstance(v, (unicode, str)) and v) or not isinstance(v, (unicode, str))) and k not in (ignore + ignore_)}
 	if isPy3: dmp = yaml.dump(metadata, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
 	else: dmp = yaml.dump(metadata, Dumper=KludgeDumper, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
 	return dmp.decode("UTF-8")
@@ -560,7 +559,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_copyFormattedHTMLToClip.__doc__ = _("Markdown to formatted HTML conversion. The result is copied to clipboard")
 
 	def script_copyMarkdownToClip(self, gesture):
-		text, err = getText()
+		res = virtualDocuments.isVirtualDocument()
+		if res: text, err = virtualDocuments.getAllHTML()
+		else: text, err = getText()
 		if err: return ui.message(err)
 		metadata, text = extractMetadata(text)
 		res = convertToMD(text, metadata, display=False)

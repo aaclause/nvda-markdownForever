@@ -1,14 +1,8 @@
 # coding: utf-8
 from __future__ import unicode_literals
-import threading
-import time
-
 import addonHandler
 addonHandler.initTranslation()
 import api
-import controlTypes
-import tones
-import ui
 from logHandler import log
 
 def isVirtualDocument():

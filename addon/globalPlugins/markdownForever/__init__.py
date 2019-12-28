@@ -109,6 +109,14 @@ minCharTemplateName = 1
 maxCharTemplateName = 28
 configDir = "%s/markdownForever" % globalVars.appArgs.configPath
 if not os.path.exists(configDir): os.mkdir(configDir)
+def getWindowTitle():
+	obj=api.getForegroundObject()
+	title = obj.name
+	if not isinstance(title, str) or not title or title.isspace():
+		title = obj.appModule.appName if obj.appModule else None
+		if not isinstance(title, str) or not title or title.isspace():
+			title = _("No title")
+	return title
 
 def getText():
 	err = ''
@@ -176,6 +184,20 @@ def getText():
 		except BaseException as e: err = str_(e).strip()
 	if not text: err = _("No text")
 	return text, err
+
+def getMetadataAndTextForMarkDown():
+	startTime = time.time()
+	res = virtualDocuments.isVirtualDocument()
+	if res: text, err = virtualDocuments.getAllHTML()
+	else: text, err = getText()
+	if err:
+		ui.message(err)
+		return None, None
+	metadata, text = extractMetadata(text)
+	if res:
+		metadata["title"] = getWindowTitle()
+		metadata["timeGen"] = "%.3f s" % (time.time()-startTime)
+	return metadata, text
 
 def md2HTML(md, toc, ol=True):
 	extras = ["footnotes", "tables", "fenced-code-blocks", "task_list", "header-ids", "wiki-tables", "spoiler"]
@@ -512,14 +534,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_md2htmlSrcInNVDA.__doc__ = _("Show the HTML source from Markdown")
 
 	def script_html2md(self, gesture):
-		res = virtualDocuments.isVirtualDocument()
-		if res:
-			text, err = virtualDocuments.getAllHTML()
-		else:
-			text, err = getText()
-		if err: return ui.message(err)
-		metadata, text = extractMetadata(text)
-		convertToMD(text, metadata)
+		metadata, text = getMetadataAndTextForMarkDown()
+		if metadata: convertToMD(text, metadata)
 	script_html2md.__doc__ = _("HTML to Markdown conversion")
 
 	def extractMetadata(self, text):
@@ -559,11 +575,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_copyFormattedHTMLToClip.__doc__ = _("Markdown to formatted HTML conversion. The result is copied to clipboard")
 
 	def script_copyMarkdownToClip(self, gesture):
-		res = virtualDocuments.isVirtualDocument()
-		if res: text, err = virtualDocuments.getAllHTML()
-		else: text, err = getText()
-		if err: return ui.message(err)
-		metadata, text = extractMetadata(text)
+		metadata, text = getMetadataAndTextForMarkDown()
+		if not metadata: return
 		res = convertToMD(text, metadata, display=False)
 		if res:
 			api.copyToClip(res)

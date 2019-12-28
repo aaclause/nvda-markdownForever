@@ -6,6 +6,16 @@ import api
 import controlTypes
 from logHandler import log
 
+def escape(text):
+	chars = {
+		"&": "&amp;",
+		'"': "&quot;",
+		"'": "&apos;",
+		"<": "&lt;",
+		">": "&gt;",
+	}
+	return "".join(chars.get(c,c) for c in text)
+
 def isVirtualDocument():
 	obj = api.getReviewPosition().obj
 	return hasattr(obj, "rootNVDAObject")
@@ -29,9 +39,9 @@ def getHTML(obj, previousTag=None):
 	if obj.role == controlTypes.ROLE_EDITABLETEXT:
 		out.append("………")
 		if obj.value:
-			beg = "\r\n\r\n```" if controlTypes.STATE_MULTILINE in obj.states else '`'
-			end = "```\r\n\r\n" if controlTypes.STATE_MULTILINE in obj.states else '`'
-			out.append(beg + obj.value + end)
+			beg = "<pre>" if controlTypes.STATE_MULTILINE in obj.states else '<code>'
+			end = "</pre>" if controlTypes.STATE_MULTILINE in obj.states else '</code>'
+			out.append(beg + escape(obj.value) + end)
 	if tag: out.append("</%s>\n" % tag)
 	return ' '.join(out)
 

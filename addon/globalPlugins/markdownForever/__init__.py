@@ -92,9 +92,11 @@ markdownEngineLabels = [
 ]
 config.conf.spec["markdownForever"] = confSpecs
 
-addonName = _("Markdown Forever")
 _addonDir = os.path.join(baseDir, "..", "..")
 addonInfos = addonHandler.Addon(_addonDir).manifest
+addonName = _("Markdown Forever")
+addonVersion = addonInfos["version"]
+
 internalTocTag = ":{tableOfContent:%s}/!$£:" % time.time()
 internalAutoNumber = r"\!"
 str_ = str if isPy3 else unicode
@@ -471,35 +473,34 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	scriptCategory = addonName
 
-
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		self.createMenu()
 		self.updateCheckThread = updateCheck.UpdateCheck()
 		self.updateCheckThread.start()
-		if not self.updateCheckThread.is_alive():
-			log.error("Update check system not started")
+		if not self.updateCheckThread.is_alive(): log.error("Update check system not started")
 
 	def createMenu(self):
-		menu = wx.Menu()
-		item = menu.Append(wx.ID_ANY, _("Documentation"), _("Opens the addon's documentation"))
+		self.submenu = wx.Menu()
+		item = self.submenu.Append(wx.ID_ANY, _("Documentation"), _("Opens the addon's documentation"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onDoc, item)
-		item = menu.Append(wx.ID_ANY, "%s..." % _("Settings"), _("Add-on settings"))
+		item = self.submenu.Append(wx.ID_ANY, "%s..." % _("Settings"), _("Add-on settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, item)
-		item = menu.Append(wx.ID_ANY, "%s..." % _("&Check for update"), _("Checks if update is available"))
+		item = self.submenu.Append(wx.ID_ANY, "%s..." % _("&Check for update"), _("Checks if update is available"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onUpdate, item)
-		item = menu.Append(wx.ID_ANY, _("&Web site"), _("Open the add-on website."))
+		item = self.submenu.Append(wx.ID_ANY, _("&Web site"), _("Open the add-on website."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onWebsite, item)
-		self.markdownForeverMenu = gui.mainFrame.sysTrayIcon.preferencesMenu.AppendSubMenu(menu, _("Mar&kdown Forever"), _("%s menu") % addonName)
+		self.submenu_item = gui.mainFrame.sysTrayIcon.menu.InsertMenu(2, wx.ID_ANY, "%s (%s)" % (addonName, addonVersion), self.submenu)
 
 	def removeMenu(self):
-		if hasattr(self, "markdownForeverMenu"): gui.mainFrame.sysTrayIcon.preferencesMenu.Remove(self.markdownForeverMenu)
+		gui.mainFrame.sysTrayIcon.menu.DestroyItem(self.submenu_item)
 
 	def terminate(self):
+		self.removeMenu()
 		self.updateCheckThread.stop()
 		self.updateCheckThread.join()
 		if self.updateCheckThread.is_alive(): log.info("Update check system stopped")
-		self.removeMenu()
+		super(GlobalPlugin, self).terminate()
 
 	@staticmethod
 	def onDoc(evt):

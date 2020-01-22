@@ -94,7 +94,7 @@ config.conf.spec["markdownForever"] = confSpecs
 
 _addonDir = os.path.join(baseDir, "..", "..")
 addonInfos = addonHandler.Addon(_addonDir).manifest
-addonName = _("Markdown Forever")
+addonSummary = addonInfos["summary"]
 addonVersion = addonInfos["version"]
 
 internalTocTag = ":{tableOfContent:%s}/!$£:" % time.time()
@@ -392,7 +392,7 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		content = applyAutoNumberHeadings(content)
 	if extratags:
 		ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys() else '', allowBacktranslate=metadata["extratags-back"])
-		if not ok: return wx.CallAfter(gui.messageBox, content, addonName, wx.OK|wx.ICON_ERROR)
+		if not ok: return wx.CallAfter(gui.messageBox, content, addonSummary, wx.OK|wx.ICON_ERROR)
 	content = str_(content.prettify()) if save else str_(content)
 	if toc:
 		if internalTocTag not in content:
@@ -471,7 +471,7 @@ if not isPy3:
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
-	scriptCategory = addonName
+	scriptCategory = addonSummary
 
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
@@ -490,7 +490,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onUpdate, item)
 		item = self.submenu.Append(wx.ID_ANY, _("&Web site"), _("Open the add-on website."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onWebsite, item)
-		self.submenu_item = gui.mainFrame.sysTrayIcon.menu.InsertMenu(2, wx.ID_ANY, "%s (%s)" % (addonName, addonVersion), self.submenu)
+		self.submenu_item = gui.mainFrame.sysTrayIcon.menu.InsertMenu(2, wx.ID_ANY, "%s (%s)" % (_("&Markdown Forever"), addonVersion), self.submenu)
 
 	def removeMenu(self):
 		gui.mainFrame.sysTrayIcon.menu.DestroyItem(self.submenu_item)
@@ -913,7 +913,7 @@ class ManageHTMLTemplatesDlg(wx.Dialog):
 		removeIndex = self.HTMLTemplatesListBox.GetSelection()
 		if removeIndex < 1: return
 		templateName = getHTMLTemplates()[removeIndex]
-		choice = gui.messageBox(_("Are you sure to want to delete the '%s' template?") % templateName, '%s – %s' % (addonName, _("Confirmation")), wx.YES_NO|wx.ICON_QUESTION)
+		choice = gui.messageBox(_("Are you sure to want to delete the '%s' template?") % templateName, '%s – %s' % (addonSummary, _("Confirmation")), wx.YES_NO|wx.ICON_QUESTION)
 		if choice == wx.NO: return
 		if config.conf["markdownForever"]["HTMLTemplate"] == templateName:
 			config.conf["markdownForever"]["HTMLTemplate"] = "default"
@@ -966,12 +966,12 @@ class TemplateEntryDlg(wx.Dialog):
 		pattern = "^[a-z0-9_-]{%d,%d}$" % (minCharTemplateName, maxCharTemplateName)
 		if templateName == "default" or not re.match(pattern, templateName):
 			msg = _("Wrong value for template name field. Field must contain only letters in lowercase (%s), numbers (%s), hyphen (%s) or underscores (%s). A maximum of %d characters. The following name is not allowed: \"default\"." % ("a-z", "0-9", '-', '_', maxCharTemplateName))
-			gui.messageBox(msg, addonName, wx.OK|wx.ICON_ERROR)
+			gui.messageBox(msg, addonSummary, wx.OK|wx.ICON_ERROR)
 			self.templateName.SetFocus()
 			return
 		if not templateContent.strip():
 			msg = _("Content field empty.")
-			gui.messageBox(msg, addonName, wx.OK|wx.ICON_ERROR)
+			gui.messageBox(msg, addonSummary, wx.OK|wx.ICON_ERROR)
 			self.templateContent.SetFocus()
 			return
 
@@ -979,7 +979,7 @@ class TemplateEntryDlg(wx.Dialog):
 		notPresent = [tag for tag in mustPresent if "{%s}" % tag not in templateContent]
 		if notPresent:
 			msg = _("Content field invalid. The following required tags are missing: %s. Each tag must be surrounded by braces. E.g.: {%s}." % (', '.join(mustPresent), mustPresent[0]))
-			gui.messageBox(msg, addonName, wx.OK|wx.ICON_ERROR)
+			gui.messageBox(msg, addonSummary, wx.OK|wx.ICON_ERROR)
 			self.templateContent.SetFocus()
 			return
 		self.templateEntry = {

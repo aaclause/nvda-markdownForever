@@ -10,7 +10,7 @@ import sys
 import time
 import threading
 import tones
-isPy3 = True if sys.version_info >= (3, 0) else False
+isPy3 = sys.version_info >= (3, 0)
 if isPy3:
 	import urllib.parse
 	import urllib.request

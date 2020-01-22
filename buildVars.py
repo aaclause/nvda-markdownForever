@@ -1,5 +1,13 @@
 # -*- coding: UTF-8 -*-
+import subprocess
 import time
+
+hashCommit = "unknown"
+out = subprocess.check_output(["git", "status", "--porcelain"]).strip().decode()
+if not out.strip():
+	label = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"]).strip().decode()
+	if len(hashCommit) == 7: hashCommit = label
+
 
 # Build customizations
 # Change this file instead of sconstruct or manifest files, whenever possible.
@@ -20,7 +28,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description" : _("Full-featured Markdown and HTML converter for NVDA"),
 	# version
-	"addon_version" : time.strftime('%y.%m.%d-%H%M%S'),
+	"addon_version" : time.strftime('%y.%m.%d:') + hashCommit,
 	# Author(s)
 	"addon_author" : u"André <dev@andreabc.net>, Sof <hellosof@gmail.com> and other contributors",
 	# URL for the add-on documentation support

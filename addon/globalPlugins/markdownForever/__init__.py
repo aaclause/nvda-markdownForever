@@ -15,7 +15,7 @@ import locale
 import os, os.path
 import sys
 from . import updateCheck
-isPy3 = True if sys.version_info >= (3, 0) else False
+isPy3 = sys.version_info >= (3, 0)
 baseDir = os.path.dirname(__file__)
 if not isPy3: baseDir = baseDir.decode("mbcs")
 libCommon = os.path.join(baseDir, "lib", "common")

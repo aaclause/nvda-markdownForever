@@ -4,7 +4,7 @@ Markdown Forever
 
 Full-featured Markdown and HTML converter for NVDA
 
-Copyright 2019 André-Abush Clause, Sof and other contributors. Released under GPL.
+Copyright 2020 André-Abush Clause, Sof and other contributors. Released under GPL.
 GitHub: https://github.com/andre9642/nvda-markdownForever/
 """
 

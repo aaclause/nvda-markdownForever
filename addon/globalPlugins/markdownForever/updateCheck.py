@@ -1,7 +1,7 @@
 # coding: utf-8
 # updateCheck.py
 # Part of MarkdownForever addon for NVDA
-# Copyright 2019 André-Abush Clause, released under GPL.
+# Copyright 2020 André-Abush Clause, released under GPL.
 from __future__ import unicode_literals
 from logHandler import log
 import json
@@ -140,7 +140,7 @@ class UpdateCheck(threading.Thread):
 	def run(self):
 		if globalVars.appArgs.secure: return self.stop()
 		checkingForced = False
-		delayChecking = 86400 #86400 if config.conf[sectionName]["updateChannel"] != "stable" else 604800
+		delayChecking = 604800
 		while not self.shouldStop:
 			if not checkInProgress and config.conf[sectionName]["autoCheckUpdate"]:
 				if config.conf[sectionName]["lastNVDAVersion"] != versionInfo.version:

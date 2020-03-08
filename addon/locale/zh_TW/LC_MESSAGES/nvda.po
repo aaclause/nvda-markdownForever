@@ -1,0 +1,442 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the MarkdownForever package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MarkdownForever 19.03.25-101339\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2020-03-01 16:33+0100\n"
+"PO-Revision-Date: 2020-03-09 00:43+0800\n"
+"Last-Translator: 蔡宗豪 <surfer0627@gmail.com>\n"
+"Language-Team: \n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: addon\globalPlugins\markdownForever\__init__.py:66
+msgid "Save as"
+msgstr "令存心檔"
+
+#: addon\globalPlugins\markdownForever\__init__.py:67
+msgid "Show in browser"
+msgstr "在預設瀏覽器開啟"
+
+#: addon\globalPlugins\markdownForever\__init__.py:68
+msgid "Show in virtual buffer"
+msgstr "在 NVDA 瀏覽模式開啟"
+
+#: addon\globalPlugins\markdownForever\__init__.py:69
+msgid "Copy to clipboard"
+msgstr "複製到剪貼簿"
+
+#: addon\globalPlugins\markdownForever\__init__.py:90
+msgid "html2text: turn HTML into equivalent Markdown-structured text"
+msgstr "html2text: html 轉 markdown"
+
+#: addon\globalPlugins\markdownForever\__init__.py:91
+msgid "html2markdown: conservatively convert html to markdown"
+msgstr "HTML2Markdown: html 轉 markdown"
+
+#: addon\globalPlugins\markdownForever\__init__.py:120
+#: addon\globalPlugins\markdownForever\__init__.py:256
+msgid "No title"
+msgstr "沒有標題"
+
+#: addon\globalPlugins\markdownForever\__init__.py:148
+msgid "Invalid file path"
+msgstr "無效的檔案路徑"
+
+#: addon\globalPlugins\markdownForever\__init__.py:185
+msgid "Unable to guess the encoding"
+msgstr "無法猜測語法"
+
+#: addon\globalPlugins\markdownForever\__init__.py:187
+msgid "No text"
+msgstr "沒有文字"
+
+#: addon\globalPlugins\markdownForever\__init__.py:304
+msgid "Default: A minimal template provided by the add-on"
+msgstr "預設值：附加元件提供的最小範本"
+
+#: addon\globalPlugins\markdownForever\__init__.py:318
+#, python-format
+msgid ""
+"Metadata and extra tags error. '%s' value was not recognized for lang field."
+msgstr "元數據和額外標籤錯誤。lang 字段 '%s' 無法識別。"
+
+#: addon\globalPlugins\markdownForever\__init__.py:399
+msgid "Table of contents"
+msgstr "目錄索引"
+
+#: addon\globalPlugins\markdownForever\__init__.py:410
+msgid "Markdown to HTML conversion"
+msgstr "markdown 轉 html"
+
+#: addon\globalPlugins\markdownForever\__init__.py:423
+msgid "Markdown to HTML conversion (preview)"
+msgstr "markdown 轉 html （預覽）"
+
+#: addon\globalPlugins\markdownForever\__init__.py:423
+msgid "Markdown to HTML source conversion"
+msgstr "markdown 轉 html 語法"
+
+#: addon\globalPlugins\markdownForever\__init__.py:444
+#: addon\globalPlugins\markdownForever\__init__.py:540
+msgid "HTML to Markdown conversion"
+msgstr "html 轉 markdown"
+
+#: addon\globalPlugins\markdownForever\__init__.py:485
+msgid "Documentation"
+msgstr "說明文件"
+
+#: addon\globalPlugins\markdownForever\__init__.py:485
+msgid "Opens the addon's documentation"
+msgstr "開啟說明文件"
+
+#: addon\globalPlugins\markdownForever\__init__.py:487
+msgid "Settings"
+msgstr "設定"
+
+#: addon\globalPlugins\markdownForever\__init__.py:487
+msgid "Add-on settings"
+msgstr "元件設定"
+
+#: addon\globalPlugins\markdownForever\__init__.py:489
+msgid "&Check for update"
+msgstr "檢查更新(&C)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:489
+msgid "Checks if update is available"
+msgstr "檢查是否有新版本"
+
+#: addon\globalPlugins\markdownForever\__init__.py:491
+msgid "&Web site"
+msgstr "元件網站(&W)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:491
+msgid "Open the add-on website."
+msgstr "開啟附加元件網站"
+
+#: addon\globalPlugins\markdownForever\__init__.py:493
+msgid "&Markdown Forever"
+msgstr "Markdown Forever(&&M)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:535
+msgid "Show the HTML source from Markdown"
+msgstr "顯示 Markdown 的 HTML 語法"
+
+#: addon\globalPlugins\markdownForever\__init__.py:553
+msgid ""
+"Markdown to HTML conversion. The result is displayed in a virtual buffer of "
+"NVDA"
+msgstr "markdown 轉 html （在 NVDA 瀏覽模式開啟）"
+
+#: addon\globalPlugins\markdownForever\__init__.py:560
+msgid ""
+"Markdown to HTML conversion. The result is displayed in your default browser"
+msgstr "markdown 轉 html （在預設瀏覽器開啟）"
+
+#: addon\globalPlugins\markdownForever\__init__.py:567
+msgid "HTML source copied to clipboard"
+msgstr "複製 html 語法到剪貼簿"
+
+#: addon\globalPlugins\markdownForever\__init__.py:568
+msgid "Markdown to HTML source conversion. The result is copied to clipboard"
+msgstr "markdown 轉 html 語法 （複製內容到剪貼簿）"
+
+#: addon\globalPlugins\markdownForever\__init__.py:574
+msgid "Formatted HTML copied to clipboard"
+msgstr "複製 html 格式到剪貼簿"
+
+#: addon\globalPlugins\markdownForever\__init__.py:575
+#: addon\globalPlugins\markdownForever\__init__.py:585
+msgid "An error occured"
+msgstr "發生錯誤"
+
+#: addon\globalPlugins\markdownForever\__init__.py:576
+msgid ""
+"Markdown to formatted HTML conversion. The result is copied to clipboard"
+msgstr "markdown 轉 html 格式 （複製內容到剪貼簿）"
+
+#: addon\globalPlugins\markdownForever\__init__.py:584
+msgid "Markdown copied to clipboard"
+msgstr "複製 Markdown 到剪貼簿"
+
+#: addon\globalPlugins\markdownForever\__init__.py:586
+msgid "HTML to Markdown conversion. The result is copied to clipboard"
+msgstr "html 轉 markdown （複製內容到剪貼簿）"
+
+#. Translators: This is the label for the edit dictionary entry dialog.
+#: addon\globalPlugins\markdownForever\__init__.py:592
+#: addon\globalPlugins\markdownForever\__init__.py:610
+msgid "Interactive mode"
+msgstr "互動模式"
+
+#: addon\globalPlugins\markdownForever\__init__.py:606
+msgid "HTML source"
+msgstr "來源 HTML"
+
+#: addon\globalPlugins\markdownForever\__init__.py:621
+msgid "C&onvert to"
+msgstr "轉換為(&O)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:626
+#: addon\globalPlugins\markdownForever\__init__.py:811
+msgid "Generate corresponding &metadata from HTML source"
+msgstr "從 HTML 語法產生相應的元數據(&M)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:631
+#: addon\globalPlugins\markdownForever\__init__.py:798
+msgid "&Generate a table of contents"
+msgstr "啟用目錄索引(&G)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:635
+#: addon\globalPlugins\markdownForever\__init__.py:803
+msgid "Try to automatically &number headings"
+msgstr "標題自動編號(&N)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:639
+#: addon\globalPlugins\markdownForever\__init__.py:807
+msgid "Enable e&xtra tags"
+msgstr "允許添加額外標籤(&X)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:643
+msgid "Allow extratags bac&k translation"
+msgstr "允許額外標籤還原為原始格式(&K)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:647
+msgid "&Detect extratags if possible"
+msgstr "偵測額外標籤(&D)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:651
+msgid "&Title"
+msgstr "標題(&T)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:656
+msgid "S&ubtitle"
+msgstr "字幕(&U)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:661
+msgid "HTML temp&late to use"
+msgstr "選擇使用的 HTML 範本"
+
+#: addon\globalPlugins\markdownForever\__init__.py:666
+msgid "Corres&ponding metadata block"
+msgstr "從 HTML 語法產生相應的元數據(&M)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:674
+msgid "Show in &virtual buffer"
+msgstr "在瀏覽模式開啟(&V)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:677
+msgid "Show in &browser"
+msgstr "在預設瀏覽器開啟(&B)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:680
+msgid "&Copy to clipboard"
+msgstr "複製到剪貼簿(&C)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:683
+msgid "&Save as..."
+msgstr "令存心檔(&S)..."
+
+#: addon\globalPlugins\markdownForever\__init__.py:771
+msgid "Select the location"
+msgstr "瀏覽"
+
+#: addon\globalPlugins\markdownForever\__init__.py:792
+msgid "Default settings"
+msgstr "預設設定"
+
+#: addon\globalPlugins\markdownForever\__init__.py:815
+msgid "Default action in interactive mode"
+msgstr "選擇格式轉換的預設值"
+
+#: addon\globalPlugins\markdownForever\__init__.py:819
+msgid "Markdown Engine"
+msgstr "Markdown 引擎"
+
+#: addon\globalPlugins\markdownForever\__init__.py:822
+msgid "Path"
+msgstr "路徑"
+
+#: addon\globalPlugins\markdownForever\__init__.py:823
+msgid "Manage HTML temp&lates"
+msgstr "管理 HTML 範本(&l)"
+
+#. Translators: This is the label for the Manage HTML templates dialog.
+#: addon\globalPlugins\markdownForever\__init__.py:846
+msgid "Manage HTML templates"
+msgstr "管理 HTML 範本"
+
+#: addon\globalPlugins\markdownForever\__init__.py:852
+msgid "HTML templates list"
+msgstr "HTML 範本清單"
+
+#: addon\globalPlugins\markdownForever\__init__.py:857
+msgid "Set as &default template"
+msgstr "設為預設範本(&D)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:859
+msgid "&Edit"
+msgstr "編輯(&E)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:860
+msgid "&Add"
+msgstr "新增(&A)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:861
+msgid "&Remove"
+msgstr "移除(&R)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:916
+#, python-format
+msgid "Are you sure to want to delete the '%s' template?"
+msgstr "您確定要刪除範本 '%s' 嗎？"
+
+#: addon\globalPlugins\markdownForever\__init__.py:916
+msgid "Confirmation"
+msgstr "確認"
+
+#: addon\globalPlugins\markdownForever\__init__.py:928
+msgid "Add template"
+msgstr "新增範本"
+
+#. Translators: This is the label for the edit template entry dialog.
+#: addon\globalPlugins\markdownForever\__init__.py:945
+msgid "Edit template"
+msgstr "編輯範本"
+
+#: addon\globalPlugins\markdownForever\__init__.py:949
+msgid "&Name"
+msgstr "名稱(&N)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:951
+msgid "&Description"
+msgstr "描述(&D)"
+
+#: addon\globalPlugins\markdownForever\__init__.py:953
+msgid "&Content"
+msgstr "內容"
+
+#: addon\globalPlugins\markdownForever\__init__.py:968
+#, python-format
+msgid ""
+"Wrong value for template name field. Field must contain only letters in "
+"lowercase (%s), numbers (%s), hyphen (%s) or underscores (%s). A maximum of "
+"%d characters. The following name is not allowed: \"default\"."
+msgstr ""
+"範本名稱數值錯誤。名稱只能包含小寫字母(%s)，數字(%s)，連字號(%s)或底線(%s)。"
+"最多 %d 個字元。不允許使用以下名稱：\"default\"。"
+
+#: addon\globalPlugins\markdownForever\__init__.py:973
+msgid "Content field empty."
+msgstr "內容欄位為空"
+
+#: addon\globalPlugins\markdownForever\__init__.py:981
+#, python-format
+msgid ""
+"Content field invalid. The following required tags are missing: %s. Each tag "
+"must be surrounded by braces. E.g.: {%s}."
+msgstr ""
+"內容欄位數值無效。缺少以下標籤：%s。每個標籤必須用大括號括起來。例如：{%s}。"
+
+#: addon\globalPlugins\markdownForever\updateCheck.py:59
+#, python-format
+msgid "New version available, version %s. Do you want to download it now?"
+msgstr "有新版本 %s。要現在下載嗎？"
+
+#: addon\globalPlugins\markdownForever\updateCheck.py:70
+#, python-format
+msgid "You are up-to-date. %s is the latest version."
+msgstr "您使用的版本 %s ，是最新版了。"
+
+#: addon\globalPlugins\markdownForever\updateCheck.py:79
+#, python-format
+msgid ""
+"Oops! There was a problem downloading for update. Please retry later or "
+"download and install manually via %s. Do you want to open this URL in your "
+"browser now?"
+msgstr ""
+"糟糕！\n"
+"檢查更新時出現問題。\n"
+"請稍後重試，或透過 %s 手動下載安裝。\n"
+"您要立即在瀏覽器中開啟此網址嗎？"
+
+#: addon\globalPlugins\markdownForever\updateCheck.py:113
+msgid "An update check dialog is already running!"
+msgstr "檢查更新已在執行"
+
+#: addon\globalPlugins\markdownForever\updateCheck.py:114
+#, python-brace-format
+msgid "{addonName}'s update"
+msgstr "{addonName} 更新"
+
+#: addon\globalPlugins\markdownForever\virtualDocuments.py:64
+msgid "Invalid document"
+msgstr "無效的檔案"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:26
+msgid "Markdown Forever"
+msgstr "Markdown Forever"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:29
+msgid "Full-featured Markdown and HTML converter for NVDA"
+msgstr "用於 NVDA，可轉換 markdown 與 html 的附加元件。"
+
+#~ msgid "Mar&kdown Forever"
+#~ msgstr "Markdown Forever(&K)"
+
+#~ msgid "%s menu"
+#~ msgstr "%s 功能表"
+
+#~ msgid "Manage HTML &templates"
+#~ msgstr "管理 HTML 範本(&T)"
+
+#~ msgid "Default"
+#~ msgstr "預設值"
+
+#~ msgid "Currently unavailable"
+#~ msgstr "目前無法使用"
+
+#~ msgid "Template &name"
+#~ msgstr "範本名稱(&N)"
+
+#~ msgid ""
+#~ "Copy the result to the clipboard from Markdown. One press: copy the HTML "
+#~ "source. Two quick presses: copy the formatted HTML"
+#~ msgstr ""
+#~ "Copie le HTML généré dans le presse-papiers à partir d'un contenu "
+#~ "Markdown. Une seule pressions copie en texte brut (source HTML), deux "
+#~ "pressions rapides copient en HTML formaté"
+
+#~ msgid ""
+#~ "A small NVDA add-on that provides preview of MarkDown or HTML contents in "
+#~ "any textarea"
+#~ msgstr ""
+#~ "Une petite extension NVDA qui fournit un aperçu du contenu MarkDown ou "
+#~ "HTML dans toute zone de texte"
+
+#~ msgid "HTML to markdown conversion"
+#~ msgstr "Conversion HTML vers Markdown"
+
+#~ msgid "MarkDown to HTML Conversion (%s)"
+#~ msgstr "Conversion Markdown vers HTML (%s)"
+
+#~ msgid "Preview of MarkDown or HTML"
+#~ msgstr "Aperçu de MarkDown ou HTML"
+
+#~ msgid "Preview of MarkDown or HTML trough NVDA"
+#~ msgstr "Aperçu de MarkDown ou HTML via NVDA"
+
+#~ msgid "Preview of MarkDown or HTML trough your default browser"
+#~ msgstr "Aperçu de MarkDown ou HTML via votre navigateur par défaut"

@@ -483,7 +483,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def createMenu(self):
 		self.submenu = wx.Menu()
 		documentationsMenu = wx.Menu()
-		self.submenu.AppendSubMenu(documentationsMenu, _("Documentation"), _("'Braille dictionaries' menu"))
+		self.submenu.AppendSubMenu(documentationsMenu, _("Documentation"), _("Documentation menu"))
 		langs = self.getDocumentationLanguages()
 		for lang, langDesc in langs.items():
 			item = documentationsMenu.Append(wx.ID_ANY, langDesc, _("Open the add-on documentation in this language."))
@@ -805,7 +805,7 @@ class InteractiveModeDlg(wx.Dialog):
 		self.Destroy()
 
 class SettingsDlg(gui.settingsDialogs.SettingsDialog):
-	title = "markdownForever - %s" % _("Default settings")
+	title = "%s - %s" % (addonSummary, _("Default settings"))
 
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
@@ -865,7 +865,7 @@ class ManageHTMLTemplatesDlg(wx.Dialog):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
 
-		HTMLTemplatesText = _("HTML templates list")
+		HTMLTemplatesText = _("HTML templates &list")
 		self.HTMLTemplatesListBox = sHelper.addLabeledControl(HTMLTemplatesText, wx.Choice, choices=getHTMLTemplates())
 		self.HTMLTemplatesListBox.SetSelection(getDefaultHTMLTemplateID())
 		self.HTMLTemplatesListBox.Bind(wx.EVT_CHOICE, self.onHTMLTemplatesListBox)
@@ -981,7 +981,7 @@ class TemplateEntryDlg(wx.Dialog):
 		templateContent = self.templateContent.GetValue()
 		pattern = "^[a-z0-9_-]{%d,%d}$" % (minCharTemplateName, maxCharTemplateName)
 		if templateName == "default" or not re.match(pattern, templateName):
-			msg = _("Wrong value for template name field. Field must contain only letters in lowercase (%s), numbers (%s), hyphen (%s) or underscores (%s). A maximum of %d characters. The following name is not allowed: \"default\"." % ("a-z", "0-9", '-', '_', maxCharTemplateName))
+			msg = _("Wrong value for template name field. Field must contain only letters in lowercase (%s), numbers (%s), hyphen (%s) or underscores (%s). A maximum of %d characters. The following name is not allowed: \"default\".") % ("a-z", "0-9", '-', '_', maxCharTemplateName)
 			gui.messageBox(msg, addonSummary, wx.OK|wx.ICON_ERROR)
 			self.templateName.SetFocus()
 			return

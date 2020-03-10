@@ -7,139 +7,137 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MarkdownForever 19.03.25-101339\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2019-11-04 20:53+0100\n"
-"PO-Revision-Date: 2019-11-05 08:10+0100\n"
+"POT-Creation-Date: 2020-03-10 17:27+0100\n"
+"PO-Revision-Date: 2020-03-10 18:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.2.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: addon\globalPlugins\markdownForever\__init__.py:63
+#: addon\globalPlugins\markdownForever\__init__.py:66
 msgid "Save as"
 msgstr "Enregistrer sous"
 
-#: addon\globalPlugins\markdownForever\__init__.py:64
+#: addon\globalPlugins\markdownForever\__init__.py:67
 msgid "Show in browser"
 msgstr "Afficher dans le navigateur"
 
-#: addon\globalPlugins\markdownForever\__init__.py:65
+#: addon\globalPlugins\markdownForever\__init__.py:68
 msgid "Show in virtual buffer"
 msgstr "Afficher dans le tampon virtuel"
 
-#: addon\globalPlugins\markdownForever\__init__.py:66
+#: addon\globalPlugins\markdownForever\__init__.py:69
 msgid "Copy to clipboard"
 msgstr "Copier dans le presse-papiers"
 
-#: addon\globalPlugins\markdownForever\__init__.py:84
+#: addon\globalPlugins\markdownForever\__init__.py:90
 msgid "html2text: turn HTML into equivalent Markdown-structured text"
 msgstr ""
 "html2text: Conversion de HTML en son équivalent en texte Markdown structuré "
 
-#: addon\globalPlugins\markdownForever\__init__.py:85
+#: addon\globalPlugins\markdownForever\__init__.py:91
 msgid "html2markdown: conservatively convert html to markdown"
 msgstr "HTML2Markdown: Conversion sans pertes de HTML vers Markdown"
 
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\markdownForever\__init__.py:89 buildVars.py:18
-msgid "Markdown Forever"
-msgstr "Markdown Forever"
-
-#: addon\globalPlugins\markdownForever\__init__.py:129
-msgid "Invalid file path"
-msgstr "Chemin de fichier invalide"
-
-#: addon\globalPlugins\markdownForever\__init__.py:166
-msgid "Unable to guess the encoding"
-msgstr "Impossible de déduire l'encodage."
-
-#: addon\globalPlugins\markdownForever\__init__.py:168
-msgid "No text"
-msgstr "Pas de texte"
-
-#: addon\globalPlugins\markdownForever\__init__.py:211
+#: addon\globalPlugins\markdownForever\__init__.py:120
+#: addon\globalPlugins\markdownForever\__init__.py:256
 msgid "No title"
 msgstr "Sans titre"
 
-#: addon\globalPlugins\markdownForever\__init__.py:263
+#: addon\globalPlugins\markdownForever\__init__.py:148
+msgid "Invalid file path"
+msgstr "Chemin de fichier invalide"
+
+#: addon\globalPlugins\markdownForever\__init__.py:185
+msgid "Unable to guess the encoding"
+msgstr "Impossible de déduire l'encodage."
+
+#: addon\globalPlugins\markdownForever\__init__.py:187
+msgid "No text"
+msgstr "Pas de texte"
+
+#: addon\globalPlugins\markdownForever\__init__.py:304
+msgid "Default: A minimal template provided by the add-on"
+msgstr "Défaut : un gabarit minimal fourni par l'extension"
+
+#: addon\globalPlugins\markdownForever\__init__.py:318
 #, python-format
 msgid ""
 "Metadata and extra tags error. '%s' value was not recognized for lang field."
 msgstr ""
-"Erreur de métadonnées ou super-balises: La valeur '%s' n'apas été reconnu "
-"pour le champ lang."
+"Erreur de métadonnées et de super-balises : la valeur '%s' n'a pas été "
+"reconnu pour le champ lang."
 
-#: addon\globalPlugins\markdownForever\__init__.py:340
+#: addon\globalPlugins\markdownForever\__init__.py:399
 msgid "Table of contents"
 msgstr "Sommaire"
 
-#: addon\globalPlugins\markdownForever\__init__.py:351
+#: addon\globalPlugins\markdownForever\__init__.py:410
 msgid "Markdown to HTML conversion"
 msgstr "Conversion Markdown vers HTML"
 
-#: addon\globalPlugins\markdownForever\__init__.py:358
+#: addon\globalPlugins\markdownForever\__init__.py:423
 msgid "Markdown to HTML conversion (preview)"
 msgstr "Conversion Markdown vers HTML (aperçu)"
 
-#: addon\globalPlugins\markdownForever\__init__.py:358
+#: addon\globalPlugins\markdownForever\__init__.py:423
 msgid "Markdown to HTML source conversion"
 msgstr "Conversion Markdown vers source HTML"
 
-#: addon\globalPlugins\markdownForever\__init__.py:375
-#: addon\globalPlugins\markdownForever\__init__.py:473
+#: addon\globalPlugins\markdownForever\__init__.py:444
+#: addon\globalPlugins\markdownForever\__init__.py:556
 msgid "HTML to Markdown conversion"
 msgstr "Conversion HTML vers Markdown"
 
-#: addon\globalPlugins\markdownForever\__init__.py:417
+#: addon\globalPlugins\markdownForever\__init__.py:486
 msgid "Documentation"
 msgstr "Documentation"
 
-#: addon\globalPlugins\markdownForever\__init__.py:417
-msgid "Opens the addon's documentation"
-msgstr "Affiche la documentation de l'extension"
+#: addon\globalPlugins\markdownForever\__init__.py:486
+msgid "Documentation menu"
+msgstr "Menu documentation"
 
-#: addon\globalPlugins\markdownForever\__init__.py:419
+#: addon\globalPlugins\markdownForever\__init__.py:489
+msgid "Open the add-on documentation in this language."
+msgstr "Affiche la documentation de l'extension dans cette langue"
+
+#: addon\globalPlugins\markdownForever\__init__.py:491
 msgid "Settings"
 msgstr "Paramètres"
 
-#: addon\globalPlugins\markdownForever\__init__.py:419
+#: addon\globalPlugins\markdownForever\__init__.py:491
 msgid "Add-on settings"
 msgstr "Paramètres de l'extension"
 
-#: addon\globalPlugins\markdownForever\__init__.py:421
+#: addon\globalPlugins\markdownForever\__init__.py:493
 msgid "&Check for update"
 msgstr "&Vérifier les mises à jour"
 
-#: addon\globalPlugins\markdownForever\__init__.py:421
+#: addon\globalPlugins\markdownForever\__init__.py:493
 msgid "Checks if update is available"
 msgstr "Vérifie si des mises à jour sont disponibles"
 
-#: addon\globalPlugins\markdownForever\__init__.py:423
+#: addon\globalPlugins\markdownForever\__init__.py:495
 msgid "&Web site"
 msgstr "&Site web"
 
-#: addon\globalPlugins\markdownForever\__init__.py:423
+#: addon\globalPlugins\markdownForever\__init__.py:495
 msgid "Open the add-on website."
 msgstr "Affiche le site web de l'extension."
 
-#: addon\globalPlugins\markdownForever\__init__.py:425
-msgid "Mar&kdown Forever"
-msgstr "Mar&kdown Forever"
+#: addon\globalPlugins\markdownForever\__init__.py:497
+msgid "&Markdown Forever"
+msgstr "&Markdown Forever"
 
-#: addon\globalPlugins\markdownForever\__init__.py:425
-#, python-format
-msgid "%s menu"
-msgstr "menu %s"
-
-#: addon\globalPlugins\markdownForever\__init__.py:466
+#: addon\globalPlugins\markdownForever\__init__.py:551
 msgid "Show the HTML source from Markdown"
 msgstr "Affiche la source HTML d'un contenu Markdown"
 
-#: addon\globalPlugins\markdownForever\__init__.py:480
+#: addon\globalPlugins\markdownForever\__init__.py:569
 msgid ""
 "Markdown to HTML conversion. The result is displayed in a virtual buffer of "
 "NVDA"
@@ -147,175 +145,233 @@ msgstr ""
 "Conversion Markdown vers HTML. Le résultat s'affiche dans un tampon virtuel "
 "de NVDA"
 
-#: addon\globalPlugins\markdownForever\__init__.py:487
+#: addon\globalPlugins\markdownForever\__init__.py:576
 msgid ""
 "Markdown to HTML conversion. The result is displayed in your default browser"
 msgstr ""
 "Conversion Markdown vers HTML. Le résultat s'affiche dans votre navigateur "
 "par défaut"
 
-#: addon\globalPlugins\markdownForever\__init__.py:494
+#: addon\globalPlugins\markdownForever\__init__.py:583
 msgid "HTML source copied to clipboard"
 msgstr "Source HTML copiée dans le presse-papier"
 
-#: addon\globalPlugins\markdownForever\__init__.py:495
+#: addon\globalPlugins\markdownForever\__init__.py:584
 msgid "Markdown to HTML source conversion. The result is copied to clipboard"
 msgstr ""
 "Conversion Markdown en code source HTML. Le résultat est copié dans le "
 "presse-papiers"
 
-#: addon\globalPlugins\markdownForever\__init__.py:501
+#: addon\globalPlugins\markdownForever\__init__.py:590
 msgid "Formatted HTML copied to clipboard"
 msgstr "HTML formaté copié dans le presse-papier"
 
-#: addon\globalPlugins\markdownForever\__init__.py:502
-#: addon\globalPlugins\markdownForever\__init__.py:513
+#: addon\globalPlugins\markdownForever\__init__.py:591
+#: addon\globalPlugins\markdownForever\__init__.py:601
 msgid "An error occured"
 msgstr "Une erreur est survenue"
 
-#: addon\globalPlugins\markdownForever\__init__.py:503
+#: addon\globalPlugins\markdownForever\__init__.py:592
 msgid ""
 "Markdown to formatted HTML conversion. The result is copied to clipboard"
 msgstr ""
 "Conversion Markdown en HTML formaté. Le résultat est copié dans le presse-"
 "papiers."
 
-#: addon\globalPlugins\markdownForever\__init__.py:512
+#: addon\globalPlugins\markdownForever\__init__.py:600
 msgid "Markdown copied to clipboard"
 msgstr "Markdown copié dans le presse-papiers"
 
-#: addon\globalPlugins\markdownForever\__init__.py:514
+#: addon\globalPlugins\markdownForever\__init__.py:602
 msgid "HTML to Markdown conversion. The result is copied to clipboard"
 msgstr ""
 "Conversion HTML en Markdown. Le résultat est copié dans le presse-papiers"
 
 #. Translators: This is the label for the edit dictionary entry dialog.
-#: addon\globalPlugins\markdownForever\__init__.py:520
-#: addon\globalPlugins\markdownForever\__init__.py:538
+#: addon\globalPlugins\markdownForever\__init__.py:608
+#: addon\globalPlugins\markdownForever\__init__.py:626
 msgid "Interactive mode"
 msgstr "Mode interactif"
 
-#: addon\globalPlugins\markdownForever\__init__.py:534
+#: addon\globalPlugins\markdownForever\__init__.py:622
 msgid "HTML source"
 msgstr "Source HTML"
 
-#: addon\globalPlugins\markdownForever\__init__.py:549
-msgid "Convert &to"
+#: addon\globalPlugins\markdownForever\__init__.py:637
+#, fuzzy
+#| msgid "Convert &to"
+msgid "C&onvert to"
 msgstr "C&onvertir en"
 
-#: addon\globalPlugins\markdownForever\__init__.py:554
-#: addon\globalPlugins\markdownForever\__init__.py:686
+#: addon\globalPlugins\markdownForever\__init__.py:642
+#: addon\globalPlugins\markdownForever\__init__.py:827
 msgid "Generate corresponding &metadata from HTML source"
 msgstr "Générer les &métadonnées à partir de la source HTML"
 
-#: addon\globalPlugins\markdownForever\__init__.py:559
-#: addon\globalPlugins\markdownForever\__init__.py:678
+#: addon\globalPlugins\markdownForever\__init__.py:647
+#: addon\globalPlugins\markdownForever\__init__.py:814
 msgid "&Generate a table of contents"
 msgstr "&Générer la table des matières / le sommaire"
 
-#: addon\globalPlugins\markdownForever\__init__.py:563
+#: addon\globalPlugins\markdownForever\__init__.py:651
+#: addon\globalPlugins\markdownForever\__init__.py:819
 msgid "Try to automatically &number headings"
 msgstr "Tenter de numéroter les t&itres automatiquement"
 
-#: addon\globalPlugins\markdownForever\__init__.py:567
-#: addon\globalPlugins\markdownForever\__init__.py:682
+#: addon\globalPlugins\markdownForever\__init__.py:655
+#: addon\globalPlugins\markdownForever\__init__.py:823
 msgid "Enable e&xtra tags"
 msgstr "Activer les &super-balises"
 
-#: addon\globalPlugins\markdownForever\__init__.py:571
+#: addon\globalPlugins\markdownForever\__init__.py:659
+msgid "Allow extratags bac&k translation"
+msgstr "Permettre la réversibilité des super-&balises "
+
+#: addon\globalPlugins\markdownForever\__init__.py:663
+msgid "&Detect extratags if possible"
+msgstr "&Détecter les super-balises"
+
+#: addon\globalPlugins\markdownForever\__init__.py:667
 msgid "&Title"
 msgstr "&Titre"
 
-#: addon\globalPlugins\markdownForever\__init__.py:575
+#: addon\globalPlugins\markdownForever\__init__.py:672
+msgid "S&ubtitle"
+msgstr "So&us-titre"
+
+#: addon\globalPlugins\markdownForever\__init__.py:677
+msgid "HTML temp&late to use"
+msgstr "Gabarit HTML à utiliser"
+
+#: addon\globalPlugins\markdownForever\__init__.py:682
+msgid "Corres&ponding metadata block"
+msgstr "Bloc de métadonnées corres&pondant"
+
+#: addon\globalPlugins\markdownForever\__init__.py:690
 msgid "Show in &virtual buffer"
 msgstr "Afficher dans le tampon &virtuel"
 
-#: addon\globalPlugins\markdownForever\__init__.py:578
+#: addon\globalPlugins\markdownForever\__init__.py:693
 msgid "Show in &browser"
 msgstr "Afficher dans le &navigateur"
 
-#: addon\globalPlugins\markdownForever\__init__.py:581
+#: addon\globalPlugins\markdownForever\__init__.py:696
 msgid "&Copy to clipboard"
 msgstr "&Copier dans le presse-papier"
 
-#: addon\globalPlugins\markdownForever\__init__.py:584
+#: addon\globalPlugins\markdownForever\__init__.py:699
 msgid "&Save as..."
 msgstr "Enregistr&er sous..."
 
-#: addon\globalPlugins\markdownForever\__init__.py:652
+#: addon\globalPlugins\markdownForever\__init__.py:787
 msgid "Select the location"
 msgstr "Sélectionner l'emplacement"
 
-#: addon\globalPlugins\markdownForever\__init__.py:673
+#: addon\globalPlugins\markdownForever\__init__.py:808
 msgid "Default settings"
 msgstr "Paramètres par défaut"
 
-#: addon\globalPlugins\markdownForever\__init__.py:690
+#: addon\globalPlugins\markdownForever\__init__.py:831
 msgid "Default action in interactive mode"
 msgstr "Action par défaut en mode interactif"
 
-#: addon\globalPlugins\markdownForever\__init__.py:694
+#: addon\globalPlugins\markdownForever\__init__.py:835
 msgid "Markdown Engine"
 msgstr "Convertisseur Markdown"
 
-#: addon\globalPlugins\markdownForever\__init__.py:697
+#: addon\globalPlugins\markdownForever\__init__.py:838
 msgid "Path"
 msgstr "Chemin"
 
-#: addon\globalPlugins\markdownForever\__init__.py:698
-msgid "Manage HTML &templates"
-msgstr "&Gérer les modèles HTML"
+#: addon\globalPlugins\markdownForever\__init__.py:839
+msgid "Manage HTML temp&lates"
+msgstr "Gérer les modèles HTML"
 
 #. Translators: This is the label for the Manage HTML templates dialog.
-#: addon\globalPlugins\markdownForever\__init__.py:720
+#: addon\globalPlugins\markdownForever\__init__.py:862
 msgid "Manage HTML templates"
 msgstr "Gérer les modèles HTML"
 
-#: addon\globalPlugins\markdownForever\__init__.py:730
-msgid "Default"
-msgstr "Défaut"
-
-#: addon\globalPlugins\markdownForever\__init__.py:731
+#: addon\globalPlugins\markdownForever\__init__.py:868
 msgid "HTML templates list"
 msgstr "Liste des modèles HTML"
 
-#: addon\globalPlugins\markdownForever\__init__.py:734
+#: addon\globalPlugins\markdownForever\__init__.py:873
+msgid "Set as &default template"
+msgstr "Définir en tant que gabarit par ddéfaut"
+
+#: addon\globalPlugins\markdownForever\__init__.py:875
 msgid "&Edit"
 msgstr "&Modifier"
 
-#: addon\globalPlugins\markdownForever\__init__.py:735
+#: addon\globalPlugins\markdownForever\__init__.py:876
 msgid "&Add"
 msgstr "&Ajouter"
 
-#: addon\globalPlugins\markdownForever\__init__.py:736
+#: addon\globalPlugins\markdownForever\__init__.py:877
 msgid "&Remove"
 msgstr "&Supprimer"
 
-#: addon\globalPlugins\markdownForever\__init__.py:747
-#: addon\globalPlugins\markdownForever\__init__.py:750
-msgid "Currently unavailable"
-msgstr "Indisponible pour le moment"
+#: addon\globalPlugins\markdownForever\__init__.py:932
+#, python-format
+msgid "Are you sure to want to delete the '%s' template?"
+msgstr "Êtes-vous sûr de vouloir supprimer le gabarit « %s » ?"
 
-#: addon\globalPlugins\markdownForever\__init__.py:753
+#: addon\globalPlugins\markdownForever\__init__.py:932
+msgid "Confirmation"
+msgstr "Confirmation"
+
+#: addon\globalPlugins\markdownForever\__init__.py:944
 msgid "Add template"
 msgstr "Ajouter un modèle"
 
 #. Translators: This is the label for the edit template entry dialog.
-#: addon\globalPlugins\markdownForever\__init__.py:762
+#: addon\globalPlugins\markdownForever\__init__.py:961
 msgid "Edit template"
 msgstr "Modifier un modèle"
 
-#: addon\globalPlugins\markdownForever\__init__.py:766
-msgid "Template &name"
-msgstr "&Nom du modèle"
+#: addon\globalPlugins\markdownForever\__init__.py:965
+msgid "&Name"
+msgstr "&Nom"
 
-#: addon\globalPlugins\markdownForever\__init__.py:768
-msgid "Content"
-msgstr "Contenu"
+#: addon\globalPlugins\markdownForever\__init__.py:967
+msgid "&Description"
+msgstr "&Description"
+
+#: addon\globalPlugins\markdownForever\__init__.py:969
+msgid "&Content"
+msgstr "&Contenu"
+
+#: addon\globalPlugins\markdownForever\__init__.py:984
+#, python-format
+msgid ""
+"Wrong value for template name field. Field must contain only letters in "
+"lowercase (%s), numbers (%s), hyphen (%s) or underscores (%s). A maximum of "
+"%d characters. The following name is not allowed: \"default\"."
+msgstr ""
+"Valeur incorrecte pour le champ du nom du gabarit. Le champ doit contenir "
+"uniquement des lettres en minuscules (%s), des chiffres (%s), des tirets "
+"(%s) ou des traits de soulignement (%s). Un maximum de %d caractères. Le nom "
+"suivant n'est pas autorisé : \"default\"."
+
+#: addon\globalPlugins\markdownForever\__init__.py:989
+msgid "Content field empty."
+msgstr "Champ contenu vide."
+
+#: addon\globalPlugins\markdownForever\__init__.py:997
+#, python-format
+msgid ""
+"Content field invalid. The following required tags are missing: %s. Each tag "
+"must be surrounded by braces. E.g.: {%s}."
+msgstr ""
+"Champ contenu invalide. Les balises suivantes sont manquantes et "
+"obligatoires : %s. Chaque balise doit être entourée d'accolades. Par "
+"exemple: {%s}."
 
 #: addon\globalPlugins\markdownForever\updateCheck.py:59
-#, python-format
-msgid "New version available, version %s. Do you want download it now?"
+#, fuzzy, python-format
+#| msgid "New version available, version %s. Do you want download it now?"
+msgid "New version available, version %s. Do you want to download it now?"
 msgstr ""
 "Nouvelle version disponible, version %s. Voulez-vous la télécharger "
 "maintenant?"
@@ -328,55 +384,36 @@ msgstr "Vous êtes à jour. %s est la dernière version."
 #: addon\globalPlugins\markdownForever\updateCheck.py:79
 #, python-format
 msgid ""
-"Oops! There was a problem checking for updates. Please retry later or "
-"download and install manually via %s. Do you want open this URL in your "
+"Oops! There was a problem downloading for update. Please retry later or "
+"download and install manually via %s. Do you want to open this URL in your "
 "browser now?"
 msgstr ""
-"Oups: Il y a eu un problème en vérifiant les mises à jour. Veuillez "
+"Oups ! Il y a eu un problème en téléchargeant les mises à jour. Veuillez "
 "réessayer plus tard ou téléchargez et installez-la manuellement sur %s. "
-"Voulez-vous ouvrir cette URL dans votre navigateur maintenant?"
+"Voulez-vous ouvrir cette URL dans votre navigateur maintenant ?"
 
 #: addon\globalPlugins\markdownForever\updateCheck.py:113
 msgid "An update check dialog is already running!"
 msgstr "Une vérification des mises à jour est déjà en cours!"
 
 #: addon\globalPlugins\markdownForever\updateCheck.py:114
-#, python-brace-format
-msgid "{addonName}'s Update"
+#, fuzzy, python-brace-format
+#| msgid "{addonName}'s Update"
+msgid "{addonName}'s update"
 msgstr "Mise à jour de {addonName}"
+
+#: addon\globalPlugins\markdownForever\virtualDocuments.py:64
+msgid "Invalid document"
+msgstr "Document invalide"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:26
+msgid "Markdown Forever"
+msgstr "Markdown Forever"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#: buildVars.py:21
+#: buildVars.py:29
 msgid "Full-featured Markdown and HTML converter for NVDA"
 msgstr "Convertisseur Markdown et HTML complet pour NVDA"
-
-#~ msgid ""
-#~ "Copy the result to the clipboard from Markdown. One press: copy the HTML "
-#~ "source. Two quick presses: copy the formatted HTML"
-#~ msgstr ""
-#~ "Copie le HTML généré dans le presse-papiers à partir d'un contenu "
-#~ "Markdown. Une seule pressions copie en texte brut (source HTML), deux "
-#~ "pressions rapides copient en HTML formaté"
-
-#~ msgid ""
-#~ "A small NVDA add-on that provides preview of MarkDown or HTML contents in "
-#~ "any textarea"
-#~ msgstr ""
-#~ "Une petite extension NVDA qui fournit un aperçu du contenu MarkDown ou "
-#~ "HTML dans toute zone de texte"
-
-#~ msgid "HTML to markdown conversion"
-#~ msgstr "Conversion HTML vers Markdown"
-
-#~ msgid "MarkDown to HTML Conversion (%s)"
-#~ msgstr "Conversion Markdown vers HTML (%s)"
-
-#~ msgid "Preview of MarkDown or HTML"
-#~ msgstr "Aperçu de MarkDown ou HTML"
-
-#~ msgid "Preview of MarkDown or HTML trough NVDA"
-#~ msgstr "Aperçu de MarkDown ou HTML via NVDA"
-
-#~ msgid "Preview of MarkDown or HTML trough your default browser"
-#~ msgstr "Aperçu de MarkDown ou HTML via votre navigateur par défaut"

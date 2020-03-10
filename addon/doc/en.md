@@ -1,5 +1,5 @@
 ﻿---
-title: "MarkdownForever %addonversion% documentation"
+title: "MarkdownForever %addonVersion% documentation"
 subtitle: Full-featured Markdown and HTML converter for NVDA
 keywords: documentation, MarkdownForever, NVDA add-on, english
 filename: doc_en

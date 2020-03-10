@@ -482,8 +482,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def createMenu(self):
 		self.submenu = wx.Menu()
-		item = self.submenu.Append(wx.ID_ANY, _("Documentation"), _("Opens the addon's documentation"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onDoc, item)
+		documentationsMenu = wx.Menu()
+		self.submenu.AppendSubMenu(documentationsMenu, _("Documentation"), _("'Braille dictionaries' menu"))
+		langs = self.getDocumentationLanguages()
+		for lang, langDesc in langs.items():
+			item = documentationsMenu.Append(wx.ID_ANY, langDesc, _("Open the add-on documentation in this language."))
+			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, lambda evt, lang=lang: self.onDoc(evt, lang), item)
 		item = self.submenu.Append(wx.ID_ANY, "%s..." % _("Settings"), _("Add-on settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onSettings, item)
 		item = self.submenu.Append(wx.ID_ANY, "%s..." % _("&Check for update"), _("Checks if update is available"))
@@ -491,6 +495,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		item = self.submenu.Append(wx.ID_ANY, _("&Web site"), _("Open the add-on website."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.onWebsite, item)
 		self.submenu_item = gui.mainFrame.sysTrayIcon.menu.InsertMenu(2, wx.ID_ANY, "%s (%s)" % (_("&Markdown Forever"), addonVersion), self.submenu)
+
+
+	def getDocumentationLanguages(self):
+		langs = {}
+		docDir = os.path.join(baseDir, "..", "..", "doc", "")
+		ls = os.listdir(docDir)
+		for f in ls:
+			if os.path.isfile(os.path.join(docDir, f)) and f.lower().endswith(".md"):
+				lang = f.replace(".md", '')
+				langDesc = languageHandler.getLanguageDescription(lang)
+				if langDesc: langs[lang] = langDesc
+		return langs
 
 	def removeMenu(self):
 		gui.mainFrame.sysTrayIcon.menu.DestroyItem(self.submenu_item)
@@ -503,8 +519,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).terminate()
 
 	@staticmethod
-	def onDoc(evt):
-		MDLocation = os.path.join(addonPath, "doc", defaultLanguage.split('_')[0]+".md")
+	def onDoc(evt, lang=defaultLanguage.split('_')[0]):
+		MDLocation = os.path.join(addonPath, "doc", lang + ".md")
 		if not os.path.exists(MDLocation):
 			MDLocation = os.path.join(addonPath, "doc", "en"+".md")
 		f = codecs.open(MDLocation, "rb")

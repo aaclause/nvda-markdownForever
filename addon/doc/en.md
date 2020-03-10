@@ -5,6 +5,7 @@ keywords: documentation, MarkdownForever, NVDA add-on, english
 filename: doc_en
 author: "Sof &lt;<hellosof@gmail.com>&gt;"
 lang: en
+langd: en
 toc: 1
 extratags: 1
 extratags-back: 0

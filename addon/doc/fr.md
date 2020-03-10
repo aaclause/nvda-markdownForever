@@ -5,6 +5,7 @@ keywords: documentation, MarkdownForever, NVDA, extension, français
 filename: doc_fr
 author: "Sof &lt;<hellosof@gmail.com>&gt;"
 lang: fr
+langd: fr
 toc: 1
 autonumber-headings: 1
 css: style.css

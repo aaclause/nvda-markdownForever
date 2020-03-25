@@ -19,6 +19,24 @@ import versionInfo
 import ui
 from logHandler import log
 
+IM_actions = {
+	"saveAs": 0,
+	"browser": 1,
+	"virtualBuffer": 2,
+	"copyToClip": 3
+}
+IM_actionLabels = [
+	_("Save as"), 
+	_("Show in browser"),
+	_("Show in virtual buffer"),
+	_("Copy to clipboard")
+]
+markdownEngines = ["html2text", "html2markdown"]
+markdownEngineLabels = [
+	_("html2text: turn HTML into equivalent Markdown-structured text"),
+	_("html2markdown: conservatively convert html to markdown"),
+]
+
 baseDir = os.path.dirname(__file__)
 libs = os.path.join(baseDir, "lib")
 sys.path.append(libs)
@@ -38,7 +56,7 @@ addonVersion = addonInfos["version"]
 configDir = "%s/markdownForever" % globalVars.appArgs.configPath
 defaultLanguage = languageHandler.getLanguage()
 internalAutoNumber = r"\!"
-internalTocTag = ":{tableOfContent:%s}/!$£:" % time.time()
+internalTocTag = f":\\tableOfContent:{time.time()}/!$£:"
 curDir = os.path.dirname(__file__)
 addonPath = '\\'.join(curDir.split('\\')[0:-2])
 pathPattern = r"^(?:%|[a-zA-Z]:[\\/])[^:*?\"<>|]+\.html?$"
@@ -185,7 +203,10 @@ def extractMetadata(text):
 				docs = yaml.load_all(y, Loader=yaml.FullLoader)
 				for doc in docs: metadata = doc
 				text = text[end+3:].strip()
-			except (ValueError, yaml.scanner.ScannerError): pass
+			except (ValueError, yaml.parser.ParserError, yaml.scanner.ScannerError) as err:
+				metadataBlock = text[0:end+3]
+				text = text[end+3:].strip()
+				text = f"! {err}\n\n```\n{metadataBlock}\n```\n\n{text}"
 	if not isinstance(metadata, dict): metadata = {}
 	HTMLHead = [
 		'<meta name="generator" content="MarkdownForever" />',
@@ -363,11 +384,13 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys() else '', allowBacktranslate=metadata["extratags-back"])
 		if not ok: return wx.CallAfter(gui.messageBox, content, addonSummary, wx.OK|wx.ICON_ERROR)
 	content = str(content.prettify()) if save else str(content)
+	log.info(toc)
 	if toc:
 		if internalTocTag not in content:
 			pre = "<h1>%s</h1>" % _("Table of contents")
 			content = pre + internalTocTag + content
 		content = content.replace(internalTocTag, toc)
+	else: content = content.replace(internalTocTag, "%toc%")
 	if save:
 		metadata["path"] = realpath(metadata["path"])
 		if not os.path.exists(metadata["path"]): fp = os.path.dirname(__file__) + r"\\tmp.html"

@@ -120,13 +120,13 @@ def run():
 	httpdThread.start()
 
 def stop():
+	global httpdThread
 	if not httpdThread: return
 	httpdThread.httpd.shutdown()
 	httpdThread.httpd.socket.close()
 	httpdThread.join()
+	httpdThread = None
 
 def isRun():
 	if httpdThread: return True
 	return False
-
-instanceGP = None

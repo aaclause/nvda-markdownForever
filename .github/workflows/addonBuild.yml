@@ -1,4 +1,4 @@
-name: Addon build
+name: Generating add-on file
 on: [push, pull_request]
 jobs:
   build: 
@@ -11,7 +11,7 @@ jobs:
         with:
           python-version: 3.7
       - name: install scons
-        run: pip install scons
+        run: pip3 install scons
       - name: install gettext
         run: sudo apt-get install gettext
       - name: building addon

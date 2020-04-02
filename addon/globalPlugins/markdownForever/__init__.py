@@ -7,7 +7,6 @@ Copyright 2020 André-Abush Clause, Sof and other contributors. Released under G
 GitHub: https://github.com/andre9642/nvda-markdownForever/
 """
 
-from __future__ import unicode_literals
 import codecs
 import json
 import os, os.path

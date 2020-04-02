@@ -31,7 +31,7 @@ class GeneralDlg(gui.settingsDialogs.SettingsPanel):
 
 		defaultActionIMText = _("Default action in interactive mode")
 		self.defaultActionListBox = sHelper.addLabeledControl(defaultActionIMText, wx.Choice, choices=IM_actionLabels)
-		self.defaultActionListBox.SetSelection(config.conf["markdownForever"]["IM_defaultAction"])
+		self.defaultActionListBox.SetSelection(list(IM_actions.values()).index(config.conf["markdownForever"]["IM_defaultAction"]))
 		idEngine = markdownEngines.index(markdownEngine)
 		markdownEngineText = _("Markdown Engine")
 		self.markdownEngineListBox = sHelper.addLabeledControl(markdownEngineText, wx.Choice, choices=markdownEngineLabels)
@@ -50,7 +50,7 @@ class GeneralDlg(gui.settingsDialogs.SettingsPanel):
 		config.conf["markdownForever"]["autonumber-headings"] = self.numberHeadingsCheckBox.IsChecked()
 		config.conf["markdownForever"]["extratags"] = self.extratagsCheckBox.IsChecked()
 		config.conf["markdownForever"]["genMetadata"] = self.genMetadataCheckBox.IsChecked()
-		config.conf["markdownForever"]["IM_defaultAction"] = self.defaultActionListBox.GetSelection()
+		config.conf["markdownForever"]["IM_defaultAction"] = list(IM_actions.values())[self.defaultActionListBox.GetSelection()]
 		config.conf["markdownForever"]["markdownEngine"] = markdownEngines[self.markdownEngineListBox.GetSelection()]
 		if defaultPath: config.conf["markdownForever"]["defaultPath"] = defaultPath
 

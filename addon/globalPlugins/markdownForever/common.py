@@ -20,7 +20,7 @@ import ui
 from logHandler import log
 
 IM_actions = {
-	"saveAs": 0,
+	"saveResultAs": 0,
 	"saveSourceAs": 4,
 	"browser": 1,
 	"virtualBuffer": 2,

@@ -41,7 +41,7 @@ confSpecs = {
 	"extratags-back": 'boolean(default=True)',
 	"detectExtratags": 'boolean(default=True)',
 	"genMetadata": 'boolean(default=True)',
-	"IM_defaultAction": 'integer(min=0, max=3, default=0)',
+	"IM_defaultAction": 'integer(min=0, max=4, default=0)',
 	"defaultPath": 'string(default="%USERPROFILE%\documents")',
 	"markdownEngine": 'option("html2markdown", "html2text", default="html2text")',
 	"HTMLTemplate": 'string(default="default")',
@@ -299,9 +299,9 @@ class InteractiveModeDlg(wx.Dialog):
 		if defaultAction == IM_actions["copyToClip"]: self.copyToClipBtn.SetDefault()
 		saveResultBtn = bHelper.addButton(self, label=_("&Save the result as..."))
 		saveResultBtn.Bind(wx.EVT_BUTTON, self.onSave)
+		if defaultAction == IM_actions["saveResultAs"]: saveResultBtn.SetDefault()
 		saveSourceBtn = bHelper.addButton(self, label=_("Save the sou&rce as..."))
 		saveSourceBtn.Bind(wx.EVT_BUTTON, lambda evt: self.onSave(evt, source=True))
-		if defaultAction == IM_actions["saveAs"]: saveResultBtn.SetDefault()
 		if defaultAction == IM_actions["saveSourceAs"]: saveSourceBtn.SetDefault()
 		sHelper.addItem(bHelper)
 

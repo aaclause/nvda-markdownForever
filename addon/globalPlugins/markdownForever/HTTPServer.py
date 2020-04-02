@@ -1,3 +1,4 @@
+# coding: UTF-8
 import codecs
 import os.path as osp
 import re

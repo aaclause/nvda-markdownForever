@@ -10,8 +10,8 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.7
-      - name: Installing scons
-        run: pip3 install scons
+      - name: Installing modules
+        run: pip3 install scons markdown
       - name: Building add-on
         run: scons
       - name: Uploading artifact

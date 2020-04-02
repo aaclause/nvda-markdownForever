@@ -13,7 +13,7 @@ jobs:
       - name: install scons
         run: pip install scons
       - name: building addon
-        run: scon
+        run: scons
       - name: upload artifact
         uses: actions/upload-artifact@v2-preview
         with:

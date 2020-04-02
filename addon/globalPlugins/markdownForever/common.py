@@ -21,12 +21,14 @@ from logHandler import log
 
 IM_actions = {
 	"saveAs": 0,
+	"saveSourceAs": 4,
 	"browser": 1,
 	"virtualBuffer": 2,
-	"copyToClip": 3
+	"copyToClip": 3,
 }
 IM_actionLabels = [
-	_("Save as"), 
+	_("Save the result as"),
+	_("Save the source as"),
 	_("Show in browser"),
 	_("Show in virtual buffer"),
 	_("Copy to clipboard")
@@ -166,6 +168,16 @@ def getMetadataAndTextForMarkDown():
 		metadata["timeGen"] = "%.3f s" % (time.time()-startTime)
 	return metadata, text
 
+def escapeHTML(text):
+	chars = {
+		"&": "&amp;",
+		'"': "&quot;",
+		"'": "&apos;",
+		"<": "&lt;",
+		">": "&gt;",
+	}
+	return "".join(chars.get(c,c) for c in text)
+
 def md2HTML(md, toc, ol=True):
 	extras = ["footnotes", "tables", "fenced-code-blocks", "task_list", "header-ids", "wiki-tables", "spoiler"]
 	if toc: extras.append("toc")
@@ -216,7 +228,7 @@ def extractMetadata(text):
 	metadata = {k.lower(): v for k, v in metadata.items()}
 	if "language" in metadata.keys(): metadata["lang"] = metadata.pop("language")
 	if "authors" in metadata.keys(): metadata["author"] = metadata.pop("authors")
-	if not "template" in metadata.keys() or metadata["template"] not in config.conf["markdownForever"]["HTMLTemplates"].copy().keys(): metadata["template"] = config.conf["markdownForever"]["HTMLTemplate"]
+	if not "template" in metadata.keys() or metadata["template"] not in (list(config.conf["markdownForever"]["HTMLTemplates"].copy().keys())+["default", "minimal"]): metadata["template"] = config.conf["markdownForever"]["HTMLTemplate"]
 	if not "autonumber-headings" in metadata.keys() or not isinstance(metadata["autonumber-headings"], (int, bool)): metadata["autonumber-headings"] = config.conf["markdownForever"]["autonumber-headings"]
 	if not "title" in metadata.keys() or not isinstance(metadata["title"], (str, str)): metadata["title"] = _("No title")
 	if not "subtitle" in metadata.keys() or not isinstance(metadata["subtitle"], (str, str)): metadata["subtitle"] = ""
@@ -258,7 +270,14 @@ def extractMetadata(text):
 
 def getHTMLTemplate(name=None):
 	if not name: name = config.conf["markdownForever"]["HTMLTemplate"]
-	HTMLTemplateDir = realpath("%s/%s.tpl" % (configDir, name))
+	name = name.lower()
+	if name == "minimal":
+		return {
+			"name": "minimal",
+			"description": "",
+			"content": "{body}"
+		}
+	HTMLTemplateDir = realpath(f"{configDir}/{name}.tpl")
 	if name != "default" and os.path.isfile(HTMLTemplateDir): fp = HTMLTemplateDir
 	else: fp = os.path.join(curDir, "res", "default.tpl")
 	with open(fp, "r") as readFile:
@@ -267,14 +286,22 @@ def getHTMLTemplate(name=None):
 
 def getHTMLTemplates():
 	HTMLTemplates = config.conf["markdownForever"]["HTMLTemplates"].copy()
-	return [_("Default: A minimal template provided by the add-on")]+list(HTMLTemplates.keys())
+	return [_("Minimal: just the HTML from your Markdown"), _("Default: A minimal template provided by the add-on")]+list(HTMLTemplates.keys())
 
 def getDefaultHTMLTemplateID(name=None):
 	if not name: name = config.conf["markdownForever"]["HTMLTemplate"]
-	HTMLTemplates = getHTMLTemplates()
-	if name in HTMLTemplates: HTMLTemplateID = HTMLTemplates.index(name)
-	else: HTMLTemplateID = 0
-	return HTMLTemplateID
+	if name == "minimal": return 0
+	elif name == "default": return 1
+	else:
+		HTMLTemplates = getHTMLTemplates()[2:]
+		if name in HTMLTemplates: HTMLTemplateID = HTMLTemplates.index(name)
+		else: HTMLTemplateID = 1
+		return HTMLTemplateID
+
+def getHTMLTemplateFromID(idTemplate):
+	if idTemplate == 0: return "minimal"
+	elif idTemplate == 1: return "default"
+	else: return getHTMLTemplates()[templateID]
 
 def processExtraTags(soup, lang='', allRepl=True, allowBacktranslate=True):
 	try:
@@ -375,7 +402,6 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 	extratags = metadata["extratags"]
 	HTMLHeader = metadata["HTMLHeader"]
 	HTMLHead = metadata["HTMLHead"]
-	while "  " in text: text = text.replace("  ", "  ")
 	body, toc = md2HTML(text, toc, metadata["autonumber-headings"])
 	content = BeautifulSoup(body, "html.parser")
 	if metadata["autonumber-headings"]:
@@ -384,32 +410,33 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys() else '', allowBacktranslate=metadata["extratags-back"])
 		if not ok: return wx.CallAfter(gui.messageBox, content, addonSummary, wx.OK|wx.ICON_ERROR)
 	content = str(content.prettify()) if save else str(content)
-	log.info(toc)
 	if toc:
 		if internalTocTag not in content:
-			pre = "<h1>%s</h1>" % _("Table of contents")
+			pre = '<h1 id="toc-heading">%s</h1>' % _("Table of contents")
 			content = pre + internalTocTag + content
 		content = content.replace(internalTocTag, toc)
 	else: content = content.replace(internalTocTag, "%toc%")
+	if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
+	if not title.strip(): title = _("Markdown to HTML conversion") + (" (%s)" % time.strftime("%X %x"))
+	if useTemplateHTML:
+		body = content
+		content = getHTMLTemplate(metadata["template"])["content"]
+		content = content.replace("{lang}", lang, 1)
+		content = content.replace("{head}", HTMLHead, 1)
+		content = content.replace("{header}", HTMLHeader, 1)
+		content = content.replace("{body}", body, 1)
 	if save:
 		metadata["path"] = realpath(metadata["path"])
 		if not os.path.exists(metadata["path"]): fp = os.path.dirname(__file__) + r"\\tmp.html"
 		if not fp: fp = os.path.join(metadata["path"], "%s.html" % metadata["filename"])
-		if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
-		if not title.strip(): title = _("Markdown to HTML conversion")+(" (%s)" % time.strftime("%X %x"))
-		if useTemplateHTML:
-			body = content
-			content = getHTMLTemplate(metadata["template"])["content"]
-			content = content.replace("{lang}", lang, 1)
-			content = content.replace("{head}", HTMLHead, 1)
-			content = content.replace("{header}", HTMLHeader, 1)
-			content = content.replace("{body}", body, 1)
 		writeFile(fp, content)
 		if display: os.startfile(realpath(fp))
 	else:
 		if lang != defaultLanguage: content = "<div lang=\"%s\">%s</div>" % (lang, content)
 		if display:
-			title = "%s%s" % (title + " - " if title else title, _("Markdown to HTML conversion (preview)")) if not src else _("Markdown to HTML source conversion")
-			ui.browseableMessage("%s%s" % (HTMLHeader, content), title, not src)
-		else: return "%s %s" % (HTMLHeader, content)
+			title = f"{title} — %s" % (_("Markdown to HTML conversion (preview)") if not src else _("Markdown to HTML source conversion"))
+			if src: content = f"<pre>{escapeHTML(content)}</pre>"
+			ui.browseableMessage(content, title, True)
+		else:
+			return content
 

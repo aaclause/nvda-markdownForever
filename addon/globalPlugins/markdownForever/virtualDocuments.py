@@ -9,16 +9,6 @@ from logHandler import log
 
 lastSec = 0
 
-def escape(text):
-	chars = {
-		"&": "&amp;",
-		'"': "&quot;",
-		"'": "&apos;",
-		"<": "&lt;",
-		">": "&gt;",
-	}
-	return "".join(chars.get(c,c) for c in text)
-
 def isVirtualDocument():
 	obj = api.getReviewPosition().obj
 	return hasattr(obj, "rootNVDAObject")
@@ -53,7 +43,7 @@ def getHTML(obj, previousTag=None, pre=True):
 			if obj.value:
 				beg = "<pre>" if controlTypes.STATE_MULTILINE in obj.states else '<code>'
 				end = "</pre>" if controlTypes.STATE_MULTILINE in obj.states else '</code>'
-				out.append(beg + escape(obj.value) + end)
+				out.append(beg + escapeHTML(obj.value) + end)
 		if tag: out.append("</%s>\n" % tag)
 	except core.CallCancelled: log.debug("error!")
 	return ''.join(out)

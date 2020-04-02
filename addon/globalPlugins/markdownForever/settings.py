@@ -84,8 +84,8 @@ class ManageHTMLTemplatesDlg(gui.settingsDialogs.SettingsPanel):
 
 	def onHTMLTemplatesListBox(self, evt=None):
 		templateID = self.HTMLTemplatesListBox.GetSelection()
-		HTMLTemplate = getHTMLTemplates()[templateID] if templateID else "default"
-		if templateID == 0: self.removeBtn.Disable()
+		HTMLTemplate = getHTMLTemplateFromID(templateID)
+		if templateID in [0, 1]: self.removeBtn.Disable()
 		else: self.removeBtn.Enable()
 		if HTMLTemplate != config.conf["markdownForever"]["HTMLTemplate"]:
 			self.defaultTemplateBtn.Enable()
@@ -93,7 +93,7 @@ class ManageHTMLTemplatesDlg(gui.settingsDialogs.SettingsPanel):
 
 	def onSetDefaultTemplateBtn(self, evt=None):
 		templateID = self.HTMLTemplatesListBox.GetSelection()
-		HTMLTemplate = getHTMLTemplates()[templateID] if templateID else "default"
+		HTMLTemplate = getHTMLTemplateFromID(templateID)
 		config.conf["markdownForever"]["HTMLTemplate"] = HTMLTemplate
 		self.onHTMLTemplatesListBox()
 		self.HTMLTemplatesListBox.SetFocus()

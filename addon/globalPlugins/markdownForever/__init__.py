@@ -148,7 +148,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text, err = getText()
 		if err: return ui.message(err)
 		metadata, text = extractMetadata(text)
-		convertToHTML(text, metadata, save=False, src=True)
+		convertToHTML(text, metadata, save=False, src=True, useTemplateHTML=False)
 	script_md2htmlSrcInNVDA.__doc__ = _("Show the HTML source from Markdown")
 
 	def script_html2md(self, gesture):
@@ -166,7 +166,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text, err = getText()
 		if err: return ui.message(err)
 		metadata, text = extractMetadata(text)
-		convertToHTML(text, metadata, useTemplateHTML=False)
+		convertToHTML(text, metadata)
 	script_md2htmlInNVDA.__doc__ = _("Markdown to HTML conversion. The result is displayed in a virtual buffer of NVDA")
 
 	def script_md2htmlInBrowser(self, gesture):
@@ -180,7 +180,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text, err = getText()
 		if err: return ui.message(err)
 		metadata, text = extractMetadata(text)
-		api.copyToClip(convertToHTML(text, metadata, src=True, display=False))
+		api.copyToClip(convertToHTML(text, metadata, src=True, display=False, useTemplateHTML=False))
 		ui.message(_("HTML source copied to clipboard"))
 	script_copyHTMLSrcToClip.__doc__ = _("Markdown to HTML source conversion. The result is copied to clipboard")
 
@@ -224,7 +224,7 @@ class InteractiveModeDlg(wx.Dialog):
 	destFormatChoices_ = ["HTML", "HTMLSrc", "md"]
 
 	# Translators: This is the label for the edit dictionary entry dialog.
-	def __init__(self, parent=None, title=_("Interactive mode") + " — MarkdownForever", text=''):
+	def __init__(self, parent=None, title=_("Interactive mode") + f" — {addonSummary}", text=''):
 		self.metadata, self.text = extractMetadata(text)
 		metadata = self.metadata
 		defaultAction = config.conf["markdownForever"]["IM_defaultAction"]
@@ -297,9 +297,12 @@ class InteractiveModeDlg(wx.Dialog):
 		self.copyToClipBtn = bHelper.addButton(self, label=_("&Copy to clipboard"))
 		self.copyToClipBtn.Bind(wx.EVT_BUTTON, self.onCopyToClipBtn)
 		if defaultAction == IM_actions["copyToClip"]: self.copyToClipBtn.SetDefault()
-		saveBtn = bHelper.addButton(self, label=_("&Save as..."))
-		saveBtn.Bind(wx.EVT_BUTTON, self.onSave)
-		if defaultAction == IM_actions["saveAs"]: saveBtn.SetDefault()
+		saveResultBtn = bHelper.addButton(self, label=_("&Save the result as..."))
+		saveResultBtn.Bind(wx.EVT_BUTTON, self.onSave)
+		saveSourceBtn = bHelper.addButton(self, label=_("Save the sou&rce as..."))
+		saveSourceBtn.Bind(wx.EVT_BUTTON, lambda evt: self.onSave(evt, source=True))
+		if defaultAction == IM_actions["saveAs"]: saveResultBtn.SetDefault()
+		if defaultAction == IM_actions["saveSourceAs"]: saveSourceBtn.SetDefault()
 		sHelper.addItem(bHelper)
 
 		sHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.CANCEL))
@@ -355,7 +358,7 @@ class InteractiveModeDlg(wx.Dialog):
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		metadata["subtitle"] = self.subtitleTextCtrl.GetValue()
 		templateID = self.HTMLTemplatesListBox.GetSelection()
-		metadata["template"] = getHTMLTemplates()[templateID] if templateID else "default"
+		metadata["template"] = getHTMLTemplateFromID(templateID)
 
 	def onExecute(self, vb=False):
 		self.updateMetadata()
@@ -375,7 +378,7 @@ class InteractiveModeDlg(wx.Dialog):
 		else: api.copyToClip(convertToMD(self.text, metadata, display=False))
 		self.Destroy()
 
-	def onSave(self, event):
+	def onSave(self, event, source=False):
 		self.updateMetadata()
 		metadata = self.metadata
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
@@ -384,14 +387,16 @@ class InteractiveModeDlg(wx.Dialog):
 			"Text file (*.txt)|*.txt",
 			"Markdown file (*.md)|*.md"
 		]
-		format = formats[destFormatChoices_]
+		format = formats[1] if source else formats[destFormatChoices_]
 		dlg = wx.FileDialog(None, _("Select the location"), metadata["path"], metadata["filename"], format, style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT)
 		if dlg.ShowModal() == wx.ID_OK:
 			fp = dlg.GetDirectory() + '\\' + dlg.GetFilename()
-			text = ''
-			if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=True, fp=fp)
-			elif destFormatChoices_ == 1: text = convertToHTML(self.text, metadata, src=True, display=False)
-			else: text = convertToMD(self.text, metadata, display=False)
+			if source: text = self.text
+			else:
+				text = ''
+				if destFormatChoices_ == 0: convertToHTML(self.text, metadata, useTemplateHTML=True, save=True, fp=fp)
+				elif destFormatChoices_ == 1: text = convertToHTML(self.text, metadata, src=True, display=False)
+				else: text = convertToMD(self.text, metadata, display=False)
 			if text:
 				writeFile(fp, text)
 				os.startfile(fp)

@@ -19,4 +19,4 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v2-preview
         with:
-          path: marckdownForever-*.nvda-addon
+          path: *.nvda-addon

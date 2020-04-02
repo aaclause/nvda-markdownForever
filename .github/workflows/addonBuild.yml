@@ -7,7 +7,7 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v2
       - name: setup python
-        uses: setup-python@v1
+        uses: actions/setup-python@v1
         with:
           python-version: 3.7
       - name: install scons

@@ -1,0 +1,20 @@
+name: Addon build
+on: [push, pull_request]
+jobs:
+  build: 
+  runs-on: ubuntu-latest
+  steps:
+    - name: checkout repository
+      uses: actions/checkout@v2
+    - name: setup python
+      uses: setup-python@v1
+      with:
+        python-version: 3.7
+    - name: install scons
+      run: pip install scons
+    - name: building addon
+      run: scon
+    - name: upload artifact
+      uses: actions/upload-artifact@v2-preview
+      with:
+        path: marckdownForever-*.nvda-addon

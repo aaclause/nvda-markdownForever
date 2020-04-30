@@ -1,0 +1,460 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the MarkdownForever package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MarkdownForever 19.03.25-101339\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2020-04-30 15:29+0300\n"
+"PO-Revision-Date: 2020-04-30 15:34+0300\n"
+"Last-Translator: \n"
+"Language-Team: cagrid@hotmail.com\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Basepath: ../../../globalPlugins/markdownForever\n"
+"X-Poedit-SearchPath-0: __init__.py\n"
+"X-Poedit-SearchPath-1: common.py\n"
+"X-Poedit-SearchPath-2: HTTPServer.py\n"
+"X-Poedit-SearchPath-3: settings.py\n"
+"X-Poedit-SearchPath-4: updateCheck.py\n"
+"X-Poedit-SearchPath-5: virtualDocuments.py\n"
+
+#: HTTPServer.py:24 common.py:89 common.py:234
+msgid "No title"
+msgstr "Başlık yok"
+
+#: HTTPServer.py:25
+msgid "<p>No content</p>"
+msgstr "<p>İçerik yok</p>"
+
+#: HTTPServer.py:37 HTTPServer.py:62
+#, python-brace-format
+#| msgid "Invalid file path"
+msgid "Index of {path}"
+msgstr "{path} İndeksi"
+
+#: HTTPServer.py:54
+msgid "Error 404"
+msgstr "Hata 404"
+
+#: HTTPServer.py:55
+#, python-brace-format
+msgid "The requested URL “{path}” was not found"
+msgstr "İstenen URL “{path}” bulunamadı"
+
+#: __init__.py:76
+msgid "Documentation"
+msgstr "Dokümantasyon"
+
+#: __init__.py:76
+msgid "Documentation menu"
+msgstr "Dokümantasyon menüsü"
+
+#: __init__.py:79
+msgid "Open the add-on documentation in this language."
+msgstr "Eklenti belgelerini bu dilde aç."
+
+#: __init__.py:81 settings.py:239
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: __init__.py:81
+msgid "Add-on settings"
+msgstr "Eklenti ayarları"
+
+#: __init__.py:87
+msgid "HTTP server"
+msgstr "HTTP sunucusu"
+
+#: __init__.py:87 settings.py:203
+#| msgid "&Web site"
+msgid "Web server"
+msgstr "Web sunucusu"
+
+#: __init__.py:89
+msgid "&Check for update"
+msgstr "&Güncellemeleri denetle"
+
+#: __init__.py:89
+msgid "Checks if update is available"
+msgstr "Güncellemenin mevcut olup olmadığını kontrol et"
+
+#: __init__.py:91
+msgid "&Web site"
+msgstr "&Websitesi"
+
+#: __init__.py:91
+msgid "Open the add-on website."
+msgstr "Eklenti web sitesini açın."
+
+#: __init__.py:93
+msgid "&Markdown Forever"
+msgstr "&Markdown Forever"
+
+#: __init__.py:152
+msgid "Show the HTML source from Markdown"
+msgstr "Markdown'dan HTML kaynak kodunu göster"
+
+#: __init__.py:157 common.py:392
+msgid "HTML to Markdown conversion"
+msgstr "HTML'den Markdown'a dönüştürme"
+
+#: __init__.py:170
+msgid ""
+"Markdown to HTML conversion. The result is displayed in a virtual buffer of "
+"NVDA"
+msgstr ""
+"Markdown'dan HTML'e dönüştürme. Sonuç, NVDA'nın tarama kipinde gösterilir"
+
+#: __init__.py:177
+msgid ""
+"Markdown to HTML conversion. The result is displayed in your default browser"
+msgstr ""
+"Markdown'dan HTML'e dönüştürme. Sonuç varsayılan tarayıcınızda gösterilir"
+
+#: __init__.py:184
+msgid "HTML source copied to clipboard"
+msgstr "HTML kaynağı panoya kopyalandı"
+
+#: __init__.py:185
+msgid "Markdown to HTML source conversion. The result is copied to clipboard"
+msgstr "Markdown'dan HTML kaynak koda dönüştürme. Sonuç panoya kopyalanır"
+
+#: __init__.py:191
+msgid "Formatted HTML copied to clipboard"
+msgstr "Biçimlendirilmiş HTML panoya kopyalandı"
+
+#: __init__.py:192 __init__.py:202
+msgid "An error occured"
+msgstr "Bir hata oluştu"
+
+#: __init__.py:193
+msgid ""
+"Markdown to formatted HTML conversion. The result is copied to clipboard"
+msgstr ""
+"Markdown'dan biçimlendirilmiş HTML'e dönüştürme. Sonuç panoya kopyalanır"
+
+#: __init__.py:201
+msgid "Markdown copied to clipboard"
+msgstr "Markdown panoya kopyalandı"
+
+#: __init__.py:203
+msgid "HTML to Markdown conversion. The result is copied to clipboard"
+msgstr "HTML'den Markdown'a dönüştürme. Sonuç panoya kopyalanır"
+
+#: __init__.py:209 __init__.py:227
+msgid "Interactive mode"
+msgstr "Etkileşimli mod"
+
+#: __init__.py:223
+msgid "HTML source"
+msgstr "HTML kaynağı"
+
+#: __init__.py:238
+msgid "C&onvert to"
+msgstr "&Şuna dönüştür"
+
+#: __init__.py:243 settings.py:29
+msgid "Generate corresponding &metadata from HTML source"
+msgstr "HTML kaynağından karşılık gelen &meta verileri oluştur"
+
+#: __init__.py:248 settings.py:16
+msgid "&Generate a table of contents"
+msgstr "&İçindekiler tablosu oluştur"
+
+#: __init__.py:252 settings.py:21
+msgid "Try to automatically &number headings"
+msgstr "Başlıkları otomatik olarak &numaralandırmaya çalış"
+
+#: __init__.py:256 settings.py:25
+msgid "Enable e&xtra tags"
+msgstr "Ek e&tiketleri etkinleştir"
+
+#: __init__.py:260
+msgid "Allow extratags bac&k translation"
+msgstr "Ek etiketlerin geri çevirisine izin ver"
+
+#: __init__.py:264
+msgid "&Detect extratags if possible"
+msgstr "&Mümkünse ek etiketleri tespit et"
+
+#: __init__.py:268
+msgid "&Title"
+msgstr "&Başlık"
+
+#: __init__.py:273
+msgid "S&ubtitle"
+msgstr "A&lt yazı"
+
+#: __init__.py:278
+msgid "HTML temp&late to use"
+msgstr "Kullanılacak HTML &şablonu"
+
+#: __init__.py:283
+msgid "Corres&ponding metadata block"
+msgstr "Karşılık gelen meta &veri bloğu"
+
+#: __init__.py:291
+msgid "Show in &virtual buffer"
+msgstr "&Tarama kipinde göster"
+
+#: __init__.py:294
+msgid "Show in &browser"
+msgstr "Ta&rayıcıda göster"
+
+#: __init__.py:297
+msgid "&Copy to clipboard"
+msgstr "&Panoya kopyala"
+
+#: __init__.py:300
+#| msgid "&Save as..."
+msgid "&Save the result as..."
+msgstr "Sonucu f&arklı kaydet..."
+
+#: __init__.py:303
+#| msgid "&Save as..."
+msgid "Save the sou&rce as..."
+msgstr "&Kaynağı farklı kaydet..."
+
+#: __init__.py:391
+msgid "Select the location"
+msgstr "Konum seçin"
+
+#: common.py:31
+msgid "Save the result as"
+msgstr "Sonucu farklı kaydet"
+
+#: common.py:32
+msgid "Save the source as"
+msgstr "Kaynağı farklı kaydet"
+
+#: common.py:33
+msgid "Show in browser"
+msgstr "Tarayıcıda göster"
+
+#: common.py:34
+msgid "Show in virtual buffer"
+msgstr "Tarama kipinde göster"
+
+#: common.py:35
+msgid "Copy to clipboard"
+msgstr "Panoya kopyala"
+
+#: common.py:39
+msgid "html2text: turn HTML into equivalent Markdown-structured text"
+msgstr "html-den-metne: HTML'i eşdeğer Markdown yapılı metne dönüştür"
+
+#: common.py:40
+msgid "html2markdown: conservatively convert html to markdown"
+msgstr "html-den-markdown'a: html'yi markdown'a dönüştür"
+
+#: common.py:117
+msgid "Invalid file path"
+msgstr "Geçersiz dosya yolu"
+
+#: common.py:153
+msgid "Unable to guess the encoding"
+msgstr "Kodlama tahmin edilemiyor"
+
+#: common.py:155
+msgid "No text"
+msgstr "Metin yok"
+
+#: common.py:290
+#| msgid "Show the HTML source from Markdown"
+msgid "Minimal: just the HTML from your Markdown"
+msgstr "Minimal: yalnızca Markdown öğenizdeki HTML"
+
+#: common.py:290
+msgid "Default: A minimal template provided by the add-on"
+msgstr "Varsayılan: Eklenti tarafından sağlanan minimal bir şablon"
+
+#: common.py:313
+#, python-format
+msgid ""
+"Metadata and extra tags error. '%s' value was not recognized for lang field."
+msgstr ""
+"Meta veri ve ekstra etiketler hatası. '%s' lang alanı için değer tanınmadı."
+
+#: common.py:416
+msgid "Table of contents"
+msgstr "İçindekiler"
+
+#: common.py:421
+msgid "Markdown to HTML conversion"
+msgstr "Markdown'dan HTML'e dönüştürme"
+
+#: common.py:438
+msgid "Markdown to HTML conversion (preview)"
+msgstr "Markdown'dan HTML'e dönüştürme (Ön izleme)"
+
+#: common.py:438
+msgid "Markdown to HTML source conversion"
+msgstr "Markdown'dan HTML kaynak koda dönüştürme"
+
+#: settings.py:11
+msgid "General"
+msgstr "Genel"
+
+#: settings.py:33
+msgid "Default action in interactive mode"
+msgstr "Etkileşimli modda varsayılan eylem"
+
+#: settings.py:37
+msgid "Markdown Engine"
+msgstr "Markdown Motoru"
+
+#: settings.py:40
+msgid "Path"
+msgstr "yol"
+
+#: settings.py:60
+#| msgid "HTML templates list"
+msgid "HTML Templates"
+msgstr "HTML Şablonları"
+
+#: settings.py:67
+#| msgid "HTML templates list"
+msgid "HTML templates &list"
+msgstr "HTML şablon &listesi"
+
+#: settings.py:72
+msgid "Set as &default template"
+msgstr "&Varsayılan şablon olarak ayarla"
+
+#: settings.py:74
+msgid "&Edit"
+msgstr "Düz&enle"
+
+#: settings.py:75
+msgid "&Add"
+msgstr "&Ekle"
+
+#: settings.py:76
+msgid "&Remove"
+msgstr "Kaldı&r"
+
+#: settings.py:125
+#, python-format
+msgid "Are you sure to want to delete the '%s' template?"
+msgstr "'%s' şablonunu Silmek istediğinizden emin misiniz?"
+
+#: settings.py:125
+msgid "Confirmation"
+msgstr "Onay"
+
+#: settings.py:137
+msgid "Add template"
+msgstr "Şablon ekle"
+
+#: settings.py:154
+msgid "Edit template"
+msgstr "Şablonu düzenle"
+
+#: settings.py:158
+msgid "&Name"
+msgstr "&ad"
+
+#: settings.py:160
+msgid "&Description"
+msgstr "&Açıklama"
+
+#: settings.py:162
+msgid "&Content"
+msgstr "&içerik"
+
+#: settings.py:177
+#, python-format
+msgid ""
+"Wrong value for template name field. Field must contain only letters in "
+"lowercase (%s), numbers (%s), hyphen (%s) or underscores (%s). A maximum of "
+"%d characters. The following name is not allowed: \"default\"."
+msgstr ""
+"Şablon ad alanı için yanlış değer. Alan yalnızca küçük harf içermelidir "
+"(%s), rakamlar (%s), tire (%s) ya da alt çizgi (%s). Maksimum %d karakter. "
+"Aşağıdaki ada izin verilmez: \"default\"."
+
+#: settings.py:182
+msgid "Content field empty."
+msgstr "İçerik alanı boş."
+
+#: settings.py:190
+#, python-format
+msgid ""
+"Content field invalid. The following required tags are missing: %s. Each tag "
+"must be surrounded by braces. E.g.: {%s}."
+msgstr ""
+"İçerik alanı geçersiz. Aşağıdaki gerekli etiketler eksik: %s. Her etiket "
+"parantez içine alınmalıdır. Örneğin.: {%s}."
+
+#: settings.py:209
+msgid "Host"
+msgstr ""
+
+#: settings.py:210
+msgid "Port"
+msgstr ""
+
+#: settings.py:211
+#| msgid "Default settings"
+msgid "Default encoding"
+msgstr "Varsayılan kodlama"
+
+#: settings.py:212
+msgid "Root folders"
+msgstr "Kök klasörler"
+
+#: updateCheck.py:59
+#, python-format
+msgid "New version available, version %s. Do you want to download it now?"
+msgstr "Yeni sürüm mevcut, versiyon %s. Şimdi indirmek ister misin?"
+
+#: updateCheck.py:70
+#, python-format
+msgid "You are up-to-date. %s is the latest version."
+msgstr "Güncelsin. %s en son sürüm."
+
+#: updateCheck.py:79
+#, python-format
+msgid ""
+"Oops! There was a problem downloading for update. Please retry later or "
+"download and install manually via %s. Do you want to open this URL in your "
+"browser now?"
+msgstr ""
+"Hata! Güncelleme indirilirken bir sorun oluştu. Lütfen daha sonra tekrar "
+"deneyin veya %s üzerinden manuel olarak indirip yükleyin. Bu URL'yi şimdi "
+"tarayıcınızda açmak istiyor musunuz?"
+
+#: updateCheck.py:113
+msgid "An update check dialog is already running!"
+msgstr "Bir güncelleme kontrolü iletişim kutusu zaten çalışıyor!"
+
+#: updateCheck.py:114
+#, python-brace-format
+msgid "{addonName}'s update"
+msgstr "{addonName} Güncelleme"
+
+#: virtualDocuments.py:53
+msgid "Invalid document"
+msgstr "Geçersiz belge"
+
+#~ msgid "Save as"
+#~ msgstr "Farklı kaydet"
+
+#~ msgid "Manage HTML temp&lates"
+#~ msgstr "HTML &şablonlarını yönet"
+
+#~ msgid "Manage HTML templates"
+#~ msgstr "HTML şablonlarını yönet"
+
+#~ msgid "Markdown Forever"
+#~ msgstr "Markdown Forever"
+
+#~ msgid "Full-featured Markdown and HTML converter for NVDA"
+#~ msgstr "NVDA için tam özellikli Markdown ve HTML dönüştürücü"

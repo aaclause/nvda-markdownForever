@@ -221,8 +221,12 @@ Ils sont accessibles depuis le menu NVDA -> Préférences -> MarkdownForever -> 
 - *NVDA+CTRL+h* : Conversion Markdown en code source HTML. Le résultat est copié dans le presse-papiers.
 
 ## Informations complémentaires
-
-* Auteurs: André &lt;<dev@andreabc.net>&gt;, Sof &lt;<hellosof@gmail.com>&gt; et contributeurs
+* Auteurs :
+	- André &lt;<dev@andreabc.net>&gt;: concepteur et mainteneur principal de l’extension.
+	- Sof &lt;<hellosof@gmail.com>&gt;: documentation en anglais et français, diverses suggestions.
+	- Victor Cai: traduction en chinois.
+	- Çağrı Dogan: traduction en turque.
+	- Et bien d’autres !
 * Licence : Licence publique générale GNU, version 2
 * Télécharger [version stable](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
 * Télécharger [version de développement](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)

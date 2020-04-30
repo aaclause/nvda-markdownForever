@@ -238,7 +238,12 @@ conversion process already mentionned above:
 
 ## Add-on Information
 
-  * Authors: André <[dev@andreabc.net](mailto:dev@andreabc.net)>, Sof <[hellosof@gmail.com](mailto:hellosof@gmail.com)> and other contributors
+  * Authors:
+    - André &lt;<dev@andreabc.net>&gt;: creator and main maintainer of the add-on.
+    - Sof &lt;<hellosof@gmail.com>&gt;: English and French documentation, various suggestions.
+    - Victor Cai: Chinese localization.
+    - Çağrı Dogan: Turkish localization.
+    - And much more!
   * License: GNU General Public License, version 2
   * Download [stable version](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
   * Download [development version](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)

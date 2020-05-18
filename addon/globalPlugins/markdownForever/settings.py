@@ -1,6 +1,6 @@
 # coding: UTF-8
 import gui, wx
-
+import random
 import addonHandler
 addonHandler.initTranslation()
 
@@ -181,7 +181,11 @@ class TemplateEntryDlg(wx.Dialog):
 		templateContent = self.templateContent.GetValue()
 		pattern = "^[a-z0-9_-]{%d,%d}$" % (minCharTemplateName, maxCharTemplateName)
 		if templateName == "default" or not re.match(pattern, templateName):
-			msg = _("Wrong value for template name field. Field must contain only letters in lowercase (%s), numbers (%s), hyphen (%s) or underscores (%s). A maximum of %d characters. The following name is not allowed: \"default\".") % ("a-z", "0-9", '-', '_', maxCharTemplateName)
+			letters = "a-z"
+			digits = "0-9"
+			hyphen = '-'
+			underscore = '_'
+			msg = _(f"Wrong value for template name field. Field must contain only letters in lowercase ({letters}), digits ({digits}), hyphen ({hyphen}) or underscore ({underscore}). A maximum of {maxCharTemplateName} characters. The following name is not allowed: \"default\".")
 			gui.messageBox(msg, addonSummary, wx.OK|wx.ICON_ERROR)
 			self.templateName.SetFocus()
 			return
@@ -194,7 +198,9 @@ class TemplateEntryDlg(wx.Dialog):
 		mustPresent = ["lang", "head", "header", "body"]
 		notPresent = [tag for tag in mustPresent if "{%s}" % tag not in templateContent]
 		if notPresent:
-			msg = _("Content field invalid. The following required tags are missing: %s. Each tag must be surrounded by braces. E.g.: {%s}." % (', '.join(mustPresent), mustPresent[0]))
+			missingFields = ", ".join(mustPresent)
+			eg = "{%s}" random.choice(mustPresent)
+			msg = _(f"Content field invalid. The following required tags are missing: {missingFields}. Each tag must be surrounded by braces. E.g.: {eg}.")
 			gui.messageBox(msg, addonSummary, wx.OK|wx.ICON_ERROR)
 			self.templateContent.SetFocus()
 			return

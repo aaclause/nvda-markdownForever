@@ -45,7 +45,7 @@ EXTRAS = {
 	"code-friendly": _("Disable _ and __ for em and strong"),
 	"cuddled-lists": _("Allow lists to be cuddled to the preceding paragraph"),
 	"fenced-code-blocks": _("Allows a code block to not have to be indented by fencing it with '```' on a line before and after"),
-	"footnotes": _("support footnotes as in use on daringfireball.net and implemented in other Markdown processors (tho not in Markdown.pl v1.0.1)"),
+	"footnotes": _("Support footnotes as in use on daringfireball.net and implemented in other Markdown processors (tho not in Markdown.pl v1.0.1)"),
 	"header-ids": _('Adds "id" attributes to headers. The id value is a slug of the header text'),
 	"html-classes": _('Takes a dict mapping html tag names (lowercase) to a string to use for a "class" tag attribute. Currently only supports "pre", "code", "table" and "img" tags'),
 	"link-patterns": _("Auto-link given regex patterns in text (e.g. bug number references, revision number references)"),

@@ -37,6 +37,12 @@ class GeneralDlg(gui.settingsDialogs.SettingsPanel):
 		markdownEngineText = _("Markdown Engine")
 		self.markdownEngineListBox = sHelper.addLabeledControl(markdownEngineText, wx.Choice, choices=markdownEngineLabels)
 		self.markdownEngineListBox.SetSelection(idEngine)
+		self.markdown2Extras = label = _("Preferred &input tables")
+		label = _("Markdo&wn2 extras")
+		choices = [f"{k}: {v}" for k, v in EXTRAS.items()]
+		self.markdown2Extras = sHelper.addLabeledControl(label, gui.nvdaControls.CustomCheckListBox, choices=choices)
+		self.markdown2Extras.CheckedItems = getMarkdown2Extras(True)
+		self.markdown2Extras.Select(0)
 		self.defaultPath = sHelper.addLabeledControl(_("Path"), wx.TextCtrl, value=config.conf["markdownForever"]["defaultPath"])
 
 	def onManageHTMLTemplates(self, evt):
@@ -54,6 +60,7 @@ class GeneralDlg(gui.settingsDialogs.SettingsPanel):
 		config.conf["markdownForever"]["IM_defaultAction"] = list(IM_actions.values())[self.defaultActionListBox.GetSelection()]
 		config.conf["markdownForever"]["markdownEngine"] = markdownEngines[self.markdownEngineListBox.GetSelection()]
 		if defaultPath: config.conf["markdownForever"]["defaultPath"] = defaultPath
+		config.conf["markdownForever"]["markdown2Extras"] = ','.join(getMarkdown2ExtrasFromIndexes(self.markdown2Extras.CheckedItems))
 
 class ManageHTMLTemplatesDlg(gui.settingsDialogs.SettingsPanel):
 

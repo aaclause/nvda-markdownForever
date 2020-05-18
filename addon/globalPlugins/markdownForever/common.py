@@ -40,6 +40,29 @@ markdownEngineLabels = [
 	_("html2markdown: conservatively convert html to markdown"),
 ]
 
+EXTRAS = {
+	"break-on-newline": _("Replace single new line characters with <br> when True"),
+	"code-friendly": _("Disable _ and __ for em and strong"),
+	"cuddled-lists": _("Allow lists to be cuddled to the preceding paragraph"),
+	"fenced-code-blocks": _("Allows a code block to not have to be indented by fencing it with '```' on a line before and after"),
+	"footnotes": _("support footnotes as in use on daringfireball.net and implemented in other Markdown processors (tho not in Markdown.pl v1.0.1)"),
+	"header-ids": _('Adds "id" attributes to headers. The id value is a slug of the header text'),
+	"html-classes": _('Takes a dict mapping html tag names (lowercase) to a string to use for a "class" tag attribute. Currently only supports "pre", "code", "table" and "img" tags'),
+	"link-patterns": _("Auto-link given regex patterns in text (e.g. bug number references, revision number references)"),
+	"markdown-in-html": _('Allow the use of markdown="1" in a block HTML tag to have markdown processing be done on its contents'),
+	"nofollow": _('Add rel="nofollow" to all <a> tags with an href.'),
+	"numbering": _("Create counters to number tables, figures, equations and graphs"),
+	"pyshell": _("Treats unindented Python interactive shell sessions as <code> blocks"),
+	"smarty-pants": _("Fancy quote, em-dash and ellipsis handling"),
+	"spoiler": _("A special kind of blockquote commonly hidden behind a click on SO"),
+	"target-blank-links": _('Add target="_blank" to all <a> tags with an href. This causes the link to be opened in a new tab upon a click'),
+	"tables": _("Tables using the same format as GFM and PHP-Markdown Extra"),
+	"tag-friendly": _("Requires atx style headers to have a space between the # and the header text. Useful for applications that require twitter style tags to pass through the parser"),
+	"task_list": _("Allows github-style task lists (i.e. check boxes)"),
+	"use-file-vars": _("Look for an Emacs-style markdown-extras file variable to turn on Extras"),
+	"wiki-tables": _("Google Code Wiki table syntax support"),
+	"xml": _("Passes one-liner processing instructions and namespaced XML tags"),
+}
 baseDir = os.path.dirname(__file__)
 libs = os.path.join(baseDir, "lib")
 sys.path.append(libs)
@@ -180,7 +203,7 @@ def escapeHTML(text):
 	return "".join(chars.get(c,c) for c in text)
 
 def md2HTML(md, toc, ol=True):
-	extras = ["footnotes", "tables", "fenced-code-blocks", "task_list", "header-ids", "wiki-tables", "spoiler"]
+	extras = getMarkdown2Extras()
 	if toc: extras.append("toc")
 	res = markdown2.markdown(md, extras=extras)
 	toc = '<nav role="doc-toc" id="doc-toc">%s</nav>' % res.toc_html if res.toc_html and res.toc_html.count("<li>") > 1 else ''
@@ -441,3 +464,11 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		else:
 			return content
 
+def getMarkdown2Extras(index=False, extras=None):
+	if not extras: extras = config.conf["markdownForever"]["markdown2Extras"].split(',')
+	if index: return tuple([list(EXTRAS.keys()).index(extra) for extra in extras if extra in EXTRAS.keys()])
+	return [extra for extra in extras if extra in EXTRAS.keys()]
+
+def getMarkdown2ExtrasFromIndexes(extras):
+	keys = list(EXTRAS.keys())
+	return [keys[extra] for extra in extras if 0 <= extra < len(keys)]

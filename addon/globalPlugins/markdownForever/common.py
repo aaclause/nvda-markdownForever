@@ -325,7 +325,7 @@ def getDefaultHTMLTemplateID(name=None):
 def getHTMLTemplateFromID(idTemplate):
 	if idTemplate == 0: return "minimal"
 	elif idTemplate == 1: return "default"
-	else: return getHTMLTemplates()[templateID]
+	else: return getHTMLTemplates()[idTemplate]
 
 def processExtraTags(soup, lang='', allRepl=True, allowBacktranslate=True):
 	try:

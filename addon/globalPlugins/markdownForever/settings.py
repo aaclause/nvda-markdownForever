@@ -185,7 +185,13 @@ class TemplateEntryDlg(wx.Dialog):
 			digits = "0-9"
 			hyphen = '-'
 			underscore = '_'
-			msg = _(f"Wrong value for template name field. Field must contain only letters in lowercase ({letters}), digits ({digits}), hyphen ({hyphen}) or underscore ({underscore}). A maximum of {maxCharTemplateName} characters. The following name is not allowed: \"default\".")
+			msg = _("Wrong value for template name field. Field must contain only letters in lowercase ({letters}), digits ({digits}), hyphen ({hyphen}) or underscore ({underscore}). A maximum of {maxCharTemplateName} characters. The following name is not allowed: \"default\".").format(
+				letters=letters,
+				digits=digits,
+				hyphen=hyphen,
+				underscore=underscore,
+				maxCharTemplateName=maxCharTemplateName
+			)
 			gui.messageBox(msg, addonSummary, wx.OK|wx.ICON_ERROR)
 			self.templateName.SetFocus()
 			return
@@ -200,7 +206,10 @@ class TemplateEntryDlg(wx.Dialog):
 		if notPresent:
 			missingFields = ", ".join(mustPresent)
 			eg = "{%s}" % random.choice(mustPresent)
-			msg = _(f"Content field invalid. The following required tags are missing: {missingFields}. Each tag must be surrounded by braces. E.g.: {eg}.")
+			msg = _("Content field invalid. The following required tags are missing: {missingFields}. Each tag must be surrounded by braces. E.g.: {eg}.").format(
+				missingFields=missingFields,
+				eg=eg
+			)
 			gui.messageBox(msg, addonSummary, wx.OK|wx.ICON_ERROR)
 			self.templateContent.SetFocus()
 			return

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MarkdownForever 19.03.25-101339\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2020-05-18 20:59+0200\n"
-"PO-Revision-Date: 2020-05-18 21:00+0200\n"
+"POT-Creation-Date: 2020-05-18 21:18+0200\n"
+"PO-Revision-Date: 2020-05-18 21:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -25,8 +25,8 @@ msgid "No title"
 msgstr "Sans titre"
 
 #: addon\globalPlugins\markdownForever\HTTPServer.py:25
-msgid "<p>No content</p>"
-msgstr "<p>Pas de contenu</p>"
+msgid "No content"
+msgstr "Pas de contenu"
 
 #: addon\globalPlugins\markdownForever\HTTPServer.py:37
 #: addon\globalPlugins\markdownForever\HTTPServer.py:62
@@ -57,7 +57,7 @@ msgstr "Affiche la documentation de l'extension dans cette langue."
 
 #. Translators: title of add-on parameters dialog.
 #: addon\globalPlugins\markdownForever\__init__.py:82
-#: addon\globalPlugins\markdownForever\settings.py:252
+#: addon\globalPlugins\markdownForever\settings.py:261
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -70,7 +70,7 @@ msgid "HTTP server"
 msgstr "Serveur HTTP"
 
 #: addon\globalPlugins\markdownForever\__init__.py:88
-#: addon\globalPlugins\markdownForever\settings.py:216
+#: addon\globalPlugins\markdownForever\settings.py:225
 msgid "Web server"
 msgstr "Serveur web"
 
@@ -501,11 +501,11 @@ msgstr ""
 "maximum de {maxCharTemplateName} caractères. Le nom suivant n'est pas "
 "autorisé : \"default\"."
 
-#: addon\globalPlugins\markdownForever\settings.py:193
+#: addon\globalPlugins\markdownForever\settings.py:199
 msgid "Content field empty."
 msgstr "Champ contenu vide."
 
-#: addon\globalPlugins\markdownForever\settings.py:203
+#: addon\globalPlugins\markdownForever\settings.py:209
 #, python-brace-format
 msgid ""
 "Content field invalid. The following required tags are missing: "
@@ -513,21 +513,21 @@ msgid ""
 msgstr ""
 "Champ contenu invalide. Les balises suivantes sont manquantes et "
 "obligatoires : {missingFields}. Chaque balise doit être entourée "
-"d'accolades. Par exemple: {eg}."
+"d'accolades. Ex. : {eg}."
 
-#: addon\globalPlugins\markdownForever\settings.py:222
+#: addon\globalPlugins\markdownForever\settings.py:231
 msgid "Host"
 msgstr "Hôte"
 
-#: addon\globalPlugins\markdownForever\settings.py:223
+#: addon\globalPlugins\markdownForever\settings.py:232
 msgid "Port"
 msgstr "Port"
 
-#: addon\globalPlugins\markdownForever\settings.py:224
+#: addon\globalPlugins\markdownForever\settings.py:233
 msgid "Default encoding"
 msgstr "Encodage par défaut"
 
-#: addon\globalPlugins\markdownForever\settings.py:225
+#: addon\globalPlugins\markdownForever\settings.py:234
 msgid "Root folders"
 msgstr "Répertoires racines"
 

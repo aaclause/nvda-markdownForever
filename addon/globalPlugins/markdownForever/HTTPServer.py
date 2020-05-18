@@ -22,7 +22,7 @@ HTMLTemplate = """<!DOCTYPE HTML>
 
 def mergeHTMLTemplate(
 	title=_("No title"),
-	body=_("<p>No content</p>"),
+	body="<p>%s</p>" % _("No content"),
 	encoding=None
 ):
 	if not encoding: encoding = config.conf["markdownForever"]["HTTPServer"]["defaultEncoding"]
@@ -34,7 +34,7 @@ def mergeHTMLTemplate(
 
 def indexOf(path):
 	ls = os.listdir(path)
-	out = "<h1>%s</h1><ul>" % _(f"Index of {path}")
+	out = "<h1>%s</h1><ul>" % _("Index of {path}").format(path=path)
 	for e in ls:
 		if isPath(path + e): e += '/'
 		elif not re.match("^.+\.(html?|md|txt)$", e.lower()): continue
@@ -52,14 +52,14 @@ def getFile(path, params=None, baseDir=None):
 		status_code = 404
 		body = mergeHTMLTemplate(
 			title=_("Error 404"),
-			body="<p>%s.</p>" % _(f"The requested URL “{path}” was not found")
+			body="<p>%s.</p>" % _("The requested URL “{path}” was not found").format(path=path)
 		)
 	elif isPath(fullPath):
 		if not fullPath.endswith('\\'): fullPath += '\\'
 		if not osp.exists(fullPath + "index.md"):
 			body = indexOf(fullPath)
 			body = mergeHTMLTemplate(
-				title=_(f"Index of {path}"),
+				title=_("Index of {path}").format(path=path),
 				body=body
 			)
 	if not body:

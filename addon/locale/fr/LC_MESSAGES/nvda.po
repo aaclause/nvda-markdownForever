@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MarkdownForever 19.03.25-101339\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2020-05-18 20:13+0200\n"
-"PO-Revision-Date: 2020-05-18 20:40+0200\n"
+"POT-Creation-Date: 2020-05-18 20:59+0200\n"
+"PO-Revision-Date: 2020-05-18 21:00+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -258,7 +258,7 @@ msgstr "Copier dans le presse-papiers"
 #: addon\globalPlugins\markdownForever\common.py:39
 msgid "html2text: turn HTML into equivalent Markdown-structured text"
 msgstr ""
-"html2text: Conversion de HTML en son équivalent en texte Markdown structuré"
+"html2text : Conversion de HTML en son équivalent en texte Markdown structuré"
 
 #: addon\globalPlugins\markdownForever\common.py:40
 msgid "html2markdown: conservatively convert html to markdown"
@@ -284,7 +284,7 @@ msgstr ""
 
 #: addon\globalPlugins\markdownForever\common.py:48
 msgid ""
-"support footnotes as in use on daringfireball.net and implemented in other "
+"Support footnotes as in use on daringfireball.net and implemented in other "
 "Markdown processors (tho not in Markdown.pl v1.0.1)"
 msgstr ""
 
@@ -529,7 +529,7 @@ msgstr "Encodage par défaut"
 
 #: addon\globalPlugins\markdownForever\settings.py:225
 msgid "Root folders"
-msgstr "Répertoire racine"
+msgstr "Répertoires racines"
 
 #: addon\globalPlugins\markdownForever\updateCheck.py:59
 #, python-format

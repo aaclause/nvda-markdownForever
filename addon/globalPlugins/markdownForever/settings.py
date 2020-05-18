@@ -199,7 +199,7 @@ class TemplateEntryDlg(wx.Dialog):
 		notPresent = [tag for tag in mustPresent if "{%s}" % tag not in templateContent]
 		if notPresent:
 			missingFields = ", ".join(mustPresent)
-			eg = "{%s}" random.choice(mustPresent)
+			eg = "{%s}" % random.choice(mustPresent)
 			msg = _(f"Content field invalid. The following required tags are missing: {missingFields}. Each tag must be surrounded by braces. E.g.: {eg}.")
 			gui.messageBox(msg, addonSummary, wx.OK|wx.ICON_ERROR)
 			self.templateContent.SetFocus()

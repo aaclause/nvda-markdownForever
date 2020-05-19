@@ -175,7 +175,7 @@ autonumber-headings: 1
 mathjax: 0
 ---
 
-Merhaba Dünya! <span lang="fr">Bonjour tout le monde!</span> <span lang="es">buenos días!</span>
+Merhaba Dünya! <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola mundo!</span>
 ```
 </blockquote>
 

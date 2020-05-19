@@ -175,7 +175,7 @@ autonumber-headings: 1
 mathjax: 0
 ---
 
-Hello World! <span lang="fr">Bonjour tout le monde!</span> <span lang="es">buenos días!</span>
+Hello world! <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola mundo!</span>
 ```
 </blockquote>
 

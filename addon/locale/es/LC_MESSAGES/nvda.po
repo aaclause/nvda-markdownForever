@@ -1,0 +1,614 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the MarkdownForever package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MarkdownForever 19.03.25-101339\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2020-05-19 13:41+0200\n"
+"PO-Revision-Date: 2020-05-19 16:02+0200\n"
+"Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: addon\globalPlugins\markdownForever\HTTPServer.py:24
+#: addon\globalPlugins\markdownForever\common.py:113
+#: addon\globalPlugins\markdownForever\common.py:277
+msgid "No title"
+msgstr "Sin título"
+
+#: addon\globalPlugins\markdownForever\HTTPServer.py:25
+msgid "No content"
+msgstr "Sin contenido"
+
+#: addon\globalPlugins\markdownForever\HTTPServer.py:37
+#: addon\globalPlugins\markdownForever\HTTPServer.py:62
+#, python-brace-format
+msgid "Index of {path}"
+msgstr "Índice de {path}"
+
+#: addon\globalPlugins\markdownForever\HTTPServer.py:54
+msgid "Error 404"
+msgstr "Error 404"
+
+#: addon\globalPlugins\markdownForever\HTTPServer.py:55
+#, python-brace-format
+msgid "The requested URL “{path}” was not found"
+msgstr "La URL solicitada “{path}” no pudo ser encontrada"
+
+#: addon\globalPlugins\markdownForever\__init__.py:77
+msgid "Documentation"
+msgstr "Documentación"
+
+#: addon\globalPlugins\markdownForever\__init__.py:77
+msgid "Documentation menu"
+msgstr "Menú documentation"
+
+#: addon\globalPlugins\markdownForever\__init__.py:80
+msgid "Open the add-on documentation in this language."
+msgstr "Muestra la documentación en este idioma."
+
+#. Translators: title of add-on parameters dialog.
+#: addon\globalPlugins\markdownForever\__init__.py:82
+#: addon\globalPlugins\markdownForever\settings.py:260
+msgid "Settings"
+msgstr "Ajustes "
+
+#: addon\globalPlugins\markdownForever\__init__.py:82
+msgid "Add-on settings"
+msgstr "Ajustes del complemento"
+
+#: addon\globalPlugins\markdownForever\__init__.py:88
+msgid "HTTP server"
+msgstr "Servidor HTTP"
+
+#: addon\globalPlugins\markdownForever\__init__.py:88
+#: addon\globalPlugins\markdownForever\settings.py:224
+msgid "Web server"
+msgstr "Servidor web"
+
+#: addon\globalPlugins\markdownForever\__init__.py:90
+msgid "&Check for update"
+msgstr "&Comprobar si hay actualizaciones"
+
+#: addon\globalPlugins\markdownForever\__init__.py:90
+msgid "Checks if update is available"
+msgstr "Comprobar si hay actualizaciones disponibles"
+
+#: addon\globalPlugins\markdownForever\__init__.py:92
+msgid "&Web site"
+msgstr "&Sitio web"
+
+#: addon\globalPlugins\markdownForever\__init__.py:92
+msgid "Open the add-on website."
+msgstr "Muestra el sitio web del complemento."
+
+#: addon\globalPlugins\markdownForever\__init__.py:94
+msgid "&Markdown Forever"
+msgstr "&Markdown Forever"
+
+#: addon\globalPlugins\markdownForever\__init__.py:153
+msgid "Show the HTML source from Markdown"
+msgstr "Muestra la fuente HTML de un contenido Markdown"
+
+#: addon\globalPlugins\markdownForever\__init__.py:158
+#: addon\globalPlugins\markdownForever\common.py:442
+msgid "HTML to Markdown conversion"
+msgstr "Conversión HTML hacia Markdown"
+
+#: addon\globalPlugins\markdownForever\__init__.py:171
+msgid ""
+"Markdown to HTML conversion. The result is displayed in a virtual buffer of "
+"NVDA"
+msgstr ""
+"Conversión Markdown hacia HTML. El resultado se muestra en un tampón virtual "
+"de NVDA"
+
+#: addon\globalPlugins\markdownForever\__init__.py:178
+msgid ""
+"Markdown to HTML conversion. The result is displayed in your default browser"
+msgstr ""
+"Conversión Markdown hacia HTML. El resultado se muestra en el navegador "
+"predeterminado"
+
+#: addon\globalPlugins\markdownForever\__init__.py:185
+msgid "HTML source copied to clipboard"
+msgstr "Fuente HTML copiado al portapapeles"
+
+#: addon\globalPlugins\markdownForever\__init__.py:186
+msgid "Markdown to HTML source conversion. The result is copied to clipboard"
+msgstr ""
+"Conversión Markdown en código fuente HTML. El resultado se copia al "
+"portapapeles"
+
+#: addon\globalPlugins\markdownForever\__init__.py:192
+msgid "Formatted HTML copied to clipboard"
+msgstr "HTML formateado copiado al portapapeles"
+
+#: addon\globalPlugins\markdownForever\__init__.py:193
+#: addon\globalPlugins\markdownForever\__init__.py:203
+msgid "An error occured"
+msgstr "Se ha producido un error"
+
+#: addon\globalPlugins\markdownForever\__init__.py:194
+msgid ""
+"Markdown to formatted HTML conversion. The result is copied to clipboard"
+msgstr ""
+"Conversión Markdown en HTML formateado. El resultado se copia al portapapeles"
+
+#: addon\globalPlugins\markdownForever\__init__.py:202
+msgid "Markdown copied to clipboard"
+msgstr "Markdown copiado al portapapeles"
+
+#: addon\globalPlugins\markdownForever\__init__.py:204
+msgid "HTML to Markdown conversion. The result is copied to clipboard"
+msgstr "Conversión HTML en Markdown. El resultado se copia al portapapeles"
+
+#. Translators: This is the label for the edit dictionary entry dialog.
+#: addon\globalPlugins\markdownForever\__init__.py:210
+#: addon\globalPlugins\markdownForever\__init__.py:228
+msgid "Interactive mode"
+msgstr "Modo interactivo"
+
+#: addon\globalPlugins\markdownForever\__init__.py:224
+msgid "HTML source"
+msgstr "Fuente HTML"
+
+#: addon\globalPlugins\markdownForever\__init__.py:239
+msgid "C&onvert to"
+msgstr "C&onvertir a"
+
+#: addon\globalPlugins\markdownForever\__init__.py:244
+#: addon\globalPlugins\markdownForever\settings.py:29
+msgid "Generate corresponding &metadata from HTML source"
+msgstr "Generar los &metadatos desde la fuente HTML"
+
+#: addon\globalPlugins\markdownForever\__init__.py:249
+#: addon\globalPlugins\markdownForever\settings.py:16
+msgid "&Generate a table of contents"
+msgstr "&Generar Tabla de Contenido / Índice"
+
+#: addon\globalPlugins\markdownForever\__init__.py:253
+#: addon\globalPlugins\markdownForever\settings.py:21
+msgid "Try to automatically &number headings"
+msgstr "Intentar de numerar automát&icamente los títulos"
+
+#: addon\globalPlugins\markdownForever\__init__.py:257
+#: addon\globalPlugins\markdownForever\settings.py:25
+msgid "Enable e&xtra tags"
+msgstr "Habilitar las &super-etiquetas"
+
+#: addon\globalPlugins\markdownForever\__init__.py:261
+msgid "Allow extratags bac&k translation"
+msgstr "Permitir la reversibilidad de super-&etiquetas"
+
+#: addon\globalPlugins\markdownForever\__init__.py:265
+msgid "&Detect extratags if possible"
+msgstr "&Detectar las super-etiquetas"
+
+#: addon\globalPlugins\markdownForever\__init__.py:269
+msgid "&Title"
+msgstr "&Título"
+
+#: addon\globalPlugins\markdownForever\__init__.py:274
+msgid "S&ubtitle"
+msgstr "S&ubtítulo"
+
+#: addon\globalPlugins\markdownForever\__init__.py:279
+msgid "HTML temp&late to use"
+msgstr "P&lantilla HTML a utilizar "
+
+#: addon\globalPlugins\markdownForever\__init__.py:284
+msgid "Corres&ponding metadata block"
+msgstr "Bloque de metadatos corres&pondientes"
+
+#: addon\globalPlugins\markdownForever\__init__.py:292
+msgid "Show in &virtual buffer"
+msgstr "Mostrar en el tampón &virtual"
+
+#: addon\globalPlugins\markdownForever\__init__.py:295
+msgid "Show in &browser"
+msgstr "Mostrar en el &navegador"
+
+#: addon\globalPlugins\markdownForever\__init__.py:298
+msgid "&Copy to clipboard"
+msgstr "&Copiar al portapapeles"
+
+#: addon\globalPlugins\markdownForever\__init__.py:301
+msgid "&Save the result as..."
+msgstr "&Guardar el resultado como..."
+
+#: addon\globalPlugins\markdownForever\__init__.py:304
+msgid "Save the sou&rce as..."
+msgstr "Guarda&r la fuente como..."
+
+#: addon\globalPlugins\markdownForever\__init__.py:392
+msgid "Select the location"
+msgstr "Seleccione la ubicación"
+
+#: addon\globalPlugins\markdownForever\common.py:31
+msgid "Save the result as"
+msgstr "Guardar el resultado como"
+
+#: addon\globalPlugins\markdownForever\common.py:32
+msgid "Save the source as"
+msgstr "Guardar la fuente como"
+
+#: addon\globalPlugins\markdownForever\common.py:33
+msgid "Show in browser"
+msgstr "Mostrar en el navegador"
+
+#: addon\globalPlugins\markdownForever\common.py:34
+msgid "Show in virtual buffer"
+msgstr "Mostrar en el tampón virtual"
+
+#: addon\globalPlugins\markdownForever\common.py:35
+msgid "Copy to clipboard"
+msgstr "Copiar al portapapeles"
+
+#: addon\globalPlugins\markdownForever\common.py:39
+msgid "html2text: turn HTML into equivalent Markdown-structured text"
+msgstr ""
+"html2text: Conversión de HTML en su equivalente en texto Markdown "
+"estructurado"
+
+#: addon\globalPlugins\markdownForever\common.py:40
+msgid "html2markdown: conservatively convert html to markdown"
+msgstr "HTML2Markdown: Conversión sin pérdida de HTML hacia Markdown"
+
+#: addon\globalPlugins\markdownForever\common.py:44
+msgid "Replace single new line characters with <br> when True"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:45
+msgid "Disable _ and __ for em and strong"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:46
+msgid "Allow lists to be cuddled to the preceding paragraph"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:47
+msgid ""
+"Allows a code block to not have to be indented by fencing it with '```' on a "
+"line before and after"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:48
+msgid ""
+"Support footnotes as in use on daringfireball.net and implemented in other "
+"Markdown processors (tho not in Markdown.pl v1.0.1)"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:49
+msgid ""
+"Adds \"id\" attributes to headers. The id value is a slug of the header text"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:50
+msgid ""
+"Takes a dict mapping html tag names (lowercase) to a string to use for a "
+"\"class\" tag attribute. Currently only supports \"pre\", \"code\", \"table"
+"\" and \"img\" tags"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:51
+msgid ""
+"Auto-link given regex patterns in text (e.g. bug number references, revision "
+"number references)"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:52
+msgid ""
+"Allow the use of markdown=\"1\" in a block HTML tag to have markdown "
+"processing be done on its contents"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:53
+msgid "Add rel=\"nofollow\" to all <a> tags with an href."
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:54
+msgid "Create counters to number tables, figures, equations and graphs"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:55
+msgid "Treats unindented Python interactive shell sessions as <code> blocks"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:56
+msgid "Fancy quote, em-dash and ellipsis handling"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:57
+msgid "A special kind of blockquote commonly hidden behind a click on SO"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:58
+msgid ""
+"Add target=\"_blank\" to all <a> tags with an href. This causes the link to "
+"be opened in a new tab upon a click"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:59
+msgid "Tables using the same format as GFM and PHP-Markdown Extra"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:60
+msgid ""
+"Requires atx style headers to have a space between the # and the header "
+"text. Useful for applications that require twitter style tags to pass "
+"through the parser"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:61
+msgid "Allows github-style task lists (i.e. check boxes)"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:62
+msgid "Look for an Emacs-style markdown-extras file variable to turn on Extras"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:63
+msgid "Google Code Wiki table syntax support"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:64
+msgid "Passes one-liner processing instructions and namespaced XML tags"
+msgstr ""
+
+#: addon\globalPlugins\markdownForever\common.py:141
+msgid "Invalid file path"
+msgstr "Ruta de archivo inválido"
+
+#: addon\globalPlugins\markdownForever\common.py:177
+msgid "Unable to guess the encoding"
+msgstr "No se ha podido adivinar la codificación."
+
+#: addon\globalPlugins\markdownForever\common.py:179
+msgid "No text"
+msgstr "Sin texto"
+
+#: addon\globalPlugins\markdownForever\common.py:230
+#, python-brace-format
+msgid "Unable to include “{filePath}”"
+msgstr "No se ha podido incluir “{filePath}”"
+
+#: addon\globalPlugins\markdownForever\common.py:338
+msgid "Minimal: just the HTML from your Markdown"
+msgstr "Mínimo: justo el HTML desde tu Markdown"
+
+#: addon\globalPlugins\markdownForever\common.py:338
+msgid "Default: A minimal template provided by the add-on"
+msgstr "Defecto: Una plantilla mínima proporcionada por el complemento"
+
+#: addon\globalPlugins\markdownForever\common.py:361
+#, python-format
+msgid ""
+"Metadata and extra tags error. '%s' value was not recognized for lang field."
+msgstr ""
+"Error de metadatos y súper etiquetas: la valor '%s' no fue reconocida para "
+"el campo  lang."
+
+#: addon\globalPlugins\markdownForever\common.py:466
+msgid "Table of contents"
+msgstr "Índice"
+
+#: addon\globalPlugins\markdownForever\common.py:471
+msgid "Markdown to HTML conversion"
+msgstr "Conversión Markdown hacia HTML"
+
+#: addon\globalPlugins\markdownForever\common.py:488
+msgid "Markdown to HTML conversion (preview)"
+msgstr "Conversión Markdown hacia HTML (vista previa)"
+
+#: addon\globalPlugins\markdownForever\common.py:488
+msgid "Markdown to HTML source conversion"
+msgstr "Conversión Markdown hacia fuente HTML"
+
+#: addon\globalPlugins\markdownForever\settings.py:11
+msgid "General"
+msgstr "General"
+
+#: addon\globalPlugins\markdownForever\settings.py:33
+msgid "Default action in interactive mode"
+msgstr "Acción por defecto en modo interactivo"
+
+#: addon\globalPlugins\markdownForever\settings.py:37
+msgid "Markdown Engine"
+msgstr "Motor de conversión"
+
+#: addon\globalPlugins\markdownForever\settings.py:40
+msgid "Markdo&wn2 extras"
+msgstr "Extras Markdo&wn2"
+
+#: addon\globalPlugins\markdownForever\settings.py:45
+msgid "Path"
+msgstr "Ruta "
+
+#: addon\globalPlugins\markdownForever\settings.py:66
+msgid "HTML Templates"
+msgstr "Plantillas HTML"
+
+#: addon\globalPlugins\markdownForever\settings.py:73
+msgid "HTML templates &list"
+msgstr "&Lista de plantillas HTML"
+
+#: addon\globalPlugins\markdownForever\settings.py:78
+msgid "Set as &default template"
+msgstr "Establecer como plantilla &por defecto"
+
+#: addon\globalPlugins\markdownForever\settings.py:80
+msgid "&Edit"
+msgstr "&Editar"
+
+#: addon\globalPlugins\markdownForever\settings.py:81
+msgid "&Add"
+msgstr "&Añadir"
+
+#: addon\globalPlugins\markdownForever\settings.py:82
+msgid "&Remove"
+msgstr "&Eliminar"
+
+#: addon\globalPlugins\markdownForever\settings.py:131
+#, python-format
+msgid "Are you sure to want to delete the '%s' template?"
+msgstr "¿Estás seguro que deseas eliminar la plantilla \"%s\"?"
+
+#: addon\globalPlugins\markdownForever\settings.py:131
+msgid "Confirmation"
+msgstr "Confirmación"
+
+#: addon\globalPlugins\markdownForever\settings.py:143
+msgid "Add template"
+msgstr "Añadir una plantilla"
+
+#. Translators: This is the label for the edit template entry dialog.
+#: addon\globalPlugins\markdownForever\settings.py:160
+msgid "Edit template"
+msgstr "Editar una plantilla"
+
+#: addon\globalPlugins\markdownForever\settings.py:164
+msgid "&Name"
+msgstr "&Nombre"
+
+#: addon\globalPlugins\markdownForever\settings.py:166
+msgid "&Description"
+msgstr "&Descripción"
+
+#: addon\globalPlugins\markdownForever\settings.py:168
+msgid "&Content"
+msgstr "&Contenido"
+
+#: addon\globalPlugins\markdownForever\settings.py:187
+#, python-brace-format
+msgid ""
+"Wrong value for template name field. Field must contain only letters in "
+"lowercase ({letters}), digits ({digits}), hyphen ({hyphen}) or underscore "
+"({underscore}). A maximum of {maxCharTemplateName} characters. The following "
+"name is not allowed: \"default\"."
+msgstr ""
+"Valor incorrecto para el campo de nombre de la plantilla. El campo debe "
+"contener sólo letras en minúsculas ({letters}), dígitos ({digits}), guiones "
+"({hyphen}) o guiones bajos ({underscore}). Un máximo de "
+"{maxCharTemplateName} caracteres. El siguiente nombre no está permitido: "
+"\"default\"."
+
+#: addon\globalPlugins\markdownForever\settings.py:198
+msgid "Content field empty."
+msgstr "Campo de contenido vacío."
+
+#: addon\globalPlugins\markdownForever\settings.py:208
+#, python-brace-format
+msgid ""
+"Content field invalid. The following required tags are missing: "
+"{missingFields}. Each tag must be surrounded by braces. E.g.: {eg}."
+msgstr ""
+"Campo de contenido inválido. Las siguientes etiquetas están faltantes y "
+"obligatorias: {missingFields}. Cada etiqueta debe estar rodeado por llaves. "
+"Ej.: {eg}."
+
+#: addon\globalPlugins\markdownForever\settings.py:230
+msgid "Host"
+msgstr "Anfitrión"
+
+#: addon\globalPlugins\markdownForever\settings.py:231
+msgid "Port"
+msgstr "Puerto"
+
+#: addon\globalPlugins\markdownForever\settings.py:232
+msgid "Default encoding"
+msgstr "Codificación por defecto"
+
+#: addon\globalPlugins\markdownForever\settings.py:233
+msgid "Root folders"
+msgstr "Directorios raíz"
+
+#: addon\globalPlugins\markdownForever\updateCheck.py:59
+#, python-format
+msgid "New version available, version %s. Do you want to download it now?"
+msgstr "Nueva versión disponible: versión %s. ¿Quieres descargarla ahora?"
+
+#: addon\globalPlugins\markdownForever\updateCheck.py:70
+#, python-format
+msgid "You are up-to-date. %s is the latest version."
+msgstr "Estás al día, %s es la versión más reciente."
+
+#: addon\globalPlugins\markdownForever\updateCheck.py:79
+#, python-format
+msgid ""
+"Oops! There was a problem downloading for update. Please retry later or "
+"download and install manually via %s. Do you want to open this URL in your "
+"browser now?"
+msgstr ""
+"¡Huy! Hubo un problema al descargar las actualizaciones. Por favor, "
+"inténtelo de nuevo más tarde o descargarla e instalarla manualmente vía %s. "
+"¿Quieres abrir esta URL en el navegador ahora?"
+
+#: addon\globalPlugins\markdownForever\updateCheck.py:113
+msgid "An update check dialog is already running!"
+msgstr "¡Una comprobación de las actualizaciones ya está en marcha!"
+
+#: addon\globalPlugins\markdownForever\updateCheck.py:114
+#, python-brace-format
+msgid "{addonName}'s update"
+msgstr "Actualización de {addonName}"
+
+#: addon\globalPlugins\markdownForever\virtualDocuments.py:53
+msgid "Invalid document"
+msgstr "Documento inválido"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:26
+msgid "Markdown Forever"
+msgstr "Markdown Forever"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:29
+msgid "Full-featured Markdown and HTML converter for NVDA"
+msgstr "Convertidor Markdown y HTML completo para NVDA"
+
+#~ msgid "Save as"
+#~ msgstr "Guardar como"
+
+#~ msgid "&Save as..."
+#~ msgstr "&Guardar como..."
+
+#~ msgid "Default settings"
+#~ msgstr "Ajustes por defecto"
+
+#~ msgid "Manage HTML temp&lates"
+#~ msgstr "Administrar las p&lantillas HTML"
+
+#~ msgid "Manage HTML templates"
+#~ msgstr "Administrar las plantillas HTML"
+
+#~ msgid "HTML templates list"
+#~ msgstr "Lista de plantillas HTML"
+
+#~ msgid ""
+#~ "Wrong value for template name field. Field must contain only letters in "
+#~ "lowercase (%s), numbers (%s), hyphen (%s) or underscores (%s). A maximum "
+#~ "of %d characters. The following name is not allowed: \"default\"."
+#~ msgstr ""
+#~ "Valor incorrecto para el campo de nombre de la plantilla. El campo debe "
+#~ "contener sólo letras en minúsculas (%s), números (%s), guiones (%s) o "
+#~ "guiones bajos (%s). Un máximo de %d caracteres. El siguiente nombre no "
+#~ "está permitido: \"defecto\"."
+
+#~ msgid ""
+#~ "Content field invalid. The following required tags are missing: %s. Each "
+#~ "tag must be surrounded by braces. E.g.: {%s}."
+#~ msgstr ""
+#~ "Campo de contenido inválido. Las siguientes etiquetas son faltantes y "
+#~ "obligatorias: %s. Cada etiqueta debe estar rodeado por llaves. Por "
+#~ "ejemplo: {%s}."

@@ -233,6 +233,7 @@ Bunlara NVDA menüsü / MarkdownForever Ayarları / Ayarlar yolundan erişilebil
 	- Sof &lt;<hellosof@gmail.com>&gt;: İngilizce ve Fransızca dokümantasyon, çeşitli öneriler.
 	- Victor Cai: Çince yerelleştirmesi.
 	- Çağrı Dogan: Türkçe lokalizasyon.
+	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: İspanyolca yerelleştirm.
 	- Ve daha fazlası!
 * License: GNU General Public License, version 2
 * [kararlı sürüm](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)

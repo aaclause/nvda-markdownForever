@@ -235,6 +235,7 @@ Ils sont accessibles depuis le menu NVDA -> Préférences -> MarkdownForever -> 
 	- Sof &lt;<hellosof@gmail.com>&gt;: documentation en anglais et français, diverses suggestions.
 	- Victor Cai: traduction en chinois.
 	- Çağrı Dogan: traduction en turc.
+	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: traduction en espagnol.
 	- Et bien d’autres !
 * Licence : Licence publique générale GNU, version 2
 * Télécharger [version stable](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)

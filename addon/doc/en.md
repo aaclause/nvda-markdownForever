@@ -233,6 +233,7 @@ They can be reached from the NVDA menu -> Settings MarkdownForever -> Settings a
 	- Sof &lt;<hellosof@gmail.com>&gt;: English and French documentation, various suggestions.
 	- Victor Cai: Chinese localization.
 	- Çağrı Dogan: Turkish localization.
+	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: Spanish localization.
 	- And much more!
 * License: GNU General Public License, version 2
 * Download [stable version](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)

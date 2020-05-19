@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: MarkdownForever 19.03.25-101339\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-05-19 14:51+0200\n"
-"PO-Revision-Date: 2020-05-19 15:19+0200\n"
+"PO-Revision-Date: 2020-05-19 19:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -205,7 +205,7 @@ msgstr "So&us-titre"
 
 #: addon\globalPlugins\markdownForever\__init__.py:279
 msgid "HTML temp&late to use"
-msgstr "Gabarit HTML à utiliser"
+msgstr "Gabarit HTML à uti&liser"
 
 #: addon\globalPlugins\markdownForever\__init__.py:284
 msgid "Corres&ponding metadata block"
@@ -444,7 +444,7 @@ msgstr "&Liste des gabarits HTML"
 
 #: addon\globalPlugins\markdownForever\settings.py:78
 msgid "Set as &default template"
-msgstr "Définir en tant que gabarit par ddéfaut"
+msgstr "Définir en tant que gabarit par &ddéfaut"
 
 #: addon\globalPlugins\markdownForever\settings.py:80
 msgid "&Edit"

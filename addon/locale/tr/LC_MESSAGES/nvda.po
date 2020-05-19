@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: MarkdownForever 19.03.25-101339\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-04-30 15:29+0300\n"
-"PO-Revision-Date: 2020-05-18 20:43+0200\n"
+"PO-Revision-Date: 2020-05-19 09:25+0300\n"
 "Last-Translator: \n"
 "Language-Team: cagrid@hotmail.com\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-Basepath: ../../../globalPlugins/markdownForever\n"
 "X-Poedit-SearchPath-0: __init__.py\n"
@@ -395,11 +395,11 @@ msgstr ""
 
 #: settings.py:209
 msgid "Host"
-msgstr ""
+msgstr "evsahibi"
 
 #: settings.py:210
 msgid "Port"
-msgstr ""
+msgstr "Bağlantı noktası"
 
 #: settings.py:211
 #| msgid "Default settings"
@@ -443,3 +443,18 @@ msgstr "{addonName} Güncelleme"
 #: virtualDocuments.py:53
 msgid "Invalid document"
 msgstr "Geçersiz belge"
+
+#~ msgid "Save as"
+#~ msgstr "Farklı kaydet"
+
+#~ msgid "Manage HTML temp&lates"
+#~ msgstr "HTML &şablonlarını yönet"
+
+#~ msgid "Manage HTML templates"
+#~ msgstr "HTML şablonlarını yönet"
+
+#~ msgid "Markdown Forever"
+#~ msgstr "Markdown Forever"
+
+#~ msgid "Full-featured Markdown and HTML converter for NVDA"
+#~ msgstr "NVDA için tam özellikli Markdown ve HTML dönüştürücü"

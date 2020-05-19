@@ -348,6 +348,8 @@ def processExtraTags(soup, lang='', allRepl=True, allowBacktranslate=True):
 		("%time%", time.strftime("%X"), 1),
 		("%now%", time.strftime("%c"), 1),
 		("%addonVersion%", addonInfos["version"], 1),
+		("%markdown2Version%", markdown2.__version__, 1),
+		("%html2textVersion%", '.'.join(map(str, html2text.__version__)), 1),
 		("%NVDAVersion%", versionInfo.version, 1),
 		("%toc%", internalTocTag, 0)
 	]

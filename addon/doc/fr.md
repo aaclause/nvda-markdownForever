@@ -4,12 +4,13 @@ subtitle: Convertisseur Markdown et HTML complet pour NVDA
 keywords: documentation, MarkdownForever, NVDA, extension, français
 filename: doc_fr
 author: "Sof &lt;<hellosof@gmail.com>&gt;"
+extratags-back: false
 lang: fr
 langd: fr
 toc: 1
 autonumber-headings: 1
 css: style.css
-date: dimanche 3 novembre 2019
+date: Mardi 19 Mai 2020
 ---
 
 **Sommaire**
@@ -233,8 +234,8 @@ Ils sont accessibles depuis le menu NVDA -> Préférences -> MarkdownForever -> 
 * Télécharger [version de développement](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
 * Dépôt GitHub : [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
 * **Dépendances incluses** :
-	- [Markdown2](https://github.com/trentm/python-markdown2)
+	- [Markdown2](https://github.com/trentm/python-markdown2) (%markdown2Version%)
 	- [HTML2Markdown](https://github.com/dlon/html2markdown)
-	- [HTML2Text](https://pypi.org/project/html2text/)
+	- [HTML2Text](https://pypi.org/project/html2text/) (%html2textVersion%)
 	- [PyYAML](https://pypi.org/project/PyYAML/)
 	- [WinClipboard](https://github.com/andre9642/python-winClipboard)

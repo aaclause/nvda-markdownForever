@@ -37,7 +37,6 @@ class GeneralDlg(gui.settingsDialogs.SettingsPanel):
 		markdownEngineText = _("Markdown Engine")
 		self.markdownEngineListBox = sHelper.addLabeledControl(markdownEngineText, wx.Choice, choices=markdownEngineLabels)
 		self.markdownEngineListBox.SetSelection(idEngine)
-		self.markdown2Extras = label = _("Preferred &input tables")
 		label = _("Markdo&wn2 extras")
 		choices = [f"{k}: {v}" for k, v in EXTRAS.items()]
 		self.markdown2Extras = sHelper.addLabeledControl(label, gui.nvdaControls.CustomCheckListBox, choices=choices)

@@ -8,6 +8,8 @@ date: 12 Kasım 2019 Salı
 extratags: 1
 extratags-back: 0
 filename: doc_tr
+include-after:
+- '%addonDir%/doc/dependencies.md'
 keywords: dokümantasyon, MarkdownForever, NVDA add-on, Turkish, Türkçe
 lang: tr
 langd: tr
@@ -237,8 +239,3 @@ Bunlara NVDA menüsü / MarkdownForever Ayarları / Ayarlar yolundan erişilebil
 * [geliştirme sürümü](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
 * GitHub repository: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
 * **Dahil edilen bileşenler**:
-	- [Markdown2](https://github.com/trentm/python-markdown2) (%markdown2Version%)
-	- [HTML2Markdown](https://github.com/dlon/html2markdown)
-	- [HTML2Text](https://pypi.org/project/html2text/) (%html2textVersion%)
-	- [PyYAML](https://pypi.org/project/PyYAML/)
-	- [WinClipboard](https://github.com/andre9642/python-winClipboard)

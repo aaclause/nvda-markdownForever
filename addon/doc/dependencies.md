@@ -1,0 +1,5 @@
+	- [Markdown2](https://github.com/trentm/python-markdown2) (%markdown2Version%)
+	- [HTML2Markdown](https://github.com/dlon/html2markdown)
+	- [HTML2Text](https://pypi.org/project/html2text/) (%html2textVersion%)
+	- [PyYAML](https://pypi.org/project/PyYAML/)
+	- [WinClipboard](https://github.com/andre9642/python-winClipboard)

@@ -94,6 +94,7 @@ def realpath(path):
 	path = path.lower()
 	vars = ["appdata", "tmp", "temp", "userprofile"]
 	for var in vars: path = path.replace("%%%s%%" % var, os.environ[var])
+	path = path.replace("%addondir%", addonPath)
 	return path
 
 def isPath(path):
@@ -215,6 +216,20 @@ def writeFile(fp, content):
 	f = open(fp, "wb")
 	f.write(content.encode())
 	f.close()
+def getFileContent(fp):
+	content = ""
+	fp = realpath(fp)
+	fp_ = realpath(config.conf["markdownForever"]["defaultPath"]) + '/' + fp
+	if not os.path.exists(fp) and os.path.exists(fp_): fp = fp_
+	try:
+		f = open(fp, "rb")
+		text = f.read().decode("UTF-8")
+		metadata, content = extractMetadata(text)
+		f.close()
+	except BaseException as err:
+		msg = _("Unable to include “{filePath}”").format(filePath=fp)
+		content = f'<div class="MDF_err" role="complementary">{msg}: {escapeHTML(repr(err))}</div>'
+	return content
 
 def backTranslateExtraTags(text):
 	soup = BeautifulSoup(text)
@@ -228,7 +243,12 @@ def backTranslateExtraTags(text):
 	return str(soup)
 
 def extractMetadata(text):
+	o = {
+		"before": "",
+		"after": ""
+	}
 	metadata = {}
+	end = 1
 	if len(text) > 4 and text.startswith("---"):
 		ln = text[3]
 		if ln in ["\r", "\n"]:
@@ -283,14 +303,19 @@ def extractMetadata(text):
 			HTMLHead.append('<meta name="author" content="%s" />' % author_)
 	if "css" in metadata.keys():
 		if isinstance(metadata["css"], (str, str)): metadata["css"] = [metadata["css"]]
-		for css in metadata["css"]: HTMLHead.append('<link rel="stylesheet" href="%s" />' % css)
+		for css in metadata["css"]: HTMLHead.append('<link rel="stylesheet" href="%s" />' % realpath(css))
+	includes_keys = ["include-after", "include-before"]
+	for include_key in includes_keys:
+		if include_key in metadata.keys():
+			if isinstance(metadata[include_key], (str, str)): metadata[include_key] = [metadata[include_key]]
+			for fp in metadata[include_key]: o[include_key.split('-')[1]] += getFileContent(fp)
 	if "date" in metadata.keys():
 		HTMLHeader.append('<p class="date">%s</p>' % metadata["date"])
 		HTMLHead.append('<meta name="dcterms.date" content="%s" />' % metadata["date"])
 	metadata["HTMLHead"] = '\n'.join(HTMLHead)
 	if not HTMLHeader: HTMLHeader = ""
 	else: metadata["HTMLHeader"] = '\n'.join(HTMLHeader)
-	return metadata, text
+	return metadata, o["before"] + '\n' + text + '\n' + o["after"]
 
 def getHTMLTemplate(name=None):
 	if not name: name = config.conf["markdownForever"]["HTMLTemplate"]

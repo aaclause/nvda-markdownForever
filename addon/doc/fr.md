@@ -9,6 +9,8 @@ date: Mardi 19 Mai 2020
 extratags: 1
 extratags-back: 0
 filename: doc_fr
+include-after:
+- '%addonDir%/doc/dependencies.md'
 keywords: documentation, MarkdownForever, NVDA, extension, français
 lang: fr
 langd: fr
@@ -239,8 +241,3 @@ Ils sont accessibles depuis le menu NVDA -> Préférences -> MarkdownForever -> 
 * Télécharger [version de développement](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
 * Dépôt GitHub : [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
 * **Dépendances incluses** :
-	- [Markdown2](https://github.com/trentm/python-markdown2) (%markdown2Version%)
-	- [HTML2Markdown](https://github.com/dlon/html2markdown)
-	- [HTML2Text](https://pypi.org/project/html2text/) (%html2textVersion%)
-	- [PyYAML](https://pypi.org/project/PyYAML/)
-	- [WinClipboard](https://github.com/andre9642/python-winClipboard)

@@ -1,17 +1,22 @@
 ---
-title: "Documentation de MarkdownForever version %addonVersion%"
-subtitle: Convertisseur Markdown et HTML complet pour NVDA
-keywords: documentation, MarkdownForever, NVDA, extension, français
+author:
+- Sof &lt;<hellosof@gmail.com>&gt;
+- André &lt;<dev@andreabc.net>&gt;
+autonumber-headings: 1
+css:
+- style.css
+date: Mardi 19 Mai 2020
+extratags: 1
+extratags-back: 0
 filename: doc_fr
-author: "Sof &lt;<hellosof@gmail.com>&gt;"
-extratags-back: false
+keywords: documentation, MarkdownForever, NVDA, extension, français
 lang: fr
 langd: fr
+subtitle: Convertisseur Markdown et HTML complet pour NVDA
+template: default
+title: Documentation de MarkdownForever %addonVersion%
 toc: 1
-autonumber-headings: 1
-css: style.css
-date: Mardi 19 Mai 2020
----
+...
 
 **Sommaire**
 

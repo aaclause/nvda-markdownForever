@@ -1,17 +1,20 @@
 ﻿---
-title: "MarkdownForever %addonVersion% documentation"
-subtitle: NVDA için tam özellikli Markdown ve HTML dönüştürücü
-keywords: dokümantasyon, MarkdownForever, NVDA add-on, Turkish, Türkçe
-filename: doc_tr
-author: "Çağrı Dogan &lt;cagrid@hotmail.com&gt;"
-lang: tr
-langd: tr
-toc: 1
+author:
+- Çağrı Dogan &lt;cagrid@hotmail.com&gt;
+autonumber-headings: 1
+css:
+- style.css
+date: 12 Kasım 2019 Salı
 extratags: 1
 extratags-back: 0
-autonumber-headings: 1
-css: style.css
-date: 12 Kasım 2019 Salı
+filename: doc_tr
+keywords: dokümantasyon, MarkdownForever, NVDA add-on, Turkish, Türkçe
+lang: tr
+langd: tr
+subtitle: NVDA için tam özellikli Markdown ve HTML dönüştürücü
+template: default
+title: MarkdownForever %addonVersion% documentation
+toc: 1
 ...
 
 **İçindekiler**

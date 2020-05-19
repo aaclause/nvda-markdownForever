@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MarkdownForever 19.03.25-101339\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2020-05-18 21:18+0200\n"
-"PO-Revision-Date: 2020-05-18 21:20+0200\n"
+"POT-Creation-Date: 2020-05-19 14:51+0200\n"
+"PO-Revision-Date: 2020-05-19 15:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: addon\globalPlugins\markdownForever\HTTPServer.py:24
-#: addon\globalPlugins\markdownForever\common.py:112
-#: addon\globalPlugins\markdownForever\common.py:257
+#: addon\globalPlugins\markdownForever\common.py:113
+#: addon\globalPlugins\markdownForever\common.py:277
 msgid "No title"
 msgstr "Sans titre"
 
@@ -57,7 +57,7 @@ msgstr "Affiche la documentation de l'extension dans cette langue."
 
 #. Translators: title of add-on parameters dialog.
 #: addon\globalPlugins\markdownForever\__init__.py:82
-#: addon\globalPlugins\markdownForever\settings.py:261
+#: addon\globalPlugins\markdownForever\settings.py:260
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -70,7 +70,7 @@ msgid "HTTP server"
 msgstr "Serveur HTTP"
 
 #: addon\globalPlugins\markdownForever\__init__.py:88
-#: addon\globalPlugins\markdownForever\settings.py:225
+#: addon\globalPlugins\markdownForever\settings.py:224
 msgid "Web server"
 msgstr "Serveur web"
 
@@ -99,7 +99,7 @@ msgid "Show the HTML source from Markdown"
 msgstr "Affiche la source HTML d'un contenu Markdown"
 
 #: addon\globalPlugins\markdownForever\__init__.py:158
-#: addon\globalPlugins\markdownForever\common.py:415
+#: addon\globalPlugins\markdownForever\common.py:442
 msgid "HTML to Markdown conversion"
 msgstr "Conversion HTML vers Markdown"
 
@@ -365,27 +365,32 @@ msgstr ""
 msgid "Passes one-liner processing instructions and namespaced XML tags"
 msgstr ""
 
-#: addon\globalPlugins\markdownForever\common.py:140
+#: addon\globalPlugins\markdownForever\common.py:141
 msgid "Invalid file path"
 msgstr "Chemin de fichier invalide"
 
-#: addon\globalPlugins\markdownForever\common.py:176
+#: addon\globalPlugins\markdownForever\common.py:177
 msgid "Unable to guess the encoding"
 msgstr "Impossible de déduire l'encodage"
 
-#: addon\globalPlugins\markdownForever\common.py:178
+#: addon\globalPlugins\markdownForever\common.py:179
 msgid "No text"
 msgstr "Pas de texte"
 
-#: addon\globalPlugins\markdownForever\common.py:313
+#: addon\globalPlugins\markdownForever\common.py:230
+#, python-brace-format
+msgid "Unable to include “{filePath}”"
+msgstr "Impossible d’inclure « {filePath} »"
+
+#: addon\globalPlugins\markdownForever\common.py:338
 msgid "Minimal: just the HTML from your Markdown"
 msgstr "Minimal : juste le HTML depuis votre Markdown"
 
-#: addon\globalPlugins\markdownForever\common.py:313
+#: addon\globalPlugins\markdownForever\common.py:338
 msgid "Default: A minimal template provided by the add-on"
 msgstr "Défaut : un gabarit minimal fourni par l'extension"
 
-#: addon\globalPlugins\markdownForever\common.py:336
+#: addon\globalPlugins\markdownForever\common.py:361
 #, python-format
 msgid ""
 "Metadata and extra tags error. '%s' value was not recognized for lang field."
@@ -393,19 +398,19 @@ msgstr ""
 "Erreur de métadonnées et de super-balises : la valeur '%s' n'a pas été "
 "reconnu pour le champ lang."
 
-#: addon\globalPlugins\markdownForever\common.py:439
+#: addon\globalPlugins\markdownForever\common.py:466
 msgid "Table of contents"
 msgstr "Sommaire"
 
-#: addon\globalPlugins\markdownForever\common.py:444
+#: addon\globalPlugins\markdownForever\common.py:471
 msgid "Markdown to HTML conversion"
 msgstr "Conversion Markdown vers HTML"
 
-#: addon\globalPlugins\markdownForever\common.py:461
+#: addon\globalPlugins\markdownForever\common.py:488
 msgid "Markdown to HTML conversion (preview)"
 msgstr "Conversion Markdown vers HTML (aperçu)"
 
-#: addon\globalPlugins\markdownForever\common.py:461
+#: addon\globalPlugins\markdownForever\common.py:488
 msgid "Markdown to HTML source conversion"
 msgstr "Conversion Markdown vers source HTML"
 
@@ -422,72 +427,68 @@ msgid "Markdown Engine"
 msgstr "Moteur de conversion"
 
 #: addon\globalPlugins\markdownForever\settings.py:40
-msgid "Preferred &input tables"
-msgstr "Tables de &saisie braille préférées"
-
-#: addon\globalPlugins\markdownForever\settings.py:41
 msgid "Markdo&wn2 extras"
 msgstr "Extras Markdo&wn2"
 
-#: addon\globalPlugins\markdownForever\settings.py:46
+#: addon\globalPlugins\markdownForever\settings.py:45
 msgid "Path"
 msgstr "Chemin"
 
-#: addon\globalPlugins\markdownForever\settings.py:67
+#: addon\globalPlugins\markdownForever\settings.py:66
 msgid "HTML Templates"
 msgstr "Gabarits HTML"
 
-#: addon\globalPlugins\markdownForever\settings.py:74
+#: addon\globalPlugins\markdownForever\settings.py:73
 msgid "HTML templates &list"
 msgstr "&Liste des gabarits HTML"
 
-#: addon\globalPlugins\markdownForever\settings.py:79
+#: addon\globalPlugins\markdownForever\settings.py:78
 msgid "Set as &default template"
 msgstr "Définir en tant que gabarit par ddéfaut"
 
-#: addon\globalPlugins\markdownForever\settings.py:81
+#: addon\globalPlugins\markdownForever\settings.py:80
 msgid "&Edit"
 msgstr "&Modifier"
 
-#: addon\globalPlugins\markdownForever\settings.py:82
+#: addon\globalPlugins\markdownForever\settings.py:81
 msgid "&Add"
 msgstr "&Ajouter"
 
-#: addon\globalPlugins\markdownForever\settings.py:83
+#: addon\globalPlugins\markdownForever\settings.py:82
 msgid "&Remove"
 msgstr "&Supprimer"
 
-#: addon\globalPlugins\markdownForever\settings.py:132
+#: addon\globalPlugins\markdownForever\settings.py:131
 #, python-format
 msgid "Are you sure to want to delete the '%s' template?"
 msgstr "Êtes-vous sûr de vouloir supprimer le gabarit « %s » ?"
 
-#: addon\globalPlugins\markdownForever\settings.py:132
+#: addon\globalPlugins\markdownForever\settings.py:131
 msgid "Confirmation"
 msgstr "Confirmation"
 
-#: addon\globalPlugins\markdownForever\settings.py:144
+#: addon\globalPlugins\markdownForever\settings.py:143
 msgid "Add template"
 msgstr "Ajouter un modèle"
 
 #. Translators: This is the label for the edit template entry dialog.
-#: addon\globalPlugins\markdownForever\settings.py:161
+#: addon\globalPlugins\markdownForever\settings.py:160
 msgid "Edit template"
 msgstr "Modifier un modèle"
 
-#: addon\globalPlugins\markdownForever\settings.py:165
+#: addon\globalPlugins\markdownForever\settings.py:164
 msgid "&Name"
 msgstr "&Nom"
 
-#: addon\globalPlugins\markdownForever\settings.py:167
+#: addon\globalPlugins\markdownForever\settings.py:166
 msgid "&Description"
 msgstr "&Description"
 
-#: addon\globalPlugins\markdownForever\settings.py:169
+#: addon\globalPlugins\markdownForever\settings.py:168
 msgid "&Content"
 msgstr "&Contenu"
 
-#: addon\globalPlugins\markdownForever\settings.py:188
+#: addon\globalPlugins\markdownForever\settings.py:187
 #, python-brace-format
 msgid ""
 "Wrong value for template name field. Field must contain only letters in "
@@ -501,11 +502,11 @@ msgstr ""
 "maximum de {maxCharTemplateName} caractères. Le nom suivant n'est pas "
 "autorisé : \"default\"."
 
-#: addon\globalPlugins\markdownForever\settings.py:199
+#: addon\globalPlugins\markdownForever\settings.py:198
 msgid "Content field empty."
 msgstr "Champ contenu vide."
 
-#: addon\globalPlugins\markdownForever\settings.py:209
+#: addon\globalPlugins\markdownForever\settings.py:208
 #, python-brace-format
 msgid ""
 "Content field invalid. The following required tags are missing: "
@@ -515,19 +516,19 @@ msgstr ""
 "obligatoires : {missingFields}. Chaque balise doit être entourée "
 "d'accolades. Ex. : {eg}."
 
-#: addon\globalPlugins\markdownForever\settings.py:231
+#: addon\globalPlugins\markdownForever\settings.py:230
 msgid "Host"
 msgstr "Hôte"
 
-#: addon\globalPlugins\markdownForever\settings.py:232
+#: addon\globalPlugins\markdownForever\settings.py:231
 msgid "Port"
 msgstr "Port"
 
-#: addon\globalPlugins\markdownForever\settings.py:233
+#: addon\globalPlugins\markdownForever\settings.py:232
 msgid "Default encoding"
 msgstr "Encodage par défaut"
 
-#: addon\globalPlugins\markdownForever\settings.py:234
+#: addon\globalPlugins\markdownForever\settings.py:233
 msgid "Root folders"
 msgstr "Répertoires racines"
 
@@ -578,6 +579,9 @@ msgstr "Markdown Forever"
 #: buildVars.py:29
 msgid "Full-featured Markdown and HTML converter for NVDA"
 msgstr "Convertisseur Markdown et HTML complet pour NVDA"
+
+#~ msgid "Preferred &input tables"
+#~ msgstr "Tables de &saisie braille préférées"
 
 #~ msgid "Save as"
 #~ msgstr "Enregistrer sous"

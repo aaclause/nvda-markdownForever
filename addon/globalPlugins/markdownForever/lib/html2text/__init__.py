@@ -1,7 +1,7 @@
 """html2text: Turn HTML into equivalent Markdown-structured text."""
 
-import html.entities
-import html.parser
+import _html.entities as htmlentities
+import _html.parser as HTMLParser
 import re
 import urllib.parse as urlparse
 from textwrap import wrap
@@ -33,7 +33,7 @@ __version__ = (2020, 1, 16)
 # Support decoded entities with UNIFIABLE.
 
 
-class HTML2Text(html.parser.HTMLParser):
+class HTML2Text(HTMLParser.HTMLParser):
     def __init__(
         self,
         out: Optional[OutCallback] = None,
@@ -161,7 +161,7 @@ class HTML2Text(html.parser.HTMLParser):
         outtext = "".join(self.outtextlist)
 
         if self.unicode_snob:
-            nbsp = html.entities.html5["nbsp;"]
+            nbsp = htmlentities.html5["nbsp;"]
         else:
             nbsp = " "
         outtext = outtext.replace("&nbsp_place_holder;", nbsp)
@@ -859,7 +859,7 @@ class HTML2Text(html.parser.HTMLParser):
         if not self.unicode_snob and c in config.UNIFIABLE:
             return config.UNIFIABLE[c]
         try:
-            ch = html.entities.html5[c + ";"]
+            ch = htmlentities.html5[c + ";"]
         except KeyError:
             return "&" + c + ";"
         return config.UNIFIABLE[c] if c == "nbsp" else ch

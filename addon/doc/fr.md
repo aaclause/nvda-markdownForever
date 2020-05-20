@@ -80,7 +80,7 @@ ce qui vous donnera :
 
 [Cliquez ici pour visiter le site Web de NVAccess](https://www.nvaccess.org)
  
-Vous avez même la possibilité de mettre `*du texte en italique*` en l'entourant d'astérisques, ou `**écrire du texte en gras**` en l'entourant de deux astérisques... Les possibilités sont nombreuses. Vous pouvez par exemple consulter ce [petit guide pour bien commencer avec markdown](https://blog.wax-o.com/2014/04/tutoriel-un-guide-pour-bien-commencer-avec-markdown/) afin s'en savoir plus.
+Vous avez même la possibilité de mettre `*du texte en italique*` en l'entourant d'astérisques, ou `**écrire du texte en gras**` en l'entourant de deux astérisques... Les possibilités sont nombreuses. Vous pouvez par exemple consulter ce [petit guide pour bien commencer avec markdown](https://blog.wax-o.com/2014/04/tutoriel-un-guide-pour-bien-commencer-avec-markdown/) afin d'en savoir plus.
 
 ## Conversion de Markdown en HTML
 
@@ -126,7 +126,7 @@ Voici une description de l'écran en ordre de tabulation :
 * "Générer la table des matières / le sommaire" : Cette case à cocher vous permettra de générer ou non un index des chapitres de votre document HTML final, avec des liens cliquables menant à chaque chapitre. L'état de cette option peut également être défini par défaut dans les [paramètres de MarkdownForever.](#parametres-par-defaut-de-markdownforever)
 * "Tenter de numéroter les titres automatiquement" : Permet d'indiquer si les titres doivent être numérotés automatiquement ou non.
 * "Activer les super-balises" : Si cette option est cochée, vous pourrez utiliser des [balises spéciales](#super-balises) dans votre Markdown pour insérer automatiquement des informations telles que la date ou l'heure actuelle. L'état de cette option peut également être défini par défaut dans les [paramètres de MarkdownForever.](#parametres-par-defaut-de-markdownforever)
-* "Allow extratags back translation" : Permet d'indiquer, lors de la conversion en Markdown, si les [super-balises](#super-balises) doivent être restaurées à leur forme d'origine (par exemple %date%). Ceci fonctionne seulement à partir d'un contenu HTML généré par Markdown Forever. 
+* "Permettre la réversibilité des super-balises" : Permet d'indiquer, lors de la conversion en Markdown, si les [super-balises](#super-balises) doivent être restaurées à leur forme d'origine (par exemple %date%). Ceci fonctionne seulement à partir d'un contenu HTML généré par Markdown Forever. 
 * "Titre" : Vous pouvez saisir ici le titre de votre document HTML, qui sera visible dans le navigateur.
 * "Générer les métadonnées à partir de la source HTML" : Lors de la conversion d'un fichier source HTML en Markdown, MarkdownForever tente d'extraire les métadonnées à partir du code source (titre, langue, nom de fichier, etc.) et génère le [bloc de métadonnées](#bloc-de-metadonnees-optionnel) pour vous. Cette option n'est disponible que lors de la conversion HTML vers Markdown.
 * "Afficher dans le tampon virtuel" : Ce bouton ouvrira votre contenu converti dans un tampon virtuel de NVDA.
@@ -184,7 +184,7 @@ Bonjour le monde ! <span lang="en">Hello world!</span> <span lang="es">¡Hola m
 
 Dans l'exemple ci-dessus, le texte sera vocalisé en trois langues, en supposant que le synthétiseur vocal que vous utilisez prend en charge le changement automatique de langue et que la case correspondante est cochée dans les paramètres de parole de NVDA. Ce qui donne :
 
-> Bonjour tout le monde ! <span lang="en">Hello world!</span> <span lang="es">buenos días!</span>
+> Bonjour tout le monde ! <span lang="en">Hello world!</span> <span lang="es">¡Hola mundo!</span>
 
 ## Super-balises
 

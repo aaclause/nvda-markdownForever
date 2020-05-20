@@ -181,7 +181,7 @@ Hello world! <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola m
 
 In the example above, the text will be voiced in three languages, assuming that the voice synthesizer you are using supports automatic language switching and the corresponding checkbox is ticked in NVDA speech settings. It will sound as follows:
 
-> Hello World! <span lang="fr">Bonjour tout le monde!</span> <span lang="es">buenos días!</span>
+> Hello World! <span lang="fr">Bonjour tout le monde!</span> <span lang="es">¡Hola mundo!</span>
 
 ## Extra-tags
 

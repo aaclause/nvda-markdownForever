@@ -4,7 +4,7 @@ author:
 autonumber-headings: 1
 css:
 - style.css
-date: domingo 17 de mayo de 2020
+date: martes 19 de mayo de 2020
 extratags: 1
 extratags-back: 0
 filename: doc_es
@@ -41,7 +41,7 @@ Según Wikipédia,
 
 Puedes aprender más acerca de Markdown leyendo el [artículo completo en Wikipedia.](https://es.wikipedia.org/wiki/Markdown)
 
-Así que en lugar de escribir tus documentos web en lenguaje HTML corriendo el riesgo de cometer errores, sólo hay que utilizar etiquetas fáciles de recordar y el trabajo se hará al instante. Con Markdown, tu puedes casi hacer    lo que  HTML puede hacer: títulos, listas ordenadas (enumeradas) o no ordenadas (listas con viñetas), enlaces y tablas incluso.
+Así que en lugar de escribir tus documentos web en lenguaje HTML corriendo el riesgo de cometer errores, sólo hay que utilizar etiquetas fáciles de recordar y el trabajo se hará al instante. Con Markdown, tu puedes casi hacer    lo que  HTML puede hacer: títulos, listas ordenadas (enumeradas) o no ordenadas (listas con viñetas), enlaces y incluso tablas.
 
 Por ejemplo, si se quiere realizar un título de nivel 1, solo es necesario escribir  el signo de número (#), seguido por el nombre de tu título, con o sin espacio entre los dos:
 
@@ -160,7 +160,7 @@ El Bloque de metadatos te permite establecer  los ajustes específicos para un d
 ```
 ---
 title: Un simple título
-date: 17 de mayo de 2020
+date: 19 de mayo de 2020
 subtitle: Aquí es el subtítulo de tu documento
 lang: en
 author:

@@ -108,10 +108,6 @@ import optparse
 from random import random, randint
 import codecs
 from collections import defaultdict
-try:
-    from urllib import quote_plus
-except ImportError:
-    from urllib.parse import quote_plus
 
 
 # ---- Python version compat
@@ -1013,11 +1009,11 @@ class Markdown(object):
         align_from_col_idx = {}
         for col_idx, col in enumerate(cols):
             if col[0] == ':' and col[-1] == ':':
-                align_from_col_idx[col_idx] = ' align="center"'
+                align_from_col_idx[col_idx] = ' style="text-align:center;"'
             elif col[0] == ':':
-                align_from_col_idx[col_idx] = ' align="left"'
+                align_from_col_idx[col_idx] = ' style="text-align:left;"'
             elif col[-1] == ':':
-                align_from_col_idx[col_idx] = ' align="right"'
+                align_from_col_idx[col_idx] = ' style="text-align:right;"'
 
         # thead
         hlines = ['<table%s>' % self._html_class_str_from_tag('table'), '<thead>', '<tr>']
@@ -1152,6 +1148,9 @@ class Markdown(object):
 
         if "strike" in self.extras:
             text = self._do_strike(text)
+
+        if "underline" in self.extras:
+            text = self._do_underline(text)
 
         text = self._do_italics_and_bold(text)
 
@@ -1954,6 +1953,11 @@ class Markdown(object):
         text = self._strike_re.sub(r"<strike>\1</strike>", text)
         return text
 
+    _underline_re = re.compile(r"--(?=\S)(.+?)(?<=\S)--", re.S)
+    def _do_underline(self, text):
+        text = self._underline_re.sub(r"<u>\1</u>", text)
+        return text
+
     _strong_re = re.compile(r"(\*\*|__)(?=\S)(.+?[*_]*)(?<=\S)\1", re.S)
     _em_re = re.compile(r"(\*|_)(?=\S)(.+?)(?<=\S)\1", re.S)
     _code_friendly_strong_re = re.compile(r"\*\*(?=\S)(.+?[*_]*)(?<=\S)\*\*", re.S)
@@ -2027,7 +2031,6 @@ class Markdown(object):
             ^[ \t]*>%s[ \t]?        # '>' at the start of a line
               .+\n                  # rest of the first line
             (.+\n)*                 # subsequent consecutive lines
-            \n*                     # blanks
           )+
         )
     '''
@@ -2377,7 +2380,7 @@ def _regex_from_encoded_pattern(s):
     if s.startswith('/') and s.rfind('/') != 0:
         # Parse it: /PATTERN/FLAGS
         idx = s.rfind('/')
-        pattern, flags_str = s[1:idx], s[idx+1:]
+        _, flags_str = s[1:idx], s[idx+1:]
         flag_from_char = {
             "i": re.IGNORECASE,
             "l": re.LOCALE,

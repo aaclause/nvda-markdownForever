@@ -45,7 +45,7 @@ confSpecs = {
 	"defaultPath": 'string(default="%USERPROFILE%\documents")',
 	"markdownEngine": 'option("html2markdown", "html2text", default="html2text")',
 	"HTMLTemplate": 'string(default="default")',
-	"markdown2Extras": 'string(default="footnotes,tables,fenced-code-blocks,task_list,header-ids,wiki-tables,spoiler")',
+	"markdown2Extras": 'string(default="fenced-code-blocks,footnotes,header-ids,spoiler,strike,tables,task_list,underline,wiki-tables")',
 	"HTMLTemplates": {},
 	"HTTPServer": {
 		"host": 'string(default="127.0.0.1")',

@@ -7,19 +7,19 @@ css:
 date: Tuesday, May 19, 2020
 extratags: 1
 extratags-back: 0
-filename: doc_en
+filename: doc_vi
 include-after:
 - '%addonDir%/doc/dependencies.md'
-keywords: documentation, MarkdownForever, NVDA add-on, english
-lang: en
-langd: en
-subtitle: Full-featured Markdown and HTML converter for NVDA
+keywords: tài liệu, MarkdownForever, NVDA add-on, tiếng Anh
+lang: vi
+langd: vi
+subtitle: Bộ chuyển đổi Markdown và HTML đầy đủ tính năng cho NVDA
 template: default
-title: MarkdownForever %addonVersion% documentation
+title: Tài liệu hướng dẫn MarkdownForever %addonVersion%
 toc: 1
 ...
 
-**Table of content**
+**Mục lục**
 %toc%
 
 ## Introduction

@@ -10,7 +10,7 @@ extratags-back: 0
 filename: doc_vi
 include-after:
 - '%addonDir%/doc/dependencies.md'
-keywords: tài liệu, MarkdownForever, NVDA add-on, tiếng Anh
+keywords: tài liệu, MarkdownForever, NVDA add-on, tiếng Việt
 lang: vi
 langd: vi
 subtitle: Bộ chuyển đổi Markdown và HTML đầy đủ tính năng cho NVDA
@@ -22,35 +22,35 @@ toc: 1
 **Mục lục**
 %toc%
 
-## Introduction
+## Giới thiệu
 
-MarkdownForever is a small NVDA add-on that converts Markdown or HTML contents easily. Just write or display any text in Markdown or HTML format and press a simple shortcut to instantly convert or preview the result at any time, exactly as it will look like in your final webpage, or in HTML source code, ready to be pasted in any text area supporting HTML.
+MarkdownForever là một add-on nhỏ cho NVDA, dùng để chuyển đổi nội dung Markdown hay HTML một cách dễ dàng. Chỉ việc viết hoặc cho hiển thị bất cứ nội dung nào ở định dạng Markdown hay HTML và bấm một phím tắt đơn giản để chuyển đổi hoặc xem trước kết quả một cách nhanh chóng bất cứ lúc nào, hoàn toàn đúng như khi nó hiển thị trên trang web của bạn, hay dạng mã nguồn HTML, sẵn sàng để dán ở bất cứ nơi nào có hỗ trợ HTML.
 
-MarkdownForever can:
+MarkdownForever có thể:
 
-* Convert Markdown to HTML
-* Convert markdown to HTML source code
-* Convert HTML to Markdown
-* Convert Markdown to formatted HTML
+* Chuyển đổi Markdown qua HTML
+* Chuyển đổi markdown qua mã nguồn HTML
+* Chuyển đổi HTML qua Markdown
+* Chuyển đổi Markdown qua định dạng HTML
 
-## But what on Earth this Markdown thing is?
+## Nhưng Markdown là gì?
 
-According to Wikipedia,
-> Markdown is a lightweight markup language with plain text formatting syntax. Its design allows it to be converted to many output formats, but the original tool by the same name only supports HTML. Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor.
+Theo Wikipedia,
+> Markdown là một ngôn ngữ đánh dấu với cú pháp văn bản thô, được thiết kế để có thể dễ dàng chuyển thành HTML và nhiều định dạng khác sử dụng một công cụ cùng tên. Nó thường được dùng để tạo các tập tin readme, viết tin nhắn trên các diễn đàn, và tạo văn bản có định dạng bằng một trình biên tập văn bản thô.
 
-You can learn more about Markdown by reading the [full article on Wikipedia.](https://en.wikipedia.org/wiki/Markdown)
+Bạn có thể tìm hiểu thêm về Markdown bằng cách đọc [bài viết đầy đủ trên Wikipedia.](https://vi.wikipedia.org/wiki/Markdown)
 
-So, instead of writing your web documents using HTML with risk of making mistakes, you will use easy to memorize tags and your work will be done in no time. With Markdown, you will be able to do more or less the things HTML can do: headings, ordered (numbered) or unordered (buleted) lists, links, and even tables.
+Như vậy, thay vì viết tài liệu web bằng HTML với nguy cơ bị lỗi, bạn sẽ dùng các thẻ dễ nhớ hơn và công việc của bạn sẽ hoàn thành nhanh chóng. Với Markdown, bạn sẽ làm được nhiều hoặc ít hơn những gì  HTML có thể làm: tiêu đề, danh sách có thứ tự (số đếm) hoặc không thứ tự (buleted), liên kết, thậm chí là bảng biểu.
 
-For example, if you want to make a first level heading, you will write one hash sign (#), followed by the name of your heading, with or without a space between them:
+Ví dụ, muốn làm tiêu đề cấp 1, bạn sẽ viết một dấu thăng (#), sau đó là tên của tiêu đề, có hoặc không có khoảng trắng giữa chúng:
 
-> `#This is an example of a first level heading`
+> `#Đây là ví dụ về tiêu đề cấp 1`
 
-which will appear as follow in your final HTML document:
+sẽ hiển thị trong tài liệu HTML của bạn như sau:
 
-> <h1>\!This is an example of a first level heading</h1>
+> <h1>\!Đây là ví dụ về tiêu đề cấp 1</h1>
 
-For a second level heading, you will use Two hash signs, three for a third level one, Etc.
+Với tiêu đề cấp 2, bạn sẽ dùng hai dấu thăng, ba dấu cho tiêu đề cấp 3, v...v...
  
 Now, let's make an unordered list of items. To do so, you can prefix all items of your list by an asterisk (*). Here is an example:
 

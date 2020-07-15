@@ -4,7 +4,7 @@ author:
 autonumber-headings: 1
 css:
 - style.css
-date: Tuesday, May 19, 2020
+date: Thứ ba, 19/05/2020
 extratags: 1
 extratags-back: 0
 filename: doc_vi

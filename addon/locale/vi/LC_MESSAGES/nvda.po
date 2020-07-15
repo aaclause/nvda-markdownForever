@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: markdownForever 20.06.27:23adac4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-06-27 00:14+0200\n"
-"PO-Revision-Date: 2020-07-15 08:37+0700\n"
+"PO-Revision-Date: 2020-07-15 21:25+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: Vietnamese <dangmanhcuong@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: addon/globalPlugins/markdownForever/common.py:115
 #: addon/globalPlugins/markdownForever/common.py:279
 msgid "No title"
-msgstr "Không có tiêu đề"
+msgstr "Không có tên"
 
 #: addon/globalPlugins/markdownForever/HTTPServer.py:25
 msgid "No content"
@@ -40,7 +40,7 @@ msgstr "Lỗi 404"
 #: addon/globalPlugins/markdownForever/HTTPServer.py:55
 #, python-brace-format
 msgid "The requested URL “{path}” was not found"
-msgstr "Không tìm thấy đường dẫn URL được yêu cầu"
+msgstr "Không tìm thấy URL “{path}” được yêu cầu"
 
 #: addon/globalPlugins/markdownForever/__init__.py:77
 msgid "Documentation"
@@ -158,7 +158,7 @@ msgstr "Mã nguồn HTML"
 
 #: addon/globalPlugins/markdownForever/__init__.py:239
 msgid "C&onvert to"
-msgstr "Chuyển &sang"
+msgstr "Chuyển đổi &qua"
 
 #: addon/globalPlugins/markdownForever/__init__.py:244
 #: addon/globalPlugins/markdownForever/settings.py:29
@@ -178,7 +178,7 @@ msgstr "Nỗ lực đánh &số tự động cho tiêu đề"
 #: addon/globalPlugins/markdownForever/__init__.py:257
 #: addon/globalPlugins/markdownForever/settings.py:25
 msgid "Enable e&xtra tags"
-msgstr "Cho phép các &thẻ bổ sung"
+msgstr "Bật các &thẻ bổ sung"
 
 #: addon/globalPlugins/markdownForever/__init__.py:261
 msgid "Allow extratags bac&k translation"
@@ -190,11 +190,11 @@ msgstr "Nhận &dạng các thẻ bổ sung khi có thể"
 
 #: addon/globalPlugins/markdownForever/__init__.py:269
 msgid "&Title"
-msgstr "&Tiêu đề"
+msgstr "&Tên"
 
 #: addon/globalPlugins/markdownForever/__init__.py:274
 msgid "S&ubtitle"
-msgstr "Tiêu đề &phụ"
+msgstr "Tên &phụ"
 
 #: addon/globalPlugins/markdownForever/__init__.py:279
 msgid "HTML temp&late to use"

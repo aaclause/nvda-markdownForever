@@ -52,60 +52,60 @@ sẽ hiển thị trong tài liệu HTML của bạn như sau:
 
 Với tiêu đề cấp 2, bạn sẽ dùng hai dấu thăng, ba dấu cho tiêu đề cấp 3, v...v...
  
-Now, let's make an unordered list of items. To do so, you can prefix all items of your list by an asterisk (*). Here is an example:
+Bây giờ, hãy làm một danh sách không thứ tự. để làm điều này, bạn có thể thêm dấu sao (*) vào trước mỗi thành phần trong danh sách. Xem ví dụ sau:
 
 <blockquote>
 ```
-* Orange
-* Sugar
-* Milk
+* Cam
+* Đường
+* Sữa
 ```
 </blockquote>
 
-which will appear as:
+Sẽ hiển thị:
 
-> * Orange
-> * Sugar
-> * Milk
+> * Cam
+> * Đường
+> * Sữa
 
-You can also make a link by enclosing the title of the link in square brackets ([]), followed by the URL enclosed in parentheses without any spaces. For example:
+Bạn cũng có thể tạo một liên kết bằng cách đặt tiêu đề của liên kết đó trong cặp dấu ngoặc vuông ([]). Sau đó, đặt đường dẫn liên kết trong cặp dấu ngoặc tròn và không có khoảng trắng. Ví dụ:
 
-    [Click here to visit NVAccess's website](https://www.nvaccess.org)
+    [Bấm vào đây để mở trang web của  NVAccess](https://www.nvaccess.org)
 
-which will give you:
+sẽ cho ra:
 
-[Click here to visit NVAccess's website](https://www.nvaccess.org)
+[Bấm vào đây để mở trang web của  NVAccess](https://www.nvaccess.org)
  
-You can even put `*some text in italic*` by enclosing it in asterisks, or `**write text in bold**` by surrounding it with two asterisks... Possibilities are numerous. Just check this [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/) for more tags and details.
+Thậm chí, bạn có thể `*in nghiêng một đoạn văn bản*` bằng cách đặt nó trong hai dấu sao, hoặc `**in đậm văn bản**` bằng cách đặt nó vào hai cặp dấu sao... Còn nhiều cái khác nữa. Xem [Bài viết sau](https://www.markdownguide.org/cheat-sheet/) để biết thêm chi tiết.
 
-## Converting Markdown to HTML
+## Chuyển đổi Markdown qua HTML
 
-This feature allows you to convert any markdown text displayed on the screen to HTML, showing you the way your Markdown will look in the final HTML document. This can be a document you have written in Markdown format, a .md file you already have on your hard drive or a Markdown text found on a web page. By default, MarkdownForever converts all the currently displayed text, but you can also select only a specific part to be converted.
+Tính năng này cho phép bạn chuyển nội dung markdown hiển thị trên màn hình thành HTML, hiển thị như cách mà nội dung  Markdown của bạn sẽ thể hiện ở tài liệu HTML. Đây có thể là một tài liệu được viết ở định dạng Markdown, một tập tin .md có sẵn trên ổ cứng hoặc một nội dung Markdown tìm thấy trên một trang web. Mặc định, MarkdownForever sẽ chuyển tất cả nội dung đang hiển thị, nhưng bạn cũng có thể chọn một đoạn nhất định để chuyển đổi.
 
-You can use the following commands:
+Bạn có thể dùng các phím lệnh sau:
 
-- *NVDA+ALT+b*: The result is displayed as web page in your default web browser.
-- *NVDA+ALT+n*: The result is displayed as a web page in a virtual buffer of NVDA.
+- *NVDA+ALT+b*: kết quả hiển thị như trang web trên trình duyệt web mặc định của bạn.
+- *NVDA+ALT+n*: kết quả hiển thị như trang web  trên màn hình ảo của NVDA.
 
-Please note that it is recommended to favor the display in browser instead of the virtual buffer of NVDA. Some tags, particularly HTML5 tags such as `<details>,` are not supported by the render of virtual buffer.
+Xin lưu ý rằng lựa chọn hiển thị trên trình duyệt được khuyên dùng thay cho việc hiển thị trên màn hình ảo của NVDA. Một số thẻ, cụ thể là thẻ  HTML5 như `<details>,` chưa được hỗ trợ trên màn hình ảo.
 
-## Converting Markdown to HtML source code
+## Chuyển đổi Markdown thành mã nguồn HtML
 
-This converts Markdown text to pure HTML language. Once done, you'll be able to copy and paste it in an HTML file, in a forum post, or any text area on the web where HTML code is supported.
+Tính năng này chuyển đổi nội dung Markdown thành ngôn ngữ HTML thuần túy. Khi hoàn tất, bạn có thể chép và dán vào tập tin HTML, vào bài viết trên diễn đàn, hoặc mỗi vùng nhập liệu trên web có hỗ trợ mã HTML.
 
-The following commands are available:
+Sử dụng các phím lệnh sau:
 
-- *NVDA+ALT+l*: The result is displayed in a virtual buffer of NVDA.
-- *NVDA+Ctrl+h*: Copy the HTML source code to the clipboard.
+- *NVDA+ALT+l*: kết quả hiển thị trên màn hình ảo của NVDA.
+- *NVDA+Ctrl+h*: Chép mã nguồn HTML vào bộ nhớ tạm.
 
-## Converting HTML to Markdown
+## Chuyển đổi HTML qua Markdown
 
-This feature attempts to produce a Markdown text from an HTML source content. As usual, this works on the entire text displayed on the screen or on a specificly selected part. The following commands are available:
+Tính năng này nỗ lực tạo ra một văn bản Markdown từ nguồn nội dung HTML. Thông thường, nó xử lý toàn bộ nội dung hiển thị trên màn hình hoặc một đoạn nào đó được chọn. Sử dụng các phím lệnh sau:
 
-- *NVDA+Alt+k*: Displays the result in a virtual buffer of NVDA.
-- *NVDA+Shift+g*: Copy the result in the clipboard.
+- *NVDA+Alt+k*: hiển thị kết quả trên màn hình ảo của NVDA.
+- *NVDA+Shift+g*: chép kết quả vào bộ nhớ tạm.
 
-You can also convert an HTML web page to Markdown by simply selecting its URL. However, you must first ensure that the HTML2Text conversion engine is properly set as the default one in [MarkdownForever's settings,](#markdownforevers-default-settings) located in the Settings sub menu of NVDA.
+Bạn cũng có thể chuyển đổi một trang  HTML thành Markdown bằng cách đơn giản là chọn đường dẫn của nó. Tuy nhiên, bạn phải chắc chắn là bộ chuyển đổi HTML2Text phải được chọn làm mặc định trong [Cài đặt của MarkdownForever,](#markdownforevers-default-settings) trong phần tùy chỉnh của NVDA.
  
 ## Converting Markdown to Formatted HtML
 

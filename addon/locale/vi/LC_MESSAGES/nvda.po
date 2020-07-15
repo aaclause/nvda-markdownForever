@@ -1,0 +1,596 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the markdownForever package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: markdownForever 20.06.27:23adac4\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2020-06-27 00:14+0200\n"
+"PO-Revision-Date: 2020-07-15 08:37+0700\n"
+"Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
+"Language-Team: Vietnamese <dangmanhcuong@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.11\n"
+"Language: vi\n"
+
+#: addon/globalPlugins/markdownForever/HTTPServer.py:24
+#: addon/globalPlugins/markdownForever/common.py:115
+#: addon/globalPlugins/markdownForever/common.py:279
+msgid "No title"
+msgstr "Không có tiêu đề"
+
+#: addon/globalPlugins/markdownForever/HTTPServer.py:25
+msgid "No content"
+msgstr "Không có nội dung"
+
+#: addon/globalPlugins/markdownForever/HTTPServer.py:37
+#: addon/globalPlugins/markdownForever/HTTPServer.py:62
+#, python-brace-format
+msgid "Index of {path}"
+msgstr "Mục lục {path}"
+
+#: addon/globalPlugins/markdownForever/HTTPServer.py:54
+msgid "Error 404"
+msgstr "Lỗi 404"
+
+#: addon/globalPlugins/markdownForever/HTTPServer.py:55
+#, python-brace-format
+msgid "The requested URL “{path}” was not found"
+msgstr "Không tìm thấy đường dẫn URL được yêu cầu"
+
+#: addon/globalPlugins/markdownForever/__init__.py:77
+msgid "Documentation"
+msgstr "Tài liệu"
+
+#: addon/globalPlugins/markdownForever/__init__.py:77
+msgid "Documentation menu"
+msgstr "Trình đơn tài liệu"
+
+#: addon/globalPlugins/markdownForever/__init__.py:80
+msgid "Open the add-on documentation in this language."
+msgstr "Mở tài liệu hướng dẫn của add-on bằng ngôn ngữ này."
+
+#. Translators: title of add-on parameters dialog.
+#: addon/globalPlugins/markdownForever/__init__.py:82
+#: addon/globalPlugins/markdownForever/settings.py:260
+msgid "Settings"
+msgstr "Cài đặt"
+
+#: addon/globalPlugins/markdownForever/__init__.py:82
+msgid "Add-on settings"
+msgstr "Cài đặt add-on"
+
+#: addon/globalPlugins/markdownForever/__init__.py:88
+msgid "HTTP server"
+msgstr "Máy chủ HTTP"
+
+#: addon/globalPlugins/markdownForever/__init__.py:88
+#: addon/globalPlugins/markdownForever/settings.py:224
+msgid "Web server"
+msgstr "Máy chủ web"
+
+#: addon/globalPlugins/markdownForever/__init__.py:90
+msgid "&Check for update"
+msgstr "Kiểm tra &cập nhật"
+
+#: addon/globalPlugins/markdownForever/__init__.py:90
+msgid "Checks if update is available"
+msgstr "Kiểm tra bản cập nhật"
+
+#: addon/globalPlugins/markdownForever/__init__.py:92
+msgid "&Web site"
+msgstr "Trang &Web"
+
+#: addon/globalPlugins/markdownForever/__init__.py:92
+msgid "Open the add-on website."
+msgstr "Mở trang web của add-on."
+
+#: addon/globalPlugins/markdownForever/__init__.py:94
+msgid "&Markdown Forever"
+msgstr "&Markdown Forever"
+
+#: addon/globalPlugins/markdownForever/__init__.py:153
+msgid "Show the HTML source from Markdown"
+msgstr "Hiển thị mã nguồn HTML từ Markdown"
+
+#: addon/globalPlugins/markdownForever/__init__.py:158
+#: addon/globalPlugins/markdownForever/common.py:444
+msgid "HTML to Markdown conversion"
+msgstr "Chuyển đổi từ HTML qua Markdown"
+
+#: addon/globalPlugins/markdownForever/__init__.py:171
+msgid ""
+"Markdown to HTML conversion. The result is displayed in a virtual buffer of "
+"NVDA"
+msgstr ""
+"Chuyển từ Markdown qua HTML. Kết quả hiển thị tren màn hình ảo của NVDA"
+
+#: addon/globalPlugins/markdownForever/__init__.py:178
+msgid ""
+"Markdown to HTML conversion. The result is displayed in your default browser"
+msgstr ""
+"Chuyển từ Markdown qua HTML. Kết quả hiển thị trên trình duyệt mặc định của "
+"bạn"
+
+#: addon/globalPlugins/markdownForever/__init__.py:185
+msgid "HTML source copied to clipboard"
+msgstr "Đã chép mã nguồn html vào bộ nhớ tạm"
+
+#: addon/globalPlugins/markdownForever/__init__.py:186
+msgid "Markdown to HTML source conversion. The result is copied to clipboard"
+msgstr "Chuyển từ Markdown qua mã nguồn HTML. Đã chép kết quả vào bộ nhớ tạm"
+
+#: addon/globalPlugins/markdownForever/__init__.py:192
+msgid "Formatted HTML copied to clipboard"
+msgstr "Đã chép định dạng HTML vào bộ nhớ tạm"
+
+#: addon/globalPlugins/markdownForever/__init__.py:193
+#: addon/globalPlugins/markdownForever/__init__.py:203
+msgid "An error occured"
+msgstr "Có lỗi xảy ra"
+
+#: addon/globalPlugins/markdownForever/__init__.py:194
+msgid ""
+"Markdown to formatted HTML conversion. The result is copied to clipboard"
+msgstr "Chuyển từ Markdown qua định dạng HTML. Đã chép kết quả vào bộ nhớ tạm"
+
+#: addon/globalPlugins/markdownForever/__init__.py:202
+msgid "Markdown copied to clipboard"
+msgstr "Đã chép Markdown vào bộ nhớ tạm"
+
+#: addon/globalPlugins/markdownForever/__init__.py:204
+msgid "HTML to Markdown conversion. The result is copied to clipboard"
+msgstr "Chuyển từ HTML qua Markdown. Đã chép kết quả vào bộ nhớ tạm"
+
+#. Translators: This is the label for the edit dictionary entry dialog.
+#: addon/globalPlugins/markdownForever/__init__.py:210
+#: addon/globalPlugins/markdownForever/__init__.py:228
+msgid "Interactive mode"
+msgstr "Chế độ tương tác"
+
+#: addon/globalPlugins/markdownForever/__init__.py:224
+msgid "HTML source"
+msgstr "Mã nguồn HTML"
+
+#: addon/globalPlugins/markdownForever/__init__.py:239
+msgid "C&onvert to"
+msgstr "Chuyển &sang"
+
+#: addon/globalPlugins/markdownForever/__init__.py:244
+#: addon/globalPlugins/markdownForever/settings.py:29
+msgid "Generate corresponding &metadata from HTML source"
+msgstr "Tạo &siêu dữ liệu tương ứng từ mã nguồn HTML"
+
+#: addon/globalPlugins/markdownForever/__init__.py:249
+#: addon/globalPlugins/markdownForever/settings.py:16
+msgid "&Generate a table of contents"
+msgstr "&Tạo mục lục"
+
+#: addon/globalPlugins/markdownForever/__init__.py:253
+#: addon/globalPlugins/markdownForever/settings.py:21
+msgid "Try to automatically &number headings"
+msgstr "Nỗ lực đánh &số tự động cho tiêu đề"
+
+#: addon/globalPlugins/markdownForever/__init__.py:257
+#: addon/globalPlugins/markdownForever/settings.py:25
+msgid "Enable e&xtra tags"
+msgstr "Cho phép các &thẻ bổ sung"
+
+#: addon/globalPlugins/markdownForever/__init__.py:261
+msgid "Allow extratags bac&k translation"
+msgstr "Cho phép dịch &ngược các thẻ bổ sung"
+
+#: addon/globalPlugins/markdownForever/__init__.py:265
+msgid "&Detect extratags if possible"
+msgstr "Nhận &dạng các thẻ bổ sung khi có thể"
+
+#: addon/globalPlugins/markdownForever/__init__.py:269
+msgid "&Title"
+msgstr "&Tiêu đề"
+
+#: addon/globalPlugins/markdownForever/__init__.py:274
+msgid "S&ubtitle"
+msgstr "Tiêu đề &phụ"
+
+#: addon/globalPlugins/markdownForever/__init__.py:279
+msgid "HTML temp&late to use"
+msgstr "Dùng &mẫu HTML"
+
+#: addon/globalPlugins/markdownForever/__init__.py:284
+msgid "Corres&ponding metadata block"
+msgstr "Khối siêu dữ liệu &tương ứng"
+
+#: addon/globalPlugins/markdownForever/__init__.py:292
+msgid "Show in &virtual buffer"
+msgstr "Hiển thị trên &màn hình ảo"
+
+#: addon/globalPlugins/markdownForever/__init__.py:295
+msgid "Show in &browser"
+msgstr "Hiển thị trên &Trình duyệt"
+
+#: addon/globalPlugins/markdownForever/__init__.py:298
+msgid "&Copy to clipboard"
+msgstr "&Chép vào bộ nhớ tạm"
+
+#: addon/globalPlugins/markdownForever/__init__.py:301
+msgid "&Save the result as..."
+msgstr "&Lưu kết quả..."
+
+#: addon/globalPlugins/markdownForever/__init__.py:304
+msgid "Save the sou&rce as..."
+msgstr "Lưu &mã nguồn..."
+
+#: addon/globalPlugins/markdownForever/__init__.py:392
+msgid "Select the location"
+msgstr "Chọn đường dẫn"
+
+#: addon/globalPlugins/markdownForever/common.py:31
+msgid "Save the result as"
+msgstr "Lưu kết quả"
+
+#: addon/globalPlugins/markdownForever/common.py:32
+msgid "Save the source as"
+msgstr "Lưu mã nguồn"
+
+#: addon/globalPlugins/markdownForever/common.py:33
+msgid "Show in browser"
+msgstr "Hiển thị trên trình duyệt"
+
+#: addon/globalPlugins/markdownForever/common.py:34
+msgid "Show in virtual buffer"
+msgstr "Hiển thị trên màn hình ảo"
+
+#: addon/globalPlugins/markdownForever/common.py:35
+msgid "Copy to clipboard"
+msgstr "Chép vào bộ nhớ tạm"
+
+#: addon/globalPlugins/markdownForever/common.py:39
+msgid "html2text: turn HTML into equivalent Markdown-structured text"
+msgstr "html2text: chuyển HTML thành văn bản Markdown tương ứng"
+
+#: addon/globalPlugins/markdownForever/common.py:40
+msgid "html2markdown: conservatively convert html to markdown"
+msgstr "html2markdown: chuyển html thành markdown"
+
+#: addon/globalPlugins/markdownForever/common.py:44
+msgid "Replace single new line characters with <br> when True"
+msgstr "Thay thế kí tự dòng mới đơn với <br> khi đúng"
+
+#: addon/globalPlugins/markdownForever/common.py:45
+msgid "Disable _ and __ for em and strong"
+msgstr "Tắt _ và __ cho in đậm và nhấn mạnh"
+
+#: addon/globalPlugins/markdownForever/common.py:46
+msgid "Allow lists to be cuddled to the preceding paragraph"
+msgstr "Cho phép các danh sách được gắn vào đoạn trước"
+
+#: addon/globalPlugins/markdownForever/common.py:47
+msgid ""
+"Allows a code block to not have to be indented by fencing it with '```' on a "
+"line before and after"
+msgstr ""
+"Cho phép một khối mã nguồn không bị thụt lề bằng cách khoanh vùng lại với "
+"'```' trên một dòng trước và sau"
+
+#: addon/globalPlugins/markdownForever/common.py:48
+msgid ""
+"Support footnotes as in use on daringfireball.net and implemented in other "
+"Markdown processors (tho not in Markdown.pl v1.0.1)"
+msgstr ""
+"Hỗ trợ các chú thích chân trang như đã dùng trên trang daringfireball.net và "
+"đã bổ sung trong các trình xử lý Markdown khác (không có trong Markdown.pl "
+"v1.0.1)"
+
+#: addon/globalPlugins/markdownForever/common.py:49
+msgid ""
+"Adds \"id\" attributes to headers. The id value is a slug of the header text"
+msgstr ""
+"Thêm thuộc tính \"id\" vào các tiêu đề. Giá trị id là một phần của nội dung "
+"tiêu đề"
+
+#: addon/globalPlugins/markdownForever/common.py:50
+msgid ""
+"Takes a dict mapping html tag names (lowercase) to a string to use for a "
+"\"class\" tag attribute. Currently only supports \"pre\", \"code\", \"table"
+"\" and \"img\" tags"
+msgstr ""
+"Tạo sơ đồ ghép tên của các thẻ html (chữ thường) vào một chuỗi để dùng cho "
+"thuộc tính thẻ \"class\". Hiện chỉ hỗ trợ các thẻ \"pre\", \"code\", \"table"
+"\" và \"img\""
+
+#: addon/globalPlugins/markdownForever/common.py:51
+msgid ""
+"Auto-link given regex patterns in text (e.g. bug number references, revision "
+"number references)"
+msgstr ""
+"Tự liên kết biểu thức phổ thông cho trước trong nội dung (ví dụ: bug number "
+"references, revision number references)"
+
+#: addon/globalPlugins/markdownForever/common.py:52
+msgid ""
+"Allow the use of markdown=\"1\" in a block HTML tag to have markdown "
+"processing be done on its contents"
+msgstr ""
+"Cho phép sử dụng markdown=\"1\" trong một khối thẻ HTML để việc xử lý "
+"markdown được hoàn thành trên nội dung của nó"
+
+#: addon/globalPlugins/markdownForever/common.py:53
+msgid "Add rel=\"nofollow\" to all <a> tags with an href."
+msgstr "Thêm rel=\"nofollow\" vào tất cả thẻ <a> với href."
+
+#: addon/globalPlugins/markdownForever/common.py:54
+msgid "Create counters to number tables, figures, equations and graphs"
+msgstr "Tạo số đếm cho bảng, hình giáng, công thức và ảnh"
+
+#: addon/globalPlugins/markdownForever/common.py:55
+msgid "Treats unindented Python interactive shell sessions as <code> blocks"
+msgstr ""
+"Xem các phần chưa thụt lề trong cửa sổ tương tác Python là các khồi <code> "
+
+#: addon/globalPlugins/markdownForever/common.py:56
+msgid "Fancy quote, em-dash and ellipsis handling"
+msgstr "Quản lý trích dẫn ưa thích, gạch nối đậm và dấu chấm lửng"
+
+#: addon/globalPlugins/markdownForever/common.py:57
+msgid "A special kind of blockquote commonly hidden behind a click on SO"
+msgstr "Một loại trích dẫn đặc biệt thường ẩn sau  mọt click trên SO"
+
+#: addon/globalPlugins/markdownForever/common.py:58
+msgid "Parse ~~strikethrough~~ formatting"
+msgstr "Phân tích định dạng ~~strikethrough~~"
+
+#: addon/globalPlugins/markdownForever/common.py:59
+msgid ""
+"Add target=\"_blank\" to all <a> tags with an href. This causes the link to "
+"be opened in a new tab upon a click"
+msgstr ""
+"Thêm target=\"_blank\" vào tất cả các thẻ <a>  với href. Điều này làm cho "
+"liên kết được mở trong một thẻ mới khi kích hoạt"
+
+#: addon/globalPlugins/markdownForever/common.py:60
+msgid "Tables using the same format as GFM and PHP-Markdown Extra"
+msgstr "Bảng biểu sử dụng định dạng giống như GFM và PHP-Markdown Extra"
+
+#: addon/globalPlugins/markdownForever/common.py:61
+msgid ""
+"Requires atx style headers to have a space between the # and the header "
+"text. Useful for applications that require twitter style tags to pass "
+"through the parser"
+msgstr ""
+"Yêu cầu kiểu tiêu đề atx phải có một khoảng trắng giữa số và nội dung tiêu "
+"đề. Hữu ích cho các ứng dụng yêu cầu kiểu thẻ của twitter để bỏ qua bộ phân "
+"tích"
+
+#: addon/globalPlugins/markdownForever/common.py:62
+msgid "Allows github-style task lists (i.e. check boxes)"
+msgstr "Cho phép kiểu danh sách nhiệm vụ của github (ví dụ: hộp kiểm)"
+
+#: addon/globalPlugins/markdownForever/common.py:63
+msgid "Parse --underline-- formatting"
+msgstr "Parse --underline-- formatting"
+
+#: addon/globalPlugins/markdownForever/common.py:64
+msgid "Look for an Emacs-style markdown-extras file variable to turn on Extras"
+msgstr "Tìm một tập tin dạng biến Emacs-style markdown-extras để bật bổ sung"
+
+#: addon/globalPlugins/markdownForever/common.py:65
+msgid "Google Code Wiki table syntax support"
+msgstr "Bảng hỗ trợ cú pháp cho Google Code Wiki"
+
+#: addon/globalPlugins/markdownForever/common.py:66
+msgid "Passes one-liner processing instructions and namespaced XML tags"
+msgstr "Bỏ qua giới thiệu xử lý one-liner và các thẻ namespaced XML"
+
+#: addon/globalPlugins/markdownForever/common.py:143
+msgid "Invalid file path"
+msgstr "Đường dẫn tập tin không hợp lệ"
+
+#: addon/globalPlugins/markdownForever/common.py:179
+msgid "Unable to guess the encoding"
+msgstr "Không đoán được bảng mã"
+
+#: addon/globalPlugins/markdownForever/common.py:181
+msgid "No text"
+msgstr "Không có văn bản"
+
+#: addon/globalPlugins/markdownForever/common.py:232
+#, python-brace-format
+msgid "Unable to include “{filePath}”"
+msgstr "Không bao gồm được “{filePath}”"
+
+#: addon/globalPlugins/markdownForever/common.py:340
+msgid "Minimal: just the HTML from your Markdown"
+msgstr "Minimal: chỉ chuyển HTML từ Markdown"
+
+#: addon/globalPlugins/markdownForever/common.py:340
+msgid "Default: A minimal template provided by the add-on"
+msgstr "Mặc định (Default): một mẫu minimal được cung cấp bởi add-on"
+
+#: addon/globalPlugins/markdownForever/common.py:363
+#, python-format
+msgid ""
+"Metadata and extra tags error. '%s' value was not recognized for lang field."
+msgstr ""
+"Lỗi siêu dữ liệu và các thẻ bổ sung. Giá trị '%s' không được nhận dạng cho ô "
+"lang."
+
+#: addon/globalPlugins/markdownForever/common.py:468
+msgid "Table of contents"
+msgstr "Mục lục"
+
+#: addon/globalPlugins/markdownForever/common.py:473
+msgid "Markdown to HTML conversion"
+msgstr "Chuyển từ Markdown qua HTML"
+
+#: addon/globalPlugins/markdownForever/common.py:490
+msgid "Markdown to HTML conversion (preview)"
+msgstr "Chuyển từ Markdown qua HTML (Xem trước)"
+
+#: addon/globalPlugins/markdownForever/common.py:490
+msgid "Markdown to HTML source conversion"
+msgstr "Chuyển từ Markdown qua mã nguồn HTML"
+
+#: addon/globalPlugins/markdownForever/settings.py:11
+msgid "General"
+msgstr "Chung"
+
+#: addon/globalPlugins/markdownForever/settings.py:33
+msgid "Default action in interactive mode"
+msgstr "Hành động mặc định trong chế độ tương tác"
+
+#: addon/globalPlugins/markdownForever/settings.py:37
+msgid "Markdown Engine"
+msgstr "Bộ công cụ Markdown"
+
+#: addon/globalPlugins/markdownForever/settings.py:40
+msgid "Markdo&wn2 extras"
+msgstr "Markdo&wn2 bổ sung"
+
+#: addon/globalPlugins/markdownForever/settings.py:45
+msgid "Path"
+msgstr "đường dẫn"
+
+#: addon/globalPlugins/markdownForever/settings.py:66
+msgid "HTML Templates"
+msgstr "Mẫu HTML"
+
+#: addon/globalPlugins/markdownForever/settings.py:73
+msgid "HTML templates &list"
+msgstr "Danh &sách mẫu HTML"
+
+#: addon/globalPlugins/markdownForever/settings.py:78
+msgid "Set as &default template"
+msgstr "Đặt làm mẫu &mặc định"
+
+#: addon/globalPlugins/markdownForever/settings.py:80
+msgid "&Edit"
+msgstr "&Chỉnh sửa"
+
+#: addon/globalPlugins/markdownForever/settings.py:81
+msgid "&Add"
+msgstr "T&hêm"
+
+#: addon/globalPlugins/markdownForever/settings.py:82
+msgid "&Remove"
+msgstr "&Gỡ"
+
+#: addon/globalPlugins/markdownForever/settings.py:131
+#, python-format
+msgid "Are you sure to want to delete the '%s' template?"
+msgstr "Bạn có chắc chắn xóa mẫu '%s' không?"
+
+#: addon/globalPlugins/markdownForever/settings.py:131
+msgid "Confirmation"
+msgstr "Xác nhận"
+
+#: addon/globalPlugins/markdownForever/settings.py:143
+msgid "Add template"
+msgstr "Thêm mẫu"
+
+#. Translators: This is the label for the edit template entry dialog.
+#: addon/globalPlugins/markdownForever/settings.py:160
+msgid "Edit template"
+msgstr "Chỉnh sửa mẫu"
+
+#: addon/globalPlugins/markdownForever/settings.py:164
+msgid "&Name"
+msgstr "&Tên"
+
+#: addon/globalPlugins/markdownForever/settings.py:166
+msgid "&Description"
+msgstr "&Mô tả"
+
+#: addon/globalPlugins/markdownForever/settings.py:168
+msgid "&Content"
+msgstr "&Nội dung"
+
+#: addon/globalPlugins/markdownForever/settings.py:187
+#, python-brace-format
+msgid ""
+"Wrong value for template name field. Field must contain only letters in "
+"lowercase ({letters}), digits ({digits}), hyphen ({hyphen}) or underscore "
+"({underscore}). A maximum of {maxCharTemplateName} characters. The following "
+"name is not allowed: \"default\"."
+msgstr ""
+"Giá trị sai cho ô nhập tên mẫu. Ô này chỉ được phép chứa chữ thường "
+"({letters}), số ({digits}), dấu gạch ngang ({hyphen}) hay gạch dưới "
+"({underscore}). Số ki tự tối đa của {maxCharTemplateName}. Các tên sau đây "
+"không được chấp nhận: \"default\"."
+
+#: addon/globalPlugins/markdownForever/settings.py:198
+msgid "Content field empty."
+msgstr "Ô nội dung bị bỏ trống"
+
+#: addon/globalPlugins/markdownForever/settings.py:208
+#, python-brace-format
+msgid ""
+"Content field invalid. The following required tags are missing: "
+"{missingFields}. Each tag must be surrounded by braces. E.g.: {eg}."
+msgstr ""
+"Ô nội dung không hợp lệ. Thiếu các thẻ bắt buộc sau: {missingFields}. Mỗi "
+"thẻ phải được khoanh lại bằng dấu ngoặc nhọn. Ví dụ: {eg}."
+
+#: addon/globalPlugins/markdownForever/settings.py:230
+msgid "Host"
+msgstr "Kho"
+
+#: addon/globalPlugins/markdownForever/settings.py:231
+msgid "Port"
+msgstr "Cổng"
+
+#: addon/globalPlugins/markdownForever/settings.py:232
+msgid "Default encoding"
+msgstr "Bảng mã mặc định"
+
+#: addon/globalPlugins/markdownForever/settings.py:233
+msgid "Root folders"
+msgstr "Thu mục gốc"
+
+#: addon/globalPlugins/markdownForever/updateCheck.py:59
+#, python-format
+msgid "New version available, version %s. Do you want to download it now?"
+msgstr "Đã có phiên bản mới, %s. Bạn có muốn tải về không?"
+
+#: addon/globalPlugins/markdownForever/updateCheck.py:70
+#, python-format
+msgid "You are up-to-date. %s is the latest version."
+msgstr "Bạn đang dùng bản %s là phiên bản mới nhất."
+
+#: addon/globalPlugins/markdownForever/updateCheck.py:79
+#, python-format
+msgid ""
+"Oops! There was a problem downloading for update. Please retry later or "
+"download and install manually via %s. Do you want to open this URL in your "
+"browser now?"
+msgstr ""
+"Lỗi tải bản cập nhật. Vui lòng thử lại sau hoặc tải và cài thủ công qua %s. "
+"Bạn có muốn mở đường dẫn này trên trình duyệt ngay bây giờ không?"
+
+#: addon/globalPlugins/markdownForever/updateCheck.py:113
+msgid "An update check dialog is already running!"
+msgstr "Đã có một hộp thoại kiểm tra cập nhật đang chạy!"
+
+#: addon/globalPlugins/markdownForever/updateCheck.py:114
+#, python-brace-format
+msgid "{addonName}'s update"
+msgstr "Cập nhật {addonName}'"
+
+#: addon/globalPlugins/markdownForever/virtualDocuments.py:53
+msgid "Invalid document"
+msgstr "Tài liệu không hợp lệ"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:26
+msgid "Markdown Forever"
+msgstr "Markdown Forever"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:29
+msgid "Full-featured Markdown and HTML converter for NVDA"
+msgstr "Bộ chuyển đổi Markdown và HTML đầy đủ tính năng cho NVDA"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: markdownForever 20.06.27:23adac4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-06-27 00:14+0200\n"
-"PO-Revision-Date: 2020-07-16 11:31+0700\n"
+"PO-Revision-Date: 2020-07-17 00:25+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: Vietnamese <dangmanhcuong@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -44,11 +44,11 @@ msgstr "Không tìm thấy URL “{path}” được yêu cầu"
 
 #: addon/globalPlugins/markdownForever/__init__.py:77
 msgid "Documentation"
-msgstr "Tài liệu"
+msgstr "Tài liệu hướng dẫn"
 
 #: addon/globalPlugins/markdownForever/__init__.py:77
 msgid "Documentation menu"
-msgstr "Trình đơn tài liệu"
+msgstr "Trình đơn tài liệu hướng dẫn"
 
 #: addon/globalPlugins/markdownForever/__init__.py:80
 msgid "Open the add-on documentation in this language."
@@ -100,21 +100,21 @@ msgstr "Hiển thị mã nguồn HTML từ Markdown"
 #: addon/globalPlugins/markdownForever/__init__.py:158
 #: addon/globalPlugins/markdownForever/common.py:444
 msgid "HTML to Markdown conversion"
-msgstr "Chuyển đổi từ HTML qua Markdown"
+msgstr "Chuyển đổi từ HTML thành Markdown"
 
 #: addon/globalPlugins/markdownForever/__init__.py:171
 msgid ""
 "Markdown to HTML conversion. The result is displayed in a virtual buffer of "
 "NVDA"
 msgstr ""
-"Chuyển từ Markdown qua HTML. Kết quả hiển thị tren màn hình ảo của NVDA"
+"Chuyển từ Markdown thành HTML. Kết quả hiển thị tren màn hình ảo của NVDA"
 
 #: addon/globalPlugins/markdownForever/__init__.py:178
 msgid ""
 "Markdown to HTML conversion. The result is displayed in your default browser"
 msgstr ""
-"Chuyển từ Markdown qua HTML. Kết quả hiển thị trên trình duyệt mặc định của "
-"bạn"
+"Chuyển từ Markdown thành HTML. Kết quả hiển thị trên trình duyệt mặc định "
+"của bạn"
 
 #: addon/globalPlugins/markdownForever/__init__.py:185
 msgid "HTML source copied to clipboard"
@@ -122,7 +122,7 @@ msgstr "Đã chép mã nguồn html vào bộ nhớ tạm"
 
 #: addon/globalPlugins/markdownForever/__init__.py:186
 msgid "Markdown to HTML source conversion. The result is copied to clipboard"
-msgstr "Chuyển từ Markdown qua mã nguồn HTML. Đã chép kết quả vào bộ nhớ tạm"
+msgstr "Chuyển từ Markdown thành mã nguồn HTML. Đã chép kết quả vào bộ nhớ tạm"
 
 #: addon/globalPlugins/markdownForever/__init__.py:192
 msgid "Formatted HTML copied to clipboard"
@@ -136,7 +136,8 @@ msgstr "Có lỗi xảy ra"
 #: addon/globalPlugins/markdownForever/__init__.py:194
 msgid ""
 "Markdown to formatted HTML conversion. The result is copied to clipboard"
-msgstr "Chuyển từ Markdown qua định dạng HTML. Đã chép kết quả vào bộ nhớ tạm"
+msgstr ""
+"Chuyển từ Markdown thành định dạng HTML. Đã chép kết quả vào bộ nhớ tạm"
 
 #: addon/globalPlugins/markdownForever/__init__.py:202
 msgid "Markdown copied to clipboard"
@@ -144,7 +145,7 @@ msgstr "Đã chép Markdown vào bộ nhớ tạm"
 
 #: addon/globalPlugins/markdownForever/__init__.py:204
 msgid "HTML to Markdown conversion. The result is copied to clipboard"
-msgstr "Chuyển từ HTML qua Markdown. Đã chép kết quả vào bộ nhớ tạm"
+msgstr "Chuyển từ HTML thành Markdown. Đã chép kết quả vào bộ nhớ tạm"
 
 #. Translators: This is the label for the edit dictionary entry dialog.
 #: addon/globalPlugins/markdownForever/__init__.py:210
@@ -158,7 +159,7 @@ msgstr "Mã nguồn HTML"
 
 #: addon/globalPlugins/markdownForever/__init__.py:239
 msgid "C&onvert to"
-msgstr "Chuyển đổi &qua"
+msgstr "Chuyển đổi &thành"
 
 #: addon/globalPlugins/markdownForever/__init__.py:244
 #: addon/globalPlugins/markdownForever/settings.py:29
@@ -324,7 +325,7 @@ msgstr "Thêm rel=\"nofollow\" vào tất cả thẻ <a> với href."
 
 #: addon/globalPlugins/markdownForever/common.py:54
 msgid "Create counters to number tables, figures, equations and graphs"
-msgstr "Tạo số đếm cho bảng, hình giáng, công thức và ảnh"
+msgstr "Tạo số đếm cho bảng, hình dáng, công thức và ảnh"
 
 #: addon/globalPlugins/markdownForever/common.py:55
 msgid "Treats unindented Python interactive shell sessions as <code> blocks"
@@ -424,15 +425,15 @@ msgstr "Mục lục"
 
 #: addon/globalPlugins/markdownForever/common.py:473
 msgid "Markdown to HTML conversion"
-msgstr "Chuyển từ Markdown qua HTML"
+msgstr "Chuyển từ Markdown thành HTML"
 
 #: addon/globalPlugins/markdownForever/common.py:490
 msgid "Markdown to HTML conversion (preview)"
-msgstr "Chuyển từ Markdown qua HTML (Xem trước)"
+msgstr "Chuyển từ Markdown thành HTML (Xem trước)"
 
 #: addon/globalPlugins/markdownForever/common.py:490
 msgid "Markdown to HTML source conversion"
-msgstr "Chuyển từ Markdown qua mã nguồn HTML"
+msgstr "Chuyển từ Markdown thành mã nguồn HTML"
 
 #: addon/globalPlugins/markdownForever/settings.py:11
 msgid "General"
@@ -468,7 +469,7 @@ msgstr "Đặt làm mẫu &mặc định"
 
 #: addon/globalPlugins/markdownForever/settings.py:80
 msgid "&Edit"
-msgstr "&Chỉnh sửa"
+msgstr "Chỉnh &sửa"
 
 #: addon/globalPlugins/markdownForever/settings.py:81
 msgid "&Add"

@@ -28,10 +28,10 @@ MarkdownForever là một add-on nhỏ cho NVDA, dùng để chuyển đổi n�
 
 MarkdownForever có thể:
 
-* Chuyển đổi Markdown qua HTML
-* Chuyển đổi markdown qua mã nguồn HTML
-* Chuyển đổi HTML qua Markdown
-* Chuyển đổi Markdown qua định dạng HTML
+* Chuyển đổi Markdown thành HTML
+* Chuyển đổi markdown thành mã nguồn HTML
+* Chuyển đổi HTML thành Markdown
+* Chuyển đổi Markdown thành định dạng HTML
 
 ## Nhưng Markdown là gì?
 
@@ -40,7 +40,7 @@ Theo Wikipedia,
 
 Bạn có thể tìm hiểu thêm về Markdown bằng cách đọc [bài viết đầy đủ trên Wikipedia.](https://vi.wikipedia.org/wiki/Markdown)
 
-Như vậy, thay vì viết tài liệu web bằng HTML với nguy cơ bị lỗi, bạn sẽ dùng các thẻ dễ nhớ hơn và công việc của bạn sẽ hoàn thành nhanh chóng. Với Markdown, bạn sẽ làm được nhiều hoặc ít hơn những gì  HTML có thể làm: tiêu đề, danh sách có thứ tự (số đếm) hoặc không thứ tự (buleted), liên kết, thậm chí là bảng biểu.
+Như vậy, thay vì viết tài liệu web bằng HTML với nguy cơ tạo tài liệu bị lỗi, bạn sẽ dùng các thẻ dễ nhớ hơn và công việc của bạn sẽ hoàn thành nhanh chóng. Với Markdown, bạn sẽ làm được nhiều hoặc ít hơn những gì  HTML có thể làm: tiêu đề, danh sách có thứ tự (số đếm) hoặc không thứ tự (buleted), liên kết, thậm chí là bảng biểu.
 
 Ví dụ, muốn làm tiêu đề cấp 1, bạn sẽ viết một dấu thăng (#), sau đó là tên của tiêu đề, có hoặc không có khoảng trắng giữa chúng:
 
@@ -76,9 +76,9 @@ sẽ cho ra:
 
 [Bấm vào đây để mở trang web của  NVAccess](https://www.nvaccess.org)
  
-Thậm chí, bạn có thể `*in nghiêng một đoạn văn bản*` bằng cách đặt nó trong hai dấu sao, hoặc `**in đậm văn bản**` bằng cách đặt nó vào hai cặp dấu sao... Còn nhiều cái khác nữa. Xem [Bài viết sau](https://www.markdownguide.org/cheat-sheet/) để biết thêm chi tiết.
+Thậm chí, bạn có thể `*in nghiêng một đoạn văn bản*` bằng cách đặt nó trong hai dấu sao, hoặc `**in đậm văn bản**` bằng cách đặt nó vào hai cặp dấu sao... Và còn nhiều cái khác nữa. Xem [Bài viết sau](https://www.markdownguide.org/cheat-sheet/) để biết thêm chi tiết.
 
-## Chuyển đổi Markdown qua HTML
+## Chuyển đổi Markdown thành HTML
 
 Tính năng này cho phép bạn chuyển nội dung markdown hiển thị trên màn hình thành HTML, hiển thị như cách mà nội dung  Markdown của bạn sẽ thể hiện ở tài liệu HTML. Đây có thể là một tài liệu được viết ở định dạng Markdown, một tập tin .md có sẵn trên ổ cứng hoặc một nội dung Markdown tìm thấy trên một trang web. Mặc định, MarkdownForever sẽ chuyển tất cả nội dung đang hiển thị, nhưng bạn cũng có thể chọn một đoạn nhất định để chuyển đổi.
 
@@ -98,7 +98,7 @@ Sử dụng các phím lệnh sau:
 - *NVDA+ALT+l*: kết quả hiển thị trên màn hình ảo của NVDA.
 - *NVDA+Ctrl+h*: Chép mã nguồn HTML vào bộ nhớ tạm.
 
-## Chuyển đổi HTML qua Markdown
+## Chuyển đổi HTML thành Markdown
 
 Tính năng này nỗ lực tạo ra một văn bản Markdown từ nguồn nội dung HTML. Thông thường, nó xử lý toàn bộ nội dung hiển thị trên màn hình hoặc một đoạn nào đó được chọn. Sử dụng các phím lệnh sau:
 
@@ -111,22 +111,22 @@ Bạn cũng có thể chuyển đổi một trang  HTML thành Markdown bằng c
 
 Chức năng này chuyển đổi nội dung Markdown của bạn thành định dạng HTML và chép nó vào bộ nhớ tạm. Định dạng HTML sẽ giống như mọi trang web hiển thị trên trình duyệt của bạn, với các liên kết có thể click, tiêu đề, v...v... Điều này chỉ có thể thực hiện được từ nội dung Markdown chứ không làm được với mã nguồn HTML. Để làm điều này, bấm NVDA+Shift+h.
 
-Lưu ý rằng *định dạng HTML* có thể dán vào các ứng dụng như Microsoft Word, Wordpad, Thunderbird, vài ô nhập liệu trên web page, v...v... Tuy nhiên, không thể dán nó vào các trình soạn thảo như Notepad, Notepad++, v...v...
+Lưu ý rằng *định dạng HTML* có thể dán vào các ứng dụng như Microsoft Word, Wordpad, Thunderbird, vài ô nhập liệu trên trang web, v...v... Tuy nhiên, không thể dán nó vào các trình soạn thảo như Notepad, Notepad++, v...v...
 
 ## Chế độ tương tác
 
 Chế độ tương tác là một chức năng dùng để trình bày tất cả tính năng của MarkdownForever trong một hộp thoại, cung cấp cho bạn các tính năng bổ sung tiện lợi hơn. Để mở chế độ này, bấm NVDA+CTRL+i.
 Sau đây là mô tả màn hình của tính năng, căn cứ theo cách duyệt bằng Tab:
 
-* "Chuyển đổi qua": hộp xổ đầu tiên này cho phép bạn chọn cách chuyển đổi: HTML, Mã nguồn HTML hoặc Markdown. Dùng các phím mũi tên lên xuống để chọn.
+* "Chuyển đổi thành": hộp xổ đầu tiên này cho phép bạn chọn cách chuyển đổi: HTML, Mã nguồn HTML hoặc Markdown. Dùng các phím mũi tên lên xuống để chọn.
 * "Tạo mục lục": Hộp kiểm này sẽ cho phép bạn chọn tạo hay không tạo mục lục của các chương trong tài liệu  HTML của bạn với liên kết có thể click để đi đến chương đó. Trạng thái của tùy chọn này cũng có thể thiết lập mặc định trong [Cài đặt MarkdownForever.](#markdownforevers-default-settings)
 * "Nỗ lực đánh số tự động cho tiêu đề": nếu chọn, Markdown Forever sẽ nỗ lực thêm số vào trước mỗi tiêu đề (hay chương), tùy theo cấp độ của mỗi tiêu đề. Ví dụ: "1." cho tiêu đề cấp 1, "1.1." cho tiêu đề cấp 2, v...v... 
 * "Bật các thẻ bổ sung": Nếu chọn, sẽ cho phép sử dụng [các thẻ đặc biệt](#extra-tags) trong nội dung Markdown của bạn để tự chèn những thứ như ngày giờ hiện tại. Trạng thái của tùy chọn này cũng có thể thiết lập mặc định trong [Cài đặt MarkdownForever.](#markdownforevers-default-settings)
-* "Cho phép dịch ngược các thẻ bổ sung": tùy chọn này sẽ thể hiện có hay không việc [các thẻ bổ sung](#extra-tags) sẽ được trả lại nguyễn mẫu của nó (ví dụ: %date%) khi chuyển đổi nội dung HTML được tạo bởi Markdown Forever trở về Markdown. 
+* "Cho phép dịch ngược các thẻ bổ sung": tùy chọn này sẽ thể hiện có hay không việc [các thẻ bổ sung](#extra-tags) sẽ được trả lại nguyên mẫu của nó (ví dụ: %date%) khi chuyển đổi nội dung HTML được tạo bởi Markdown Forever trở về Markdown. 
 * "Tên": bạn có thể điền	 tên cho tài liệu HTML của bạn ở đây, và nó sẽ hiển thị trên trình duyệt.
 * "Khối siêu dữ liệu tương ứng": ô có thuộc tính chỉ đọc này hiển thị 
-* "Tạo siêu dữ liệu tương ứng từ mã nguồn HTML": khi chuyển đổi một  tập tin mã nguồn HTML qua Markdown, nó nỗ lực đoán siêu dữ liệu từ mã nguồn (title - tên, lang - ngôn ngữ, filename -tên tập tin, v...v...) và tạo ra [khối siêu dữ liệu](#optionnal-metadata-block) cho bạn. Tùy chọn này chỉ có khi chuyển đổi HTML thành Markdown.
-* "Hiển thị trên màn hình ảo": nút này sẽ hiện nội dugn đã chuyển đổi của bạn trên màn hình ảo của NVDA.
+* "Tạo siêu dữ liệu tương ứng từ mã nguồn HTML": khi chuyển đổi một  tập tin mã nguồn HTML thành Markdown, nó nỗ lực đoán siêu dữ liệu từ mã nguồn (title - tên, lang - ngôn ngữ, filename -tên tập tin, v...v...) và tạo ra [khối siêu dữ liệu](#optionnal-metadata-block) cho bạn. Tùy chọn này chỉ có khi chuyển đổi HTML thành Markdown.
+* "Hiển thị trên màn hình ảo": nút này sẽ hiện nội dung đã chuyển đổi của bạn trên màn hình ảo của NVDA.
 * "Hiển thị trên trình duyệt": hiển thị nội dung đã chuyển đổi của bạn trên trình duyệt mặc định.
 * "Chép vào bộ nhớ tạm": chép nội dung đã chuyển đổi của bạn vào bộ nhớ tạm của Windows, sẵn sàng để dán.
 * "Lưu kết quả": sẽ yêu cầu bạn lưu tài liệu đã chuyển đổi vào ổ cứng thông qua một hộp thoại lưu tiêu chuẩn của Windows. Bạn cũng có thể thiết lập nơi lưu mặc định trong [Cài đặt MarkdownForever.](#markdownforevers-default-settings)
@@ -146,7 +146,7 @@ Khối siêu dữ liệu cho phép bạn thiết lập vài tham số nhất đ�
 * filename: quy định tên của tập tin khi lưu lại.
 * keywords: quy định các từ khóa liên quan đến những chủ đề được nói đến trong tài liệu của bạn.
 * lang: quy định ngôn ngữ chính cho tài liệu. Nếu cần, hãy dùng các thẻ span/div với thuộc tính lang để xác định các thay đổi ngôn ngữ, ngay bên trong tài liệu.
-* mathjax: xác định có hay không việc  chuyển đổi các công thức toán viết bằng [LaTeX](https://en.wikipedia.org/wiki/LaTeX). Có các giá trị: true (1) tức là có hoặc false (0) tức là không. Yêu cầu có kết nối mạng và bạn phải mở kết quả được chuyển đội trên trình duyệt để hiển thị nó một cách chính xác, vì nội dung LaTeX đã thông dịch không thể xuất ra màn hình ảo của NVDA.
+* mathjax: xác định có hay không việc  chuyển đổi các công thức toán viết bằng [LaTeX](https://en.wikipedia.org/wiki/LaTeX). Có các giá trị: true (1) tức là có hoặc false (0) tức là không. Yêu cầu có kết nối mạng và bạn phải mở kết quả được chuyển đổi trên trình duyệt để hiển thị nó một cách chính xác, vì nội dung LaTeX được thông dịch không thể xuất ra màn hình ảo của NVDA.
 [Bấm vào đây để biết thêm thông tin về MathJax.](http://docs.mathjax.org/en/latest/)
 * path: chỉ ra thư mục để lưu tài liệu. Có hỗ trợ các biến môi trường %userprofile%, %appdata% và %tmp%.
 * subtitle:  ghi ra tên phụ cho tài liệu HtML của bạn. Thông tin này sẽ được thêm vào phần đầu của tập tin HTML.
@@ -179,7 +179,7 @@ Chào thế giới! <span lang="en"Hello world!</span> <span lang="fr">Bonjour l
 ```
 </blockquote>
 
-Trong ví dụ ở trên, nội dugn sẽ được đọc thành tiếng của bốn ngôn ngữ, xem như bộ đọc bạn đang dùng có hỗ trợ tự chuyển ngôn ngữ và đã đánh dấu tùy chọn tương ứng trong cài đặt tiếng nói của  NVDA. Nó sẽ đọc như sau:
+Trong ví dụ ở trên, nội dung sẽ được đọc thành tiếng của bốn ngôn ngữ, xem như bộ đọc bạn đang dùng có hỗ trợ tự chuyển ngôn ngữ và đã đánh dấu tùy chọn tương ứng trong cài đặt tiếng nói của  NVDA. Nó sẽ đọc như sau:
 
 Chào thế giới! <span lang="en"Hello world!</span> <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola mundo!</span>
 
@@ -189,54 +189,54 @@ Thẻ bổ sung là những bộ giữ chỗ đặc biệt mà bạn có thể �
 
 ### Các thẻ bổ sung được hỗ trợ
 
-| **In the Markdown content** | **Explanation** | **Result in the browser** |
+| **Trong nội dung Markdown** | **Giải thích** | **Kết quả trên trình duyệt** |
 | :----------: | :----------: | :----------: |
-| `%date%` | Current date | %date% |
-| `%time%` | Current time | %time% |
-| `%now%` | Current date / time | %now% |
-| `%day%` | Current day (long format) | %day% |
-| `%dday%` | Current day (decimal format) | %dday% |
-| `%month%` | Month (long format) | %month% |
-| `%dmonth%` | Current month (decimal format) | %dmonth% |
-| `%year%` | Current year (2 digits) | %year% |
-| `%Year%` | Current year (4 digits) | %Year% |
-| `%toc%` | Table of contents at cursor's position (if enabled through metadata or default settings) | N/A |
+| `%date%` | Ngày hiện tại | %date% |
+| `%time%` | Giờ hiện tại | %time% |
+| `%now%` | Ngày / giờ hiện tại | %now% |
+| `%day%` | Ngày hiện tại (định dạng viết dài) | %day% |
+| `%dday%` | Ngày hiện tại (định dạng số) | %dday% |
+| `%month%` | Tháng (định dạng viết dài) | %month% |
+| `%dmonth%` | Tháng hiện tại (định dạng số) | %dmonth% |
+| `%year%` | Năm hiện tại (hai chữ số) | %year% |
+| `%Year%` | Năm hiện tại (bốn chữ số) | %Year% |
+| `%toc%` | Mục lục tại vị trí con trỏ (nếu bật thông qua siêu dữ liệu hoặc cài đặt mặc định) | N/A |
 
-## MarkdownForever's default settings
+## Thiết lập mặc định của MarkdownForever
 
-They can be reached from the NVDA menu -> Settings MarkdownForever -> Settings and will let you configure and set as default various settings related to the conversion process already mentionned above:
+Có thể truy cập chúng từ trình đơn NVDA -> Cài đặt MarkdownForever -> Cài đặt và bạn sẽ có thể đặt mặc định nhiều thiết lập liên quan tới quá trình chuyển đổi đã đề cập ở trên:
 
-* "Generate a table of contents": This checkbox will allow you to generate or not an index of the chapters of your final HTML document with clickable links leading to each chapter. This behavior can also be set on a per-document basis using the "toc" key within the [optional metadata block](#optional-metadata-block) and placed anywhere in the document using the corresponding [extra-tag.](#extra-tags)
-* "Enable Extra Tags": If this is checked, it enables the possibility to use [special tags](#extra-tags) in your Markdown content to automatically insert things like the actual date or time. This behavior can also be set on a per-document basis using the extratags key within the [optional metadata block.](#optional-metadata-block)
-* "Generate corresponding metadata for HTML source": When converting an HTML source file to Markdown, it attempts to guess the metadata from the source code (title, lang, filename etc) and generate the [metadata block](#optionnal-metadata-block) for you.
-* "Default action in Interactive mode": This allows to choose the default action which will be performed when pressing the Enter key in [Interactive mode:](#interactive-mode) Show the generated content in your browser, in a virtual buffer or put it in the clipboard.
-* "Markdown engine": MarkdownForever allows you to choose between tow conversion engines, [HTML2Text](https://pypi.org/project/html2text/) and [HTML2Markdown.](https://pypi.org/project/html2markdown/) Just experiment and choose the one you prefer, according to your needs or the produced result.
-* "Markdown2 extras": see <https://github.com/trentm/python-markdown2/wiki/Extras>.
-* "Path": Here you can set a default save location on your hard drive for your converted documents. it comes in handy if you always use the same folder to store all your work.
-* "Manage HTML templates": This will open a dialog box allowing to add, edit and delete HTML templates. With templates, you will be able to customize visual aspects of your generated HTML documents using CSS (cascading styles sheets), the language responsible for page styling. This will let you change colors, layout or add images to your productions and build a template for every specific need. There are of course many tutorials to learn CSS available on the web and [this one](https://www.htmldog.com/guides/css/beginner/) can be a good starting point.
+* "Tạo mục lục": tùy chọn này cho phép bạn tạo hay không tạo một mục lục các chương của tài liệu HTML với liên kết dẫn tới mỗi chương. Lựa chọn này cũng có thể thiết lập trên một tài liệu cụ thể bằng cách dùng khóa "toc" trong phần [tùy chọn khối siêu dữ liệu](#optional-metadata-block) và đặt ở bất cứ đâu bằng cách dùng [các thẻ bổ sung tương ứng.](#extra-tags)
+* "Bật các thẻ bổ sung": nếu chọn,, nó sẽ bật khả năng sử dụng [các thẻ đặc biệt](#extra-tags) trong nội dung Markdown của bạn để tự chèn những thứ như ngày giờ hiện tại. Lựa chọn này cũng có thể thiết lập trên một tài liệu cụ thể bằng cách dùng khóa các thẻ bổ sung trong [tùy chọn khối siêu dữ liệu.](#optional-metadata-block)
+* "Tạo siêu dữ liệu tương ứng từ mã nguồn HTML": khi chuyển đổi một tập tin mã nguồn HTML qua Markdown, nó sẽ nỗ lực đoán siêu dữ liệu từ mã nguồn (title - tên, lang - ngôn ngữ, filename - tên tập tin, v...v...) và tạo ra [khối siêu dữ liệu](#optionnal-metadata-block) cho bạn.
+* "Hành động mặc định trong chế độ tương tác": cho phép chọn hành động mặc định sẽ được thực hiện khi bấm phím Enter trong [Chế độ tương tác:](#interactive-mode) hiển thị nội dung đã tạo trên trình duyệt, trên màn hình ảo hay chép vào bộ nhớ tạm.
+* "Bộ công cụ Markdown": MarkdownForever cho phép bạn chọn giữa hai bộ chuyển đổi, [HTML2Text](https://pypi.org/project/html2text/) và [HTML2Markdown.](https://pypi.org/project/html2markdown/) Chỉ việc thử nghiệm và chọn cái nào bạn thích, căn cứ trên nhu cầu của bạn hoặc kết quả cho ra.
+* "Markdown2 bổ sung": xem <https://github.com/trentm/python-markdown2/wiki/Extras>.
+* "Đường dẫn": tại đây bạn có thể thiết lập nơi lưu mặc định trên ổ đĩa cho các tài liệu đã chuyển đổi. Nó có ích nếu bạn luôn dùng một thư mục để lưu tất cả công việc của mình.
+* "Quản lý mẫu HTML": sẽ mở một hộp thoại cho phép thêm, chỉnh sửa và xóa các mẫu HTML. Với mẫu, bạn sẽ có thể tùy chỉnh về mặt hình thức của tài liệu HTML bằng CSS (cascading styles sheets), ngôn ngữ đáng tin cậy cho kiểu dáng trang. Nó cho phép bạn thay đổi màu, bố cục hoặc thêm hình ảnh vào sản phẩm của bạn và tạo mẫu cho mọi nhu cầu cụ thể. Tất nhiên, có nhiều hướng dẫn học CSS trên web và [cái này](https://www.htmldog.com/guides/css/beginner/) có thể là tài liệu tốt để bắt đầu.
 
-## Commands summary
+## Tổng hợp phím lệnh
 
-- *NVDA+CTRL+i*: Interactive mode.
-- *NVDA+ALT+b*: Markdown to HTML conversion. The result is displayed in your default browser.
-- *NVDA+ALT+n*: Markdown to HTML conversion. The result is displayed in a virtual buffer of NVDA.
-- *NVDA+ALT+k*: HTML to markdown conversion. The result is displayed in a virtual buffer of NVDA.
-- *NVDA+ALT+l*: Markdown to HTML source conversion. The result is displayed in a virtual buffer of NVDA.
-- *NVDA+SHIFT+g*: HTML to Markdown conversion. The result is copied to clipboard.
-- *NVDA+SHIFT+h*: Markdown to formatted HTML conversion: The result is copied to the clipboard.
-- *NVDA+CTRL+h*: Markdown to HTML source conversion. The result is copied to the clipboard.
+- *NVDA+CTRL+i*: chế độ tương tác.
+- *NVDA+ALT+b*: chuyển đổi Markdown thành HTML. Kết quả hiển thị trên trình duyệt mặc định.
+- *NVDA+ALT+n*: chuyển đổi Markdown thành HTML. Kết quả hiển thị trên màn hình ảo của NVDA.
+- *NVDA+ALT+k*: chuyển đổi HTML thành markdown. Kết quả hiển thị trên màn hình ảo của NVDA.
+- *NVDA+ALT+l*: chuyển đổi Markdown thành mã nguồn HTML. Kết quả hiển thị trên màn hình ảo của NVDA.
+- *NVDA+SHIFT+g*: chuyển đổi HTML thành Markdown. Kết quả được chép vào bộ nhớ tạm.
+- *NVDA+SHIFT+h*: chuyển đổi Markdown thành định dạng HTML . kết quả được chép vào bộ nhớ tạm.
+- *NVDA+CTRL+h*: chuyển đổi Markdown thành mã nguồn HTML. Kết quả được chép vào bộ nhớ tạm.
 
-## Add-on Information
+## Thông tin Add-on
 
-* Authors:
-	- André &lt;<dev@andreabc.net>&gt;: creator and main maintainer of the add-on.
-	- Sof &lt;<hellosof@gmail.com>&gt;: English and French documentation, various suggestions.
-	- Victor Cai: Chinese localization.
-	- Çağrı Dogan: Turkish localization.
-	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: Spanish localization.
-	- And much more!
-* License: GNU General Public License, version 2
-* Download [stable version](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
-* Download [development version](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
-* GitHub repository: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
+* Tác giả:
+	- André &lt;<dev@andreabc.net>&gt;: người sáng lập và bảo trì chính của  add-on.
+	- Sof &lt;<hellosof@gmail.com>&gt;: tài liệu hướng dẫn tiếng Anh và tiếng Pháp, nhiều gọi ý tính năng.
+	- Victor Cai: Dịch ra tiếng Trung Quốc.
+	- Çağrı Dogan: dịch ra tiếng Thổ Nhĩ Kỳ.
+	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: dịch ra tiếng Tây Ban Nha.
+	- Và còn nhiều nữa!
+* Giấy phép: GNU General Public License, phiên bản 2
+* Tải về [phiên bản chính thức](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
+* Tải về [phiên bản thử nghiệm](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
+* Kho GitHub: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
 * **Included dependencies**:

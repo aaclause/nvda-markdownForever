@@ -129,11 +129,11 @@ Sau đây là mô tả màn hình của tính năng, căn cứ theo cách duyệ
 * "Hiển thị trên màn hình ảo": nút này sẽ hiện nội dugn đã chuyển đổi của bạn trên màn hình ảo của NVDA.
 * "Hiển thị trên trình duyệt": hiển thị nội dung đã chuyển đổi của bạn trên trình duyệt mặc định.
 * "Chép vào bộ nhớ tạm": chép nội dung đã chuyển đổi của bạn vào bộ nhớ tạm của Windows, sẵn sàng để dán.
-* "Save As": This will prompt you to save your converted document on your hard drive through a standard Save As windows dialog box. A default Save location can also be set in [MarkdownForever settings.](#markdownforevers-default-settings)
+* "Lưu kết quả": sẽ yêu cầu bạn lưu tài liệu đã chuyển đổi vào ổ cứng thông qua một hộp thoại lưu tiêu chuẩn của Windows. Bạn cũng có thể thiết lập nơi lưu mặc định trong [Cài đặt MarkdownForever.](#markdownforevers-default-settings)
 
-## Optional Metadata block
+## Tùy chọn khối siêu dữ liệu
 
-The metadata block allows you to set specific parameters for a particular document, independent of the [default settings.](#markdownforevers-default-settings) This must be placed at the very beginning of the document and must begin with three dashes ("---") and end with three periods ("...") or three dashes ("---"). Each entry must be inputted in the following form: key: "value" (the value must be enclosed in quotes). An empty line must be present after the metadata block.
+Khối siêu dữ liệu cho phép bạn thiết lập vài tham số nhất định cho một tài liệu cụ thể, độc lập với [các thiết lập mặc định.](#markdownforevers-default-settings) Chúng phải được đặt ở đầu tài liệu và phải bắt đầu với ba dấu trừ ("---") và kết thúc với ba dấu chấm ("...") hoặc ba dấu trừ ("---"). Mỗi thành phần phải được nhập theo mẫu: khóa: "giá trị" (giá trị phải được đặt trong dấu ngoặc kép). Phải đặt một dòng trắng tiếp sau khối siêu dữ liệu.
 
 ### List of supported metadata
 

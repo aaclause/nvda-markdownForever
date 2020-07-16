@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: markdownForever 20.06.27:23adac4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-06-27 00:14+0200\n"
-"PO-Revision-Date: 2020-07-15 21:25+0700\n"
+"PO-Revision-Date: 2020-07-16 11:31+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: Vietnamese <dangmanhcuong@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -536,7 +536,7 @@ msgstr ""
 
 #: addon/globalPlugins/markdownForever/settings.py:230
 msgid "Host"
-msgstr "Kho"
+msgstr "Nơi lưu trữ"
 
 #: addon/globalPlugins/markdownForever/settings.py:231
 msgid "Port"

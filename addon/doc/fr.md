@@ -5,7 +5,7 @@ author:
 autonumber-headings: 1
 css:
 - style.css
-date: Mardi 19 Mai 2020
+date: Vendredi 17 Juillet 2020
 extratags: 1
 extratags-back: 0
 filename: doc_fr
@@ -236,6 +236,7 @@ Ils sont accessibles depuis le menu NVDA -> Préférences -> MarkdownForever -> 
 	- Victor Cai: traduction en chinois.
 	- Çağrı Dogan: traduction en turc.
 	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: traduction en espagnol.
+	- Dang Manh Cuong &lt;<dangmanhcuong@gmail.com>&gt;: traduction en vietnamien.
 	- Et bien d’autres !
 * Licence : Licence publique générale GNU, version 2
 * Télécharger [version stable](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)

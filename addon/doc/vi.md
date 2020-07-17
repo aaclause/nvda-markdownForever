@@ -1,6 +1,6 @@
 ﻿---
 author:
-- Sof &lt;<hellosof@gmail.com>&gt;
+- Đặng Mạnh Cường &lt;<dangmanhcuong@gmail.com>&gt;
 autonumber-headings: 1
 css:
 - style.css
@@ -234,6 +234,7 @@ Có thể truy cập chúng từ trình đơn NVDA -> Cài đặt MarkdownForeve
 	- Victor Cai: Dịch ra tiếng Trung Quốc.
 	- Çağrı Dogan: dịch ra tiếng Thổ Nhĩ Kỳ.
 	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: dịch ra tiếng Tây Ban Nha.
+	- Đặng Mạnh Cường &lt;<dangmanhcuong@gmail.com>&gt;: dịch ra tiếng Việt
 	- Và còn nhiều nữa!
 * Giấy phép: GNU General Public License, phiên bản 2
 * Tải về [phiên bản chính thức](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)

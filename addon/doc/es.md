@@ -92,7 +92,7 @@ Se pueden utilizar las siguientes teclas de órdenes:
 
 Ten en cuenta que se recomienda utilizar la visualización en el navegador en lugar del tampón virtual de NVDA. Algunas etiquetas, específicamente como las etiquetas HTML5 tal como `<details>,` no son  soportados por el rendido del tampón virtual.
 
-## Conversión de Markdown en código fuente HtML
+## Conversión de Markdown en código fuente HTML
 
 Esto convierte el texto Markdown en lenguaje HTML puro. Una vez hecho esto, puedes copiar y pegar en un archivo HTML, en un mensaje del foro, o en cualquier campo de texto en la  web donde el código  HTML es soportado.
 
@@ -110,7 +110,7 @@ Esta función intenta de generar un texto en Markdown a partir de una fuente HTM
 
 También puedes convertir una página web HTML en Markdown, simplemente seleccionando su URL. Sin embargo, primero debes asegurarte de que el motor de conversión HTML2Text está configurado correctamente como  motor de conversión por defecto en los  [ajustes de MarkdownForever,](#ajustes-por-defecto-de-markdownforever) situado en el submenú Preferencias del menú NVDA.
  
-## Conversión Markdown en HtML formateado
+## Conversión Markdown en HTML formateado
 
 Esta función  convierte  tu Markdown en HTML formateado y lo copia al portapapeles. El HTML formateado se parecerá a cualquier página Web mostrado  por tu navegador, con enlaces cliqueables, encabezados, etc. Esto sólo se puede generar a partir de un contenido Markdown. Para realizar esta acción, pulsa NVDA+shift+h.
 
@@ -139,7 +139,7 @@ El Bloque de metadatos te permite establecer  los ajustes específicos para un d
 
 ### Lista de metadatos soportados
 
-* author (o authors): Permite especificar uno o varios autores en el documento (Véase el ejemplo más abajo). Esto será añadido en el encabezado del archivo HtML. Esta clave no es sensible a las mayúsculas.
+* author (o authors): Permite especificar uno o varios autores en el documento (Véase el ejemplo más abajo). Esto será añadido en el encabezado del archivo HTML. Esta clave no es sensible a las mayúsculas.
 * autonumber-headings: Permite indicar si los títulos deben ser numerados automáticamente o no.
 * css (o CSS): Permite especificar uno o varios archivos CSS para la presentación de tu documento (Véase el ejemplo más abajo). Esta clave no es sensible a las mayúsculas.
 * date: Te permite especificar una fecha de creación de tu documento. Esto será añadido en el encabezado del archivo HTML.
@@ -151,7 +151,7 @@ El Bloque de metadatos te permite establecer  los ajustes específicos para un d
 * mathjax: Permite establecer si las fórmulas matemáticas escritas en [LaTeX](https://es.wikipedia.org/wiki/LaTeX) deben ser convertidas o no. Valores posibles: true (1) o false (0). Se requiere una conexión a Internet y debes abrir el resultado convertido en tu navegador para mostrarlo correctamente, ya que el LaTeX interpretado no puede ser rendido por el tampón virtual de NVDA.
 [Has clic aquí para obtener más información acerca de MathJax](https://es.wikipedia.org/wiki/MathJax)
 * path: Permite especificar el directorio en la que el documento debe ser generado. Las variables de entorno %userprofile%, %appdata% y %tmp% son soportados.
-* subtitle: Permite especificar un subtítulo para tu documento HtML. Esto será añadido en el encabezado del archivo HTML.
+* subtitle: Permite especificar un subtítulo para tu documento HTML. Esto será añadido en el encabezado del archivo HTML.
 * title: Define el título del documento HTML. En modo interactivo, el campo título  se llena automáticamente con el valor de esta clave.
 * toc: Permite indicar Si una tabla de contenidos se debe generar o no. Valores posibles: true (1) o false (0).
 

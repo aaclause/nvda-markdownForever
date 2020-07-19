@@ -93,7 +93,7 @@ Vous pouvez utiliser les commandes suivantes :
 
 Veuillez noter qu'il est recommandé de privilégier l'affichage dans le navigateur au lieu du tampon virtuel de NVDA. Certaines balises, plus particulièrement les balises HTML5 telles que `<details>,` ne sont pas supportées par le rendu du tampon virtuel.
 
-## Conversion de Markdown en code source HtML
+## Conversion de Markdown en code source HTML
 
 Ceci convertit le texte Markdown en langage HTML pur. Une fois fait, vous pourrez le copier et le coller dans un fichier HTML, dans un message de forum, ou dans n'importe quelle zone de texte sur le web où le code HTML est supporté.
 
@@ -111,7 +111,7 @@ Cette fonction tente de générer un texte en Markdown à partir d'une source HT
 
 Vous pouvez également convertir une page Web HTML en Markdown en sélectionnant simplement son URL. Cependant, vous devez d'abord vous assurer que le moteur de conversion HTML2Text est correctement défini comme moteur de conversion par défaut dans les [paramètres de MarkdownForever,](#parametres-par-defaut-de-markdownforever) située dans le sous-menu Préférences de NVDA.
  
-## Conversion Markdown en HtML formaté
+## Conversion Markdown en HTML formaté
 
 Cette fonction convertit votre Markdown en HTML formaté et le copie dans le presse-papiers. Le HTML formaté ressemblera à n'importe quelle page Web affichée par votre navigateur, avec des liens cliquables, des titres, etc. Ceci ne peut être généré qu'à partir d'un contenu Markdown. Pour effectuer cette action, appuyez sur NVDA+Maj+h.
 
@@ -140,7 +140,7 @@ Le bloc de métadonnées vous permet de définir des paramètres spécifiques po
 
 ### Liste des métadonnées prises en charge
 
-* author (ou authors): Permet de spécifier un ou plusieurs auteurs pour le document (voir exemple ci-dessous). Ceci sera ajouté dans l'en-tête du fichier HtML. Cette clé n'est pas sensible à la casse.
+* author (ou authors): Permet de spécifier un ou plusieurs auteurs pour le document (voir exemple ci-dessous). Ceci sera ajouté dans l'en-tête du fichier HTML. Cette clé n'est pas sensible à la casse.
 * autonumber-headings: Permet d'indiquer si les titres doivent être numérotés automatiquement ou non.
 * css (ou CSS): Permet de spécifier un ou plusieurs fichiers CSS pour la présentation de votre document (voir exemple ci-dessous). Cette clé n'est pas sensible à la casse.
 * date: Vous permet de spécifier une date de création pour votre document. Ceci sera ajouté dans l'en-tête du fichier HTML.
@@ -152,7 +152,7 @@ Le bloc de métadonnées vous permet de définir des paramètres spécifiques po
 * mathjax: Permet de définir si les formules mathématiques écrites en [LaTeX](https://fr.wikipedia.org/wiki/LaTeX) doivent être converties ou non. Valeurs possibles : true (1) ou false (0). Une connexion Internet est nécessaire et vous devez ouvrir le résultat converti dans votre navigateur pour l'afficher correctement, puisque le LaTeX interprété ne peut être rendu par le tampon virtuel de NVDA.
 [Cliquez ici pour obtenir plus d'informations sur MathJax](https://fr.wikipedia.org/wiki/MathJax)
 * path: Permet de spécifier le répertoire dans lequel le document doit être généré. Les variables d'environnement %userprofile%, %appdata% et %tmp% sont supportées.
-* subtitle: Permet de spécifier un sous-titre pour votre document HtML. Ceci sera ajouté dans l'en-tête du fichier HTML.
+* subtitle: Permet de spécifier un sous-titre pour votre document HTML. Ceci sera ajouté dans l'en-tête du fichier HTML.
 * title: Définit le titre du document HTML. En mode interactif, le champ titre sera automatiquement rempli avec la valeur de cette clé.
 * toc: Permet d'indiquer si une table des matières doit être générée ou non. Valeurs possibles : true (1) ou false (0).
 

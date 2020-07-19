@@ -6,6 +6,9 @@ import os
 import ssl
 import sys
 import time
+import gui
+import wx
+
 
 import addonHandler
 addonHandler.initTranslation()
@@ -354,14 +357,11 @@ def getHTMLTemplateFromID(idTemplate):
 	elif idTemplate == 1: return "default"
 	else: return getHTMLTemplates()[idTemplate]
 
-def processExtraTags(soup, lang='', allRepl=True, allowBacktranslate=True):
+def getReplacements(lang):
 	try:
-		if not lang and defaultLanguage == "en": lang = "enu"
 		if lang: locale.setlocale(locale.LC_ALL, lang)
 	except locale.Error as err:
 		log.error(err)
-		msg = _("Metadata and extra tags error. '%s' value was not recognized for lang field." % lang)
-		return False, msg
 	replacements = [
 		("%day%", time.strftime("%A"), 1),
 		("%Day%", time.strftime("%A").capitalize(), 1),
@@ -380,6 +380,18 @@ def processExtraTags(soup, lang='', allRepl=True, allowBacktranslate=True):
 		("%NVDAVersion%", versionInfo.version, 1),
 		("%toc%", internalTocTag, 0)
 	]
+	locale.setlocale(locale.LC_ALL, locale.getdefaultlocale()[0])
+	return replacements
+
+def processExtraTags(soup, lang='', allRepl=True, allowBacktranslate=True):
+	try:
+		if not lang and defaultLanguage == "en": lang = "enu"
+		if lang: locale.setlocale(locale.LC_ALL, lang)
+	except locale.Error as err:
+		log.error(err)
+		msg = _("Metadata and extra tags error. '%s' value was not recognized for lang field." % lang)
+		return False, msg
+	replacements = getReplacements(lang)
 	for toSearch, replaceBy, replaceAlways in replacements:
 		if allRepl or (not allRepl and replaceAlways):
 			try:

@@ -89,7 +89,7 @@ Bạn có thể dùng các phím lệnh sau:
 
 Xin lưu ý rằng lựa chọn hiển thị trên trình duyệt được khuyên dùng thay cho việc hiển thị trên màn hình ảo của NVDA. Một số thẻ, cụ thể là thẻ  HTML5 như `<details>,` chưa được hỗ trợ trên màn hình ảo.
 
-## Chuyển đổi Markdown thành mã nguồn HtML
+## Chuyển đổi Markdown thành mã nguồn HTML
 
 Tính năng này chuyển đổi nội dung Markdown thành ngôn ngữ HTML thuần túy. Khi hoàn tất, bạn có thể chép và dán vào tập tin HTML, vào bài viết trên diễn đàn, hoặc mỗi vùng nhập liệu trên web có hỗ trợ mã HTML.
 
@@ -107,7 +107,7 @@ Tính năng này nỗ lực tạo ra một văn bản Markdown từ nguồn nộ
 
 Bạn cũng có thể chuyển đổi một trang  HTML thành Markdown bằng cách đơn giản là chọn đường dẫn của nó. Tuy nhiên, bạn phải chắc chắn là bộ chuyển đổi HTML2Text phải được chọn làm mặc định trong [Cài đặt của MarkdownForever,](#markdownforevers-default-settings) trong phần tùy chỉnh của NVDA.
  
-## Chuyển đổi Markdown thành định dạng HtML
+## Chuyển đổi Markdown thành định dạng HTML
 
 Chức năng này chuyển đổi nội dung Markdown của bạn thành định dạng HTML và chép nó vào bộ nhớ tạm. Định dạng HTML sẽ giống như mọi trang web hiển thị trên trình duyệt của bạn, với các liên kết có thể click, tiêu đề, v...v... Điều này chỉ có thể thực hiện được từ nội dung Markdown chứ không làm được với mã nguồn HTML. Để làm điều này, bấm NVDA+Shift+h.
 
@@ -149,7 +149,7 @@ Khối siêu dữ liệu cho phép bạn thiết lập vài tham số nhất đ�
 * mathjax: xác định có hay không việc  chuyển đổi các công thức toán viết bằng [LaTeX](https://en.wikipedia.org/wiki/LaTeX). Có các giá trị: true (1) tức là có hoặc false (0) tức là không. Yêu cầu có kết nối mạng và bạn phải mở kết quả được chuyển đổi trên trình duyệt để hiển thị nó một cách chính xác, vì nội dung LaTeX được thông dịch không thể xuất ra màn hình ảo của NVDA.
 [Bấm vào đây để biết thêm thông tin về MathJax.](http://docs.mathjax.org/en/latest/)
 * path: chỉ ra thư mục để lưu tài liệu. Có hỗ trợ các biến môi trường %userprofile%, %appdata% và %tmp%.
-* subtitle:  ghi ra tên phụ cho tài liệu HtML của bạn. Thông tin này sẽ được thêm vào phần đầu của tập tin HTML.
+* subtitle:  ghi ra tên phụ cho tài liệu HTML của bạn. Thông tin này sẽ được thêm vào phần đầu của tập tin HTML.
 * title: ghi ra tên của tài liệu HTML. Trong chế độ tương tác, ô tên sẽ được điền tự động bằng giá trị của khóa này.
 * toc: xác định có hay không việc tạo mục lục. Có các giá trị: true (1) tức là có hoặc false (0) tức là không.
 

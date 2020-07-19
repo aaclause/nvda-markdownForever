@@ -89,7 +89,7 @@ You can use the following commands:
 
 Please note that it is recommended to favor the display in browser instead of the virtual buffer of NVDA. Some tags, particularly HTML5 tags such as `<details>,` are not supported by the render of virtual buffer.
 
-## Converting Markdown to HtML source code
+## Converting Markdown to HTML source code
 
 This converts Markdown text to pure HTML language. Once done, you'll be able to copy and paste it in an HTML file, in a forum post, or any text area on the web where HTML code is supported.
 
@@ -137,7 +137,7 @@ The metadata block allows you to set specific parameters for a particular docume
 
 ### List of supported metadata
 
-* author (or authors): To specify one  or more authors name for the document (see example below). This will be added in the header of the HtML file. This key is not case-sensitive.
+* author (or authors): To specify one  or more authors name for the document (see example below). This will be added in the header of the HTML file. This key is not case-sensitive.
 * autonumber-headings: To indicate whether or not headings should be numbered automatically. Possible values: true (1) or false (0).
 * css (or CSS): To specify one or more CSS files for the presentation of your document (see example below). This key is not case-sensitive.
 * date: To specify a date for your document. This will be added in the header of the HTML file.
@@ -149,7 +149,7 @@ The metadata block allows you to set specific parameters for a particular docume
 * mathjax: To indicate whether or not mathematical formulas written in [LaTeX](https://en.wikipedia.org/wiki/LaTeX) should be converted. Possible values: true (1) or false (0). Internet connection is required and you must open the converted result in your browser to display it properly, since interpreted LaTeX cannot be rendered by the virtual buffer of NVDA.
 [Click here to get more information about MathJax.](http://docs.mathjax.org/en/latest/)
 * path: to specify the directory where the document should be generated. The environment variables %userprofile%, %appdata% and %tmp% are supported.
-* subtitle: To specify a subtitle for your HtML document. This will be added in the header of the HTML file.
+* subtitle: To specify a subtitle for your HTML document. This will be added in the header of the HTML file.
 * title: to indicate the title of the HTML document. In Interactive Mode, the title field will be automatically filled using the value of this key.
 * toc: to indicate whether or not a table of contents should be generated. Possible values: true (1) or false (0).
 

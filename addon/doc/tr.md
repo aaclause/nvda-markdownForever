@@ -89,7 +89,7 @@ Aşağıdaki komutları kullanabilirsiniz:
 
 NVDA'nın kendi kullandığı tarama kipindense, sonucu tarayıcıda göstermeniz önerilir Bazı etiketler, özellikle HTML5 etiketleri örneğin `<details>,` NVDA sanal arabelleğince desteklenmez.
 
-## Markdown'u HtML kaynak koduna dönüştürme
+## Markdown'u HTML kaynak koduna dönüştürme
 
 Bu, Markdown metnini saf HTML diline dönüştürür. İşiniz bittiğinde dosyayı bir HTML dosyasına, bir forum yayınına veya HTML kodunun desteklendiği web üzerindeki herhangi bir metin alanına kopyalayıp yapıştırabilirsiniz.
 
@@ -107,7 +107,7 @@ Bu özellik, bir HTML kaynak içeriğinden bir Markdown metni üretmeye çalış
 
 Bir HTML web sayfasını URL'sini seçerek Markdown'a da dönüştürebilirsiniz. Tabii, önce varsayılan HTML2Text dönüşüm motorunun doğru ayarlandığından emin olmalısınız, bunu NVDA'nın ana menüsünde bulunan [MarkdownForever ayarları,](#markdownforevers-default-settings) altından yapabilirsiniz.
  
-## Markdown'u Biçimlendirilmiş HtML'ye Dönüştürme
+## Markdown'u Biçimlendirilmiş HTML'ye Dönüştürme
 
 Bu işlev, Markdown içeriğinizi biçimlendirilmiş HTML'ye dönüştürür ve panoya kopyalar. Biçimlendirilmiş HTML, tıklanabilir bağlantılar, başlıklar vb. İle tarayıcınız tarafından görüntülenen herhangi bir web sayfasına benzeyecektir. Bu yalnızca bir Markdown içeriğinden oluşturulabilir. HTML kaynak koduyla çalışmaz. Bu eylemi gerçekleştirmek için NVDA + shift + h tuşlarına basın.
 
@@ -137,7 +137,7 @@ Meta veri bloğu, [Varsayılan ayarlardan](#markdownforevers-default-settings) b
 
 ### Desteklenen meta verilerin listesi
 
-* author (veya authors): Belge için bir veya daha fazla yazar adı belirtmenizi sağlar. (aşağıdaki örneğe bakın) HtML dosyasının üstbilgi bölümüne eklenecektir. Bu anahtar büyük / küçük harfe duyarlı değildir.
+* author (veya authors): Belge için bir veya daha fazla yazar adı belirtmenizi sağlar. (aşağıdaki örneğe bakın) HTML dosyasının üstbilgi bölümüne eklenecektir. Bu anahtar büyük / küçük harfe duyarlı değildir.
 * autonumber-headings: Başlıkların otomatik olarak numaralandırılıp numaralandırılmayacağını belirtmenizi sağlar. Olası değerler: true (1) veya false (0).
 * css (veya CSS): Belgenizin sunumu için bir veya daha fazla CSS dosyası belirtmenizi sağlar. (aşağıdaki örneğe bakın) Bu anahtar büyük / küçük harfe duyarlı değildir.
 * date: Belgeniz için bir tarih belirtmenizi sağlar. HTML dosyasının üstbilgi bölümüne eklenecektir.
@@ -149,7 +149,7 @@ Meta veri bloğu, [Varsayılan ayarlardan](#markdownforevers-default-settings) b
 * mathjax: [LaTeX ](https://en.wikipedia.org/wiki/LaTeX) 'da yazılmış matematiksel formüllerin dönüştürülüp dönüştürülmeyeceğini belirtmenizi sağlar. Olası değerler: doğru (1) veya yanlış (0). İnternet bağlantısı gereklidir ve dönüştürülmüş sonucu düzgün görüntülemek için tarayıcınızda açmanız gerekir, çünkü yorumlanmış LaTeX, NVDA'nın sanal tamponu tarafından oluşturulamaz.
 [MathJax hakkında daha fazla bilgi almak için buraya tıklayın.](http://docs.mathjax.org/en/latest/)
 * path: belgenin oluşturulması gereken dizini belirtmenizi sağlar. % Userprofile%,% appdata% ve% tmp% ortam değişkenleri desteklenir.
-* subtitle: HtML belgeniz için bir alt başlık belirtmenizi sağlar. HTML dosyasının üstbilgi bölümüne eklenecektir.
+* subtitle: HTML belgeniz için bir alt başlık belirtmenizi sağlar. HTML dosyasının üstbilgi bölümüne eklenecektir.
 * title: HTML belgesinin başlığını belirtmenizi sağlar. Etkileşimli Modda, başlık alanı bu anahtarın değeri kullanılarak otomatik olarak doldurulur.
 * toc: içindekiler tablosunun oluşturulup oluşturulmayacağını belirtmek için kullanılır. Olası değerler: true (1) veya false (0).
 

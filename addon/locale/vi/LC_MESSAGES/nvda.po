@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: markdownForever 20.06.27:23adac4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-06-27 00:14+0200\n"
-"PO-Revision-Date: 2020-07-17 00:25+0700\n"
+"PO-Revision-Date: 2020-07-19 13:25+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: Vietnamese <dangmanhcuong@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "Trình đơn tài liệu hướng dẫn"
 
 #: addon/globalPlugins/markdownForever/__init__.py:80
 msgid "Open the add-on documentation in this language."
-msgstr "Mở tài liệu hướng dẫn của add-on bằng ngôn ngữ này."
+msgstr "Mở tài liệu hướng dẫn sử dụng add-on bằng ngôn ngữ này."
 
 #. Translators: title of add-on parameters dialog.
 #: addon/globalPlugins/markdownForever/__init__.py:82
@@ -372,7 +372,7 @@ msgstr "Cho phép kiểu danh sách nhiệm vụ của github (ví dụ: hộp k
 
 #: addon/globalPlugins/markdownForever/common.py:63
 msgid "Parse --underline-- formatting"
-msgstr "Parse --underline-- formatting"
+msgstr "Phân tích định dạng --gạch dưới--"
 
 #: addon/globalPlugins/markdownForever/common.py:64
 msgid "Look for an Emacs-style markdown-extras file variable to turn on Extras"
@@ -405,7 +405,7 @@ msgstr "Không bao gồm được “{filePath}”"
 
 #: addon/globalPlugins/markdownForever/common.py:340
 msgid "Minimal: just the HTML from your Markdown"
-msgstr "Minimal: chỉ chuyển HTML từ Markdown"
+msgstr "Minimal: chỉ chuyển thanh HTML từ Markdown"
 
 #: addon/globalPlugins/markdownForever/common.py:340
 msgid "Default: A minimal template provided by the add-on"

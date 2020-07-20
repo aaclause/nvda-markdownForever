@@ -36,6 +36,7 @@ MarkdownForever can:
 ## But what on Earth this Markdown thing is?
 
 According to Wikipedia,
+
 > Markdown is a lightweight markup language with plain text formatting syntax. Its design allows it to be converted to many output formats, but the original tool by the same name only supports HTML. Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor.
 
 You can learn more about Markdown by reading the [full article on Wikipedia.](https://en.wikipedia.org/wiki/Markdown)
@@ -55,11 +56,13 @@ For a second level heading, you will use Two hash signs, three for a third level
 Now, let's make an unordered list of items. To do so, you can prefix all items of your list by an asterisk (*). Here is an example:
 
 <blockquote>
+
 ```
 * Orange
 * Sugar
 * Milk
 ```
+
 </blockquote>
 
 which will appear as:
@@ -155,6 +158,7 @@ The metadata block allows you to set specific parameters for a particular docume
 
 ### Metadata usage example
 <blockquote>
+
 ```
 ---
 title: "a simple title"
@@ -177,6 +181,7 @@ mathjax: 0
 
 Hello world! <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola mundo!</span>
 ```
+
 </blockquote>
 
 In the example above, the text will be voiced in three languages, assuming that the voice synthesizer you are using supports automatic language switching and the corresponding checkbox is ticked in NVDA speech settings. It will sound as follows:

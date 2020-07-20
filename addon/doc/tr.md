@@ -210,7 +210,7 @@ Bunlara NVDA menüsü / MarkdownForever Ayarları / Ayarlar yolundan erişilebil
 * "Özel etiketleri Etkinleştir": Bu işaretlenirse, gerçek tarih veya saat gibi şeyleri otomatik olarak eklemek için Markdown içeriğinizde [özel etiketler](#extra-tags) kullanma olanağı sağlar. Bu davranış, [isteğe bağlı meta veri bloğundaki](#optional-metadata-block) "extratags" anahtarı kullanılarak belge başına da ayarlanabilir.
 * "HTML kaynağı için karşılık gelen meta veriler oluştur": Bir HTML kaynak dosyasını Markdown'a dönüştürürken, meta verileri kaynak koddan (başlık, dil, dosya adı vb.) tahmin etmeye çalışır ve [meta veri bloğu](#optionnal-metadata-block)unu sizin oluşturur.
 * "Etkileşimli modda varsayılan eylem": Bu, [Etkileşimli mod](#interactive-mode)da enter tuşuna basıldığında gerçekleştirilecek varsayılan eylemi seçmenize olanak tanır: (Oluşturulan içeriği tarayıcınızda, NVDA  geçici arabelleğindde gösterebilir veya panoya kopyalayabilirsiniz.
-* "markdown motoru": MarkdownForever iki dönüşüm motoru arasında seçim yapmanızı sağlar, [HTML2Text](https://pypi.org/project/html2text/) ve [HTML2Markdown.](https://pypi.org/project/html2markdown/) İhtiyacınıza veya üretilen sonuca göre tercih ettiğiniz ürünü deneyin ve seçin.
+* "Markdown motoru": MarkdownForever iki dönüşüm motoru arasında seçim yapmanızı sağlar, [HTML2Text](https://pypi.org/project/html2text/) ve [HTML2Markdown.](https://pypi.org/project/html2markdown/) İhtiyacınıza veya üretilen sonuca göre tercih ettiğiniz ürünü deneyin ve seçin.
 * "Markdown2 ekstraları": şuna bakın <https://github.com/trentm/python-markdown2/wiki/Extras>.
 * "yol": Burada, dönüştürülen belgeleriniz için sabit diskinizde varsayılan bir kaydetme konumu belirleyebilirsiniz. tüm çalışmalarınızı saklamak için her zaman aynı klasörü kullanmanız yararlı olur.
 * "HTML şablonlarını yönet": Bu, HTML şablonları eklemeye, düzenlemeye ve silmeye izin veren bir iletişim kutusu açar. Şablonlarla, sayfa stilinden sorumlu olan CSS (basamaklı stil sayfaları) kullanarak oluşturulan HTML belgelerinizin görsel yönlerini özelleştirebilirsiniz. Bu, renkleri değiştirmenize, yapımlarınıza görüntü  veya resimler eklemenize ve her özel ihtiyaç için bir şablon oluşturmanıza olanak tanır. Tabii ki web üzerinde CSS öğrenmek için birçok öğretici var,  mesela [bu](https://www.htmldog.com/guides/css/beginner/) iyi bir başlangıç noktası olabilir.
@@ -220,7 +220,7 @@ Bunlara NVDA menüsü / MarkdownForever Ayarları / Ayarlar yolundan erişilebil
 - *NVDA+CTRL+i*: Etkileşimli mod
 - *NVDA+ALT+b*: Markdown'dan HTML'e dönüştürür. Sonuç varsayılan tarayıcınızda görüntülenir.
 - *NVDA+ALT+n*: Markdown'dan HTML'e dönüştürür. Sonuç, NVDA'nın geçici arabelleğinde gösterilir.
-- *NVDA+ALT+k*: HTML'den markdown'a dönüştürür. Sonuç NVDA'nın geçici arabelleğinde gösterilir.
+- *NVDA+ALT+k*: HTML'den Markdown'a dönüştürür. Sonuç NVDA'nın geçici arabelleğinde gösterilir.
 - *NVDA+ALT+l*: Markdown'dan kaynak HTML'e dönüştürür. Sonuç NVDA'nın geçici arabelleğinde gösterilir.
 - *NVDA+SHIFT+g*: HTML'den Markdown'a dönüştürür. Sonuç panoya kopyalanır.
 - *NVDA+SHIFT+h*: Markdown'dan biçimlendirilmiş HTML'e dönüştürür: Sonuç panoya kopyalanır.

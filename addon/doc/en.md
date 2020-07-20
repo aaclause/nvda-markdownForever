@@ -29,7 +29,7 @@ MarkdownForever is a small NVDA add-on that converts Markdown or HTML contents e
 MarkdownForever can:
 
 * Convert Markdown to HTML
-* Convert markdown to HTML source code
+* Convert Markdown to HTML source code
 * Convert HTML to Markdown
 * Convert Markdown to formatted HTML
 
@@ -80,7 +80,7 @@ You can even put `*some text in italic*` by enclosing it in asterisks, or `**wri
 
 ## Converting Markdown to HTML
 
-This feature allows you to convert any markdown text displayed on the screen to HTML, showing you the way your Markdown will look in the final HTML document. This can be a document you have written in Markdown format, a .md file you already have on your hard drive or a Markdown text found on a web page. By default, MarkdownForever converts all the currently displayed text, but you can also select only a specific part to be converted.
+This feature allows you to convert any Markdown text displayed on the screen to HTML, showing you the way your Markdown will look in the final HTML document. This can be a document you have written in Markdown format, a .md file you already have on your hard drive or a Markdown text found on a web page. By default, MarkdownForever converts all the currently displayed text, but you can also select only a specific part to be converted.
 
 You can use the following commands:
 
@@ -220,7 +220,7 @@ They can be reached from the NVDA menu -> Settings MarkdownForever -> Settings a
 - *NVDA+CTRL+i*: Interactive mode.
 - *NVDA+ALT+b*: Markdown to HTML conversion. The result is displayed in your default browser.
 - *NVDA+ALT+n*: Markdown to HTML conversion. The result is displayed in a virtual buffer of NVDA.
-- *NVDA+ALT+k*: HTML to markdown conversion. The result is displayed in a virtual buffer of NVDA.
+- *NVDA+ALT+k*: HTML to Markdown conversion. The result is displayed in a virtual buffer of NVDA.
 - *NVDA+ALT+l*: Markdown to HTML source conversion. The result is displayed in a virtual buffer of NVDA.
 - *NVDA+SHIFT+g*: HTML to Markdown conversion. The result is copied to clipboard.
 - *NVDA+SHIFT+h*: Markdown to formatted HTML conversion: The result is copied to the clipboard.

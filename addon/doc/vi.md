@@ -29,7 +29,7 @@ MarkdownForever là một add-on nhỏ cho NVDA, dùng để chuyển đổi n�
 MarkdownForever có thể:
 
 * Chuyển đổi Markdown thành HTML
-* Chuyển đổi markdown thành mã nguồn HTML
+* Chuyển đổi Markdown thành mã nguồn HTML
 * Chuyển đổi HTML thành Markdown
 * Chuyển đổi Markdown thành định dạng HTML
 
@@ -80,7 +80,7 @@ Thậm chí, bạn có thể `*in nghiêng một đoạn văn bản*` bằng cá
 
 ## Chuyển đổi Markdown thành HTML
 
-Tính năng này cho phép bạn chuyển nội dung markdown hiển thị trên màn hình thành HTML, hiển thị như cách mà nội dung  Markdown của bạn sẽ thể hiện ở tài liệu HTML. Đây có thể là một tài liệu được viết ở định dạng Markdown, một tập tin .md có sẵn trên ổ cứng hoặc một nội dung Markdown tìm thấy trên một trang web. Mặc định, MarkdownForever sẽ chuyển tất cả nội dung đang hiển thị, nhưng bạn cũng có thể chọn một đoạn nhất định để chuyển đổi.
+Tính năng này cho phép bạn chuyển nội dung Markdown hiển thị trên màn hình thành HTML, hiển thị như cách mà nội dung  Markdown của bạn sẽ thể hiện ở tài liệu HTML. Đây có thể là một tài liệu được viết ở định dạng Markdown, một tập tin .md có sẵn trên ổ cứng hoặc một nội dung Markdown tìm thấy trên một trang web. Mặc định, MarkdownForever sẽ chuyển tất cả nội dung đang hiển thị, nhưng bạn cũng có thể chọn một đoạn nhất định để chuyển đổi.
 
 Bạn có thể dùng các phím lệnh sau:
 
@@ -220,7 +220,7 @@ Có thể truy cập chúng từ trình đơn NVDA -> Cài đặt MarkdownForeve
 - *NVDA+CTRL+i*: chế độ tương tác.
 - *NVDA+ALT+b*: chuyển đổi Markdown thành HTML. Kết quả hiển thị trên trình duyệt mặc định.
 - *NVDA+ALT+n*: chuyển đổi Markdown thành HTML. Kết quả hiển thị trên màn hình ảo của NVDA.
-- *NVDA+ALT+k*: chuyển đổi HTML thành markdown. Kết quả hiển thị trên màn hình ảo của NVDA.
+- *NVDA+ALT+k*: chuyển đổi HTML thành Markdown. Kết quả hiển thị trên màn hình ảo của NVDA.
 - *NVDA+ALT+l*: chuyển đổi Markdown thành mã nguồn HTML. Kết quả hiển thị trên màn hình ảo của NVDA.
 - *NVDA+SHIFT+g*: chuyển đổi HTML thành Markdown. Kết quả được chép vào bộ nhớ tạm.
 - *NVDA+SHIFT+h*: chuyển đổi Markdown thành định dạng HTML . kết quả được chép vào bộ nhớ tạm.

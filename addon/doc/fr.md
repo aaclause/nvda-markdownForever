@@ -80,7 +80,7 @@ ce qui vous donnera :
 
 [Cliquez ici pour visiter le site Web de NVAccess](https://www.nvaccess.org)
  
-Vous avez même la possibilité de mettre `*du texte en italique*` en l'entourant d'astérisques, ou `**écrire du texte en gras**` en l'entourant de deux astérisques... Les possibilités sont nombreuses. Vous pouvez par exemple consulter ce [petit guide pour bien commencer avec markdown](https://blog.wax-o.com/2014/04/tutoriel-un-guide-pour-bien-commencer-avec-markdown/) afin d'en savoir plus.
+Vous avez même la possibilité de mettre `*du texte en italique*` en l'entourant d'astérisques, ou `**écrire du texte en gras**` en l'entourant de deux astérisques... Les possibilités sont nombreuses. Vous pouvez par exemple consulter ce [petit guide pour bien commencer avec Markdown](https://blog.wax-o.com/2014/04/tutoriel-un-guide-pour-bien-commencer-avec-markdown/) afin d'en savoir plus.
 
 ## Conversion de Markdown en HTML
 

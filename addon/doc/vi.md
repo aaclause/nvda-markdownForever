@@ -36,6 +36,7 @@ MarkdownForever có thể:
 ## Nhưng Markdown là gì?
 
 Theo Wikipedia,
+
 > Markdown là một ngôn ngữ đánh dấu với cú pháp văn bản thô, được thiết kế để có thể dễ dàng chuyển thành HTML và nhiều định dạng khác sử dụng một công cụ cùng tên. Nó thường được dùng để tạo các tập tin readme, viết tin nhắn trên các diễn đàn, và tạo văn bản có định dạng bằng một trình biên tập văn bản thô.
 
 Bạn có thể tìm hiểu thêm về Markdown bằng cách đọc [bài viết đầy đủ trên Wikipedia.](https://vi.wikipedia.org/wiki/Markdown)
@@ -55,11 +56,13 @@ Với tiêu đề cấp 2, bạn sẽ dùng hai dấu thăng, ba dấu cho tiêu
 Bây giờ, hãy làm một danh sách không thứ tự. để làm điều này, bạn có thể thêm dấu sao (*) vào trước mỗi thành phần trong danh sách. Xem ví dụ sau:
 
 <blockquote>
+
 ```
 * Cam
 * Đường
 * Sữa
 ```
+
 </blockquote>
 
 Sẽ hiển thị:
@@ -155,6 +158,7 @@ Khối siêu dữ liệu cho phép bạn thiết lập vài tham số nhất đ�
 
 ### Ví dụ về việc dùng siêu dữ liệu
 <blockquote>
+
 ```
 ---
 title: "Đặt một tên đơn giản"
@@ -177,6 +181,7 @@ mathjax: 0
 
 Chào thế giới! <span lang="en"Hello world!</span> <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola mundo!</span>
 ```
+
 </blockquote>
 
 Trong ví dụ ở trên, nội dung sẽ được đọc thành tiếng của bốn ngôn ngữ, xem như bộ đọc bạn đang dùng có hỗ trợ tự chuyển ngôn ngữ và đã đánh dấu tùy chọn tương ứng trong cài đặt tiếng nói của  NVDA. Nó sẽ đọc như sau:
@@ -239,5 +244,5 @@ Có thể truy cập chúng từ trình đơn NVDA -> Cài đặt MarkdownForeve
 * Giấy phép: GNU General Public License, phiên bản 2
 * Tải về [phiên bản chính thức](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
 * Tải về [phiên bản thử nghiệm](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
-* Kho GitHub: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
+* Kho chứa trên GitHub: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
 * **Included dependencies**:

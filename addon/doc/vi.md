@@ -179,14 +179,14 @@ autonumber-headings: 1
 mathjax: 0
 ---
 
-Chào thế giới! <span lang="en"Hello world!</span> <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola mundo!</span>
+Xin chào thế giới! <span lang="en"Hello world!</span> <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola mundo!</span>
 ```
 
 </blockquote>
 
 Trong ví dụ ở trên, nội dung sẽ được đọc thành tiếng của bốn ngôn ngữ, xem như bộ đọc bạn đang dùng có hỗ trợ tự chuyển ngôn ngữ và đã đánh dấu tùy chọn tương ứng trong cài đặt tiếng nói của  NVDA. Nó sẽ đọc như sau:
 
-Chào thế giới! <span lang="en"Hello world!</span> <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola mundo!</span>
+Xin chào thế giới! <span lang="en"Hello world!</span> <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola mundo!</span>
 
 ## Các thẻ bổ sung
 

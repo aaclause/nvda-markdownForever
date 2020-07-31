@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: markdownForever 20.06.27:23adac4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-06-27 00:14+0200\n"
-"PO-Revision-Date: 2020-07-30 15:06+0700\n"
+"PO-Revision-Date: 2020-07-31 14:05+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: Vietnamese <dangmanhcuong@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgid ""
 "Markdown to HTML conversion. The result is displayed in a virtual buffer of "
 "NVDA"
 msgstr ""
-"Chuyển từ Markdown thành HTML. Kết quả hiển thị tren màn hình ảo của NVDA"
+"Chuyển từ Markdown thành HTML. Kết quả hiển thị trên màn hình ảo của NVDA"
 
 #: addon/globalPlugins/markdownForever/__init__.py:178
 msgid ""
@@ -330,7 +330,7 @@ msgstr "Tạo số đếm cho bảng, hình dáng, công thức và ảnh"
 #: addon/globalPlugins/markdownForever/common.py:55
 msgid "Treats unindented Python interactive shell sessions as <code> blocks"
 msgstr ""
-"Xem các phần chưa thụt lề trong cửa sổ tương tác Python là các khồi <code> "
+"Xem các phần chưa thụt lề trong cửa sổ tương tác Python là các khối <code> "
 
 #: addon/globalPlugins/markdownForever/common.py:56
 msgid "Fancy quote, em-dash and ellipsis handling"
@@ -338,7 +338,7 @@ msgstr "Quản lý trích dẫn ưa thích, gạch nối đậm và dấu chấm
 
 #: addon/globalPlugins/markdownForever/common.py:57
 msgid "A special kind of blockquote commonly hidden behind a click on SO"
-msgstr "Một loại trích dẫn đặc biệt thường ẩn sau  mọt click trên SO"
+msgstr "Một loại trích dẫn đặc biệt thường ẩn sau  một click trên SO"
 
 #: addon/globalPlugins/markdownForever/common.py:58
 msgid "Parse ~~strikethrough~~ formatting"
@@ -409,7 +409,7 @@ msgstr "Minimal: chỉ chuyển thành HTML từ Markdown"
 
 #: addon/globalPlugins/markdownForever/common.py:340
 msgid "Default: A minimal template provided by the add-on"
-msgstr "Mặc định (Default): một mẫu minimal được cung cấp bởi add-on"
+msgstr "Mặc định: một mẫu minimal được cung cấp bởi add-on"
 
 #: addon/globalPlugins/markdownForever/common.py:363
 #, python-format
@@ -549,7 +549,7 @@ msgstr "Bảng mã mặc định"
 
 #: addon/globalPlugins/markdownForever/settings.py:233
 msgid "Root folders"
-msgstr "Thu mục gốc"
+msgstr "Thư mục gốc"
 
 #: addon/globalPlugins/markdownForever/updateCheck.py:59
 #, python-format

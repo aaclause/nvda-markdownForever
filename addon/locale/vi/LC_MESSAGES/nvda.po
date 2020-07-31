@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: markdownForever 20.06.27:23adac4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-06-27 00:14+0200\n"
-"PO-Revision-Date: 2020-07-19 13:25+0700\n"
+"PO-Revision-Date: 2020-07-30 15:06+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: Vietnamese <dangmanhcuong@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -405,7 +405,7 @@ msgstr "Không bao gồm được “{filePath}”"
 
 #: addon/globalPlugins/markdownForever/common.py:340
 msgid "Minimal: just the HTML from your Markdown"
-msgstr "Minimal: chỉ chuyển thanh HTML từ Markdown"
+msgstr "Minimal: chỉ chuyển thành HTML từ Markdown"
 
 #: addon/globalPlugins/markdownForever/common.py:340
 msgid "Default: A minimal template provided by the add-on"

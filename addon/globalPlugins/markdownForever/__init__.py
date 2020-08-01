@@ -165,6 +165,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text, err = getText()
 		if err:
 			return ui.message(err)
+		if not text:
+			return ui.message(_("No text"))
 		metadata, text = extractMetadata(text)
 		convertToHTML(text, metadata, save=False,
 					  src=True, useTemplateHTML=False)
@@ -172,6 +174,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_html2md(self, gesture):
 		metadata, text = getMetadataAndTextForMarkDown()
+		if not text:
+			return ui.message(_("No text"))
 		if metadata:
 			convertToMD(text, metadata)
 	script_html2md.__doc__ = _("HTML to Markdown conversion")
@@ -186,6 +190,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text, err = getText()
 		if err:
 			return ui.message(err)
+		if not text:
+			return ui.message(_("No text"))
 		metadata, text = extractMetadata(text)
 		convertToHTML(text, metadata)
 	script_md2htmlInNVDA.__doc__ = _(
@@ -195,6 +201,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text, err = getText()
 		if err:
 			return ui.message(err)
+		if not text:
+			return ui.message(_("No text"))
 		metadata, text = extractMetadata(text)
 		convertToHTML(text, metadata, save=True)
 	script_md2htmlInBrowser.__doc__ = _(
@@ -204,6 +212,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text, err = getText()
 		if err:
 			return ui.message(err)
+		if not text:
+			return ui.message(_("No text"))
 		metadata, text = extractMetadata(text)
 		api.copyToClip(convertToHTML(text, metadata, src=True,
 									 display=False, useTemplateHTML=False))
@@ -215,6 +225,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		text, err = getText()
 		if err:
 			return ui.message(err)
+		if not text:
+			return ui.message(_("No text"))
 		metadata, text = extractMetadata(text)
 		if copyToClipAsHTML(convertToHTML(text, metadata, src=True, display=False, save=False)):
 			return ui.message(_("Formatted HTML copied to clipboard"))
@@ -227,6 +239,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		metadata, text = getMetadataAndTextForMarkDown()
 		if not metadata:
 			return
+		if not text:
+			return ui.message(_("No text"))
 		res = convertToMD(text, metadata, display=False)
 		if res:
 			api.copyToClip(res)
@@ -267,7 +281,6 @@ class InteractiveModeDlg(wx.Dialog):
 		super().__init__(parent, title=title)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
-		bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
 		b_helper_path = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
 		isHTMLPattern = re.search("(?:</html>|</p>)", self.text, re.IGNORECASE)
 		guessDestFormat = 2 if isHTMLPattern else 0
@@ -356,34 +369,34 @@ class InteractiveModeDlg(wx.Dialog):
 							self.extratagsCheckBox, self.backTranslateExtraTagsCheckBox]
 		for checkbox in checkboxesToBind:
 			checkbox.Bind(wx.EVT_CHECKBOX, self.onUpdateMetadata)
-
-		self.virtualBufferBtn = bHelper.addButton(
-			self, label=_("Show in &virtual buffer"))
-		self.virtualBufferBtn.Bind(wx.EVT_BUTTON, self.onVB)
-		if defaultAction == IM_actions["virtualBuffer"]:
-			self.virtualBufferBtn.SetDefault()
-		self.browserBtn = bHelper.addButton(self, label=_("Show in &browser"))
-		self.browserBtn.Bind(wx.EVT_BUTTON, self.onBrowser)
-		if defaultAction == IM_actions["browser"]:
-			self.browserBtn.SetDefault()
-		self.copyToClipBtn = bHelper.addButton(
-			self, label=_("&Copy to clipboard"))
-		self.copyToClipBtn.Bind(wx.EVT_BUTTON, self.onCopyToClipBtn)
-		if defaultAction == IM_actions["copyToClip"]:
-			self.copyToClipBtn.SetDefault()
-		saveResultBtn = bHelper.addButton(
-			self, label=_("&Save the result as..."))
-		saveResultBtn.Bind(wx.EVT_BUTTON, self.onSave)
-		if defaultAction == IM_actions["saveResultAs"]:
-			saveResultBtn.SetDefault()
-		saveSourceBtn = bHelper.addButton(
-			self, label=_("Save the sou&rce as..."))
-		saveSourceBtn.Bind(
-			wx.EVT_BUTTON, lambda evt: self.onSave(evt, source=True))
-		if defaultAction == IM_actions["saveSourceAs"]:
-			saveSourceBtn.SetDefault()
-		sHelper.addItem(bHelper)
-
+		if self.text is not None and self.text.strip():
+			bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
+			self.virtualBufferBtn = bHelper.addButton(
+				self, label=_("Show in &virtual buffer"))
+			self.virtualBufferBtn.Bind(wx.EVT_BUTTON, self.onVB)
+			if defaultAction == IM_actions["virtualBuffer"]:
+				self.virtualBufferBtn.SetDefault()
+			self.browserBtn = bHelper.addButton(self, label=_("Show in &browser"))
+			self.browserBtn.Bind(wx.EVT_BUTTON, self.onBrowser)
+			if defaultAction == IM_actions["browser"]:
+				self.browserBtn.SetDefault()
+			self.copyToClipBtn = bHelper.addButton(
+				self, label=_("&Copy to clipboard"))
+			self.copyToClipBtn.Bind(wx.EVT_BUTTON, self.onCopyToClipBtn)
+			if defaultAction == IM_actions["copyToClip"]:
+				self.copyToClipBtn.SetDefault()
+			saveResultBtn = bHelper.addButton(
+				self, label=_("&Save the result as..."))
+			saveResultBtn.Bind(wx.EVT_BUTTON, self.onSave)
+			if defaultAction == IM_actions["saveResultAs"]:
+				saveResultBtn.SetDefault()
+			saveSourceBtn = bHelper.addButton(
+				self, label=_("Save the sou&rce as..."))
+			saveSourceBtn.Bind(
+				wx.EVT_BUTTON, lambda evt: self.onSave(evt, source=True))
+			if defaultAction == IM_actions["saveSourceAs"]:
+				saveSourceBtn.SetDefault()
+			sHelper.addItem(bHelper)
 		sHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.CANCEL))
 
 		mainSizer.Add(sHelper.sizer, border=20, flag=wx.ALL)
@@ -399,10 +412,11 @@ class InteractiveModeDlg(wx.Dialog):
 
 	def onDestFormatListBox(self, evt):
 		destFormatChoices_ = self.destFormatListBox.GetSelection()
-		if destFormatChoices_ > 0:
-			self.browserBtn.Disable()
-		else:
-			self.browserBtn.Enable()
+		if self.text is not None and self.text.strip():
+			if destFormatChoices_ > 0:
+				self.browserBtn.Disable()
+			else:
+				self.browserBtn.Enable()
 		if destFormatChoices_ != 2:
 			self.detectExtratagsCheckBox.Disable()
 			self.genMetadataCheckBox.Disable()
@@ -414,6 +428,7 @@ class InteractiveModeDlg(wx.Dialog):
 			self.titleTextCtrl.Enable()
 			self.subtitleTextCtrl.Enable()
 			self.pathTextCtrl.Enable()
+			self.choose_path_btn.Enable()
 			self.fileNameTextCtrl.Enable()
 			self.HTMLTemplatesListBox.Enable()
 		else:
@@ -427,6 +442,7 @@ class InteractiveModeDlg(wx.Dialog):
 			self.titleTextCtrl.Disable()
 			self.subtitleTextCtrl.Disable()
 			self.pathTextCtrl.Disable()
+			self.choose_path_btn.Disable()
 			self.fileNameTextCtrl.Disable()
 			self.HTMLTemplatesListBox.Disable()
 

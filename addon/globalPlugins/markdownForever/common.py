@@ -196,8 +196,6 @@ def getText():
 				err = _("Unable to guess the encoding")
 		except BaseException as e:
 			err = str(e).strip()
-	if not text:
-		err = _("No text")
 	return text, err
 
 

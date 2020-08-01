@@ -268,10 +268,10 @@ class InteractiveModeDlg(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
-
+		b_helper_path = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
 		isHTMLPattern = re.search("(?:</html>|</p>)", self.text, re.IGNORECASE)
 		guessDestFormat = 2 if isHTMLPattern else 0
-		destFormatText = _("C&onvert to")
+		destFormatText = _("C&onvert to:")
 		self.destFormatListBox = sHelper.addLabeledControl(
 			destFormatText, wx.Choice, choices=self.destFormatChoices)
 		self.destFormatListBox.Bind(wx.EVT_CHOICE, self.onDestFormatListBox)
@@ -311,19 +311,36 @@ class InteractiveModeDlg(wx.Dialog):
 			wx.CheckBox(self, label=detectExtratagsText))
 		self.detectExtratagsCheckBox.SetValue(True)
 
-		titleLabelText = _("&Title")
+		titleLabelText = _("&Title:")
 		self.titleTextCtrl = sHelper.addLabeledControl(
 			titleLabelText, wx.TextCtrl)
 		self.titleTextCtrl.SetValue(metadata["title"])
 		self.titleTextCtrl.Bind(wx.EVT_TEXT, self.onUpdateMetadata)
 
-		subtitleText = _("S&ubtitle")
+		subtitleText = _("S&ubtitle:")
 		self.subtitleTextCtrl = sHelper.addLabeledControl(
 			subtitleText, wx.TextCtrl)
 		self.subtitleTextCtrl.SetValue(metadata["subtitle"])
 		self.subtitleTextCtrl.Bind(wx.EVT_TEXT, self.onUpdateMetadata)
 
-		HTMLTemplatesText = _("HTML temp&late to use")
+		pathText = _("Pat&h:")
+		self.pathTextCtrl = sHelper.addLabeledControl(
+			pathText, wx.TextCtrl)
+		self.pathTextCtrl.SetValue(metadata["path"])
+		self.pathTextCtrl.Bind(wx.EVT_TEXT, self.onUpdateMetadata)
+
+		self.choose_path_btn = b_helper_path.addButton(
+			self, label=_("Bro&wse..."))
+		self.choose_path_btn.Bind(wx.EVT_BUTTON, self.onChoosePath)
+		sHelper.addItem(b_helper_path)
+
+		fileNameText = _("File n&ame:")
+		self.fileNameTextCtrl = sHelper.addLabeledControl(
+			fileNameText, wx.TextCtrl)
+		self.fileNameTextCtrl.SetValue(metadata["filename"])
+		self.fileNameTextCtrl.Bind(wx.EVT_TEXT, self.onUpdateMetadata)
+
+		HTMLTemplatesText = _("HTML temp&late to use:")
 		self.HTMLTemplatesListBox = sHelper.addLabeledControl(
 			HTMLTemplatesText, wx.Choice, choices=getHTMLTemplates())
 		self.HTMLTemplatesListBox.SetSelection(
@@ -396,6 +413,8 @@ class InteractiveModeDlg(wx.Dialog):
 			self.tableOfContentsCheckBox.Enable()
 			self.titleTextCtrl.Enable()
 			self.subtitleTextCtrl.Enable()
+			self.pathTextCtrl.Enable()
+			self.fileNameTextCtrl.Enable()
 			self.HTMLTemplatesListBox.Enable()
 		else:
 			self.detectExtratagsCheckBox.Enable()
@@ -407,7 +426,18 @@ class InteractiveModeDlg(wx.Dialog):
 			self.tableOfContentsCheckBox.Disable()
 			self.titleTextCtrl.Disable()
 			self.subtitleTextCtrl.Disable()
+			self.pathTextCtrl.Disable()
+			self.fileNameTextCtrl.Disable()
 			self.HTMLTemplatesListBox.Disable()
+
+	def onChoosePath(self, evt):
+		dlg = wx.DirDialog(self, message=_("Choose a folder"),
+						   defaultPath=realpath(self.metadata["path"]),
+						   style=wx.DD_DEFAULT_STYLE | wx.DD_NEW_DIR_BUTTON)
+		if dlg.ShowModal() == wx.ID_OK:
+			self.pathTextCtrl.SetValue(dlg.GetPath())
+		self.pathTextCtrl.SetFocus()
+		dlg.Destroy()
 
 	def onBrowser(self, evt): self.onExecute(False)
 
@@ -423,6 +453,8 @@ class InteractiveModeDlg(wx.Dialog):
 		metadata["detectExtratags"] = self.detectExtratagsCheckBox.IsChecked()
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		metadata["subtitle"] = self.subtitleTextCtrl.GetValue()
+		metadata["path"] = self.pathTextCtrl.GetValue()
+		metadata["filename"] = self.fileNameTextCtrl.GetValue()
 		templateID = self.HTMLTemplatesListBox.GetSelection()
 		metadata["template"] = getHTMLTemplateFromID(templateID)
 
@@ -474,7 +506,8 @@ class InteractiveModeDlg(wx.Dialog):
 					wx.YES_NO
 				)
 				if conserveExtraTags == wx.NO:
-					lang = metadata["langd"] if "langd" in metadata.keys() else None
+					lang = metadata["langd"] if "langd" in metadata.keys(
+					) else None
 					replacements = getReplacements(lang)
 					for toSearch, replaceBy, replaceAlways in replacements:
 						if replaceAlways:

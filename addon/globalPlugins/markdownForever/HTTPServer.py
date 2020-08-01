@@ -19,42 +19,52 @@ HTMLTemplate = """<!DOCTYPE HTML>
 	</body>
 </html>"""
 
+
 def mergeHTMLTemplate(
-	title=_("No title"),
-	body="<p>%s</p>" % _("No content"),
-	encoding=None
+		title=_("No title"),
+		body="<p>%s</p>" % _("No content"),
+		encoding=None
 ):
-	if not encoding: encoding = config.conf["markdownForever"]["HTTPServer"]["defaultEncoding"]
+	if not encoding:
+		encoding = config.conf["markdownForever"]["HTTPServer"]["defaultEncoding"]
 	return HTMLTemplate.format(
 		title=title,
 		body=body,
 		encoding=encoding
 	)
 
+
 def indexOf(path):
 	ls = os.listdir(path)
 	out = "<h1>%s</h1><ul>" % _("Index of {path}").format(path=path)
 	for e in ls:
-		if isPath(path + e): e += '/'
-		elif not re.match(r"^.+\.(html?|md|txt)$", e.lower()): continue
+		if isPath(path + e):
+			e += '/'
+		elif not re.match(r"^.+\.(html?|md|txt)$", e.lower()):
+			continue
 		out += f'<li><a href="{e}">{e}</a></li>'
 	out += "</li>"
 	return out
 
+
 def getFile(path, params=None, baseDir=None):
-	if not baseDir: baseDir = config.conf["markdownForever"]["defaultPath"]
+	if not baseDir:
+		baseDir = config.conf["markdownForever"]["defaultPath"]
 	fullPath = realpath(baseDir) + path.replace('/', r'\\')
-	while "\\\\" in fullPath: fullPath = fullPath.replace("\\\\", '\\')
+	while "\\\\" in fullPath:
+		fullPath = fullPath.replace("\\\\", '\\')
 	status_code = 200
 	body = None
 	if not osp.exists(fullPath):
 		status_code = 404
 		body = mergeHTMLTemplate(
 			title=_("Error 404"),
-			body="<p>%s.</p>" % _("The requested URL “{path}” was not found").format(path=path)
+			body="<p>%s.</p>" % _(
+				"The requested URL “{path}” was not found").format(path=path)
 		)
 	elif isPath(fullPath):
-		if not fullPath.endswith('\\'): fullPath += '\\'
+		if not fullPath.endswith('\\'):
+			fullPath += '\\'
 		if not osp.exists(fullPath + "index.md"):
 			body = indexOf(fullPath)
 			body = mergeHTMLTemplate(
@@ -62,7 +72,8 @@ def getFile(path, params=None, baseDir=None):
 				body=body
 			)
 	if not body:
-		f = codecs.open(fullPath, encoding=config.conf["markdownForever"]["HTTPServer"]["defaultEncoding"])
+		f = codecs.open(
+			fullPath, encoding=config.conf["markdownForever"]["HTTPServer"]["defaultEncoding"])
 		text = f.read()
 		if fullPath.endswith(".html") or fullPath.endswith(".htm"):
 			body = text
@@ -73,13 +84,15 @@ def getFile(path, params=None, baseDir=None):
 			f.close()
 	return status_code, body.encode(config.conf["markdownForever"]["HTTPServer"]["defaultEncoding"])
 
+
 class Server(BaseHTTPRequestHandler):
 
 	def log_request(code='-', size='-'): pass
 
 	def _set_response(self, status_code=200):
 		self.send_response(status_code)
-		self.send_header("Content-type", "text/html; charset=%s" % config.conf["markdownForever"]["HTTPServer"]["defaultEncoding"])
+		self.send_header("Content-type", "text/html; charset=%s" %
+						 config.conf["markdownForever"]["HTTPServer"]["defaultEncoding"])
 		self.end_headers()
 
 	def do_GET(self):
@@ -94,10 +107,13 @@ class Server(BaseHTTPRequestHandler):
 		self.wfile.write(body)
 
 	def do_POST(self):
-		content_length = int(self.headers["Content-Length"])  # <--- Gets the size of data
-		post_data = self.rfile.read(content_length)  # <--- Gets the data itself
+		# <--- Gets the size of data
+		content_length = int(self.headers["Content-Length"])
+		# <--- Gets the data itself
+		post_data = self.rfile.read(content_length)
 		self._set_response()
 		self.wfile.write(f"POST request for {self.path}".encode("utf-8"))
+
 
 class CreateHTTPServer(threading.Thread):
 
@@ -112,21 +128,29 @@ class CreateHTTPServer(threading.Thread):
 		self.httpd = server_class(server_address, handler_class)
 		self.httpd.serve_forever()
 
+
 httpdThread = None
+
+
 def run():
 	global httpdThread
-	if httpdThread: return
+	if httpdThread:
+		return
 	httpdThread = CreateHTTPServer()
 	httpdThread.start()
 
+
 def stop():
 	global httpdThread
-	if not httpdThread: return
+	if not httpdThread:
+		return
 	httpdThread.httpd.shutdown()
 	httpdThread.httpd.socket.close()
 	httpdThread.join()
 	httpdThread = None
 
+
 def isRun():
-	if httpdThread: return True
+	if httpdThread:
+		return True
 	return False

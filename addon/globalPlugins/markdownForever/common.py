@@ -1,9 +1,30 @@
+from . import virtualDocuments
+from logHandler import log
+import ui
+import versionInfo
+from urllib.request import Request, urlopen
+import treeInterceptorHandler
+import textInfos
+import languageHandler
+import globalVars
+import config
+import api
 import json
 import locale
 import re
 import os
 import ssl
 import sys
+baseDir = os.path.dirname(__file__)
+libs = os.path.join(baseDir, "lib")
+sys.path.append(libs)
+from bs4 import BeautifulSoup
+import yaml
+import winClipboard
+import markdown2
+import html2text
+import html2markdown
+
 import time
 import gui
 import wx
@@ -11,16 +32,6 @@ import wx
 
 import addonHandler
 addonHandler.initTranslation()
-import api
-import config
-import globalVars
-import languageHandler
-import textInfos
-import treeInterceptorHandler
-from urllib.request import Request, urlopen
-import versionInfo
-import ui
-from logHandler import log
 
 IM_actions = {
 	"saveResultAs": 0,
@@ -38,8 +49,8 @@ IM_actionLabels = [
 ]
 markdownEngines = ["html2text", "html2markdown"]
 markdownEngineLabels = [
-	_("html2text: turn HTML into equivalent Markdown-structured text"),
-	_("html2markdown: conservatively convert html to markdown"),
+	("html2text. " + _("Turn HTML into equivalent Markdown-structured text")),
+	("html2markdown. " + _("Conservatively convert html to markdown"))
 ]
 
 EXTRAS = {
@@ -67,16 +78,6 @@ EXTRAS = {
 	"wiki-tables": _("Google Code Wiki table syntax support"),
 	"xml": _("Passes one-liner processing instructions and namespaced XML tags"),
 }
-baseDir = os.path.dirname(__file__)
-libs = os.path.join(baseDir, "lib")
-sys.path.append(libs)
-import html2markdown
-import html2text
-import markdown2
-import winClipboard
-import yaml
-from bs4 import BeautifulSoup
-from . import virtualDocuments
 sys.path.remove(libs)
 
 _addonDir = os.path.join(baseDir, "..", "..")
@@ -94,22 +95,27 @@ URLPattern = r"^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{
 minCharTemplateName = 1
 maxCharTemplateName = 28
 
+
 def realpath(path):
 	path = path.lower()
 	vars = ["appdata", "tmp", "temp", "userprofile"]
-	for var in vars: path = path.replace("%%%s%%" % var, os.environ[var])
+	for var in vars:
+		path = path.replace("%%%s%%" % var, os.environ[var])
 	path = path.replace("%addondir%", addonPath)
 	return path
+
 
 def isPath(path):
 	path = realpath(path)
 	return os.path.exists(path) and os.path.isdir(path)
 
+
 def isValidFileName(filename):
 	return bool(re.match(r"^[^\\/:*?\"<>|]+$", filename))
 
+
 def getWindowTitle():
-	obj=api.getForegroundObject()
+	obj = api.getForegroundObject()
 	title = obj.name
 	if not isinstance(title, str) or not title or title.isspace():
 		title = obj.appModule.appName if obj.appModule else None
@@ -117,30 +123,36 @@ def getWindowTitle():
 			title = _("No title")
 	return title
 
+
 def getText():
 	err = ''
 	obj = api.getFocusObject()
 	treeInterceptor = obj.treeInterceptor
-	if isinstance(treeInterceptor, treeInterceptorHandler.DocumentTreeInterceptor) and not treeInterceptor.passThrough: obj = treeInterceptor
-	try: info = obj.makeTextInfo(textInfos.POSITION_SELECTION)
-	except (RuntimeError, NotImplementedError): info = None
+	if isinstance(treeInterceptor, treeInterceptorHandler.DocumentTreeInterceptor) and not treeInterceptor.passThrough:
+		obj = treeInterceptor
+	try:
+		info = obj.makeTextInfo(textInfos.POSITION_SELECTION)
+	except (RuntimeError, NotImplementedError):
+		info = None
 	if not info or info.isCollapsed:
 		try:
 			text = obj.makeTextInfo(textInfos.POSITION_ALL).text
 		except (RuntimeError, NotImplementedError):
 			obj = api.getNavigatorObject()
 			text = obj.value
-	else: text = info.text
+	else:
+		text = info.text
 	isLocalFile = False
 	if re.match(pathPattern, text):
 		fp = realpath(text)
 		if os.path.isfile(fp):
 			f = open(fp, "rb")
 			raw = f.read()
-			if raw.startswith(codecs.BOM_UTF8): raw = raw[3:]
+			if raw.startswith(codecs.BOM_UTF8):
+				raw = raw[3:]
 			f.close()
 			text = raw.decode()
-			isLocalFile =True
+			isLocalFile = True
 		else:
 			err = _("Invalid file path")
 	if not isLocalFile and re.match(URLPattern, text.strip()):
@@ -162,10 +174,12 @@ def getText():
 			try:
 				start_ = data.index(b"charset=")
 				if start_ >= 0:
-					enc_ = data[start_:(start_+42)].split(b">")[0].replace(b'"', b"").replace(b'\'', b"")
+					enc_ = data[start_:(
+						start_+42)].split(b">")[0].replace(b'"', b"").replace(b'\'', b"")
 					enc_ = re.sub(pattern, r"\1", enc_.decode("UTF-8"))
 					possibleEncodings.insert(0, enc_)
-			except ValueError: log.debug(j.headers)
+			except ValueError:
+				log.debug(j.headers)
 			possibleEncodings.append("UTF-8")
 			log.debug("%s charset found in <head> HTML" % enc_)
 			for possibleEncoding in possibleEncodings:
@@ -175,19 +189,25 @@ def getText():
 					text = data.decode(possibleEncoding)
 					ok = 1
 					break
-				except (LookupError, UnicodeDecodeError) as e: log.debug(e)
+				except (LookupError, UnicodeDecodeError) as e:
+					log.debug(e)
 			if not ok:
 				log.error(possibleEncodings)
 				err = _("Unable to guess the encoding")
-		except BaseException as e: err = str(e).strip()
-	if not text: err = _("No text")
+		except BaseException as e:
+			err = str(e).strip()
+	if not text:
+		err = _("No text")
 	return text, err
+
 
 def getMetadataAndTextForMarkDown():
 	startTime = time.time()
 	res = virtualDocuments.isVirtualDocument()
-	if res: text, err = virtualDocuments.getAllHTML()
-	else: text, err = getText()
+	if res:
+		text, err = virtualDocuments.getAllHTML()
+	else:
+		text, err = getText()
 	if err:
 		ui.message(err)
 		return None, None
@@ -197,6 +217,7 @@ def getMetadataAndTextForMarkDown():
 		metadata["timeGen"] = "%.3f s" % (time.time()-startTime)
 	return metadata, text
 
+
 def escapeHTML(text):
 	chars = {
 		"&": "&amp;",
@@ -205,26 +226,34 @@ def escapeHTML(text):
 		"<": "&lt;",
 		">": "&gt;",
 	}
-	return "".join(chars.get(c,c) for c in text)
+	return "".join(chars.get(c, c) for c in text)
+
 
 def md2HTML(md, toc, ol=True):
 	extras = getMarkdown2Extras()
-	if toc: extras.append("toc")
+	if toc:
+		extras.append("toc")
 	res = markdown2.markdown(md, extras=extras)
-	toc = '<nav role="doc-toc" id="doc-toc">%s</nav>' % res.toc_html if res.toc_html and res.toc_html.count("<li>") > 1 else ''
-	if ol: toc = toc.replace("<ul>", "<ol>").replace("</ul>", "</ol>")
+	toc = '<nav role="doc-toc" id="doc-toc">%s</nav>' % res.toc_html if res.toc_html and res.toc_html.count(
+		"<li>") > 1 else ''
+	if ol:
+		toc = toc.replace("<ul>", "<ol>").replace("</ul>", "</ol>")
 	return res, toc
+
 
 def writeFile(fp, content):
 	fp = realpath(fp)
 	f = open(fp, "wb")
 	f.write(content.encode())
 	f.close()
+
+
 def getFileContent(fp):
 	content = ""
 	fp = realpath(fp)
 	fp_ = realpath(config.conf["markdownForever"]["defaultPath"]) + '/' + fp
-	if not os.path.exists(fp) and os.path.exists(fp_): fp = fp_
+	if not os.path.exists(fp) and os.path.exists(fp_):
+		fp = fp_
 	try:
 		f = open(fp, "rb")
 		text = f.read().decode("UTF-8")
@@ -235,16 +264,20 @@ def getFileContent(fp):
 		content = f'<div class="MDF_err" role="complementary">{msg}: {escapeHTML(repr(err))}</div>'
 	return content
 
+
 def backTranslateExtraTags(text):
 	soup = BeautifulSoup(text)
-	matches = soup.findAll(["span", "div"], class_=re.compile(r"^extratag_%.+%$"))
+	matches = soup.findAll(
+		["span", "div"], class_=re.compile(r"^extratag_%.+%$"))
 	for match in matches:
 		extratag = match["class"][-1].split('_', 1)[-1]
 		try:
 			match.string.replaceWith(extratag)
 			match.unwrap()
-		except AttributeError as e: log.error(e)
+		except AttributeError as e:
+			log.error(e)
 	return str(soup)
+
 
 def extractMetadata(text):
 	o = {
@@ -256,73 +289,107 @@ def extractMetadata(text):
 	if len(text) > 4 and text.startswith("---"):
 		ln = text[3]
 		if ln in ["\r", "\n"]:
-			if ln == "\r" and text[4] == "\n": ln = "\r\n"
+			if ln == "\r" and text[4] == "\n":
+				ln = "\r\n"
 			try:
 				end = (text.index(ln * 2)-3)
 				y = text[(3 + len(ln)):end].strip()
 				docs = yaml.load_all(y, Loader=yaml.FullLoader)
-				for doc in docs: metadata = doc
+				for doc in docs:
+					metadata = doc
 				text = text[end+3:].strip()
 			except (ValueError, yaml.parser.ParserError, yaml.scanner.ScannerError) as err:
 				metadataBlock = text[0:end+3]
 				text = text[end+3:].strip()
 				text = f"! {err}\n\n```\n{metadataBlock}\n```\n\n{text}"
-	if not isinstance(metadata, dict): metadata = {}
+	if not isinstance(metadata, dict):
+		metadata = {}
 	HTMLHead = [
 		'<meta name="generator" content="MarkdownForever" />',
 		'<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />'
 	]
 	HTMLHeader = []
 	metadata = {k.lower(): v for k, v in metadata.items()}
-	if "language" in metadata.keys(): metadata["lang"] = metadata.pop("language")
-	if "authors" in metadata.keys(): metadata["author"] = metadata.pop("authors")
-	if not "template" in metadata.keys() or metadata["template"] not in (list(config.conf["markdownForever"]["HTMLTemplates"].copy().keys())+["default", "minimal"]): metadata["template"] = config.conf["markdownForever"]["HTMLTemplate"]
-	if not "autonumber-headings" in metadata.keys() or not isinstance(metadata["autonumber-headings"], (int, bool)): metadata["autonumber-headings"] = config.conf["markdownForever"]["autonumber-headings"]
-	if not "title" in metadata.keys() or not isinstance(metadata["title"], (str, str)): metadata["title"] = _("No title")
-	if not "subtitle" in metadata.keys() or not isinstance(metadata["subtitle"], (str, str)): metadata["subtitle"] = ""
-	metadata["title"] = str(processExtraTags(BeautifulSoup(metadata["title"], "html.parser"))[-1].text)
-	if not "toc" in metadata.keys() or not isinstance(metadata["toc"], (int, bool)): metadata["toc"] = config.conf["markdownForever"]["toc"]
-	if not "extratags" in metadata.keys() or not isinstance(metadata["extratags"], (int, bool)): metadata["extratags"] = config.conf["markdownForever"]["extratags"]
-	if not "extratags-back" in metadata.keys() or not isinstance(metadata["extratags-back"], (int, bool)): metadata["extratags-back"] = config.conf["markdownForever"]["extratags-back"]
-	if not "detectExtratags" in metadata.keys() or not isinstance(metadata["detectExtratags"], (int, bool)): metadata["detectExtratags"] = config.conf["markdownForever"]["detectExtratags"]
-	if not "genMetadata" in metadata.keys() or not isinstance(metadata["genMetadata"], (int, bool)): metadata["genMetadata"] = config.conf["markdownForever"]["genMetadata"]
-	if not "lang" in metadata.keys() or not isinstance(metadata["lang"], (str, str)): metadata["lang"] = defaultLanguage
-	if not "mathjax" in metadata.keys() or not isinstance(metadata["mathjax"], (int, bool)): metadata["mathjax"] = False
-	metadata["path"] = metadata["path"] if "path" in metadata.keys() and isPath(metadata["path"]) else config.conf["markdownForever"]["defaultPath"]
-	metadata["filename"] = metadata["filename"] if "filename" in metadata.keys() and isValidFileName(metadata["filename"]) else "MDF_%s" % time.strftime("%y-%m-%d_-_%H-%M-%S")
+	if "language" in metadata.keys():
+		metadata["lang"] = metadata.pop("language")
+	if "authors" in metadata.keys():
+		metadata["author"] = metadata.pop("authors")
+	if not "template" in metadata.keys() or metadata["template"] not in (list(config.conf["markdownForever"]["HTMLTemplates"].copy().keys())+["default", "minimal"]):
+		metadata["template"] = config.conf["markdownForever"]["HTMLTemplate"]
+	if not "autonumber-headings" in metadata.keys() or not isinstance(metadata["autonumber-headings"], (int, bool)):
+		metadata["autonumber-headings"] = config.conf["markdownForever"]["autonumber-headings"]
+	if not "title" in metadata.keys() or not isinstance(metadata["title"], (str, str)):
+		metadata["title"] = _("No title")
+	if not "subtitle" in metadata.keys() or not isinstance(metadata["subtitle"], (str, str)):
+		metadata["subtitle"] = ""
+	metadata["title"] = str(processExtraTags(
+		BeautifulSoup(metadata["title"], "html.parser"))[-1].text)
+	if not "toc" in metadata.keys() or not isinstance(metadata["toc"], (int, bool)):
+		metadata["toc"] = config.conf["markdownForever"]["toc"]
+	if not "extratags" in metadata.keys() or not isinstance(metadata["extratags"], (int, bool)):
+		metadata["extratags"] = config.conf["markdownForever"]["extratags"]
+	if not "extratags-back" in metadata.keys() or not isinstance(metadata["extratags-back"], (int, bool)):
+		metadata["extratags-back"] = config.conf["markdownForever"]["extratags-back"]
+	if not "detectExtratags" in metadata.keys() or not isinstance(metadata["detectExtratags"], (int, bool)):
+		metadata["detectExtratags"] = config.conf["markdownForever"]["detectExtratags"]
+	if not "genMetadata" in metadata.keys() or not isinstance(metadata["genMetadata"], (int, bool)):
+		metadata["genMetadata"] = config.conf["markdownForever"]["genMetadata"]
+	if not "lang" in metadata.keys() or not isinstance(metadata["lang"], (str, str)):
+		metadata["lang"] = defaultLanguage
+	if not "mathjax" in metadata.keys() or not isinstance(metadata["mathjax"], (int, bool)):
+		metadata["mathjax"] = False
+	metadata["path"] = metadata["path"] if "path" in metadata.keys() and isPath(
+		metadata["path"]) else config.conf["markdownForever"]["defaultPath"]
+	metadata["filename"] = metadata["filename"] if "filename" in metadata.keys() and isValidFileName(
+		metadata["filename"]) else "MDF_%s" % time.strftime("%y-%m-%d_-_%H-%M-%S")
 	if metadata["mathjax"]:
-		HTMLHead.append('<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>')
+		HTMLHead.append(
+			'<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>')
 	if "title" in metadata.keys():
 		HTMLHead.append("<title>%s</title>" % metadata["title"])
 		HTMLHeader.append('<h1 class="title">%s</h1>' % metadata["title"])
 	if "subtitle" in metadata:
 		HTMLHeader.append('<p class="subtitle">%s</p>' % metadata["subtitle"])
 	if "keywords" in metadata.keys():
-		HTMLHead.append('<meta name="keywords" content="%s" />' % metadata["keywords"])
+		HTMLHead.append('<meta name="keywords" content="%s" />' %
+						metadata["keywords"])
 	if "author" in metadata.keys():
-		if isinstance(metadata["author"], (str, str)): metadata["author"] = [metadata["author"]]
+		if isinstance(metadata["author"], (str, str)):
+			metadata["author"] = [metadata["author"]]
 		for author in metadata["author"]:
-			HTMLHeader.append('<p class="author">%s</p>' % md2HTML(author, toc=False)[0])
-			author_ = str(processExtraTags(BeautifulSoup(author, "html.parser"))[-1].text)
+			HTMLHeader.append('<p class="author">%s</p>' %
+							  md2HTML(author, toc=False)[0])
+			author_ = str(processExtraTags(
+				BeautifulSoup(author, "html.parser"))[-1].text)
 			HTMLHead.append('<meta name="author" content="%s" />' % author_)
 	if "css" in metadata.keys():
-		if isinstance(metadata["css"], (str, str)): metadata["css"] = [metadata["css"]]
-		for css in metadata["css"]: HTMLHead.append('<link rel="stylesheet" href="%s" />' % realpath(css))
+		if isinstance(metadata["css"], (str, str)):
+			metadata["css"] = [metadata["css"]]
+		for css in metadata["css"]:
+			HTMLHead.append('<link rel="stylesheet" href="%s" />' %
+							realpath(css))
 	includes_keys = ["include-after", "include-before"]
 	for include_key in includes_keys:
 		if include_key in metadata.keys():
-			if isinstance(metadata[include_key], (str, str)): metadata[include_key] = [metadata[include_key]]
-			for fp in metadata[include_key]: o[include_key.split('-')[1]] += getFileContent(fp)
+			if isinstance(metadata[include_key], (str, str)):
+				metadata[include_key] = [metadata[include_key]]
+			for fp in metadata[include_key]:
+				o[include_key.split('-')[1]] += getFileContent(fp)
 	if "date" in metadata.keys():
 		HTMLHeader.append('<p class="date">%s</p>' % metadata["date"])
-		HTMLHead.append('<meta name="dcterms.date" content="%s" />' % metadata["date"])
+		HTMLHead.append(
+			'<meta name="dcterms.date" content="%s" />' % metadata["date"])
 	metadata["HTMLHead"] = '\n'.join(HTMLHead)
-	if not HTMLHeader: HTMLHeader = ""
-	else: metadata["HTMLHeader"] = '\n'.join(HTMLHeader)
+	if not HTMLHeader:
+		HTMLHeader = ""
+	else:
+		metadata["HTMLHeader"] = '\n'.join(HTMLHeader)
 	return metadata, o["before"] + '\n' + text + '\n' + o["after"]
 
+
 def getHTMLTemplate(name=None):
-	if not name: name = config.conf["markdownForever"]["HTMLTemplate"]
+	if not name:
+		name = config.conf["markdownForever"]["HTMLTemplate"]
 	name = name.lower()
 	if name == "minimal":
 		return {
@@ -331,34 +398,49 @@ def getHTMLTemplate(name=None):
 			"content": "{body}"
 		}
 	HTMLTemplateDir = realpath(f"{configDir}/{name}.tpl")
-	if name != "default" and os.path.isfile(HTMLTemplateDir): fp = HTMLTemplateDir
-	else: fp = os.path.join(curDir, "res", "default.tpl")
+	if name != "default" and os.path.isfile(HTMLTemplateDir):
+		fp = HTMLTemplateDir
+	else:
+		fp = os.path.join(curDir, "res", "default.tpl")
 	with open(fp) as readFile:
 		templateEntry = json.load(readFile)
 	return templateEntry
 
+
 def getHTMLTemplates():
 	HTMLTemplates = config.conf["markdownForever"]["HTMLTemplates"].copy()
-	return [_("Minimal: just the HTML from your Markdown"), _("Default: A minimal template provided by the add-on")]+list(HTMLTemplates.keys())
+	return [("minimal. " + _("Just the HTML from your Markdown")), ("Default" + _(": A minimal template provided by the add-on"))] + list(HTMLTemplates.keys())
+
 
 def getDefaultHTMLTemplateID(name=None):
-	if not name: name = config.conf["markdownForever"]["HTMLTemplate"]
-	if name == "minimal": return 0
-	elif name == "default": return 1
+	if not name:
+		name = config.conf["markdownForever"]["HTMLTemplate"]
+	if name == "minimal":
+		return 0
+	elif name == "default":
+		return 1
 	else:
 		HTMLTemplates = getHTMLTemplates()[2:]
-		if name in HTMLTemplates: HTMLTemplateID = HTMLTemplates.index(name)
-		else: HTMLTemplateID = 1
+		if name in HTMLTemplates:
+			HTMLTemplateID = HTMLTemplates.index(name)
+		else:
+			HTMLTemplateID = 1
 		return HTMLTemplateID
 
+
 def getHTMLTemplateFromID(idTemplate):
-	if idTemplate == 0: return "minimal"
-	elif idTemplate == 1: return "default"
-	else: return getHTMLTemplates()[idTemplate]
+	if idTemplate == 0:
+		return "minimal"
+	elif idTemplate == 1:
+		return "default"
+	else:
+		return getHTMLTemplates()[idTemplate]
+
 
 def getReplacements(lang):
 	try:
-		if lang: locale.setlocale(locale.LC_ALL, lang)
+		if lang:
+			locale.setlocale(locale.LC_ALL, lang)
 	except locale.Error as err:
 		log.error(err)
 	replacements = [
@@ -382,31 +464,42 @@ def getReplacements(lang):
 	locale.setlocale(locale.LC_ALL, locale.getdefaultlocale()[0])
 	return replacements
 
+
 def processExtraTags(soup, lang='', allRepl=True, allowBacktranslate=True):
 	try:
-		if not lang and defaultLanguage == "en": lang = "enu"
-		if lang: locale.setlocale(locale.LC_ALL, lang)
+		if not lang and defaultLanguage == "en":
+			lang = "enu"
+		if lang:
+			locale.setlocale(locale.LC_ALL, lang)
 	except locale.Error as err:
 		log.error(err)
-		msg = _("Metadata and extra tags error. '%s' value was not recognized for lang field." % lang)
+		msg = _(
+			"Metadata and extra tags error. '%s' value was not recognized for lang field." % lang)
 		return False, msg
 	replacements = getReplacements(lang)
 	for toSearch, replaceBy, replaceAlways in replacements:
 		if allRepl or (not allRepl and replaceAlways):
 			try:
-				matches = soup.findAll(text=re.compile(r".{0,}%s.{0,}" % toSearch))
+				matches = soup.findAll(
+					text=re.compile(r".{0,}%s.{0,}" % toSearch))
 				for match in matches:
 					parents = [parent.name for parent in match.parents]
 					if "code" not in parents and "pre" not in parents:
 						if allowBacktranslate:
 							tag = "div" if "%toc%" in toSearch else "span"
-							newContent = str(match.string).replace(toSearch, '<%s class="extratag_%s">%s</%s>' % (tag, toSearch, replaceBy, tag))
+							newContent = str(match.string).replace(
+								toSearch, '<%s class="extratag_%s">%s</%s>' % (tag, toSearch, replaceBy, tag))
 							match.string.replaceWith(BeautifulSoup(newContent))
-						else: match.string.replaceWith(match.string.replace(toSearch, replaceBy))
+						else:
+							match.string.replaceWith(
+								match.string.replace(toSearch, replaceBy))
 			except (UnicodeEncodeError, UnicodeDecodeError):
-				match.replaceWith(match.string.replace(toSearch, replaceBy.decode(locale.getlocale()[1])))
-	if lang: locale.setlocale(locale.LC_ALL, '')
+				match.replaceWith(match.string.replace(
+					toSearch, replaceBy.decode(locale.getlocale()[1])))
+	if lang:
+		locale.setlocale(locale.LC_ALL, '')
 	return True, soup
+
 
 def applyAutoNumberHeadings(soup, before=""):
 	patternHeaders = re.compile(r"h[0-6]")
@@ -414,17 +507,20 @@ def applyAutoNumberHeadings(soup, before=""):
 	l = []
 	previousHeadingLevel = 0
 	for match in matches:
-		if  match.text.strip().startswith(internalAutoNumber):
-			match.string.replaceWith(match.string.replace(internalAutoNumber, ""))
+		if match.text.strip().startswith(internalAutoNumber):
+			match.string.replaceWith(
+				match.string.replace(internalAutoNumber, ""))
 			continue
 		currentHeadingLevel = int(match.name[-1])
-		if currentHeadingLevel == previousHeadingLevel: l[-1] += 1
+		if currentHeadingLevel == previousHeadingLevel:
+			l[-1] += 1
 		elif currentHeadingLevel < previousHeadingLevel:
 			try:
 				l = l[0:currentHeadingLevel]
 				l[-1] += 1
 			except KeyError as err:
-				log.error((repr(err), l, previousHeadingLevel, currentHeadingLevel, match.text, d))
+				log.error((repr(err), l, previousHeadingLevel,
+						   currentHeadingLevel, match.text, d))
 				return soup
 		else:
 			diff = currentHeadingLevel-previousHeadingLevel
@@ -436,28 +532,38 @@ def applyAutoNumberHeadings(soup, before=""):
 		previousHeadingLevel = currentHeadingLevel
 	return soup
 
+
 def getMetadataBlock(metadata, ignore=[]):
 	ignore_ = ["HTMLHead", "HTMLHeader", "genMetadata", "detectExtratags"]
-	metadata = {k: v for k, v in metadata.items() if ((isinstance(v, str) and v) or not isinstance(v, str)) and k not in (ignore + ignore_)}
-	dmp = yaml.dump(metadata, encoding="UTF-8", allow_unicode=True, explicit_start=True, explicit_end=True)
+	metadata = {k: v for k, v in metadata.items() if ((isinstance(
+		v, str) and v) or not isinstance(v, str)) and k not in (ignore + ignore_)}
+	dmp = yaml.dump(metadata, encoding="UTF-8", allow_unicode=True,
+					explicit_start=True, explicit_end=True)
 	return dmp.decode("UTF-8")
+
 
 def convertToMD(text, metadata, display=True):
 	title = metadata["title"]
 	dmp = getMetadataBlock(metadata) if metadata["genMetadata"] else ""
-	if metadata["detectExtratags"]: text = backTranslateExtraTags(text)
+	if metadata["detectExtratags"]:
+		text = backTranslateExtraTags(text)
 	if config.conf["markdownForever"]["markdownEngine"] == "html2markdown":
 		convert = html2markdown.convert
-	else: convert = html2text.html2text
+	else:
+		convert = html2text.html2text
 	res = ("%s\n%s" % (dmp, convert(text))).strip()
 	if display:
 		pre = (title + " - ") if title else title
-		ui.browseableMessage(res, pre + _("HTML to Markdown conversion"), False)
-	else: return res
+		ui.browseableMessage(
+			res, pre + _("HTML to Markdown conversion"), False)
+	else:
+		return res
+
 
 def copyToClipAsHTML(html):
 	winClipboard.copy(html, html=True)
 	return html == winClipboard.get(html=True)
+
 
 def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, display=True, fp=''):
 	toc = metadata["toc"]
@@ -471,17 +577,23 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 	if metadata["autonumber-headings"]:
 		content = applyAutoNumberHeadings(content)
 	if extratags:
-		ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys() else '', allowBacktranslate=metadata["extratags-back"])
-		if not ok: return wx.CallAfter(gui.messageBox, content, addonSummary, wx.OK|wx.ICON_ERROR)
+		ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys(
+		) else '', allowBacktranslate=metadata["extratags-back"])
+		if not ok:
+			return wx.CallAfter(gui.messageBox, content, addonSummary, wx.OK | wx.ICON_ERROR)
 	content = str(content.prettify()) if save else str(content)
 	if toc:
 		if internalTocTag not in content:
 			pre = '<h1 id="toc-heading">%s</h1>' % _("Table of contents")
 			content = pre + internalTocTag + content
 		content = content.replace(internalTocTag, toc)
-	else: content = content.replace(internalTocTag, "%toc%")
-	if useTemplateHTML: useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
-	if not title.strip(): title = _("Markdown to HTML conversion") + (" (%s)" % time.strftime("%X %x"))
+	else:
+		content = content.replace(internalTocTag, "%toc%")
+	if useTemplateHTML:
+		useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
+	if not title.strip():
+		title = _("Markdown to HTML conversion") + \
+			(" (%s)" % time.strftime("%X %x"))
 	if useTemplateHTML:
 		body = content
 		content = getHTMLTemplate(metadata["template"])["content"]
@@ -491,23 +603,34 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		content = content.replace("{body}", body, 1)
 	if save:
 		metadata["path"] = realpath(metadata["path"])
-		if not os.path.exists(metadata["path"]): fp = os.path.dirname(__file__) + r"\\tmp.html"
-		if not fp: fp = os.path.join(metadata["path"], "%s.html" % metadata["filename"])
+		if not os.path.exists(metadata["path"]):
+			fp = os.path.dirname(__file__) + r"\\tmp.html"
+		if not fp:
+			fp = os.path.join(metadata["path"],
+							  "%s.html" % metadata["filename"])
 		writeFile(fp, content)
-		if display: os.startfile(realpath(fp))
-	else:
-		if lang != defaultLanguage: content = "<div lang=\"%s\">%s</div>" % (lang, content)
 		if display:
-			title = f"{title} — %s" % (_("Markdown to HTML conversion (preview)") if not src else _("Markdown to HTML source conversion"))
-			if src: content = f"<pre>{escapeHTML(content)}</pre>"
+			os.startfile(realpath(fp))
+	else:
+		if lang != defaultLanguage:
+			content = "<div lang=\"%s\">%s</div>" % (lang, content)
+		if display:
+			title = f"{title} — %s" % (_("Markdown to HTML conversion (preview)") if not src else _(
+				"Markdown to HTML source conversion"))
+			if src:
+				content = f"<pre>{escapeHTML(content)}</pre>"
 			ui.browseableMessage(content, title, True)
 		else:
 			return content
 
+
 def getMarkdown2Extras(index=False, extras=None):
-	if not extras: extras = config.conf["markdownForever"]["markdown2Extras"].split(',')
-	if index: return tuple([list(EXTRAS.keys()).index(extra) for extra in extras if extra in EXTRAS.keys()])
+	if not extras:
+		extras = config.conf["markdownForever"]["markdown2Extras"].split(',')
+	if index:
+		return tuple([list(EXTRAS.keys()).index(extra) for extra in extras if extra in EXTRAS.keys()])
 	return [extra for extra in extras if extra in EXTRAS.keys()]
+
 
 def getMarkdown2ExtrasFromIndexes(extras):
 	keys = list(EXTRAS.keys())

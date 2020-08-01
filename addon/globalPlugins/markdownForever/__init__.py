@@ -1,4 +1,3 @@
-# coding: UTF-8
 """
 Markdown Forever
 
@@ -45,7 +44,7 @@ confSpecs = {
 	"detectExtratags": 'boolean(default=True)',
 	"genMetadata": 'boolean(default=True)',
 	"IM_defaultAction": 'integer(min=0, max=4, default=0)',
-	"defaultPath": 'string(default="%USERPROFILE%\documents")',
+	"defaultPath": r'string(default="%USERPROFILE%\documents")',
 	"markdownEngine": 'option("html2markdown", "html2text", default="html2text")',
 	"HTMLTemplate": 'string(default="default")',
 	"markdown2Extras": 'string(default="fenced-code-blocks,footnotes,header-ids,spoiler,strike,tables,task_list,underline,wiki-tables")',
@@ -129,7 +128,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.updateCheckThread.join()
 		if self.updateCheckThread.is_alive():
 			log.info("Update check system stopped")
-		super(GlobalPlugin, self).terminate()
+		super().terminate()
 
 	@staticmethod
 	def onHTTPServer(evt):
@@ -137,7 +136,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			HTTPServer.run()
 		host = config.conf["markdownForever"]["HTTPServer"]["host"]
 		port = config.conf["markdownForever"]["HTTPServer"]["port"]
-		os.startfile("http://{host}:{port}/".format(host=host, port=port))
+		os.startfile(f"http://{host}:{port}/")
 
 	@staticmethod
 	def onDoc(evt, lang=defaultLanguage.split('_')[0]):
@@ -265,7 +264,7 @@ class InteractiveModeDlg(wx.Dialog):
 		self.metadata, self.text = extractMetadata(text)
 		metadata = self.metadata
 		defaultAction = config.conf["markdownForever"]["IM_defaultAction"]
-		super(InteractiveModeDlg, self).__init__(parent, title=title)
+		super().__init__(parent, title=title)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)

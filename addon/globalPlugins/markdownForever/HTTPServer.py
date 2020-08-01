@@ -1,4 +1,3 @@
-# coding: UTF-8
 import codecs
 import os.path as osp
 import re
@@ -37,7 +36,7 @@ def indexOf(path):
 	out = "<h1>%s</h1><ul>" % _("Index of {path}").format(path=path)
 	for e in ls:
 		if isPath(path + e): e += '/'
-		elif not re.match("^.+\.(html?|md|txt)$", e.lower()): continue
+		elif not re.match(r"^.+\.(html?|md|txt)$", e.lower()): continue
 		out += f'<li><a href="{e}">{e}</a></li>'
 	out += "</li>"
 	return out
@@ -98,7 +97,7 @@ class Server(BaseHTTPRequestHandler):
 		content_length = int(self.headers["Content-Length"])  # <--- Gets the size of data
 		post_data = self.rfile.read(content_length)  # <--- Gets the data itself
 		self._set_response()
-		self.wfile.write("POST request for {}".format(self.path).encode("utf-8"))
+		self.wfile.write(f"POST request for {self.path}".encode("utf-8"))
 
 class CreateHTTPServer(threading.Thread):
 

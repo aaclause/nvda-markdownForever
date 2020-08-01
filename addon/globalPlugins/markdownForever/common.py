@@ -1,4 +1,3 @@
-# coding: UTF-8
 import json
 import locale
 import re
@@ -334,7 +333,7 @@ def getHTMLTemplate(name=None):
 	HTMLTemplateDir = realpath(f"{configDir}/{name}.tpl")
 	if name != "default" and os.path.isfile(HTMLTemplateDir): fp = HTMLTemplateDir
 	else: fp = os.path.join(curDir, "res", "default.tpl")
-	with open(fp, "r") as readFile:
+	with open(fp) as readFile:
 		templateEntry = json.load(readFile)
 	return templateEntry
 

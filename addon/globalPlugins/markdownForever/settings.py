@@ -1,4 +1,3 @@
-# coding: UTF-8
 import gui, wx
 import random
 import addonHandler
@@ -158,7 +157,7 @@ class ManageHTMLTemplatesDlg(gui.settingsDialogs.SettingsPanel):
 class TemplateEntryDlg(wx.Dialog):
 	# Translators: This is the label for the edit template entry dialog.
 	def __init__(self, parent=None, title=_("Edit template")):
-		super(TemplateEntryDlg, self).__init__(parent, title=title)
+		super().__init__(parent, title=title)
 		mainSizer=wx.BoxSizer(wx.VERTICAL)
 		sHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		templateNameText = _("&Name")
@@ -259,4 +258,4 @@ class AddonSettingsDialog(gui.settingsDialogs.MultiCategorySettingsDialog):
 		# Translators: title of add-on parameters dialog.
 		dialogTitle = _("Settings")
 		self.title = "%s - %s" % (addonSummary, dialogTitle)
-		super(AddonSettingsDialog,self).__init__(parent, initialCategory)
+		super().__init__(parent, initialCategory)

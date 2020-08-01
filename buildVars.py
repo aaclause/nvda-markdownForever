@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 import subprocess
 import time
 
@@ -30,7 +29,7 @@ addon_info = {
 	# version
 	"addon_version" : time.strftime('%y.%m.%d:') + hashCommit,
 	# Author(s)
-	"addon_author" : u"André <dev@andreabc.net>, Sof <hellosof@gmail.com> and other contributors",
+	"addon_author" : "André <dev@andreabc.net>, Sof <hellosof@gmail.com> and other contributors",
 	# URL for the add-on documentation support
 	"addon_url" : "https://andreabc.net/projects/NVDA_addons/markdownForever/",
 	# Documentation file name

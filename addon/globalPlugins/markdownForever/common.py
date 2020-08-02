@@ -407,7 +407,7 @@ def getHTMLTemplate(name=None):
 
 def getHTMLTemplates():
 	HTMLTemplates = config.conf["markdownForever"]["HTMLTemplates"].copy()
-	return [("minimal. " + _("Just the HTML from your Markdown")), ("Default" + _(": A minimal template provided by the add-on"))] + list(HTMLTemplates.keys())
+	return [("minimal. " + _("Just the HTML from your Markdown")), ("default. " + _("A minimal template provided by the add-on"))] + list(HTMLTemplates.keys())
 
 
 def getDefaultHTMLTemplateID(name=None):

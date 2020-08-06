@@ -4,7 +4,7 @@ author:
 autonumber-headings: 1
 css:
 - style.css
-date: Chủ nhật, 26/07/2020
+date: Thứ năm, 06/08/2020
 extratags: 1
 extratags-back: 0
 filename: doc_vi
@@ -103,7 +103,7 @@ Sử dụng các phím lệnh sau:
 
 ## Chuyển đổi HTML thành Markdown
 
-Tính năng này nỗ lực tạo ra một văn bản Markdown từ nguồn nội dung HTML. Thông thường, nó xử lý toàn bộ nội dung hiển thị trên màn hình hoặc một đoạn nào đó được chọn. Sử dụng các phím lệnh sau:
+Tính năng này cố gắng tạo ra một văn bản Markdown từ nguồn nội dung HTML. Thông thường, nó xử lý toàn bộ nội dung hiển thị trên màn hình hoặc một đoạn nào đó được chọn. Sử dụng các phím lệnh sau:
 
 - *NVDA+Alt+k*: hiển thị kết quả trên màn hình ảo của NVDA.
 - *NVDA+Shift+g*: chép kết quả vào bộ nhớ tạm.
@@ -123,12 +123,12 @@ Sau đây là mô tả màn hình của tính năng, căn cứ theo cách duyệ
 
 * "Chuyển đổi thành": hộp xổ đầu tiên này cho phép bạn chọn cách chuyển đổi: HTML, Mã nguồn HTML hoặc Markdown. Dùng các phím mũi tên lên xuống để chọn.
 * "Tạo mục lục": Hộp kiểm này sẽ cho phép bạn chọn tạo hay không tạo mục lục của các chương trong tài liệu  HTML của bạn với liên kết có thể click để đi đến chương đó. Trạng thái của tùy chọn này cũng có thể thiết lập mặc định trong [Cài đặt MarkdownForever.](#thiet-lap-mac-inh-cua-markdownforever)
-* "Nỗ lực đánh số tự động cho tiêu đề": nếu chọn, Markdown Forever sẽ nỗ lực thêm số vào trước mỗi tiêu đề (hay chương), tùy theo cấp độ của mỗi tiêu đề. Ví dụ: "1." cho tiêu đề cấp 1, "1.1." cho tiêu đề cấp 2, v...v... 
+* "Cố gắng đánh số tự động cho tiêu đề": nếu chọn, Markdown Forever sẽ cố gắng thêm số vào trước mỗi tiêu đề (hay chương), tùy theo cấp độ của mỗi tiêu đề. Ví dụ: "1." cho tiêu đề cấp 1, "1.1." cho tiêu đề cấp 2, v...v... 
 * "Bật các thẻ bổ sung": Nếu chọn, sẽ cho phép sử dụng [các thẻ đặc biệt](#cac-the-bo-sung) trong nội dung Markdown của bạn để tự chèn những thứ như ngày giờ hiện tại. Trạng thái của tùy chọn này cũng có thể thiết lập mặc định trong [Cài đặt MarkdownForever.](#thiet-lap-mac-inh-cua-markdownforever)
 * "Cho phép dịch ngược các thẻ bổ sung": tùy chọn này sẽ thể hiện có hay không việc [các thẻ bổ sung](#cac-the-bo-sung) sẽ được trả lại nguyên mẫu của nó (ví dụ: %date%) khi chuyển đổi nội dung HTML được tạo bởi Markdown Forever trở về Markdown. 
 * "Tên": bạn có thể điền	 tên cho tài liệu HTML của bạn ở đây, và nó sẽ hiển thị trên trình duyệt.
 * "Khối siêu dữ liệu tương ứng": ô có thuộc tính chỉ đọc này hiển thị 
-* "Tạo siêu dữ liệu tương ứng từ mã nguồn HTML": khi chuyển đổi một  tập tin mã nguồn HTML thành Markdown, nó nỗ lực đoán siêu dữ liệu từ mã nguồn (title - tên, lang - ngôn ngữ, filename -tên tập tin, v...v...) và tạo ra [khối siêu dữ liệu](#tuy-chon-khoi-sieu-du-lieu) cho bạn. Tùy chọn này chỉ có khi chuyển đổi HTML thành Markdown.
+* "Tạo siêu dữ liệu tương ứng từ mã nguồn HTML": khi chuyển đổi một  tập tin mã nguồn HTML thành Markdown, nó cố gắng đoán siêu dữ liệu từ mã nguồn (title - tên, lang - ngôn ngữ, filename -tên tập tin, v...v...) và tạo ra [khối siêu dữ liệu](#tuy-chon-khoi-sieu-du-lieu) cho bạn. Tùy chọn này chỉ có khi chuyển đổi HTML thành Markdown.
 * "Hiển thị trên màn hình ảo": nút này sẽ hiện nội dung đã chuyển đổi của bạn trên màn hình ảo của NVDA.
 * "Hiển thị trên trình duyệt": hiển thị nội dung đã chuyển đổi của bạn trên trình duyệt mặc định.
 * "Chép vào bộ nhớ tạm": chép nội dung đã chuyển đổi của bạn vào bộ nhớ tạm của Windows, sẵn sàng để dán.
@@ -213,7 +213,7 @@ Có thể truy cập chúng từ trình đơn NVDA -> Cài đặt MarkdownForeve
 
 * "Tạo mục lục": tùy chọn này cho phép bạn tạo hay không tạo một mục lục các chương của tài liệu HTML với liên kết dẫn tới mỗi chương. Lựa chọn này cũng có thể thiết lập trên một tài liệu cụ thể bằng cách dùng khóa "toc" trong phần [tùy chọn khối siêu dữ liệu](#tuy-chon-khoi-sieu-du-lieu) và đặt ở bất cứ đâu bằng cách dùng [các thẻ bổ sung tương ứng.](#cac-the-bo-sung)
 * "Bật các thẻ bổ sung": nếu chọn,, nó sẽ bật khả năng sử dụng [các thẻ đặc biệt](#cac-the-bo-sung) trong nội dung Markdown của bạn để tự chèn những thứ như ngày giờ hiện tại. Lựa chọn này cũng có thể thiết lập trên một tài liệu cụ thể bằng cách dùng khóa các thẻ bổ sung trong [tùy chọn khối siêu dữ liệu.](#tuy-chon-khoi-sieu-du-lieu)
-* "Tạo siêu dữ liệu tương ứng từ mã nguồn HTML": khi chuyển đổi một tập tin mã nguồn HTML qua Markdown, nó sẽ nỗ lực đoán siêu dữ liệu từ mã nguồn (title - tên, lang - ngôn ngữ, filename - tên tập tin, v...v...) và tạo ra [khối siêu dữ liệu](#tuy-chon-khoi-sieu-du-lieu) cho bạn.
+* "Tạo siêu dữ liệu tương ứng từ mã nguồn HTML": khi chuyển đổi một tập tin mã nguồn HTML qua Markdown, nó sẽ cố gắng đoán siêu dữ liệu từ mã nguồn (title - tên, lang - ngôn ngữ, filename - tên tập tin, v...v...) và tạo ra [khối siêu dữ liệu](#tuy-chon-khoi-sieu-du-lieu) cho bạn.
 * "Hành động mặc định trong chế độ tương tác": cho phép chọn hành động mặc định sẽ được thực hiện khi bấm phím Enter trong [Chế độ tương tác:](#che-o-tuong-tac) hiển thị nội dung đã tạo trên trình duyệt, trên màn hình ảo hay chép vào bộ nhớ tạm.
 * "Bộ công cụ Markdown": MarkdownForever cho phép bạn chọn giữa hai bộ chuyển đổi, [HTML2Text](https://pypi.org/project/html2text/) và [HTML2Markdown.](https://pypi.org/project/html2markdown/) Chỉ việc thử nghiệm và chọn cái nào bạn thích, căn cứ trên nhu cầu của bạn hoặc kết quả cho ra.
 * "Markdown2 bổ sung": xem <https://github.com/trentm/python-markdown2/wiki/Extras>.

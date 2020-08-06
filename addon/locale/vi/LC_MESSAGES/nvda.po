@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: markdownForever 20.06.27:23adac4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-06-27 00:14+0200\n"
-"PO-Revision-Date: 2020-07-31 14:05+0700\n"
+"PO-Revision-Date: 2020-08-06 22:30+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: Vietnamese <dangmanhcuong@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -174,7 +174,7 @@ msgstr "&Tạo mục lục"
 #: addon/globalPlugins/markdownForever/__init__.py:253
 #: addon/globalPlugins/markdownForever/settings.py:21
 msgid "Try to automatically &number headings"
-msgstr "Nỗ lực đánh &số tự động cho tiêu đề"
+msgstr "Cố gắng đánh &số tự động cho tiêu đề"
 
 #: addon/globalPlugins/markdownForever/__init__.py:257
 #: addon/globalPlugins/markdownForever/settings.py:25

@@ -123,7 +123,7 @@ Sau đây là mô tả màn hình của tính năng, căn cứ theo cách duyệ
 
 * "Chuyển đổi thành": hộp xổ đầu tiên này cho phép bạn chọn cách chuyển đổi: HTML, Mã nguồn HTML hoặc Markdown. Dùng các phím mũi tên lên xuống để chọn.
 * "Tạo mục lục": Hộp kiểm này sẽ cho phép bạn chọn tạo hay không tạo mục lục của các chương trong tài liệu  HTML của bạn với liên kết có thể click để đi đến chương đó. Trạng thái của tùy chọn này cũng có thể thiết lập mặc định trong [Cài đặt MarkdownForever.](#thiet-lap-mac-inh-cua-markdownforever)
-* "cố gắng đánh số tự động cho tiêu đề": nếu chọn, Markdown Forever sẽ cố gắng thêm số vào trước mỗi tiêu đề (hay chương), tùy theo cấp độ của mỗi tiêu đề. Ví dụ: "1." cho tiêu đề cấp 1, "1.1." cho tiêu đề cấp 2, v...v... 
+* "Cố gắng đánh số tự động cho tiêu đề": nếu chọn, Markdown Forever sẽ cố gắng thêm số vào trước mỗi tiêu đề (hay chương), tùy theo cấp độ của mỗi tiêu đề. Ví dụ: "1." cho tiêu đề cấp 1, "1.1." cho tiêu đề cấp 2, v...v... 
 * "Bật các thẻ bổ sung": Nếu chọn, sẽ cho phép sử dụng [các thẻ đặc biệt](#cac-the-bo-sung) trong nội dung Markdown của bạn để tự chèn những thứ như ngày giờ hiện tại. Trạng thái của tùy chọn này cũng có thể thiết lập mặc định trong [Cài đặt MarkdownForever.](#thiet-lap-mac-inh-cua-markdownforever)
 * "Cho phép dịch ngược các thẻ bổ sung": tùy chọn này sẽ thể hiện có hay không việc [các thẻ bổ sung](#cac-the-bo-sung) sẽ được trả lại nguyên mẫu của nó (ví dụ: %date%) khi chuyển đổi nội dung HTML được tạo bởi Markdown Forever trở về Markdown. 
 * "Tên": bạn có thể điền	 tên cho tài liệu HTML của bạn ở đây, và nó sẽ hiển thị trên trình duyệt.

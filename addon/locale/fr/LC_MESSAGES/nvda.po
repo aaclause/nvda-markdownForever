@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: MarkdownForever 19.03.25-101339\n"
+"Project-Id-Version: MarkdownForever 20.08.02-74c6101\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-08-02 20:15+0200\n"
-"PO-Revision-Date: 2020-08-02 20:19+0200\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2020-08-08 18:13+0200\n"
+"Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,7 @@ msgstr "Menu documentation"
 
 #: addon\globalPlugins\markdownForever\__init__.py:86
 msgid "Open the add-on documentation in this language."
-msgstr "Affiche la documentation de l’extension dans cette langue."
+msgstr "Ouvrir la documentation de l’extension dans cette langue."
 
 #. Translators: title of add-on parameters dialog.
 #: addon\globalPlugins\markdownForever\__init__.py:90
@@ -88,7 +88,7 @@ msgstr "&Site web"
 
 #: addon\globalPlugins\markdownForever\__init__.py:104
 msgid "Open the add-on website."
-msgstr "Affiche le site web de l’extension."
+msgstr "Ouvrir le site web de l’extension."
 
 #: addon\globalPlugins\markdownForever\__init__.py:107
 msgid "&Markdown Forever"
@@ -301,32 +301,38 @@ msgstr "Conversion sans pertes de HTML vers Markdown"
 
 #: addon\globalPlugins\markdownForever\common.py:57
 msgid "Replace single new line characters with <br> when True"
-msgstr ""
+msgstr "Remplacer les caractère de saut de ligne uniques par <br> si à True"
 
 #: addon\globalPlugins\markdownForever\common.py:58
 msgid "Disable _ and __ for em and strong"
-msgstr ""
+msgstr "Désactiver _ et __ pour em et strong"
 
 #: addon\globalPlugins\markdownForever\common.py:59
 msgid "Allow lists to be cuddled to the preceding paragraph"
-msgstr ""
+msgstr "Permettre  aux listes d’être liées au paragraphe précédent"
 
 #: addon\globalPlugins\markdownForever\common.py:60
 msgid ""
 "Allows a code block to not have to be indented by fencing it with '```' on a "
 "line before and after"
 msgstr ""
+"Permet à un bloc de code de ne pas avoir à être en retrait par une "
+"délimitation ’```’ dans une ligne avant et après"
 
 #: addon\globalPlugins\markdownForever\common.py:61
 msgid ""
 "Support footnotes as in use on daringfireball.net and implemented in other "
 "Markdown processors (tho not in Markdown.pl v1.0.1)"
 msgstr ""
+"Support des notes de bas de page dans daringfireball.net et mises en œuvre "
+"dans d’autres moteurs Markdown (mais pas dans Markdown.pl v1.0.1)"
 
 #: addon\globalPlugins\markdownForever\common.py:62
 msgid ""
 "Adds \"id\" attributes to headers. The id value is a slug of the header text"
 msgstr ""
+"Ajoute des attributs \"id\" dans les titres. La valeur de l’id est basé sur "
+"le texte du titre"
 
 #: addon\globalPlugins\markdownForever\common.py:63
 msgid ""
@@ -334,52 +340,68 @@ msgid ""
 "\"class\" tag attribute. Currently only supports \"pre\", \"code\", \"table"
 "\" and \"img\" tags"
 msgstr ""
+"Prend un dictionaire qui met en correspondance des noms de balises html (en "
+"minuscules) avec une chaîne de caractères à utiliser pour un attribut de "
+"balise \"class\". À l’heure actuelle, seul les balises \"pre\", \"code\", "
+"\"table\" et \"img\" son pris en charge"
 
 #: addon\globalPlugins\markdownForever\common.py:64
 msgid ""
 "Auto-link given regex patterns in text (e.g. bug number references, revision "
 "number references)"
 msgstr ""
+"Lien automatique basés sur des expressions régulières dans le texte (par "
+"exemple, références de numéros de bogues, références de numéros de révision)"
 
 #: addon\globalPlugins\markdownForever\common.py:65
 msgid ""
 "Allow the use of markdown=\"1\" in a block HTML tag to have markdown "
 "processing be done on its contents"
 msgstr ""
+"Permettre l’utilisation de markdown=\"1\" dans un bloc de balises HTML pour "
+"que le contenu soit soumis à un traitement markdown"
 
 #: addon\globalPlugins\markdownForever\common.py:66
 msgid "Add rel=\"nofollow\" to all <a> tags with an href."
-msgstr ""
+msgstr "Ajouter rel=\"nofollow\" à toutes les balises <a> ayant un href."
 
 #: addon\globalPlugins\markdownForever\common.py:67
 msgid "Create counters to number tables, figures, equations and graphs"
 msgstr ""
+"Créer des compteurs pour les tableaux numérotés, images, formules et "
+"graphiques"
 
 #: addon\globalPlugins\markdownForever\common.py:68
 msgid "Treats unindented Python interactive shell sessions as <code> blocks"
 msgstr ""
+"Traite les sessions shell interactives Python non indentées comme des blocs "
+"<code>"
 
 #: addon\globalPlugins\markdownForever\common.py:69
 msgid "Fancy quote, em-dash and ellipsis handling"
 msgstr ""
+"Applique des remplacements par des paires de guillemet, tirets longs et des "
+"points de suspension"
 
 #: addon\globalPlugins\markdownForever\common.py:70
 msgid "A special kind of blockquote commonly hidden behind a click on SO"
-msgstr ""
+msgstr "Un bloc de citation particulier caché derrière un clic"
 
 #: addon\globalPlugins\markdownForever\common.py:71
 msgid "Parse ~~strikethrough~~ formatting"
-msgstr ""
+msgstr "Traite le formattage ~~barré~~"
 
 #: addon\globalPlugins\markdownForever\common.py:72
 msgid ""
 "Add target=\"_blank\" to all <a> tags with an href. This causes the link to "
 "be opened in a new tab upon a click"
 msgstr ""
+"Ajouter target=\"_blank\" à toutes les balises <a> ayant un href. Ce qui "
+"provoque l’ouverture du lien dans un nouvel onglet lors d’un clic"
 
 #: addon\globalPlugins\markdownForever\common.py:73
 msgid "Tables using the same format as GFM and PHP-Markdown Extra"
-msgstr ""
+msgstr "Tableaux en utilisant le même format que GFM et PHP-Markdown Extra"
 
 #: addon\globalPlugins\markdownForever\common.py:74
 msgid ""
@@ -390,19 +412,20 @@ msgstr ""
 
 #: addon\globalPlugins\markdownForever\common.py:75
 msgid "Allows github-style task lists (i.e. check boxes)"
-msgstr ""
+msgstr "Support des listes de tâches github (à savoir des cases à cocher)"
 
 #: addon\globalPlugins\markdownForever\common.py:76
 msgid "Parse --underline-- formatting"
-msgstr ""
+msgstr "Traite le formattage --souligné--"
 
 #: addon\globalPlugins\markdownForever\common.py:77
 msgid "Look for an Emacs-style markdown-extras file variable to turn on Extras"
 msgstr ""
+"Recherchez une variable de type Emacs markdown-extras pour activer les Extras"
 
 #: addon\globalPlugins\markdownForever\common.py:78
 msgid "Google Code Wiki table syntax support"
-msgstr ""
+msgstr "Support de la syntaxe des tableaux Google Wiki Code"
 
 #: addon\globalPlugins\markdownForever\common.py:79
 msgid "Passes one-liner processing instructions and namespaced XML tags"
@@ -434,8 +457,8 @@ msgstr "Un gabarit minimal fourni par l’extension"
 msgid ""
 "Metadata and extra tags error. '%s' value was not recognized for lang field."
 msgstr ""
-"Erreur de métadonnées et de super-balises : la valeur ’%s’ n’a pas été "
-"reconnu pour le champ lang."
+"Erreur de métadonnées et de super-balises : la valeur '%s' n’a pas été "
+"reconnue pour le champ lang."
 
 #: addon\globalPlugins\markdownForever\common.py:585
 msgid "Table of contents"

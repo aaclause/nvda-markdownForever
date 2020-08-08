@@ -4,7 +4,7 @@ author:
 autonumber-headings: 1
 css:
 - style.css
-date: martes 19 de mayo de 2020
+date: martes 4 de agosto de 2020
 extratags: 1
 extratags-back: 0
 filename: doc_es
@@ -160,7 +160,7 @@ El Bloque de metadatos te permite establecer  los ajustes específicos para un d
 ```
 ---
 title: Un simple título
-date: 19 de mayo de 2020
+date: 4 de agosto de 2020
 subtitle: Aquí es el subtítulo de tu documento
 lang: en
 author:
@@ -235,6 +235,7 @@ Estos son accesibles desde el menú de NVDA -> Preferencias -> MarkdownForever -
 	- Victor Cai: traducción al chino.
 	- Çağrı Dogan: traducción al turco.
 	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: traducción al español.
+	- Dang Manh Cuong &lt;<dangmanhcuong@gmail.com>&gt;: traducción vietnamita.
 	- ¡Y muchos otros!
 * Licencia: Licencia Pública General de GNU, versión 2
 * Descargar [versión stable](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)

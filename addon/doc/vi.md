@@ -4,7 +4,7 @@ author:
 autonumber-headings: 1
 css:
 - style.css
-date: Thứ năm, 06/08/2020
+date: Thứ bảy, 05/09/2020
 extratags: 1
 extratags-back: 0
 filename: doc_vi
@@ -41,7 +41,7 @@ Theo Wikipedia,
 
 Bạn có thể tìm hiểu thêm về Markdown bằng cách đọc [bài viết đầy đủ trên Wikipedia.](https://vi.wikipedia.org/wiki/Markdown)
 
-Như vậy, thay vì viết tài liệu web bằng HTML với nguy cơ tạo ra tài liệu bị lỗi, bạn sẽ dùng các thẻ dễ nhớ hơn và công việc của bạn sẽ hoàn thành nhanh chóng. Với Markdown, bạn sẽ làm được nhiều hoặc ít hơn những gì  HTML có thể làm: tiêu đề, danh sách có thứ tự (số đếm) hoặc không thứ tự (buleted), liên kết, thậm chí là bảng biểu.
+Như vậy, thay vì viết tài liệu web bằng HTML với nguy cơ bị lỗi, bạn sẽ dùng các thẻ dễ nhớ hơn và công việc của bạn sẽ hoàn thành nhanh chóng. Với Markdown, bạn sẽ làm được ít nhiều những gì  HTML có thể làm: tiêu đề, danh sách có thứ tự (số đếm) hoặc không thứ tự (các dấu đầu dòng), liên kết, thậm chí là bảng biểu.
 
 Ví dụ, muốn làm tiêu đề cấp 1, bạn sẽ viết một dấu thăng (#), sau đó là tên của tiêu đề, có hoặc không có khoảng trắng giữa chúng:
 
@@ -87,8 +87,8 @@ Tính năng này cho phép bạn chuyển nội dung Markdown hiển thị trên
 
 Bạn có thể dùng các phím lệnh sau:
 
-- *NVDA+ALT+b*: kết quả hiển thị như trang web trên trình duyệt web mặc định của bạn.
-- *NVDA+ALT+n*: kết quả hiển thị như trang web  trên màn hình ảo của NVDA.
+- *NVDA+ALT+b*: kết quả hiển thị dưới dạng trang web trên trình duyệt web mặc định của bạn.
+- *NVDA+ALT+n*: kết quả hiển thị dưới dạng trang web  trên màn hình ảo của NVDA.
 
 Xin lưu ý rằng lựa chọn hiển thị trên trình duyệt được khuyên dùng thay cho việc hiển thị trên màn hình ảo của NVDA. Một số thẻ, cụ thể là thẻ  HTML5 như `<details>,` chưa được hỗ trợ trên màn hình ảo.
 
@@ -119,7 +119,7 @@ Lưu ý rằng *định dạng HTML* có thể dán vào các ứng dụng như 
 ## Chế độ tương tác
 
 Chế độ tương tác là một chức năng dùng để trình bày tất cả tính năng của MarkdownForever trong một hộp thoại, cung cấp cho bạn các tính năng bổ sung tiện lợi hơn. Để mở chế độ này, bấm NVDA+CTRL+i.
-Sau đây là mô tả màn hình của tính năng, căn cứ theo cách duyệt bằng Tab:
+Sau đây là mô tả màn hình của tính năng, theo cách duyệt bằng Tab:
 
 * "Chuyển đổi thành": hộp xổ đầu tiên này cho phép bạn chọn cách chuyển đổi: HTML, Mã nguồn HTML hoặc Markdown. Dùng các phím mũi tên lên xuống để chọn.
 * "Tạo mục lục": Hộp kiểm này sẽ cho phép bạn chọn tạo hay không tạo mục lục của các chương trong tài liệu  HTML của bạn với liên kết có thể click để đi đến chương đó. Trạng thái của tùy chọn này cũng có thể thiết lập mặc định trong [Cài đặt MarkdownForever.](#thiet-lap-mac-inh-cua-markdownforever)
@@ -149,7 +149,7 @@ Khối siêu dữ liệu cho phép bạn thiết lập vài tham số nhất đ�
 * filename: quy định tên của tập tin khi lưu lại.
 * keywords: quy định các từ khóa liên quan đến những chủ đề được nói đến trong tài liệu của bạn.
 * lang: quy định ngôn ngữ chính cho tài liệu. Nếu cần, hãy dùng các thẻ span/div với thuộc tính lang để xác định các thay đổi ngôn ngữ, ngay bên trong tài liệu.
-* mathjax: xác định có hay không việc  chuyển đổi các công thức toán viết bằng [LaTeX](https://en.wikipedia.org/wiki/LaTeX). Có các giá trị: true (1) tức là có hoặc false (0) tức là không. Yêu cầu có kết nối mạng và bạn phải mở kết quả được chuyển đổi trên trình duyệt để hiển thị nó một cách chính xác, vì nội dung LaTeX được thông dịch không thể xuất ra màn hình ảo của NVDA.
+* mathjax: xác định có hay không việc  chuyển đổi các công thức toán viết bằng [LaTeX](https://vi.wikipedia.org/wiki/LaTeX). Có các giá trị: true (1) tức là có hoặc false (0) tức là không. Yêu cầu có kết nối mạng và bạn phải mở kết quả được chuyển đổi trên trình duyệt để hiển thị nó một cách chính xác, vì nội dung LaTeX được thông dịch không thể xuất ra màn hình ảo của NVDA.
 [Bấm vào đây để biết thêm thông tin về MathJax.](http://docs.mathjax.org/en/latest/)
 * path: chỉ ra thư mục để lưu tài liệu. Có hỗ trợ các biến môi trường %userprofile%, %appdata% và %tmp%.
 * subtitle:  ghi ra tên phụ cho tài liệu HTML của bạn. Thông tin này sẽ được thêm vào phần đầu của tập tin HTML.
@@ -245,4 +245,4 @@ Có thể truy cập chúng từ trình đơn NVDA -> Cài đặt MarkdownForeve
 * Tải về [phiên bản chính thức](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
 * Tải về [phiên bản thử nghiệm](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
 * Kho chứa trên GitHub: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
-* **Included dependencies**:
+* **Các thư viện được bao gồm trong add-on**:

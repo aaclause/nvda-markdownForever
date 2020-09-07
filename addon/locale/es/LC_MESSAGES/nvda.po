@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: MarkdownForever 20.08.02-74c6101\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-08-05 14:14+0200\n"
-"PO-Revision-Date: 2020-08-07 00:35+0200\n"
+"PO-Revision-Date: 2020-08-10 14:53+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -214,7 +214,7 @@ msgstr "S&ubtítulo:"
 #: addon/globalPlugins/markdownForever/__init__.py:339
 #: addon/globalPlugins/markdownForever/settings.py:60
 msgid "Pat&h:"
-msgstr "Ru&ta:"
+msgstr "&Directorio:"
 
 #: addon/globalPlugins/markdownForever/__init__.py:346
 msgid "Bro&wse..."
@@ -299,7 +299,8 @@ msgstr "Conversión sin pérdida de HTML hacia Markdown"
 
 #: addon/globalPlugins/markdownForever/common.py:57
 msgid "Replace single new line characters with <br> when True"
-msgstr "Reemplaza solo caracteres en nueva línea con <br> cuando está True"
+msgstr ""
+"Reemplaza los caracteres de salto de línea únicos con <br> si está True"
 
 #: addon/globalPlugins/markdownForever/common.py:58
 msgid "Disable _ and __ for em and strong"
@@ -322,15 +323,15 @@ msgid ""
 "Support footnotes as in use on daringfireball.net and implemented in other "
 "Markdown processors (tho not in Markdown.pl v1.0.1)"
 msgstr ""
-"Soporte de notas al pie como se usa en daringfireball.net e implementados en "
-"otros procesadores Markdown (aunque no en Markdown.pl v1.0.1)"
+"Soporte de notas al pie de página como se usa en daringfireball.net e "
+"implementados en otros motores de Markdown (aunque no en Markdown.pl v1.0.1)"
 
 #: addon/globalPlugins/markdownForever/common.py:62
 msgid ""
 "Adds \"id\" attributes to headers. The id value is a slug of the header text"
 msgstr ""
-"Añadir atributos \"id\" en los títulos. El valor del id es parte del texto "
-"contenido en el título"
+"Añade los atributos \"id\" en los títulos. El valor del id se basa en el "
+"texto del título"
 
 #: addon/globalPlugins/markdownForever/common.py:63
 msgid ""
@@ -339,7 +340,7 @@ msgid ""
 "\" and \"img\" tags"
 msgstr ""
 "Toma un diccionario de mapeo de los nombres de las etiquetas html (en "
-"minúsculas) en una cadena que se utilizará para una etiqueta de atributo "
+"minúsculas) con una cadena que se utilizará para un atributo de etiqueta "
 "\"class\". Actualmente, sólo se soporta las etiquetas \"pre\", \"code\", "
 "\"table\" y \"img\""
 
@@ -348,57 +349,53 @@ msgid ""
 "Auto-link given regex patterns in text (e.g. bug number references, revision "
 "number references)"
 msgstr ""
-"Auto-link en los patrones de expresiones regulares dadas en el contenido del "
-"texto (por ejemplo, bug number references, revision number references)"
+"Enlace automatico basado en expresiones regulares en el texto (por ejemplo, "
+"référencias de número de errores, référencias de número de revisión)"
 
 #: addon/globalPlugins/markdownForever/common.py:65
 msgid ""
 "Allow the use of markdown=\"1\" in a block HTML tag to have markdown "
 "processing be done on its contents"
 msgstr ""
-"Permitir el uso de markdown=\"1\" en un bloque para el manejo de las "
-"etiquetas HTML para tener el procesamiento en markdown ejecutado sobre su "
-"contenido"
+"Permitir el uso de markdown=\"1\" en un bloque de etiquetas HTML para que el "
+"contenido sea sujeto a un tratamiento markdown"
 
 #: addon/globalPlugins/markdownForever/common.py:66
 msgid "Add rel=\"nofollow\" to all <a> tags with an href."
-msgstr "Añadir rel=\"nofollow\" a todas las etiquetas <a> con un href."
+msgstr "Añadir rel=\"nofollow\" a todas las etiquetas <a> teniendo un href."
 
 #: addon/globalPlugins/markdownForever/common.py:67
 msgid "Create counters to number tables, figures, equations and graphs"
 msgstr ""
-"Crear un contador para la numeración de las tablas, imágenes, fórmulas y "
-"gráficos"
+"Crear contadores para las tablas numeradas, imágenes, fórmulas y gráficos"
 
 #: addon/globalPlugins/markdownForever/common.py:68
 msgid "Treats unindented Python interactive shell sessions as <code> blocks"
 msgstr ""
-"Se usa para tratar sin sangría en las sesiones del intérprete interactivo de "
-"Python como los bloques <code>"
+"Trata las sesiones del intérprete interactivo de Python sin sangría como los "
+"bloques <code>"
 
 #: addon/globalPlugins/markdownForever/common.py:69
 msgid "Fancy quote, em-dash and ellipsis handling"
 msgstr ""
-"Se usa para el manejo de una cita favorita, un guión largo y los puntos "
+"Aplica reemplazos por pares de comillas, guiones largos y los puntos "
 "suspensivos"
 
 #: addon/globalPlugins/markdownForever/common.py:70
 msgid "A special kind of blockquote commonly hidden behind a click on SO"
-msgstr ""
-"Un tipo especial de blockquote que se oculta por lo general detrás de un "
-"clic en SO"
+msgstr "Un bloque de cita particular que se oculta detrás de un clic"
 
 #: addon/globalPlugins/markdownForever/common.py:71
 msgid "Parse ~~strikethrough~~ formatting"
-msgstr "Análisis del formateado de ~~strikethrough~~"
+msgstr "Trata el formateado de ~~barrado~~"
 
 #: addon/globalPlugins/markdownForever/common.py:72
 msgid ""
 "Add target=\"_blank\" to all <a> tags with an href. This causes the link to "
 "be opened in a new tab upon a click"
 msgstr ""
-"Añadir target=\"_blank\" a todas las etiquetas <a> con un href. Esto hace "
-"que el enlace se abrá en una nueva pestaña en un clic"
+"Añadir target=\"_blank\" a todas las etiquetas <a> teniendo un href. Esto "
+"hace que el enlace se abrá en una nueva pestaña al hacer clic"
 
 #: addon/globalPlugins/markdownForever/common.py:73
 msgid "Tables using the same format as GFM and PHP-Markdown Extra"
@@ -410,35 +407,34 @@ msgid ""
 "text. Useful for applications that require twitter style tags to pass "
 "through the parser"
 msgstr ""
-"Requiere encabezados de estilo atx para tener un espacio entre el # y el "
-"texto contenido en el título. Útil para aplicaciones que requieren el tipo "
-"de etiquetas de estilo de twitter para pasar a través del analizador"
+"Requiere encabezados de tipo atx para tener un espacio entre el # y el texto "
+"del título. Útil para aplicaciones que requieren el tipo de etiquetas de "
+"twitter para pasar a través del analizador"
 
 #: addon/globalPlugins/markdownForever/common.py:75
 msgid "Allows github-style task lists (i.e. check boxes)"
 msgstr ""
-"Permitir tipo de lista de tareas de estilo github (es decir, casillas de "
-"verificación)"
+"Soporte de listas de tareas de github (es decir, casillas de verificación)"
 
 #: addon/globalPlugins/markdownForever/common.py:76
 msgid "Parse --underline-- formatting"
-msgstr "Análisis del formateado de --underline--"
+msgstr "Trata el formateado de --subrayado--"
 
 #: addon/globalPlugins/markdownForever/common.py:77
 msgid "Look for an Emacs-style markdown-extras file variable to turn on Extras"
 msgstr ""
-"Encuentra una variable para el tipo de archivo de estilo Emacs de markdown-"
-"extras para habilitar Extras"
+"Encuentra una variable de tipo Emacs markdown-extras para habilitar los "
+"Extras"
 
 #: addon/globalPlugins/markdownForever/common.py:78
 msgid "Google Code Wiki table syntax support"
-msgstr "Apoyo de sintaxis para las tablas de Google Code Wiki"
+msgstr "Soporte de sintaxis de tablas de Google Wiki Code"
 
 #: addon/globalPlugins/markdownForever/common.py:79
 msgid "Passes one-liner processing instructions and namespaced XML tags"
 msgstr ""
-"Pasar las instrucciones de procesamiento de las etiquetas one-liner y "
-"namespaced XML"
+"Saltar las instrucciones de tratamiento de las etiquetas XML one-liner y "
+"namespaced"
 
 #: addon/globalPlugins/markdownForever/common.py:157
 msgid "Invalid file path"
@@ -455,7 +451,7 @@ msgstr "No se ha podido incluir “{filePath}”"
 
 #: addon/globalPlugins/markdownForever/common.py:410
 msgid "Just the HTML from your Markdown"
-msgstr "Justo el HTML desde tu Markdown"
+msgstr "Justo el HTML a partir de tu Markdown"
 
 #: addon/globalPlugins/markdownForever/common.py:410
 msgid "A minimal template provided by the add-on"

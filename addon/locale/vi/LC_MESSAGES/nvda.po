@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: markdownForever 20.06.27:23adac4\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2020-08-02 20:19+0200\n"
-"PO-Revision-Date: 2020-08-06 23:26+0700\n"
+"POT-Creation-Date: 2020-08-08 18:15+0200\n"
+"PO-Revision-Date: 2020-08-21 13:18+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: Vietnamese <dangmanhcuong@gmail.com>\n"
 "Language: vi\n"
@@ -295,7 +295,7 @@ msgstr "Chuyển html thành markdown"
 
 #: addon/globalPlugins/markdownForever/common.py:57
 msgid "Replace single new line characters with <br> when True"
-msgstr "Thay thế kí tự dòng mới đơn với <br> khi đúng"
+msgstr "Thay thế kí tự dòng mới đơn với <br> khi True"
 
 #: addon/globalPlugins/markdownForever/common.py:58
 msgid "Disable _ and __ for em and strong"

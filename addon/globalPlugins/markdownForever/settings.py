@@ -1,25 +1,69 @@
-from . import HTTPServer
-from .common import *
+# Part of Markdown Forever Add-on for NVDA
+# This file is covered by the GNU General Public License.
+# See the file LICENSE for more details.
+# Copyright 2019-2021 André-Abush Clause, Sof and other contributors. Released under GPL.
+# <https://github.com/aaclause/nvda-markdownForever>
+
+import json
+import os
+import random
+import re
 import gui
 import wx
-import random
-import addonHandler
-addonHandler.initTranslation()
 
+import addonHandler
+import config
+
+from . import HTTPServer
+from .common import (addonSummary, configDir,
+	IM_actionLabels, IM_actions,
+	markdownEngines, markdownEngineLabels,
+	EXTRAS, getMarkdown2Extras, getMarkdown2ExtrasFromIndexes,
+	getHTMLTemplates, getHTMLTemplate,
+	getDefaultHTMLTemplateID, getHTMLTemplateFromID,
+	realpath, minCharTemplateName, maxCharTemplateName,
+	translate_back_toc)
+
+addonHandler.initTranslation()
 
 class GeneralDlg(gui.settingsDialogs.SettingsPanel):
 	title = _("General")
+	updateChannels = ["stable", "dev"]
 
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		bHelper = gui.guiHelper.ButtonHelper(orientation=wx.HORIZONTAL)
 
+		# Translators: label of a dialog.
+		choices = [
+			_("stable channel, automatic check"),
+			_("dev channel, automatic check"),
+			_("stable channel, manual check"),
+			_("dev channel, manual check"),
+		]
+		self.updateCheck = sHelper.addLabeledControl(_("Check for &updates:"), wx.Choice, choices=choices)
+		if config.conf["markdownForever"]["updateChannel"] in self.updateChannels:
+			itemToSelect = self.updateChannels.index(config.conf["markdownForever"]["updateChannel"])
+		else:
+			itemToSelect = self.updateChannels.index("stable")
+		if not config.conf["markdownForever"]["autoCheckUpdate"]: itemToSelect += len(self.updateChannels)
+		self.updateCheck.SetSelection(itemToSelect)
+
+
 		tableOfContentsText = _("&Generate a table of contents")
 		markdownEngine = config.conf["markdownForever"]["markdownEngine"]
 		self.tableOfContentsCheckBox = sHelper.addItem(
 			wx.CheckBox(self, label=tableOfContentsText))
-		self.tableOfContentsCheckBox.SetValue(
-			config.conf["markdownForever"]["toc"])
+		self.tableOfContentsCheckBox.SetValue(config.conf["markdownForever"]["toc"])
+
+		tableOfContentsBackText = _('Choose where add "Bac&k to Table of Contents" links')
+		choices = []
+		for i in range(1, 7):
+			choices.append(_("Before level %d headings") % i)
+			choices.append(_("After level %d headings") % i)
+		self.tableOfContentsBackList = sHelper.addLabeledControl(tableOfContentsBackText, gui.nvdaControls.CustomCheckListBox, choices=choices)
+		checked_items = translate_back_toc(config.conf["markdownForever"]["toc-back"], True)
+		self.tableOfContentsBackList.CheckedItems = checked_items
 
 		numberHeadingsText = _("Try to automatically &number headings")
 		self.numberHeadingsCheckBox = sHelper.addItem(
@@ -79,6 +123,15 @@ class GeneralDlg(gui.settingsDialogs.SettingsPanel):
 		dlg.Destroy()
 
 	def onSave(self):
+		updateCheckChoice = self.updateCheck.GetSelection()
+		size = len(self.updateChannels)
+		config.conf["markdownForever"]["autoCheckUpdate"] = updateCheckChoice < size
+		config.conf["markdownForever"]["updateChannel"] = self.updateChannels[updateCheckChoice % size]
+
+		tableOfContentsBackList = self.tableOfContentsBackList.CheckedItems
+		tableOfContentsBackList = translate_back_toc(tableOfContentsBackList)
+		config.conf["markdownForever"]["toc-back"] = tableOfContentsBackList
+
 		defaultPath = self.defaultPath.GetValue()
 		if not os.path.exists(realpath(defaultPath)):
 			return self.defaultPath.SetFocus()
@@ -156,8 +209,11 @@ class ManageHTMLTemplatesDlg(gui.settingsDialogs.SettingsPanel):
 		templateName = getHTMLTemplates()[editIndex]
 		entryDialog.templateName.SetValue(
 			templateName if editIndex else "default")
-		templateEntry = getHTMLTemplate(
-			templateName if editIndex else "default")
+		templateEntry = None
+		try:
+			templateEntry = getHTMLTemplate(		templateName if editIndex else "default")
+		except json.decoder.JSONDecodeError:
+			templateEntry = getHTMLTemplate("default")
 		entryDialog.templateDescription.SetValue(templateEntry["description"])
 		entryDialog.templateContent.SetValue(templateEntry["content"])
 		if entryDialog.ShowModal() == wx.ID_OK:

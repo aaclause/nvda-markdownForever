@@ -1,3 +1,9 @@
+# Part of Markdown Forever Add-on for NVDA
+# This file is covered by the GNU General Public License.
+# See the file LICENSE for more details.
+# Copyright 2019-2022 André-Abush Clause, Sof and other contributors. Released under GPL.
+# <https://github.com/aaclause/nvda-markdownForever>
+
 from . import virtualDocuments
 from logHandler import log
 import ui
@@ -119,8 +125,6 @@ def getWindowTitle():
 	title = obj.name
 	if not isinstance(title, str) or not title or title.isspace():
 		title = obj.appModule.appName if obj.appModule else None
-		if not isinstance(title, str) or not title or title.isspace():
-			title = _("No title")
 	return title
 
 
@@ -161,7 +165,6 @@ def getText():
 		ctx.verify_mode = ssl.CERT_NONE
 		try:
 			req = Request(text)
-			req.add_header("user-agent", "private")
 			req.add_header("Accept", "text/html")
 			req.add_header("Accept-encoding", "identity")
 			j = urlopen(req, context=ctx)
@@ -227,16 +230,11 @@ def escapeHTML(text):
 	return "".join(chars.get(c, c) for c in text)
 
 
-def md2HTML(md, toc, ol=True):
+def md2HTML(md, metadata=None):
 	extras = getMarkdown2Extras()
-	if toc:
+	if metadata and metadata["toc"]:
 		extras.append("toc")
-	res = markdown2.markdown(md, extras=extras)
-	toc = '<nav role="doc-toc" id="doc-toc">%s</nav>' % res.toc_html if res.toc_html and res.toc_html.count(
-		"<li>") > 1 else ''
-	if ol:
-		toc = toc.replace("<ul>", "<ol>").replace("</ul>", "</ol>")
-	return res, toc
+	return markdown2.markdown(md, extras=extras)
 
 
 def writeFile(fp, content):
@@ -317,13 +315,15 @@ def extractMetadata(text):
 	if not "autonumber-headings" in metadata.keys() or not isinstance(metadata["autonumber-headings"], (int, bool)):
 		metadata["autonumber-headings"] = config.conf["markdownForever"]["autonumber-headings"]
 	if not "title" in metadata.keys() or not isinstance(metadata["title"], (str, str)):
-		metadata["title"] = _("No title")
+		metadata["title"] = ""
 	if not "subtitle" in metadata.keys() or not isinstance(metadata["subtitle"], (str, str)):
 		metadata["subtitle"] = ""
 	metadata["title"] = str(processExtraTags(
 		BeautifulSoup(metadata["title"], "html.parser"))[-1].text)
 	if not "toc" in metadata.keys() or not isinstance(metadata["toc"], (int, bool)):
 		metadata["toc"] = config.conf["markdownForever"]["toc"]
+	if not "toc-back" in metadata.keys() or not isinstance(metadata["toc-back"], str):
+		metadata["toc-back"] = config.conf["markdownForever"]["toc-back"]
 	if not "extratags" in metadata.keys() or not isinstance(metadata["extratags"], (int, bool)):
 		metadata["extratags"] = config.conf["markdownForever"]["extratags"]
 	if not "extratags-back" in metadata.keys() or not isinstance(metadata["extratags-back"], (int, bool)):
@@ -332,7 +332,7 @@ def extractMetadata(text):
 		metadata["detectExtratags"] = config.conf["markdownForever"]["detectExtratags"]
 	if not "genMetadata" in metadata.keys() or not isinstance(metadata["genMetadata"], (int, bool)):
 		metadata["genMetadata"] = config.conf["markdownForever"]["genMetadata"]
-	if not "lang" in metadata.keys() or not isinstance(metadata["lang"], (str, str)):
+	if not "lang" in metadata.keys() or not isinstance(metadata["lang"],  str):
 		metadata["lang"] = defaultLanguage
 	if not "mathjax" in metadata.keys() or not isinstance(metadata["mathjax"], (int, bool)):
 		metadata["mathjax"] = False
@@ -355,8 +355,7 @@ def extractMetadata(text):
 		if isinstance(metadata["author"], (str, str)):
 			metadata["author"] = [metadata["author"]]
 		for author in metadata["author"]:
-			HTMLHeader.append('<p class="author">%s</p>' %
-							  md2HTML(author, toc=False)[0])
+			HTMLHeader.append('<p class="author">%s</p>' % md2HTML(author))
 			author_ = str(processExtraTags(
 				BeautifulSoup(author, "html.parser"))[-1].text)
 			HTMLHead.append('<meta name="author" content="%s" />' % author_)
@@ -402,7 +401,7 @@ def getHTMLTemplate(name=None):
 		fp = os.path.join(curDir, "res", "default.tpl")
 	with open(fp) as readFile:
 		templateEntry = json.load(readFile)
-	return templateEntry
+		return templateEntry
 
 
 def getHTMLTemplates():
@@ -563,6 +562,55 @@ def copyToClipAsHTML(html):
 	return html == winClipboard.get(html=True)
 
 
+def translate_back_toc(s, idx=False):
+	t = [
+		"a1", "b1", "a2", "b2", "a3", "b3", "a4", "b4", "a5", "b5", "a6", "b6"]
+	if isinstance(s, tuple):
+		out = []
+		for e in s:
+			if not isinstance(e, int): continue
+			out.append(t[e])
+		return ','.join(out)
+	s = s.replace(' ', '').lower()
+	l = s.split(',')
+	if idx:
+		out = []
+		for e in l:
+			if not e in t: continue
+			out.append(t.index(e))
+		return out
+	after = set()
+	before = set()
+	for e in l:
+		if e[-1] not in "123456":
+			continue
+		if e.startswith('b'):
+			before.add('h' + e[-1])
+		if e.startswith('a'):
+			after.add('h' + e[-1])
+	return before, after
+
+
+def add_back_toc(content, before=["h1"], after=["h2"]):
+	if not before and not after:
+		return content
+	soup = BeautifulSoup(content, "html.parser")
+	if before:
+		matches = soup.find_all(before)
+		for m in matches[1:]:
+			link_toc_back = soup.new_tag('a')
+			link_toc_back["href"] = "#doc-toc"
+			link_toc_back.string = _("Back to Table of Contents")
+			m.insert_before(link_toc_back)
+	if after:
+		matches = soup.find_all(after)
+		for m in matches:
+			link_toc_back = soup.new_tag('a')
+			link_toc_back["href"] = "#doc-toc"
+			link_toc_back.string = _("Back to Table of Contents")
+			m.insert_after(link_toc_back)
+	return soup.prettify()
+
 def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, display=True, fp=''):
 	toc = metadata["toc"]
 	title = metadata["title"]
@@ -570,9 +618,16 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 	extratags = metadata["extratags"]
 	HTMLHeader = metadata["HTMLHeader"]
 	HTMLHead = metadata["HTMLHead"]
-	body, toc = md2HTML(text, toc, metadata["autonumber-headings"])
+	res = md2HTML(text, metadata)
+	toc_html = None
+	if res.toc_html and res.toc_html.count("<li>") > 1:
+		toc_html = res.toc_html
+	body = str(res)
+	del res
 	content = BeautifulSoup(body, "html.parser")
 	if metadata["autonumber-headings"]:
+		if toc_html:
+			toc_html = toc_html.replace("<ul>", "<ol>").replace("</ul>", "</ol>")
 		content = applyAutoNumberHeadings(content)
 	if extratags:
 		ok, content = processExtraTags(content, lang=metadata["langd"] if "langd" in metadata.keys(
@@ -580,13 +635,16 @@ def convertToHTML(text, metadata, save=False, src=False, useTemplateHTML=True, d
 		if not ok:
 			return wx.CallAfter(gui.messageBox, content, addonSummary, wx.OK | wx.ICON_ERROR)
 	content = str(content.prettify()) if save else str(content)
-	if toc:
+	if toc_html:
+		if metadata["toc-back"]:
+			before, after = translate_back_toc(metadata["toc-back"])
+			content = add_back_toc(content, before, after)
 		if internalTocTag not in content:
-			pre = '<h1 id="toc-heading">%s</h1>' % _("Table of contents")
+			pre = '<h1 id="doc-toc-h1">%s</h1>' % _("Table of contents")
 			content = pre + internalTocTag + content
-		content = content.replace(internalTocTag, toc)
+		content = content.replace(internalTocTag, '<nav role="doc-toc" id="doc-toc">%s</nav>' % toc_html)
 	else:
-		content = content.replace(internalTocTag, "%toc%")
+		content = content.replace(internalTocTag, '%toc%')
 	if useTemplateHTML:
 		useTemplateHTML = not re.search("</html>", body, re.IGNORECASE)
 	if not title.strip():

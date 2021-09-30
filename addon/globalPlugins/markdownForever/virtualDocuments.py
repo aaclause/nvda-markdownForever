@@ -1,3 +1,9 @@
+# Part of Markdown Forever Add-on for NVDA
+# This file is covered by the GNU General Public License.
+# See the file LICENSE for more details.
+# Copyright 2019-2021 André-Abush Clause, Sof and other contributors. Released under GPL.
+# <https://github.com/aaclause/nvda-markdownForever>
+
 from logHandler import log
 import tones
 import time

@@ -159,7 +159,9 @@ def list_numbering_start(attrs: Dict[str, Optional[str]]) -> int:
     return 0
 
 
-def skipwrap(para: str, wrap_links: bool, wrap_list_items: bool) -> bool:
+def skipwrap(
+    para: str, wrap_links: bool, wrap_list_items: bool, wrap_tables: bool
+) -> bool:
     # If it appears to contain a link
     # don't wrap
     if not wrap_links and config.RE_LINK.search(para):
@@ -180,6 +182,10 @@ def skipwrap(para: str, wrap_links: bool, wrap_list_items: bool) -> bool:
     # also depends upon it.
     if stripped[0:1] in ("-", "*") and not stripped[0:2] == "**":
         return not wrap_list_items
+
+    # If text contains a pipe character it is likely a table
+    if not wrap_tables and config.RE_TABLE.search(para):
+        return True
 
     # If the text begins with a single -, *, or +, followed by a space,
     # or an integer, followed by a ., followed by a space (in either
@@ -247,13 +253,14 @@ def reformat_table(lines: List[str], right_margin: int) -> List[str]:
                 x.rstrip() + (filler * (M - len(x.rstrip())))
                 for x, M in zip(cols, max_width)
             ]
+            new_lines.append("|-" + "|".join(new_cols) + "|")
         else:
             filler = " "
             new_cols = [
                 x.rstrip() + (filler * (M - len(x.rstrip())))
                 for x, M in zip(cols, max_width)
             ]
-        new_lines.append("|".join(new_cols))
+            new_lines.append("| " + "|".join(new_cols) + "|")
     return new_lines
 
 

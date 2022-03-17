@@ -46,6 +46,13 @@ def main() -> None:
         help="wrap list items during conversion",
     )
     p.add_argument(
+        "--wrap-tables",
+        dest="wrap_tables",
+        action="store_true",
+        default=config.WRAP_TABLES,
+        help="wrap tables",
+    )
+    p.add_argument(
         "--ignore-emphasis",
         dest="ignore_emphasis",
         action="store_true",
@@ -65,6 +72,13 @@ def main() -> None:
         action="store_true",
         default=config.IGNORE_ANCHORS,
         help="don't include any formatting for links",
+    )
+    p.add_argument(
+        "--ignore-mailto-links",
+        action="store_true",
+        dest="ignore_mailto_links",
+        default=config.IGNORE_MAILTO_LINKS,
+        help="don't include mailto: links",
     )
     p.add_argument(
         "--protect-links",
@@ -279,6 +293,7 @@ def main() -> None:
     h.google_list_indent = args.list_indent
     h.ignore_emphasis = args.ignore_emphasis
     h.ignore_links = args.ignore_links
+    h.ignore_mailto_links = args.ignore_mailto_links
     h.protect_links = args.protect_links
     h.ignore_images = args.ignore_images
     h.images_as_html = args.images_as_html
@@ -298,6 +313,7 @@ def main() -> None:
     h.mark_code = args.mark_code
     h.wrap_links = args.wrap_links
     h.wrap_list_items = args.wrap_list_items
+    h.wrap_tables = args.wrap_tables
     h.pad_tables = args.pad_tables
     h.default_image_alt = args.default_image_alt
     h.open_quote = args.open_quote

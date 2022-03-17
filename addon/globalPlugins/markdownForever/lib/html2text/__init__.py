@@ -1,8 +1,9 @@
 """html2text: Turn HTML into equivalent Markdown-structured text."""
 
-import _html.entities as htmlentities
-import _html.parser as HTMLParser
+import html.entities
+import html.parser
 import re
+import string
 import urllib.parse as urlparse
 from textwrap import wrap
 from typing import Dict, List, Optional, Tuple, Union
@@ -33,7 +34,7 @@ __version__ = (2020, 1, 16)
 # Support decoded entities with UNIFIABLE.
 
 
-class HTML2Text(HTMLParser.HTMLParser):
+class HTML2Text(html.parser.HTMLParser):
     def __init__(
         self,
         out: Optional[OutCallback] = None,
@@ -61,6 +62,7 @@ class HTML2Text(HTMLParser.HTMLParser):
         self.protect_links = config.PROTECT_LINKS  # covered in cli
         self.google_list_indent = config.GOOGLE_LIST_INDENT  # covered in cli
         self.ignore_links = config.IGNORE_ANCHORS  # covered in cli
+        self.ignore_mailto_links = config.IGNORE_MAILTO_LINKS  # covered in cli
         self.ignore_images = config.IGNORE_IMAGES  # covered in cli
         self.images_as_html = config.IMAGES_AS_HTML  # covered in cli
         self.images_to_alt = config.IMAGES_TO_ALT  # covered in cli
@@ -78,6 +80,7 @@ class HTML2Text(HTMLParser.HTMLParser):
         self.mark_code = config.MARK_CODE
         self.wrap_list_items = config.WRAP_LIST_ITEMS  # covered in cli
         self.wrap_links = config.WRAP_LINKS  # covered in cli
+        self.wrap_tables = config.WRAP_TABLES
         self.pad_tables = config.PAD_TABLES  # covered in cli
         self.default_image_alt = config.DEFAULT_IMAGE_ALT  # covered in cli
         self.tag_callback = None
@@ -161,7 +164,7 @@ class HTML2Text(HTMLParser.HTMLParser):
         outtext = "".join(self.outtextlist)
 
         if self.unicode_snob:
-            nbsp = htmlentities.html5["nbsp;"]
+            nbsp = html.entities.html5["nbsp;"]
         else:
             nbsp = " "
         outtext = outtext.replace("&nbsp_place_holder;", nbsp)
@@ -334,13 +337,28 @@ class HTML2Text(HTMLParser.HTMLParser):
                     parent_style = self.tag_stack[-1][2]
 
         if hn(tag):
-            self.p()
-            if start:
-                self.inheader = True
-                self.o(hn(tag) * "#" + " ")
+            # check if nh is inside of an 'a' tag (incorrect but found in the wild)
+            if self.astack:
+                if start:
+                    self.inheader = True
+                    # are inside link name, so only add '#' if it can appear before '['
+                    if self.outtextlist and self.outtextlist[-1] == "[":
+                        self.outtextlist.pop()
+                        self.space = False
+                        self.o(hn(tag) * "#" + " ")
+                        self.o("[")
+                else:
+                    self.p_p = 0  # don't break up link name
+                    self.inheader = False
+                    return  # prevent redundant emphasis marks on headers
             else:
-                self.inheader = False
-                return  # prevent redundant emphasis marks on headers
+                self.p()
+                if start:
+                    self.inheader = True
+                    self.o(hn(tag) * "#" + " ")
+                else:
+                    self.inheader = False
+                    return  # prevent redundant emphasis marks on headers
 
         if tag in ["p", "div"]:
             if self.google_doc:
@@ -348,13 +366,15 @@ class HTML2Text(HTMLParser.HTMLParser):
                     self.p()
                 else:
                     self.soft_br()
-            elif self.astack and tag == "div":
+            elif self.astack:
                 pass
             else:
                 self.p()
 
         if tag == "br" and start:
-            if self.blockquote > 0:
+            if self.astack:
+                self.space = True
+            elif self.blockquote > 0:
                 self.o("  \n> ")
             else:
                 self.o("  \n")
@@ -389,14 +409,20 @@ class HTML2Text(HTMLParser.HTMLParser):
                 self.blockquote -= 1
                 self.p()
 
-        def no_preceding_space(self: HTML2Text) -> bool:
-            return bool(
-                self.preceding_data and re.match(r"[^\s]", self.preceding_data[-1])
-            )
-
         if tag in ["em", "i", "u"] and not self.ignore_emphasis:
-            if start and no_preceding_space(self):
+            # Separate with a space if we immediately follow an alphanumeric
+            # character, since otherwise Markdown won't render the emphasis
+            # marks, and we'll be left with eg 'foo_bar_' visible.
+            # (Don't add a space otherwise, though, since there isn't one in the
+            # original HTML.)
+            if (
+                start
+                and self.preceding_data
+                and self.preceding_data[-1] not in string.whitespace
+                and self.preceding_data[-1] not in string.punctuation
+            ):
                 emphasis = " " + self.emphasis_mark
+                self.preceding_data += " "
             else:
                 emphasis = self.emphasis_mark
 
@@ -405,8 +431,17 @@ class HTML2Text(HTMLParser.HTMLParser):
                 self.stressed = True
 
         if tag in ["strong", "b"] and not self.ignore_emphasis:
-            if start and no_preceding_space(self):
+            # Separate with space if we immediately follow an * character, since
+            # without it, Markdown won't render the resulting *** correctly.
+            # (Don't add a space otherwise, though, since there isn't one in the
+            # original HTML.)
+            if (
+                start
+                and self.preceding_data
+                and self.preceding_data[-1] == self.strong_mark[0]
+            ):
                 strong = " " + self.strong_mark
+                self.preceding_data += " "
             else:
                 strong = self.strong_mark
 
@@ -415,8 +450,9 @@ class HTML2Text(HTMLParser.HTMLParser):
                 self.stressed = True
 
         if tag in ["del", "strike", "s"]:
-            if start and no_preceding_space(self):
+            if start and self.preceding_data and self.preceding_data[-1] == "~":
                 strike = " ~~"
+                self.preceding_data += " "
             else:
                 strike = "~~"
 
@@ -464,6 +500,9 @@ class HTML2Text(HTMLParser.HTMLParser):
                     "href" in attrs
                     and attrs["href"] is not None
                     and not (self.skip_internal_links and attrs["href"].startswith("#"))
+                    and not (
+                        self.ignore_mailto_links and attrs["href"].startswith("mailto:")
+                    )
                 ):
                     self.astack.append(attrs)
                     self.maybe_automatic_link = attrs["href"]
@@ -484,6 +523,7 @@ class HTML2Text(HTMLParser.HTMLParser):
                             self.empty_link = False
                             self.maybe_automatic_link = None
                         if self.inline_links:
+                            self.p_p = 0
                             title = a.get("title") or ""
                             title = escape_md(title)
                             link_url(self, a["href"], title)
@@ -595,11 +635,19 @@ class HTML2Text(HTMLParser.HTMLParser):
                 else:
                     li = ListElement("ul", 0)
                 if self.google_doc:
-                    nest_count = self.google_nest_count(tag_style)
+                    self.o("  " * self.google_nest_count(tag_style))
                 else:
-                    nest_count = len(self.list)
-                # TODO: line up <ol><li>s > 9 correctly.
-                self.o("  " * nest_count)
+                    # Indent two spaces per list, except use three spaces for an
+                    # unordered list inside an ordered list.
+                    # https://spec.commonmark.org/0.28/#motivation
+                    # TODO: line up <ol><li>s > 9 correctly.
+                    parent_list = None
+                    for list in self.list:
+                        self.o(
+                            "   " if parent_list == "ol" and list.name == "ul" else "  "
+                        )
+                        parent_list = list.name
+
                 if li.name == "ul":
                     self.o(self.ul_item_mark + " ")
                 elif li.name == "ol":
@@ -640,6 +688,8 @@ class HTML2Text(HTMLParser.HTMLParser):
                             self.o("  \n")
                     else:
                         if self.pad_tables:
+                            # add break in case the table is empty or its 1 row table
+                            self.soft_br()
                             self.o("</" + config.TABLE_MARKER_FOR_PAD + ">")
                             self.o("  \n")
                 if tag in ["td", "th"] and start:
@@ -810,7 +860,7 @@ class HTML2Text(HTMLParser.HTMLParser):
             self.preceding_stressed = True
         elif self.preceding_stressed:
             if (
-                re.match(r"[^\s.!?]", data[0])
+                re.match(r"[^][(){}\s.!?]", data[0])
                 and not hn(self.current_tag)
                 and self.current_tag not in ["a", "code", "pre"]
             ):
@@ -859,7 +909,7 @@ class HTML2Text(HTMLParser.HTMLParser):
         if not self.unicode_snob and c in config.UNIFIABLE:
             return config.UNIFIABLE[c]
         try:
-            ch = htmlentities.html5[c + ";"]
+            ch = html.entities.html5[c + ";"]
         except KeyError:
             return "&" + c + ";"
         return config.UNIFIABLE[c] if c == "nbsp" else ch
@@ -898,7 +948,9 @@ class HTML2Text(HTMLParser.HTMLParser):
             self.inline_links = False
         for para in text.split("\n"):
             if len(para) > 0:
-                if not skipwrap(para, self.wrap_links, self.wrap_list_items):
+                if not skipwrap(
+                    para, self.wrap_links, self.wrap_list_items, self.wrap_tables
+                ):
                     indent = ""
                     if para.startswith("  " + self.ul_item_mark):
                         # list item continuation: add a double indent to the

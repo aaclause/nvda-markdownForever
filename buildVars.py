@@ -31,7 +31,7 @@ addon_info = {
 	# Author(s)
 	"addon_author" : "André <dev@andreabc.net>, Sof <hellosof@gmail.com> and other contributors",
 	# URL for the add-on documentation support
-	"addon_url" : "https://andreabc.net/projects/NVDA_addons/markdownForever/",
+	"addon_url" : "https://andreabc.net/projects/NVDA_addons/MarkdownForever/",
 	# Documentation file name
 	"addon_docFileName" : None,
 	# Minimum NVDA version supported (e.g. "2018.3")

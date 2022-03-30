@@ -563,8 +563,7 @@ def copyToClipAsHTML(html):
 
 
 def translate_back_toc(s, idx=False):
-	t = [
-		"a1", "b1", "a2", "b2", "a3", "b3", "a4", "b4", "a5", "b5", "a6", "b6"]
+	t = ["b1", "a1", "b2", "a2", "b3", "a3", "b4", "a4", "b5", "a5", "b6", "a6"]
 	if isinstance(s, tuple):
 		out = []
 		for e in s:

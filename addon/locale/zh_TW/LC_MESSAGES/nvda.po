@@ -7,306 +7,203 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MarkdownForever 19.03.25-101339\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2022-03-17 18:35+0100\n"
-"PO-Revision-Date: 2022-03-25 17:39+0800\n"
+"POT-Creation-Date: 2022-03-31 13:21+0200\n"
+"PO-Revision-Date: 2022-04-01 04:12+0800\n"
 "Last-Translator: 蔡宗豪 <surfer0627@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: addon/globalPlugins/markdownForever/HTTPServer.py:24
-#: addon/globalPlugins/markdownForever/common.py:123
-#: addon/globalPlugins/markdownForever/common.py:320
+#: addon/globalPlugins/markdownForever/HTTPServer.py:34
 msgid "No title"
 msgstr "沒有標題"
 
-#: addon/globalPlugins/markdownForever/HTTPServer.py:25
+#: addon/globalPlugins/markdownForever/HTTPServer.py:35
 msgid "No content"
 msgstr "沒有內容"
 
-#: addon/globalPlugins/markdownForever/HTTPServer.py:39
-#: addon/globalPlugins/markdownForever/HTTPServer.py:71
+#: addon/globalPlugins/markdownForever/HTTPServer.py:49
+#: addon/globalPlugins/markdownForever/HTTPServer.py:81
 #, python-brace-format
 msgid "Index of {path}"
 msgstr "索引 {path}"
 
-#: addon/globalPlugins/markdownForever/HTTPServer.py:61
+#: addon/globalPlugins/markdownForever/HTTPServer.py:71
 msgid "Error 404"
 msgstr "404 錯誤"
 
-#: addon/globalPlugins/markdownForever/HTTPServer.py:63
+#: addon/globalPlugins/markdownForever/HTTPServer.py:73
 #, python-brace-format
 msgid "The requested URL “{path}” was not found"
 msgstr "找不到請求的網址 “{path}”"
 
-#: addon/globalPlugins/markdownForever/__init__.py:82
+#: addon/globalPlugins/markdownForever/__init__.py:89
 msgid "Documentation"
 msgstr "說明文件"
 
-#: addon/globalPlugins/markdownForever/__init__.py:82
-msgid "Documentation menu"
+#: addon/globalPlugins/markdownForever/__init__.py:89
+msgid "Documentation submenu"
 msgstr "說明文件功能表"
 
-#: addon/globalPlugins/markdownForever/__init__.py:86
+#: addon/globalPlugins/markdownForever/__init__.py:93
 msgid "Open the add-on documentation in this language."
 msgstr "開啟目前語言的說明文件"
 
 #. Translators: title of add-on parameters dialog.
-#: addon/globalPlugins/markdownForever/__init__.py:90
-#: addon/globalPlugins/markdownForever/settings.py:328
+#: addon/globalPlugins/markdownForever/__init__.py:97
+#: addon/globalPlugins/markdownForever/settings.py:390
 msgid "Settings"
 msgstr "設定"
 
-#: addon/globalPlugins/markdownForever/__init__.py:90
+#: addon/globalPlugins/markdownForever/__init__.py:97
 msgid "Add-on settings"
 msgstr "附加元件設定"
 
-#: addon/globalPlugins/markdownForever/__init__.py:98
-msgid "HTTP server"
+#: addon/globalPlugins/markdownForever/__init__.py:105
+msgid "&HTTP server"
 msgstr "HTTP 伺服器"
 
-#: addon/globalPlugins/markdownForever/__init__.py:98
-#: addon/globalPlugins/markdownForever/settings.py:284
-msgid "Web server"
-msgstr "網頁伺服器"
+#: addon/globalPlugins/markdownForever/__init__.py:105
+msgid "Start HTTP server"
+msgstr "開始 HTTP 伺服器"
 
-#: addon/globalPlugins/markdownForever/__init__.py:101
+#: addon/globalPlugins/markdownForever/__init__.py:108
 msgid "&Check for update"
 msgstr "檢查更新(&C)"
 
-#: addon/globalPlugins/markdownForever/__init__.py:101
+#: addon/globalPlugins/markdownForever/__init__.py:108
 msgid "Checks if update is available"
 msgstr "檢查是否有新版本"
 
-#: addon/globalPlugins/markdownForever/__init__.py:104
+#: addon/globalPlugins/markdownForever/__init__.py:111
 msgid "&Web site"
 msgstr "元件網站(&W)"
 
-#: addon/globalPlugins/markdownForever/__init__.py:104
-msgid "Open the add-on website."
-msgstr "開啟附加元件網站"
+#: addon/globalPlugins/markdownForever/__init__.py:111
+msgid "Open the GitHub Repository"
+msgstr "開啟 GitHub 儲存庫"
 
-#: addon/globalPlugins/markdownForever/__init__.py:107
+#: addon/globalPlugins/markdownForever/__init__.py:114
 msgid "&Markdown Forever"
 msgstr "Markdown Forever(&M)"
 
-#: addon/globalPlugins/markdownForever/__init__.py:169
-#: addon/globalPlugins/markdownForever/__init__.py:178
-#: addon/globalPlugins/markdownForever/__init__.py:194
-#: addon/globalPlugins/markdownForever/__init__.py:205
-#: addon/globalPlugins/markdownForever/__init__.py:216
-#: addon/globalPlugins/markdownForever/__init__.py:229
-#: addon/globalPlugins/markdownForever/__init__.py:243
+#: addon/globalPlugins/markdownForever/__init__.py:179
+#: addon/globalPlugins/markdownForever/__init__.py:188
+#: addon/globalPlugins/markdownForever/__init__.py:204
+#: addon/globalPlugins/markdownForever/__init__.py:214
+#: addon/globalPlugins/markdownForever/__init__.py:224
+#: addon/globalPlugins/markdownForever/__init__.py:236
+#: addon/globalPlugins/markdownForever/__init__.py:250
 msgid "No text"
 msgstr "沒有文字"
 
-#: addon/globalPlugins/markdownForever/__init__.py:173
+#: addon/globalPlugins/markdownForever/__init__.py:183
 msgid "Show the HTML source from Markdown"
 msgstr "顯示 Markdown 的 HTML 語法"
 
-#: addon/globalPlugins/markdownForever/__init__.py:181
-#: addon/globalPlugins/markdownForever/common.py:556
+#: addon/globalPlugins/markdownForever/__init__.py:191
+#: addon/globalPlugins/markdownForever/common.py:561
 msgid "HTML to Markdown conversion"
 msgstr "html 轉 markdown"
 
-#: addon/globalPlugins/markdownForever/__init__.py:198
+#: addon/globalPlugins/markdownForever/__init__.py:207
 msgid ""
 "Markdown to HTML conversion. The result is displayed in a virtual buffer of "
 "NVDA"
 msgstr "markdown 轉 html （在 NVDA 瀏覽模式開啟）"
 
-#: addon/globalPlugins/markdownForever/__init__.py:209
+#: addon/globalPlugins/markdownForever/__init__.py:217
 msgid ""
 "Markdown to HTML conversion. The result is displayed in your default browser"
 msgstr "markdown 轉 html （在預設瀏覽器開啟）"
 
-#: addon/globalPlugins/markdownForever/__init__.py:220
+#: addon/globalPlugins/markdownForever/__init__.py:228
 msgid "HTML source copied to clipboard"
 msgstr "複製 html 語法到剪貼簿"
 
-#: addon/globalPlugins/markdownForever/__init__.py:222
+#: addon/globalPlugins/markdownForever/__init__.py:229
 msgid "Markdown to HTML source conversion. The result is copied to clipboard"
 msgstr "markdown 轉 html 語法 （複製內容到剪貼簿）"
 
-#: addon/globalPlugins/markdownForever/__init__.py:232
+#: addon/globalPlugins/markdownForever/__init__.py:239
 msgid "Formatted HTML copied to clipboard"
 msgstr "複製 html 格式到剪貼簿"
 
-#: addon/globalPlugins/markdownForever/__init__.py:234
-#: addon/globalPlugins/markdownForever/__init__.py:249
+#: addon/globalPlugins/markdownForever/__init__.py:241
+#: addon/globalPlugins/markdownForever/__init__.py:256
 msgid "An error occured"
 msgstr "發生錯誤"
 
-#: addon/globalPlugins/markdownForever/__init__.py:236
+#: addon/globalPlugins/markdownForever/__init__.py:243
 msgid ""
 "Markdown to formatted HTML conversion. The result is copied to clipboard"
 msgstr "markdown 轉 html 格式 （複製內容到剪貼簿）"
 
-#: addon/globalPlugins/markdownForever/__init__.py:247
+#: addon/globalPlugins/markdownForever/__init__.py:254
 msgid "Markdown copied to clipboard"
 msgstr "複製 Markdown 到剪貼簿"
 
-#: addon/globalPlugins/markdownForever/__init__.py:251
+#: addon/globalPlugins/markdownForever/__init__.py:258
 msgid "HTML to Markdown conversion. The result is copied to clipboard"
 msgstr "html 轉 markdown （複製內容到剪貼簿）"
 
-#. Translators: This is the label for the edit dictionary entry dialog.
-#: addon/globalPlugins/markdownForever/__init__.py:258
-#: addon/globalPlugins/markdownForever/__init__.py:277
+#. Translators: This is the label for the interactive mode dialog.
+#: addon/globalPlugins/markdownForever/__init__.py:266
+#: addon/globalPlugins/markdownForever/interactivemode.py:34
 msgid "Interactive mode"
 msgstr "互動模式"
 
-#: addon/globalPlugins/markdownForever/__init__.py:273
-msgid "HTML source"
-msgstr "來源 HTML"
-
-#: addon/globalPlugins/markdownForever/__init__.py:287
-msgid "C&onvert to:"
-msgstr "轉換為(&O):"
-
-#: addon/globalPlugins/markdownForever/__init__.py:294
-#: addon/globalPlugins/markdownForever/settings.py:37
-msgid "Generate corresponding &metadata from HTML source"
-msgstr "從 HTML 語法產生相應的元數據(&M)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:301
-#: addon/globalPlugins/markdownForever/settings.py:17
-msgid "&Generate a table of contents"
-msgstr "啟用目錄索引(&G)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:306
-#: addon/globalPlugins/markdownForever/settings.py:24
-msgid "Try to automatically &number headings"
-msgstr "標題自動編號(&N)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:311
-#: addon/globalPlugins/markdownForever/settings.py:30
-msgid "Enable e&xtra tags"
-msgstr "允許添加額外標籤(&X)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:316
-msgid "Allow extratags bac&k translation"
-msgstr "允許額外標籤還原為原始格式(&K)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:322
-msgid "&Detect extratags if possible"
-msgstr "偵測額外標籤(&D)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:327
-msgid "&Title:"
-msgstr "標題(&T):"
-
-#: addon/globalPlugins/markdownForever/__init__.py:333
-msgid "S&ubtitle:"
-msgstr "次標題(&U)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:339
-#: addon/globalPlugins/markdownForever/settings.py:60
-msgid "Pat&h:"
-msgstr "路徑(&H):"
-
-#: addon/globalPlugins/markdownForever/__init__.py:346
-msgid "Bro&wse..."
-msgstr "瀏覽(&W)..."
-
-#: addon/globalPlugins/markdownForever/__init__.py:350
-msgid "File n&ame:"
-msgstr "檔案名稱(&A):"
-
-#: addon/globalPlugins/markdownForever/__init__.py:356
-msgid "HTML temp&late to use:"
-msgstr "選擇使用的 HTML 範本(&L):"
-
-#: addon/globalPlugins/markdownForever/__init__.py:363
-msgid "Corres&ponding metadata block"
-msgstr "從 HTML 語法產生相應的元數據(&M)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:375
-msgid "Show in &virtual buffer"
-msgstr "在瀏覽模式開啟(&V)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:379
-msgid "Show in &browser"
-msgstr "在預設瀏覽器開啟(&B)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:384
-msgid "&Copy to clipboard"
-msgstr "複製到剪貼簿(&C)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:389
-msgid "&Save the result as..."
-msgstr "結果令存為(&S)..."
-
-#: addon/globalPlugins/markdownForever/__init__.py:394
-msgid "Save the sou&rce as..."
-msgstr "員碼令存為(&R)"
-
-#: addon/globalPlugins/markdownForever/__init__.py:450
-#: addon/globalPlugins/markdownForever/settings.py:73
-msgid "Choose a folder"
-msgstr "選擇資料夾"
-
-#: addon/globalPlugins/markdownForever/__init__.py:513
-msgid "Select the location"
-msgstr "瀏覽"
-
-#: addon/globalPlugins/markdownForever/__init__.py:520
-msgid ""
-"Do you want to conserve extra-tags? If you select No, extra-tags will be "
-"interpreted before saving."
-msgstr "是否保留額外標籤？如果選擇「否」，則在保存之前將還原為原始形式。"
-
-#: addon/globalPlugins/markdownForever/common.py:44
+#: addon/globalPlugins/markdownForever/common.py:50
 msgid "Save the result as"
 msgstr "結果另存為"
 
-#: addon/globalPlugins/markdownForever/common.py:45
+#: addon/globalPlugins/markdownForever/common.py:51
 msgid "Save the source as"
 msgstr "員碼另存為"
 
-#: addon/globalPlugins/markdownForever/common.py:46
+#: addon/globalPlugins/markdownForever/common.py:52
 msgid "Show in browser"
 msgstr "在瀏覽器開啟"
 
-#: addon/globalPlugins/markdownForever/common.py:47
+#: addon/globalPlugins/markdownForever/common.py:53
 msgid "Show in virtual buffer"
 msgstr "在 NVDA 瀏覽模式開啟"
 
-#: addon/globalPlugins/markdownForever/common.py:48
+#: addon/globalPlugins/markdownForever/common.py:54
 msgid "Copy to clipboard"
 msgstr "複製到剪貼簿"
 
-#: addon/globalPlugins/markdownForever/common.py:52
+#: addon/globalPlugins/markdownForever/common.py:58
 msgid "Turn HTML into equivalent Markdown-structured text"
 msgstr "將 HTML 轉換成 Markdown 結構的文字"
 
-#: addon/globalPlugins/markdownForever/common.py:53
+#: addon/globalPlugins/markdownForever/common.py:59
 msgid "Conservatively convert html to markdown"
 msgstr "保守地將html轉換為markdown"
 
-#: addon/globalPlugins/markdownForever/common.py:57
+#: addon/globalPlugins/markdownForever/common.py:63
 msgid "Replace single new line characters with <br> when True"
 msgstr "將單行換行字元替換為 <br> 當為 True 時"
 
-#: addon/globalPlugins/markdownForever/common.py:58
+#: addon/globalPlugins/markdownForever/common.py:64
 msgid "Disable _ and __ for em and strong"
 msgstr "禁用 _ 和 __ 以獲得em和strong"
 
-#: addon/globalPlugins/markdownForever/common.py:59
+#: addon/globalPlugins/markdownForever/common.py:65
 msgid "Allow lists to be cuddled to the preceding paragraph"
 msgstr "允許將清單與前一段聯在一起"
 
-#: addon/globalPlugins/markdownForever/common.py:60
+#: addon/globalPlugins/markdownForever/common.py:66
 msgid ""
 "Allows a code block to not have to be indented by fencing it with '```' on a "
 "line before and after"
 msgstr "允許不必通過在代碼行前後用'`''圍起來\t來縮排代碼塊\t"
 
-#: addon/globalPlugins/markdownForever/common.py:61
+#: addon/globalPlugins/markdownForever/common.py:67
 msgid ""
 "Support footnotes as in use on daringfireball.net and implemented in other "
 "Markdown processors (tho not in Markdown.pl v1.0.1)"
@@ -314,12 +211,12 @@ msgstr ""
 "支持在 daringfireball.net 上使用並在其他 Markdown 處理器中實現的註腳（但不在 "
 "Markdown.pl v1.0.1中）"
 
-#: addon/globalPlugins/markdownForever/common.py:62
+#: addon/globalPlugins/markdownForever/common.py:68
 msgid ""
 "Adds \"id\" attributes to headers. The id value is a slug of the header text"
 msgstr "向標頭新增“id”屬性。 id值是標題文字的一部分"
 
-#: addon/globalPlugins/markdownForever/common.py:63
+#: addon/globalPlugins/markdownForever/common.py:69
 msgid ""
 "Takes a dict mapping html tag names (lowercase) to a string to use for a "
 "\"class\" tag attribute. Currently only supports \"pre\", \"code\", \"table"
@@ -328,43 +225,43 @@ msgstr ""
 "採用字典將 html 標籤名稱（小寫）映射到字串以用於「類」標記屬性。目前僅支援"
 "\"pre\"、\"code\"、\"table\"和\"img\"標籤"
 
-#: addon/globalPlugins/markdownForever/common.py:64
+#: addon/globalPlugins/markdownForever/common.py:70
 msgid ""
 "Auto-link given regex patterns in text (e.g. bug number references, revision "
 "number references)"
 msgstr "自動連結文字中的給定正則表達式模式（例如，錯誤號參考，修訂號參考）"
 
-#: addon/globalPlugins/markdownForever/common.py:65
+#: addon/globalPlugins/markdownForever/common.py:71
 msgid ""
 "Allow the use of markdown=\"1\" in a block HTML tag to have markdown "
 "processing be done on its contents"
 msgstr "允許在 HTML 標籤中使用 markdown=\"1\" 以便對其內容進行標記處理"
 
-#: addon/globalPlugins/markdownForever/common.py:66
+#: addon/globalPlugins/markdownForever/common.py:72
 msgid "Add rel=\"nofollow\" to all <a> tags with an href."
 msgstr "將 rel=\"nofollow\" 添加到所有 <a> 帶有 href 的標籤中。</a>"
 
-#: addon/globalPlugins/markdownForever/common.py:67
+#: addon/globalPlugins/markdownForever/common.py:73
 msgid "Create counters to number tables, figures, equations and graphs"
 msgstr "創建數位表、數位、方程式和圖形的計數器"
 
-#: addon/globalPlugins/markdownForever/common.py:68
+#: addon/globalPlugins/markdownForever/common.py:74
 msgid "Treats unindented Python interactive shell sessions as <code> blocks"
 msgstr "將未縮排的 Python 互動式 shell 會話視為 <code> blocks</code>"
 
-#: addon/globalPlugins/markdownForever/common.py:69
+#: addon/globalPlugins/markdownForever/common.py:75
 msgid "Fancy quote, em-dash and ellipsis handling"
 msgstr "如何處理引述、破折號和省略號"
 
-#: addon/globalPlugins/markdownForever/common.py:70
+#: addon/globalPlugins/markdownForever/common.py:76
 msgid "A special kind of blockquote commonly hidden behind a click on SO"
 msgstr "一種特殊的區塊引述，通常隱藏在按下SO後面"
 
-#: addon/globalPlugins/markdownForever/common.py:71
+#: addon/globalPlugins/markdownForever/common.py:77
 msgid "Parse ~~strikethrough~~ formatting"
 msgstr "解析 ~~刪除線~~ 格式化"
 
-#: addon/globalPlugins/markdownForever/common.py:72
+#: addon/globalPlugins/markdownForever/common.py:78
 msgid ""
 "Add target=\"_blank\" to all <a> tags with an href. This causes the link to "
 "be opened in a new tab upon a click"
@@ -372,11 +269,11 @@ msgstr ""
 "將 target=\"_blank\" 添加到 <a> 所有帶有 href 的標籤中。這會導致連結按兩下時"
 "在新分業開啟</a>"
 
-#: addon/globalPlugins/markdownForever/common.py:73
+#: addon/globalPlugins/markdownForever/common.py:79
 msgid "Tables using the same format as GFM and PHP-Markdown Extra"
 msgstr "表格使用與 GFM 和 PHP-Markdown Extra 相同的格式"
 
-#: addon/globalPlugins/markdownForever/common.py:74
+#: addon/globalPlugins/markdownForever/common.py:80
 msgid ""
 "Requires atx style headers to have a space between the # and the header "
 "text. Useful for applications that require twitter style tags to pass "
@@ -385,144 +282,287 @@ msgstr ""
 "要求 atx 樣式的標題在 ＃和標題文字之間有一個空格。對於需要 twitter 樣式標籤通"
 "過解析器的應用程序很有用"
 
-#: addon/globalPlugins/markdownForever/common.py:75
+#: addon/globalPlugins/markdownForever/common.py:81
 msgid "Allows github-style task lists (i.e. check boxes)"
 msgstr "允許使用 github 樣式的任務清單（即核取方塊）"
 
-#: addon/globalPlugins/markdownForever/common.py:76
+#: addon/globalPlugins/markdownForever/common.py:82
 msgid "Parse --underline-- formatting"
 msgstr "解析 --下劃線-- 格式"
 
-#: addon/globalPlugins/markdownForever/common.py:77
+#: addon/globalPlugins/markdownForever/common.py:83
 msgid "Look for an Emacs-style markdown-extras file variable to turn on Extras"
 msgstr "尋找 Emacs 樣式的 markdown-extras 檔案變數以打開 Extras"
 
-#: addon/globalPlugins/markdownForever/common.py:78
+#: addon/globalPlugins/markdownForever/common.py:84
 msgid "Google Code Wiki table syntax support"
 msgstr "Google Code Wiki 表語法支持"
 
-#: addon/globalPlugins/markdownForever/common.py:79
+#: addon/globalPlugins/markdownForever/common.py:85
 msgid "Passes one-liner processing instructions and namespaced XML tags"
 msgstr "傳遞單行處理指令和命名空間的 XML 標籤"
 
-#: addon/globalPlugins/markdownForever/common.py:157
+#: addon/globalPlugins/markdownForever/common.py:168
 msgid "Invalid file path"
 msgstr "無效的檔案路徑"
 
-#: addon/globalPlugins/markdownForever/common.py:196
+#: addon/globalPlugins/markdownForever/common.py:206
 msgid "Unable to guess the encoding"
 msgstr "無法猜測語法"
 
-#: addon/globalPlugins/markdownForever/common.py:261
+#: addon/globalPlugins/markdownForever/common.py:266
 #, python-brace-format
 msgid "Unable to include “{filePath}”"
 msgstr "無法包含\"{filePath}\""
 
-#: addon/globalPlugins/markdownForever/common.py:410
+#: addon/globalPlugins/markdownForever/common.py:415
 msgid "Just the HTML from your Markdown"
 msgstr "僅來自 Markdown 的 HTML"
 
-#: addon/globalPlugins/markdownForever/common.py:410
+#: addon/globalPlugins/markdownForever/common.py:415
 msgid "A minimal template provided by the add-on"
 msgstr "預設值:附加元件提供的基本範本"
 
-#: addon/globalPlugins/markdownForever/common.py:475
+#: addon/globalPlugins/markdownForever/common.py:480
 #, python-format
 msgid ""
 "Metadata and extra tags error. '%s' value was not recognized for lang field."
 msgstr "元數據和額外標籤錯誤。lang 字段 '%s' 無法識別。"
 
-#: addon/globalPlugins/markdownForever/common.py:585
+#: addon/globalPlugins/markdownForever/common.py:608
+#: addon/globalPlugins/markdownForever/common.py:615
+msgid "Back to Table of Contents"
+msgstr "返回目錄索引"
+
+#: addon/globalPlugins/markdownForever/common.py:648
 msgid "Table of contents"
 msgstr "目錄索引"
 
-#: addon/globalPlugins/markdownForever/common.py:593
+#: addon/globalPlugins/markdownForever/common.py:656
 msgid "Markdown to HTML conversion"
 msgstr "markdown 轉 html"
 
-#: addon/globalPlugins/markdownForever/common.py:616
+#: addon/globalPlugins/markdownForever/common.py:679
 msgid "Markdown to HTML conversion (preview)"
 msgstr "markdown 轉 html （預覽）"
 
-#: addon/globalPlugins/markdownForever/common.py:617
+#: addon/globalPlugins/markdownForever/common.py:680
 msgid "Markdown to HTML source conversion"
 msgstr "markdown 轉 html 語法"
 
-#: addon/globalPlugins/markdownForever/settings.py:11
+#: addon/globalPlugins/markdownForever/interactivemode.py:28
+msgid "HTML source"
+msgstr "來源 HTML"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:46
+msgid "C&onvert to:"
+msgstr "轉換為(&O):"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:53
+#: addon/globalPlugins/markdownForever/settings.py:81
+msgid "Generate corresponding &metadata from HTML source"
+msgstr "從 HTML 語法產生相應的元數據(&M)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:60
+#: addon/globalPlugins/markdownForever/settings.py:53
+msgid "&Generate a table of contents"
+msgstr "啟用目錄索引(&G)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:65
+#: addon/globalPlugins/markdownForever/settings.py:59
+msgid "Choose where add \"Bac&k to Table of Contents\" links"
+msgstr "選擇添加\"返回目錄索引的位置(&K)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:68
+#: addon/globalPlugins/markdownForever/settings.py:62
+#, python-format
+msgid "Before level %d headings"
+msgstr "在 %d 級標題之前"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:69
+#: addon/globalPlugins/markdownForever/settings.py:63
+#, python-format
+msgid "After level %d headings"
+msgstr "在 %d 級標題之後"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:75
+#: addon/globalPlugins/markdownForever/settings.py:68
+msgid "Try to automatically &number headings"
+msgstr "標題自動編號(&N)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:80
+#: addon/globalPlugins/markdownForever/settings.py:74
+msgid "Enable e&xtra tags"
+msgstr "允許添加額外標籤(&X)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:85
+msgid "Allow extratags bac&k translation"
+msgstr "允許額外標籤還原為原始格式(&K)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:90
+msgid "&Detect extratags if possible"
+msgstr "偵測額外標籤(&D)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:95
+msgid "&Title:"
+msgstr "標題(&T):"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:101
+msgid "S&ubtitle:"
+msgstr "次標題(&U)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:107
+#: addon/globalPlugins/markdownForever/settings.py:104
+msgid "Pat&h:"
+msgstr "路徑(&H):"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:114
+msgid "Bro&wse..."
+msgstr "瀏覽(&W)..."
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:118
+#: addon/globalPlugins/markdownForever/settings.py:111
+msgid "&File name:"
+msgstr "檔案名稱(&F):"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:124
+msgid "HTML temp&late to use:"
+msgstr "選擇使用的 HTML 範本(&L):"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:131
+msgid "Corres&ponding metadata block"
+msgstr "從 HTML 語法產生相應的元數據(&M)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:147
+msgid "Show in &virtual buffer"
+msgstr "在瀏覽模式開啟(&V)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:151
+msgid "Show in &browser"
+msgstr "在預設瀏覽器開啟(&B)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:156
+msgid "&Copy to clipboard"
+msgstr "複製到剪貼簿(&C)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:161
+msgid "&Save the result as..."
+msgstr "結果令存為(&S)..."
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:166
+msgid "Save the sou&rce as..."
+msgstr "員碼令存為(&R)"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:229
+#: addon/globalPlugins/markdownForever/settings.py:122
+msgid "Choose a folder"
+msgstr "選擇資料夾"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:298
+msgid "Select the location"
+msgstr "瀏覽"
+
+#: addon/globalPlugins/markdownForever/interactivemode.py:305
+msgid ""
+"Do you want to conserve extra-tags? If you select No, extra-tags will be "
+"interpreted before saving."
+msgstr "是否保留額外標籤？如果選擇「否」，則在保存之前將還原為原始形式。"
+
+#: addon/globalPlugins/markdownForever/settings.py:30
 msgid "General"
 msgstr "一般"
 
-#: addon/globalPlugins/markdownForever/settings.py:43
+#: addon/globalPlugins/markdownForever/settings.py:39
+msgid "stable channel, automatic check"
+msgstr "穩定版，自動檢查"
+
+#: addon/globalPlugins/markdownForever/settings.py:40
+msgid "dev channel, automatic check"
+msgstr "開發版，自動檢查"
+
+#: addon/globalPlugins/markdownForever/settings.py:41
+msgid "stable channel, manual check"
+msgstr "穩定版，手動檢查"
+
+#: addon/globalPlugins/markdownForever/settings.py:42
+msgid "dev channel, manual check"
+msgstr "開發版，手動檢查"
+
+#: addon/globalPlugins/markdownForever/settings.py:44
+msgid "Check for &updates:"
+msgstr "檢查更新(&U)"
+
+#: addon/globalPlugins/markdownForever/settings.py:87
 msgid "Default &action in interactive mode:"
 msgstr "互動模式下的預設操作:"
 
-#: addon/globalPlugins/markdownForever/settings.py:49
+#: addon/globalPlugins/markdownForever/settings.py:93
 msgid "Markdown Engi&ne:"
 msgstr "Markdown 引擎(&N):"
 
-#: addon/globalPlugins/markdownForever/settings.py:53
+#: addon/globalPlugins/markdownForever/settings.py:97
 msgid "Markdo&wn2 extras:"
 msgstr "Markdown2 extras(&W):"
 
-#: addon/globalPlugins/markdownForever/settings.py:63
+#: addon/globalPlugins/markdownForever/settings.py:107
 msgid "&Browse..."
 msgstr "瀏覽(&B)..."
 
-#: addon/globalPlugins/markdownForever/settings.py:100
+#: addon/globalPlugins/markdownForever/settings.py:159
 msgid "HTML Templates"
 msgstr "HTML 範本"
 
-#: addon/globalPlugins/markdownForever/settings.py:107
+#: addon/globalPlugins/markdownForever/settings.py:166
 msgid "HTML templates &list:"
 msgstr "HTML 範本清單(&L):"
 
-#: addon/globalPlugins/markdownForever/settings.py:115
+#: addon/globalPlugins/markdownForever/settings.py:174
 msgid "Set as &default template"
 msgstr "設為預設範本(&D)"
 
-#: addon/globalPlugins/markdownForever/settings.py:119
+#: addon/globalPlugins/markdownForever/settings.py:178
 msgid "&Edit"
 msgstr "編輯(&E)"
 
-#: addon/globalPlugins/markdownForever/settings.py:121
+#: addon/globalPlugins/markdownForever/settings.py:180
 msgid "&Add"
 msgstr "新增(&A)"
 
-#: addon/globalPlugins/markdownForever/settings.py:122
+#: addon/globalPlugins/markdownForever/settings.py:181
 msgid "&Remove"
 msgstr "移除(&R)"
 
-#: addon/globalPlugins/markdownForever/settings.py:178
+#: addon/globalPlugins/markdownForever/settings.py:240
 #, python-format
 msgid "Are you sure to want to delete the '%s' template?"
 msgstr "您確定要刪除範本 '%s' 嗎？"
 
-#: addon/globalPlugins/markdownForever/settings.py:179
+#: addon/globalPlugins/markdownForever/settings.py:241
 msgid "Confirmation"
 msgstr "確認"
 
-#: addon/globalPlugins/markdownForever/settings.py:194
+#: addon/globalPlugins/markdownForever/settings.py:256
 msgid "Add template"
 msgstr "新增範本"
 
 #. Translators: This is the label for the edit template entry dialog.
-#: addon/globalPlugins/markdownForever/settings.py:213
+#: addon/globalPlugins/markdownForever/settings.py:275
 msgid "Edit template"
 msgstr "編輯範本"
 
-#: addon/globalPlugins/markdownForever/settings.py:217
+#: addon/globalPlugins/markdownForever/settings.py:279
 msgid "&Name:"
 msgstr "名稱(&N):"
 
-#: addon/globalPlugins/markdownForever/settings.py:220
+#: addon/globalPlugins/markdownForever/settings.py:282
 msgid "&Description:"
 msgstr "描述(&D):"
 
-#: addon/globalPlugins/markdownForever/settings.py:223
+#: addon/globalPlugins/markdownForever/settings.py:285
 msgid "&Content:"
 msgstr "內容(&C):"
 
-#: addon/globalPlugins/markdownForever/settings.py:245
+#: addon/globalPlugins/markdownForever/settings.py:307
 #, python-brace-format
 msgid ""
 "Wrong value for template name field. Field must contain only letters in "
@@ -534,11 +574,11 @@ msgstr ""
 "({hyphen})或底線 ({underscore})。最多 {maxCharTemplateName} 個字元。不允許使"
 "用以下名稱: default。"
 
-#: addon/globalPlugins/markdownForever/settings.py:256
+#: addon/globalPlugins/markdownForever/settings.py:318
 msgid "Content field empty."
 msgstr "內容欄位為空"
 
-#: addon/globalPlugins/markdownForever/settings.py:267
+#: addon/globalPlugins/markdownForever/settings.py:329
 #, python-brace-format
 msgid ""
 "Content field invalid. The following required tags are missing: "
@@ -547,54 +587,69 @@ msgstr ""
 "內容欄位數值無效。缺少以下標籤: {missingFields}。每個標籤必須用大括號括起來。"
 "例如: {eg}。"
 
-#: addon/globalPlugins/markdownForever/settings.py:291
+#: addon/globalPlugins/markdownForever/settings.py:346
+msgid "Web server"
+msgstr "網頁伺服器"
+
+#: addon/globalPlugins/markdownForever/settings.py:353
 msgid "&Host:"
 msgstr "主機(&H):"
 
-#: addon/globalPlugins/markdownForever/settings.py:292
+#: addon/globalPlugins/markdownForever/settings.py:354
 msgid "&Port:"
 msgstr "連接埠(&P):"
 
-#: addon/globalPlugins/markdownForever/settings.py:295
+#: addon/globalPlugins/markdownForever/settings.py:357
 msgid "Default &encoding:"
 msgstr "預設編碼(&E):"
 
-#: addon/globalPlugins/markdownForever/settings.py:296
+#: addon/globalPlugins/markdownForever/settings.py:358
 msgid "Root &folders:"
 msgstr "根目錄(&F):"
 
-#: addon/globalPlugins/markdownForever/updateCheck.py:61
-#, python-format
-msgid "New version available, version %s. Do you want to download it now?"
-msgstr "有新版本 %s。要現在下載嗎？"
+#: addon/globalPlugins/markdownForever/updatecheck.py:54
+#, python-brace-format
+msgid ""
+"{addonName} version {version} is available. Do you want to download it now?"
+msgstr "{addonName} 版本 {version} 已可用。您要立即下載嗎？"
 
-#: addon/globalPlugins/markdownForever/updateCheck.py:73
+#: addon/globalPlugins/markdownForever/updatecheck.py:70
 #, python-format
 msgid "You are up-to-date. %s is the latest version."
 msgstr "您使用的版本 %s ，是最新版了。"
 
-#: addon/globalPlugins/markdownForever/updateCheck.py:84
+#: addon/globalPlugins/markdownForever/updatecheck.py:79
 #, python-format
 msgid ""
-"Oops! There was a problem downloading for update. Please retry later or "
-"download and install manually via %s. Do you want to open this URL in your "
-"browser now?"
+"Oops! There was a problem downloading Markdown Forever update. Please retry "
+"later or download and install manually from %s. Do you want to open this URL "
+"in your browser?"
 msgstr ""
 "糟糕！\n"
 "檢查更新時出現問題。\n"
 "請稍後重試，或透過 %s 手動下載安裝。\n"
 "您要立即在瀏覽器中開啟此網址嗎？"
 
-#: addon/globalPlugins/markdownForever/updateCheck.py:124
+#: addon/globalPlugins/markdownForever/updatecheck.py:81
+msgid "Details:"
+msgstr "細節:"
+
+#: addon/globalPlugins/markdownForever/updatecheck.py:107
+#, python-brace-format
+msgid ""
+"Hashes do not match! Actual value is '{actualHash}'. Expected is "
+"'{expectedHash}'."
+msgstr "雜湊比對不符！實際值為 \"{actualHash}\"。預期值為 \"{expectedHash}\"。"
+
+#: addon/globalPlugins/markdownForever/updatecheck.py:130
 msgid "An update check dialog is already running!"
 msgstr "檢查更新已在執行"
 
-#: addon/globalPlugins/markdownForever/updateCheck.py:125
-#, python-brace-format
-msgid "{addonName}'s update"
-msgstr "{addonName} 更新"
+#: addon/globalPlugins/markdownForever/updatecheck.py:131
+msgid "Markdown Forever update"
+msgstr "更新 Markdown Forever"
 
-#: addon/globalPlugins/markdownForever/virtualDocuments.py:70
+#: addon/globalPlugins/markdownForever/virtualDocuments.py:76
 msgid "Invalid document"
 msgstr "無效的檔案"
 
@@ -609,6 +664,13 @@ msgstr "Markdown Forever"
 #: buildVars.py:28
 msgid "Full-featured Markdown and HTML converter for NVDA"
 msgstr "用於 NVDA，可轉換 markdown 與 html 的附加元件。"
+
+#~ msgid "Open the add-on website."
+#~ msgstr "開啟附加元件網站"
+
+#, python-brace-format
+#~ msgid "{addonName}'s update"
+#~ msgstr "{addonName} 更新"
 
 #~ msgid "Save as"
 #~ msgstr "令存心檔"

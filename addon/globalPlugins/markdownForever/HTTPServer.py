@@ -11,9 +11,13 @@ import threading
 import time
 import urllib.parse as urlParse
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import addonHandler
 import config
 from logHandler import log
 from .common import *
+
+addonHandler.initTranslation()
+
 HTMLTemplate = """<!DOCTYPE HTML>
 <html>
 	<head>

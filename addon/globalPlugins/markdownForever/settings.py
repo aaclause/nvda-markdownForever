@@ -108,6 +108,11 @@ class GeneralDlg(gui.settingsDialogs.SettingsPanel):
 		self.choose_path_btn.Bind(wx.EVT_BUTTON, self.onChoosePath)
 		sHelper.addItem(bHelper)
 
+		fileNameText = _("&File name:")
+		self.fileNameTextCtrl = sHelper.addLabeledControl(
+			fileNameText, wx.TextCtrl)
+		self.fileNameTextCtrl.SetValue(config.conf["markdownForever"]["defaultFileName"])
+
 	def onManageHTMLTemplates(self, evt):
 		manageHTMLTemplatesDialog = ManageHTMLTemplatesDlg(self)
 		if manageHTMLTemplatesDialog.ShowModal() == wx.ID_OK:
@@ -144,6 +149,7 @@ class GeneralDlg(gui.settingsDialogs.SettingsPanel):
 		config.conf["markdownForever"]["markdownEngine"] = markdownEngines[self.markdownEngineListBox.GetSelection()]
 		if defaultPath:
 			config.conf["markdownForever"]["defaultPath"] = defaultPath
+			config.conf["markdownForever"]["defaultFileName"] = ''.join([c for c in self.fileNameTextCtrl.GetValue() if c not in '\r\n	\/:*?"<>|']).strip()
 		config.conf["markdownForever"]["markdown2Extras"] = ','.join(
 			getMarkdown2ExtrasFromIndexes(self.markdown2Extras.CheckedItems))
 

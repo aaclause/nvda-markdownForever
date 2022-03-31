@@ -52,6 +52,7 @@ confSpecs = {
 	"genMetadata": 'boolean(default=True)',
 	"IM_defaultAction": 'integer(min=0, max=4, default=0)',
 	"defaultPath": r'string(default="%USERPROFILE%\documents")',
+	"defaultFileName": 'string(default="")',
 	"markdownEngine": 'option("html2markdown", "html2text", default="html2text")',
 	"HTMLTemplate": 'string(default="default")',
 	"markdown2Extras": 'string(default="fenced-code-blocks,footnotes,header-ids,spoiler,strike,tables,task_list,underline,wiki-tables")',

@@ -115,7 +115,7 @@ class InteractiveModeDlg(wx.Dialog):
 		self.choose_path_btn.Bind(wx.EVT_BUTTON, self.onChoosePath)
 		sHelper.addItem(b_helper_path)
 
-		fileNameText = _("File n&ame:")
+		fileNameText = _("&File name:")
 		self.fileNameTextCtrl = sHelper.addLabeledControl(
 			fileNameText, wx.TextCtrl)
 		self.fileNameTextCtrl.SetValue(metadata["filename"])
@@ -255,7 +255,7 @@ class InteractiveModeDlg(wx.Dialog):
 		metadata["title"] = self.titleTextCtrl.GetValue()
 		metadata["subtitle"] = self.subtitleTextCtrl.GetValue()
 		metadata["path"] = self.pathTextCtrl.GetValue()
-		metadata["filename"] = self.fileNameTextCtrl.GetValue()
+		metadata["filename"] = ''.join([c for c in self.fileNameTextCtrl.GetValue() if c not in '\r\n	\/:*?"<>|']).strip()
 		templateID = self.HTMLTemplatesListBox.GetSelection()
 		metadata["template"] = getHTMLTemplateFromID(templateID)
 

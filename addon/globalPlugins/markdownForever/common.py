@@ -120,6 +120,13 @@ def isValidFileName(filename):
 	return bool(re.match(r"^[^\\/:*?\"<>|]+$", filename))
 
 
+def get_default_file_name():
+	defaultFileName = config.conf["markdownForever"]["defaultFileName"]
+	if defaultFileName.strip() and isValidFileName(defaultFileName):
+		return defaultFileName
+	return "MDF_%s" % time.strftime("%y-%m-%d_-_%H-%M-%S")
+
+
 def getWindowTitle():
 	obj = api.getForegroundObject()
 	title = obj.name
@@ -338,8 +345,7 @@ def extractMetadata(text):
 		metadata["mathjax"] = False
 	metadata["path"] = metadata["path"] if "path" in metadata.keys() and isPath(
 		metadata["path"]) else config.conf["markdownForever"]["defaultPath"]
-	metadata["filename"] = metadata["filename"] if "filename" in metadata.keys() and isValidFileName(
-		metadata["filename"]) else "MDF_%s" % time.strftime("%y-%m-%d_-_%H-%M-%S")
+	metadata["filename"] = metadata["filename"] if "filename" in metadata.keys() and isValidFileName(metadata["filename"]) else get_default_file_name()
 	if metadata["mathjax"]:
 		HTMLHead.append(
 			'<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>')

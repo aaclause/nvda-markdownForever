@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: MarkdownForever 20.08.02-74c6101\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2022-03-30 21:14+0200\n"
-"PO-Revision-Date: 2022-03-30 21:27+0200\n"
+"PO-Revision-Date: 2022-03-31 12:32+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -397,7 +397,7 @@ msgstr "&Générer la table des matières / le sommaire"
 #: addon\globalPlugins\markdownForever\interactivemode.py:65
 #: addon\globalPlugins\markdownForever\settings.py:59
 msgid "Choose where add \"Bac&k to Table of Contents\" links"
-msgstr "Choisir où ajouter le lien « Retour à la table des matières »"
+msgstr "Choisir où ajouter le lien « R&etour à la table des matières »"
 
 #: addon\globalPlugins\markdownForever\interactivemode.py:68
 #: addon\globalPlugins\markdownForever\settings.py:62
@@ -452,7 +452,7 @@ msgstr "Nom du &fichier :"
 
 #: addon\globalPlugins\markdownForever\interactivemode.py:124
 msgid "HTML temp&late to use:"
-msgstr "Gabarit HTML à uti&liser :"
+msgstr "G&abarit HTML à utiliser :"
 
 #: addon\globalPlugins\markdownForever\interactivemode.py:131
 msgid "Corres&ponding metadata block"

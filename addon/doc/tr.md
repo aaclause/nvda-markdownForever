@@ -1,6 +1,7 @@
 ﻿---
 author:
 - Çağrı Dogan &lt;cagrid@hotmail.com&gt;
+- Umut Korkmaz &lt;umutkork@gmail.com&gt;
 autonumber-headings: 1
 css:
 - style.css
@@ -232,7 +233,7 @@ Bunlara NVDA menüsü / MarkdownForever Ayarları / Ayarlar yolundan erişilebil
 	- André &lt;<dev@andreabc.net>&gt;: eklentinin yaratıcısı ve ana sürdürücüsü.
 	- Sof &lt;<hellosof@gmail.com>&gt;: İngilizce ve Fransızca dokümantasyon, çeşitli öneriler.
 	- Victor Cai: Çince yerelleştirmesi.
-	- Çağrı Dogan: Türkçe lokalizasyon.
+	- Çağrı Dogan, Umut Korkmaz: Türkçe lokalizasyon.
 	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: İspanyolca yerelleştirm.
 	- Ve daha fazlası!
 * License: GNU General Public License, version 2

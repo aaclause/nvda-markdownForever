@@ -237,7 +237,7 @@ They can be reached from the NVDA menu -> Settings MarkdownForever -> Settings a
 	- André &lt;<dev@andreabc.net>&gt;: creator and main maintainer of the add-on.
 	- Sof &lt;<hellosof@gmail.com>&gt;: English and French documentation, various suggestions.
 	- Victor Cai: Chinese localization.
-	- Çağrı Dogan: Turkish localization.
+	- Çağrı Dogan, Umut Korkmaz: Turkish localization.
 	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: Spanish localization.
 	- Dang Manh Cuong &lt;<dangmanhcuong@gmail.com>&gt;: Vietnamese localization.
 	- And much more!

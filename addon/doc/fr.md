@@ -234,7 +234,7 @@ Ils sont accessibles depuis le menu NVDA -> Préférences -> MarkdownForever -> 
 	- André &lt;<dev@andreabc.net>&gt;: concepteur et mainteneur principal de l’extension.
 	- Sof &lt;<hellosof@gmail.com>&gt;: documentation en anglais et français, diverses suggestions.
 	- Victor Cai: traduction en chinois.
-	- Çağrı Dogan: traduction en turc.
+	- Çağrı Dogan, Umut Korkmaz: traduction en turc.
 	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: traduction en espagnol.
 	- Dang Manh Cuong &lt;<dangmanhcuong@gmail.com>&gt;: traduction en vietnamien.
 	- Et bien d’autres !

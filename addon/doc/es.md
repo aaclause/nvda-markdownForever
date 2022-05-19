@@ -233,7 +233,7 @@ Estos son accesibles desde el menú de NVDA -> Preferencias -> MarkdownForever -
 	- André &lt;<dev@andreabc.net>&gt;: diseñador y mantenedor principal del complemento.
 	- Sof &lt;<hellosof@gmail.com>&gt;: documentación en inglés y francés, varias sugerencias.
 	- Victor Cai: traducción al chino.
-	- Çağrı Dogan: traducción al turco.
+	- Çağrı Dogan, Umut Korkmaz: traducción al turco.
 	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: traducción al español.
 	- Dang Manh Cuong &lt;<dangmanhcuong@gmail.com>&gt;: traducción vietnamita.
 	- ¡Y muchos otros!

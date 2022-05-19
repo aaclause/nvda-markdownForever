@@ -237,7 +237,7 @@ Có thể truy cập chúng từ trình đơn NVDA -> Cài đặt MarkdownForeve
 	- André &lt;<dev@andreabc.net>&gt;: người sáng lập và bảo trì chính của  add-on.
 	- Sof &lt;<hellosof@gmail.com>&gt;: tài liệu hướng dẫn tiếng Anh và tiếng Pháp, nhiều gọi ý tính năng.
 	- Victor Cai: Dịch ra tiếng Trung Quốc.
-	- Çağrı Dogan: dịch ra tiếng Thổ Nhĩ Kỳ.
+	- Çağrı Dogan, Umut Korkmaz: dịch ra tiếng Thổ Nhĩ Kỳ.
 	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: dịch ra tiếng Tây Ban Nha.
 	- Đặng Mạnh Cường &lt;<dangmanhcuong@gmail.com>&gt;: dịch ra tiếng Việt
 	- Và còn nhiều nữa!

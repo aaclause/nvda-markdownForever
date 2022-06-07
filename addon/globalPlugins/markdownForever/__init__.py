@@ -27,7 +27,7 @@ from . import updatecheck
 from . import settings
 from . import HTTPServer
 from .common import (
-	convertToHTML, convertToMD,
+	convertToHTML, convertToMD, copyToClipAsHTML,
 	getText, extractMetadata, getMetadataAndTextForMarkDown,
 	addonSummary, addonVersion,
 	addonPath, baseDir, configDir,

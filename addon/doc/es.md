@@ -240,5 +240,5 @@ Estos son accesibles desde el menú de NVDA -> Preferencias -> MarkdownForever -
 * Licencia: Licencia Pública General de GNU, versión 2
 * Descargar [versión stable](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
 * Descargar [versión de desarrollo](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
-* Repositorio  GitHub: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
+* Repositorio  GitHub: [aaclause/NVDA-markdownForever](https://github.com/aaclause/nvda-markdownForever)
 * **Dependencias incluidas** :

@@ -222,10 +222,10 @@ They can be reached from the NVDA menu -> Settings MarkdownForever -> Settings a
 * License: GNU General Public License, version 2
 * Download [stable version](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
 * Download [development version](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
-* GitHub repository: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
+* GitHub repository: [aaclause/NVDA-markdownForever](https://github.com/aaclause/nvda-markdownForever)
 * **Included dependencies**:
 	- [Markdown2](https://github.com/trentm/python-markdown2) (2.3.10)
 	- [HTML2Markdown](https://github.com/dlon/html2markdown)
 	- [HTML2Text](https://pypi.org/project/html2text/) (2020.1.16)
 	- [PyYAML](https://pypi.org/project/PyYAML/)
-	- [WinClipboard](https://github.com/andre9642/python-winClipboard)
+	- [WinClipboard](https://github.com/aaclause/python-winClipboard)

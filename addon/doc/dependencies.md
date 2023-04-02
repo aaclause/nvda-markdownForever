@@ -2,4 +2,4 @@
 	- [HTML2Markdown](https://github.com/dlon/html2markdown)
 	- [HTML2Text](https://pypi.org/project/html2text/) (%html2textVersion%)
 	- [PyYAML](https://pypi.org/project/PyYAML/)
-	- [WinClipboard](https://github.com/andre9642/python-winClipboard)
+	- [WinClipboard](https://github.com/aaclause/python-winClipboard)

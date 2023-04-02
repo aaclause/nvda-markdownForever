@@ -239,5 +239,5 @@ Bunlara NVDA menüsü / MarkdownForever Ayarları / Ayarlar yolundan erişilebil
 * License: GNU General Public License, version 2
 * [kararlı sürüm](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
 * [geliştirme sürümü](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
-* GitHub repository: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
+* GitHub repository: [aaclause/NVDA-markdownForever](https://github.com/aaclause/nvda-markdownForever)
 * **Dahil edilen bileşenler**:

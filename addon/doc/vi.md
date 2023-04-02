@@ -244,5 +244,5 @@ Có thể truy cập chúng từ trình đơn NVDA -> Cài đặt MarkdownForeve
 * Giấy phép: GNU General Public License, phiên bản 2
 * Tải về [phiên bản chính thức](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon)
 * Tải về [phiên bản thử nghiệm](https://andreabc.net/projects/NVDA_addons/markdownForever.nvda-addon?channel=dev)
-* Kho chứa trên GitHub: [andre9642/NVDA-markdownForever](https://github.com/Andre9642/nvda-markdownForever)
+* Kho chứa trên GitHub: [aaclause/NVDA-markdownForever](https://github.com/aaclause/nvda-markdownForever)
 * **Các thư viện được bao gồm trong add-on**:

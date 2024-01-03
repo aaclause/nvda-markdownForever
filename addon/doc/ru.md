@@ -10,7 +10,7 @@ extratags-back: 0
 filename: doc_ru
 include-after:
 - '%addonDir%/doc/dependencies.md'
-keywords: documentation, MarkdownForever, NVDA add-on, english
+keywords: documentation, MarkdownForever, NVDA add-on, russian
 lang: ru
 langd: ru
 subtitle: Полнофункциональный конвертер Markdown и HTML для NVDA
@@ -236,6 +236,7 @@ Hello world! <span lang="fr">Bonjour le monde !</span> <span lang="es">¡Hola mu
 	- André &lt;<dev@andreabc.net>&gt;: создатель и основной сопровождающий дополнения.
 	- Sof &lt;<hellosof@gmail.com>&gt;: английская и французская документация, различные предложения.
 	- Виктор Цай: Китайская локализация.
+- Данил Костенков &lt;danilkostenkov38@gmail.com&gt;: Русская локализация.
 	- Чагры Доган, Умут Коркмаз: Турецкая локализация.
 	- Rémy Ruiz &lt;<remyruiz@gmail.com>&gt;: Испанская локализация.
 	- Dang Manh Cuong &lt;<dangmanhcuong@gmail.com>&gt;: Вьетнамская локализация.

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: MarkdownForever 20.08.02-74c6101\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2022-03-31 13:18+0200\n"
-"PO-Revision-Date: 2024-01-03 16:20+0300\n"
+"PO-Revision-Date: 2024-01-04 11:31+0300\n"
 "Last-Translator: Danil Kostenkov <danilkostenkov38@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -548,7 +548,7 @@ msgstr "&Список HTML-шаблонов:"
 
 #: addon\globalPlugins\markdownForever\settings.py:174
 msgid "Set as &default template"
-msgstr "Установлен в качестве шаблона &по умолчанию"
+msgstr "Установить как шаблон &по умолчанию"
 
 #: addon\globalPlugins\markdownForever\settings.py:178
 msgid "&Edit"

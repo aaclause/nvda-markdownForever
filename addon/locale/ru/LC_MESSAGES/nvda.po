@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: MarkdownForever 20.08.02-74c6101\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2022-03-31 13:18+0200\n"
-"PO-Revision-Date: 2024-01-03 16:20+0300\n"
+"PO-Revision-Date: 2024-01-08 10:26+0300\n"
 "Last-Translator: Danil Kostenkov <danilkostenkov38@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -188,11 +188,11 @@ msgstr "Скопировать в буфер обмена"
 #: addon\globalPlugins\markdownForever\common.py:58
 msgid "Turn HTML into equivalent Markdown-structured text"
 msgstr ""
-"Преобразуйте HTML в аналогичный текст, структурированный с помощью Markdown"
+"Преобразовать HTML в аналогичный текст, структурированный с помощью Markdown"
 
 #: addon\globalPlugins\markdownForever\common.py:59
 msgid "Conservatively convert html to markdown"
-msgstr "Преобразуйте html в markdown, сохраняя исходное форматирование"
+msgstr "Преобразовать html в markdown, сохраняя исходное форматирование"
 
 #: addon\globalPlugins\markdownForever\common.py:63
 msgid "Replace single new line characters with <br> when True"
@@ -220,7 +220,7 @@ msgid ""
 "Markdown processors (tho not in Markdown.pl v1.0.1)"
 msgstr ""
 "Поддержка сносок, используемая в daringfireball.net и реализованная в других "
-"процессорах Markdown (хотя и не в Markdown.pl версии 1.0.1)"
+"процессорах Markdown (кроме Markdown.pl версии 1.0.1)"
 
 #: addon\globalPlugins\markdownForever\common.py:68
 msgid ""
@@ -316,7 +316,7 @@ msgstr "Синтаксический анализ --подчеркивание--
 #: addon\globalPlugins\markdownForever\common.py:83
 msgid "Look for an Emacs-style markdown-extras file variable to turn on Extras"
 msgstr ""
-"Найдите файловую переменную markdown-extras в стиле Emacs, чтобы включить "
+"Искать файловую переменную markdown-extras в стиле Emacs, чтобы включить "
 "дополнительные теги"
 
 #: addon\globalPlugins\markdownForever\common.py:84
@@ -548,7 +548,7 @@ msgstr "&Список HTML-шаблонов:"
 
 #: addon\globalPlugins\markdownForever\settings.py:174
 msgid "Set as &default template"
-msgstr "Установлен в качестве шаблона &по умолчанию"
+msgstr "Установить как шаблон &по умолчанию"
 
 #: addon\globalPlugins\markdownForever\settings.py:178
 msgid "&Edit"
